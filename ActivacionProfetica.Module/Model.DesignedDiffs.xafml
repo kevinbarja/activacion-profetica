@@ -1,12 +1,55 @@
-﻿<?xml version="1.0" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Application Title="ActivacionProfetica">
   <BOModel>
+    <Class Name="DevExpress.Persistent.BaseImpl.AuditDataItemPersistent">
+      <OwnMembers>
+        <Member Name="ModifiedOn" EditMask="g" DisplayFormat="{0:U}" />
+      </OwnMembers>
+    </Class>
     <Class Name="DevExpress.Persistent.BaseImpl.PermissionPolicy.PermissionPolicyUser" Caption="Base User" />
   </BOModel>
+  <NavigationItems>
+    <Items>
+      <Item Id="ActivacionProfetica" Caption="Activación Profética" IsNewNode="True">
+        <Items IsNewNode="True">
+          <Item Id="Customers" Caption="Participantes" ImageName="BO_Department" ViewId="Customer_ListView" IsNewNode="True" />
+        </Items>
+      </Item>
+      <Item Id="Reports" Visible="False" />
+    </Items>
+  </NavigationItems>
   <Options>
     <LayoutManagerOptions RequiredFieldMark="*" />
   </Options>
+  <SchemaModules>
+    <SchemaModule Name="SystemModule" Version="22.2.4.0" IsNewNode="True" />
+  </SchemaModules>
   <Views>
     <ListView Id="ApplicationUser_ListView" Caption="Users" />
+    <ListView Id="Audit_ListView" ClassName="ActivacionProfetica.Module.SharedKernel.BaseAuditDataItemPersistent" AllowDelete="False" AllowLink="False" AllowNew="False" AllowUnlink="True" DetailViewID="" IsNewNode="True">
+      <Columns IsNewNode="True">
+        <ColumnInfo Id="Description" PropertyName="Description" Index="-1" Width="141" IsNewNode="True" />
+        <ColumnInfo Id="Oid" PropertyName="Oid" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="OperationType" PropertyName="OperationType" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="PropertyName" PropertyName="PropertyName" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="UserName" PropertyName="UserName" Index="-1" SortIndex="-1" SortOrder="None" IsNewNode="True" />
+        <ColumnInfo Id="ModifiedOn" PropertyName="ModifiedOn" Index="0" Width="169" SortIndex="0" SortOrder="Descending" Caption="Fecha" IsNewNode="True" />
+        <ColumnInfo Id="UserCaption" PropertyName="UserCaption" Index="1" Width="159" Caption="Usuario" IsNewNode="True" />
+        <ColumnInfo Id="PropertyCaption" PropertyName="PropertyCaption" SortIndex="-1" SortOrder="None" Index="2" Width="204" Caption="Campo" IsNewNode="True" />
+        <ColumnInfo Id="OperationTypeCaption" PropertyName="OperationTypeCaption" View="" Index="3" Width="214" Caption="Operación" IsNewNode="True" />
+        <ColumnInfo Id="OldValue" PropertyName="OldValue" Index="4" Width="156" Caption="Valor anterior" IsNewNode="True" />
+        <ColumnInfo Id="NewValue" PropertyName="NewValue" Index="5" Width="178" Caption="Valor nuevo" IsNewNode="True" />
+      </Columns>
+      <HiddenActions IsNewNode="True">
+        <ActionLink ActionId="Delete Item" IsNewNode="True" />
+        <ActionLink ActionId="ListViewShowObject" IsNewNode="True" />
+        <ActionLink ActionId="Save" IsNewNode="True" />
+      </HiddenActions>
+    </ListView>
+    <ListView Id="BaseAuditDataItemPersistent_ListView">
+      <Columns>
+        <ColumnInfo Id="OperationTypeCaption" Width="341" />
+      </Columns>
+    </ListView>
   </Views>
 </Application>

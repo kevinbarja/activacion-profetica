@@ -120,6 +120,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessObjects\Sale.cs" />
+    <Compile Include="Controllers\AuditController.cs" />
     <Compile Include="DatabaseUpdate\Updater.cs" />
     <Compile Include="BusinessObjects\ApplicationUser.cs" />
     <Compile Include="BusinessObjects\ApplicationUserLoginInfo.cs" />
@@ -130,9 +132,16 @@
       <DependentUpon>Module.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SharedKernel\BaseAuditDataItemPersistent.cs" />
+    <Compile Include="SharedKernel\BaseEntity.cs" />
+    <Compile Include="SharedKernel\Constants.cs" />
+    <Compile Include="SharedKernel\Customer.cs" />
+    <Compile Include="SharedKernel\OnChangedProperty.cs" />
+    <Compile Include="SharedKernel\RequiredField.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml" />
+    <EmbeddedResource Include="Properties\licenses.licx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="BusinessObjects\ReadMe.txt" />

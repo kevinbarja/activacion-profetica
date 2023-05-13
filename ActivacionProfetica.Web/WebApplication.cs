@@ -1,15 +1,16 @@
-﻿using System;
+﻿using ActivacionProfetica.Module.SharedKernel;
 using DevExpress.ExpressApp;
-using System.ComponentModel;
-using DevExpress.ExpressApp.Web;
-using System.Collections.Generic;
-using DevExpress.ExpressApp.Xpo;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Security.ClientServer;
+using DevExpress.ExpressApp.Web;
+using DevExpress.ExpressApp.Xpo;
+using System;
 
-namespace ActivacionProfetica.Web {
+namespace ActivacionProfetica.Web
+{
     // For more typical usage scenarios, be sure to check out https://docs.devexpress.com/eXpressAppFramework/DevExpress.ExpressApp.Web.WebApplication
-    public partial class ActivacionProfeticaAspNetApplication : WebApplication {
+    public partial class ActivacionProfeticaAspNetApplication : WebApplication
+    {
         private DevExpress.ExpressApp.SystemModule.SystemModule module1;
         private DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule module2;
         private ActivacionProfetica.Module.ActivacionProfeticaModule module3;
@@ -27,54 +28,66 @@ namespace ActivacionProfetica.Web {
         private DevExpress.ExpressApp.Validation.ValidationModule validationModule;
         private DevExpress.ExpressApp.Validation.Web.ValidationAspNetModule validationAspNetModule;
 
-        public ActivacionProfeticaAspNetApplication() {
+        public ActivacionProfeticaAspNetApplication()
+        {
             InitializeComponent();
         }
-        protected override IViewUrlManager CreateViewUrlManager() {
+        protected override IViewUrlManager CreateViewUrlManager()
+        {
             return new ViewUrlManager();
         }
-        protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
+        protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args)
+        {
             args.ObjectSpaceProvider = new SecuredObjectSpaceProvider((SecurityStrategyComplex)Security, GetDataStoreProvider(args.ConnectionString, args.Connection), true);
             args.ObjectSpaceProviders.Add(new NonPersistentObjectSpaceProvider(TypesInfo, null));
         }
-        private IXpoDataStoreProvider GetDataStoreProvider(string connectionString, System.Data.IDbConnection connection) {
+        private IXpoDataStoreProvider GetDataStoreProvider(string connectionString, System.Data.IDbConnection connection)
+        {
             System.Web.HttpApplicationState application = (System.Web.HttpContext.Current != null) ? System.Web.HttpContext.Current.Application : null;
             IXpoDataStoreProvider dataStoreProvider = null;
-            if(application != null && application["DataStoreProvider"] != null) {
+            if (application != null && application["DataStoreProvider"] != null)
+            {
                 dataStoreProvider = application["DataStoreProvider"] as IXpoDataStoreProvider;
             }
-            else {
+            else
+            {
                 dataStoreProvider = XPObjectSpaceProvider.GetDataStoreProvider(connectionString, connection, true);
-                if(application != null) {
+                if (application != null)
+                {
                     application["DataStoreProvider"] = dataStoreProvider;
                 }
             }
-			return dataStoreProvider;
+            return dataStoreProvider;
         }
-        private void ActivacionProfeticaAspNetApplication_DatabaseVersionMismatch(object sender, DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs e) {
+        private void ActivacionProfeticaAspNetApplication_DatabaseVersionMismatch(object sender, DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs e)
+        {
 #if EASYTEST
             e.Updater.Update();
             e.Handled = true;
 #else
-            if(System.Diagnostics.Debugger.IsAttached) {
+            if (System.Diagnostics.Debugger.IsAttached)
+            {
                 e.Updater.Update();
                 e.Handled = true;
             }
-            else {
-				string message = "The application cannot connect to the specified database, " +
-					"because the database doesn't exist, its version is older " +
-					"than that of the application or its schema does not match " +
-					"the ORM data model structure. To avoid this error, use one " +
-					"of the solutions from the https://www.devexpress.com/kb=T367835 KB Article.";
+            else
+            {
+                string message = "The application cannot connect to the specified database, " +
+                    "because the database doesn't exist, its version is older " +
+                    "than that of the application or its schema does not match " +
+                    "the ORM data model structure. To avoid this error, use one " +
+                    "of the solutions from the https://www.devexpress.com/kb=T367835 KB Article.";
 
-                if(e.CompatibilityError != null && e.CompatibilityError.Exception != null) {
+                if (e.CompatibilityError != null && e.CompatibilityError.Exception != null)
+                {
                     message += "\r\n\r\nInner exception: " + e.CompatibilityError.Exception.Message;
                 }
                 throw new InvalidOperationException(message);
             }
 #endif
         }
-        private void InitializeComponent() {
+        private void InitializeComponent()
+        {
             this.module1 = new DevExpress.ExpressApp.SystemModule.SystemModule();
             this.module2 = new DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule();
             this.module3 = new ActivacionProfetica.Module.ActivacionProfeticaModule();
@@ -115,7 +128,7 @@ namespace ActivacionProfetica.Web {
             //
             // auditTrailModule
             //
-            this.auditTrailModule.AuditDataItemPersistentType = typeof(DevExpress.Persistent.BaseImpl.AuditDataItemPersistent);
+            this.auditTrailModule.AuditDataItemPersistentType = typeof(BaseAuditDataItemPersistent);
             //
             // reportsModuleV2
             //
