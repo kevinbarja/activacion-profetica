@@ -135,7 +135,7 @@
     <Compile Include="SharedKernel\BaseAuditDataItemPersistent.cs" />
     <Compile Include="SharedKernel\BaseEntity.cs" />
     <Compile Include="SharedKernel\Constants.cs" />
-    <Compile Include="SharedKernel\Customer.cs" />
+    <Compile Include="BusinessObjects\Customer.cs" />
     <Compile Include="SharedKernel\OnChangedProperty.cs" />
     <Compile Include="SharedKernel\RequiredField.cs" />
   </ItemGroup>

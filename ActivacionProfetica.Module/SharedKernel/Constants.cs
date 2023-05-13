@@ -13,6 +13,11 @@
             public const string Customers = "Application/NavigationItems/Items/ActivacionProfetica/Items/Customers";
         }
 
+        public static class View
+        {
+            public const string AuditListView = "Audit_ListView";
+        }
+
         #region Colors
         public static string DisabledColor = "240, 240, 240";
         public const string BlackFontColor = "0, 0, 0";

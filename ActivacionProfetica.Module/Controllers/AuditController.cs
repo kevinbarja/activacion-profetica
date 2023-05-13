@@ -4,6 +4,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.AuditTrail;
+using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 
 namespace ActivacionProfetica.Module.Controllers
@@ -15,7 +16,7 @@ namespace ActivacionProfetica.Module.Controllers
 
         public AuditController() : base()
         {
-            auditAction = new PopupWindowShowAction(this, "Auditoría", "View");
+            auditAction = new PopupWindowShowAction(this, "Auditoría", PredefinedCategory.View);
             auditAction.CustomizePopupWindowParams += AuditAction_CustomizePopupWindowParams;
         }
 
