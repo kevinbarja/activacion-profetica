@@ -3,10 +3,13 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Updating;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.BaseImpl.PermissionPolicy;
+using DevExpress.Xpo;
 using System;
+using System.Reflection;
 
 namespace ActivacionProfetica.Module.DatabaseUpdate
 {
@@ -22,6 +25,9 @@ namespace ActivacionProfetica.Module.DatabaseUpdate
         public override void UpdateDatabaseAfterUpdateSchema()
         {
             base.UpdateDatabaseAfterUpdateSchema();
+            new OperationTypeData(this);
+
+
             //string name = "MyName";
             //DomainObject1 theObject = ObjectSpace.FirstOrDefault<DomainObject1>(u => u.Name == name);
             //if(theObject == null) {
@@ -101,5 +107,18 @@ namespace ActivacionProfetica.Module.DatabaseUpdate
             }
             return defaultRole;
         }
+
+        #region Method for allow the access to functionality of the base class.  
+        public int ExecuteSentence(string sql)
+        {
+            return ExecuteNonQueryCommand(sql, false);
+        }
+
+        public new IObjectSpace ObjectSpace => base.ObjectSpace;
+
+        public Session Session => ((XPObjectSpace)base.ObjectSpace).Session;
+
+        public Assembly Assembly() => System.Reflection.Assembly.GetExecutingAssembly();
+        #endregion
     }
 }

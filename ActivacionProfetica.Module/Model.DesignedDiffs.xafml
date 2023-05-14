@@ -13,8 +13,9 @@
       <Item Id="ActivacionProfetica" Caption="Activación Profética" IsNewNode="True">
         <Items IsNewNode="True">
           <Item Id="Customers" Caption="Personas" ImageName="BO_Department" ViewId="Customer_ListView" IsNewNode="True" />
+          <Item Id="Operations" Caption="Operaciones" ViewId="Operation_ListView" IsNewNode="True" />
+          <Item Id="OperationTypes" ViewId="OperationType_ListView" Caption="Tipo de operaciones" IsNewNode="True" />
           <Item Id="Places" Caption="Lugares" ViewId="Place_ListView" IsNewNode="True" />
-          <Item Id="Sales" Caption="Ventas" ViewId="Sale_ListView" IsNewNode="True" />
         </Items>
       </Item>
       <Item Id="Reports" Visible="False" />

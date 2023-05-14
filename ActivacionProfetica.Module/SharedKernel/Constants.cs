@@ -18,15 +18,16 @@
             public const string AuditListView = "Audit_ListView";
         }
 
+        public static class StringSize
+        {
+            public const int ShortSringSize = 255;
+            public const int LargeSringSize = 500;
+            public const int SmallSringSize = 10;
+        }
+
         #region Colors
         public static string DisabledColor = "240, 240, 240";
         public const string BlackFontColor = "0, 0, 0";
-        #endregion
-
-        #region String size
-        public static int ShortSringSize = 255;
-        public static int LargeSringSize = 500;
-        public static int SmallSringSize = 10;
         #endregion
     }
 }

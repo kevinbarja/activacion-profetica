@@ -9,12 +9,13 @@ using Caption = System.ComponentModel.DisplayNameAttribute;
 
 namespace ActivacionProfetica.Module.BusinessObjects
 {
-    [Caption("Venta")]
+    [Caption("Operación")]
     [DefaultProperty(nameof(Id))]
-    [Persistent(Schema.Ap + nameof(Sale))]
-    public class Sale : BaseEntity
+    [Persistent(Schema.Ap + nameof(Operation))]
+    public class Operation : BaseEntity
     {
         Customer customer;
+        OperationType operationType;
 
         [Caption("Código")]
         [Appearance("DisableCode", Enabled = false)]
@@ -26,8 +27,8 @@ namespace ActivacionProfetica.Module.BusinessObjects
 
         [Caption("Persona")]
         [RequiredField]
-        [Association("Customer-Sales")]
-        [Persistent("Customer_Sales")]
+        [Association("Customer-Operations")]
+        [Persistent("Customer_Operations")]
         [ImmediatePostData]
         [ModelDefault("View", "Customer_LookupListView")]
         //[ModelDefault("LookupProperty", "CI")]
@@ -37,7 +38,18 @@ namespace ActivacionProfetica.Module.BusinessObjects
             set => SetPropertyValue(ref customer, value);
         }
 
-        public Sale(Session session) : base(session)
+        [Caption("Tipo de operación")]
+        [RequiredField]
+        [Association("OperationType-Operations")]
+        [Persistent("OperationType_Operations")]
+        [ImmediatePostData]
+        public OperationType OperationType
+        {
+            get => operationType;
+            set => SetPropertyValue(ref operationType, value);
+        }
+
+        public Operation(Session session) : base(session)
         {
         }
     }

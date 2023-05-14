@@ -80,10 +80,10 @@ namespace ActivacionProfetica.Module.BusinessObjects
             set => SetPropertyValue(ref churchName, value);
         }
 
-        [Caption("Compras al contado")]
+        [Caption("Operaciones")]
         [MemberDesignTimeVisibility(false)]
-        [Association("Customer-Sales")]
-        public XPCollection<Sale> Sales => GetCollection<Sale>(nameof(Sales));
+        [Association("Customer-Operations")]
+        public XPCollection<Operation> Operations => GetCollection<Operation>(nameof(Operations));
 
         [NonPersistent]
         [MemberDesignTimeVisibility(false)]
