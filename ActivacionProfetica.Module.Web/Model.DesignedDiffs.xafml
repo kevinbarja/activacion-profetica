@@ -15,4 +15,11 @@
       <RegisteredPropertyEditor PropertyType="System.Drawing.Color" EditorType="DevExpress.ExpressApp.Web.Editors.ASPx.ASPxColorPickerPropertyEditor" />
     </PropertyEditor>
   </ViewItems>
+  <Views>
+    <DetailView Id="Sale_DetailView">
+      <Items>
+        <PropertyEditor Id="Customer" DisplayFormat="{0:FullName} ({0:CI})" />
+      </Items>
+    </DetailView>
+  </Views>
 </Application>

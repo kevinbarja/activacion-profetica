@@ -121,7 +121,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessObjects\Sale.cs" />
-    <Compile Include="Controllers\AuditController.cs" />
+    <Compile Include="Controllers\AuditController.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DatabaseUpdate\Updater.cs" />
     <Compile Include="BusinessObjects\ApplicationUser.cs" />
     <Compile Include="BusinessObjects\ApplicationUserLoginInfo.cs" />
@@ -136,6 +138,7 @@
     <Compile Include="SharedKernel\BaseEntity.cs" />
     <Compile Include="SharedKernel\Constants.cs" />
     <Compile Include="BusinessObjects\Customer.cs" />
+    <Compile Include="SharedKernel\IAPLookupView.cs" />
     <Compile Include="SharedKernel\OnChangedProperty.cs" />
     <Compile Include="SharedKernel\RequiredField.cs" />
   </ItemGroup>

@@ -12,13 +12,14 @@
     <Items>
       <Item Id="ActivacionProfetica" Caption="Activación Profética" IsNewNode="True">
         <Items IsNewNode="True">
-          <Item Id="Customers" Caption="Participantes" ImageName="BO_Department" ViewId="Customer_ListView" IsNewNode="True" />
+          <Item Id="Customers" Caption="Personas" ImageName="BO_Department" ViewId="Customer_ListView" IsNewNode="True" />
+          <Item Id="Sales" Caption="Ventas" ViewId="Sale_ListView" IsNewNode="True" />
         </Items>
       </Item>
       <Item Id="Reports" Visible="False" />
     </Items>
   </NavigationItems>
-  <Options>
+  <Options LookupSmallCollectionItemCount="1">
     <LayoutManagerOptions RequiredFieldMark="*" />
   </Options>
   <SchemaModules>

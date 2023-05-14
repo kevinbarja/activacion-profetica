@@ -1,5 +1,6 @@
 ﻿using ActivacionProfetica.Module.SharedKernel;
-using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.ConditionalAppearance;
+using DevExpress.ExpressApp.Editors;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
@@ -9,24 +10,30 @@ using Caption = System.ComponentModel.DisplayNameAttribute;
 
 namespace ActivacionProfetica.Module.BusinessObjects
 {
-    [Caption("Participante")]
+
+    [Appearance("HideAdvisorInfo", TargetItems = nameof(ChurchName),
+    Visibility = ViewItemVisibility.Hide,
+    Criteria = nameof(IsCcecoMember) + "=True")]
+    [Caption("Persona")]
     [ImageName("BO_Person")]
     [DefaultProperty(nameof(FullName))]
     [Persistent(Schema.Ap + nameof(Customer))]
-    public class Customer : BaseEntity
+    public class Customer : BaseEntity, IAPLookupView
     {
-        int ci;
+        string ci = string.Empty;
         string fullName = string.Empty;
-        int whatsApp;
+        string whatsApp = string.Empty;
+        bool isCcecoMember = true;
+        string churchName = "Casa de Oración Central";
 
-        [ModelDefault("DisplayFormat", "{0:#}")]
+        [RuleRegularExpression(@"(?<!\d)", CustomMessageTemplate = @"´""CI"" debe contener sólo dígitos")]
         [Caption("CI")]
         [ToolTip("CI sin extensión")]
         [Nullable(false)]
         [RequiredField]
         [RuleUniqueValue("ValidateUniqueCI", DefaultContexts.Save, CriteriaEvaluationBehavior = CriteriaEvaluationBehavior.BeforeTransaction, SkipNullOrEmptyValues = true)]
         [VisibleInDetailView(true), VisibleInListView(true), VisibleInLookupListView(true)]
-        public int CI
+        public string CI
         {
             get => ci;
             set => SetPropertyValue(ref ci, value);
@@ -41,19 +48,81 @@ namespace ActivacionProfetica.Module.BusinessObjects
             set => SetPropertyValue(ref fullName, value);
         }
 
-        [ModelDefault("DisplayFormat", "{0:#}")]
+        [RuleRegularExpression(@"(?<!\d)\d{8}(?!\d)", CustomMessageTemplate = @"´""WhatsApp"" debe contener 8 dígitos")]
+        [ToolTip("Ejemplo: 75632255")]
         [Caption("WhatsApp")]
         [Nullable(false)]
         [RequiredField]
-        [VisibleInDetailView(true), VisibleInListView(true), VisibleInLookupListView(true)]
-        public int WhatsApp
+        [VisibleInDetailView(true), VisibleInListView(true), VisibleInLookupListView(false)]
+        public string WhatsApp
         {
             get => whatsApp;
             set => SetPropertyValue(ref whatsApp, value);
         }
 
+        [Caption("¿Congrega en Casa de Oración Central?")]
+        [Nullable(false)]
+        [RequiredField]
+        [ImmediatePostData]
+        [VisibleInDetailView(true), VisibleInListView(false), VisibleInLookupListView(false)]
+        public bool IsCcecoMember
+        {
+            get => isCcecoMember;
+            set => SetPropertyValue(ref isCcecoMember, value);
+        }
+
+        [Caption("Iglesia que congrega")]
+        [Size(255), Nullable(false), RequiredField]
+        [VisibleInDetailView(true), VisibleInListView(true), VisibleInLookupListView(false)]
+        public string ChurchName
+        {
+            get => churchName;
+            set => SetPropertyValue(ref churchName, value);
+        }
+
+        [Caption("Compras al contado")]
+        [MemberDesignTimeVisibility(false)]
+        [Association("Customer-Sales")]
+        public XPCollection<Sale> Sales => GetCollection<Sale>(nameof(Sales));
+
+        [NonPersistent]
+        [MemberDesignTimeVisibility(false)]
+        [RuleFromBoolProperty("ChurchNameValidated",
+                   DefaultContexts.Save,
+                   "\"Iglesia que congrega\" no debe estar vacío.",
+                   UsedProperties = nameof(ChurchName),
+                   SkipNullOrEmptyValues = true)]
+        public bool ChurchNameValidated => (!IsCcecoMember && ChurchName != string.Empty) || (IsCcecoMember);
+
+        //(!IsCcecoMember && ChurchName != string.Empty) || (IsCcecoMember);
+
+        [OnChangedProperty(nameof(IsCcecoMember))]
+        public void OnChangeIsCcecoMember(object oldValue, object newValue)
+        {
+            if (((bool)oldValue) && !((bool)newValue))
+            {
+                ChurchName = string.Empty;
+            }
+            else
+            {
+                ChurchName = "Casa de Oración Central";
+            }
+
+        }
+
+        protected override void OnSaving()
+        {
+            base.OnSaving();
+            if (IsCcecoMember)
+            {
+                ChurchName = "Casa de Oración Central";
+            }
+        }
+
         public Customer(Session session) : base(session)
         {
         }
+
+
     }
 }

@@ -155,6 +155,7 @@
     <Compile Include="Controllers\ExportActionController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Editors\APLookupPropertyEditor.cs" />
     <Compile Include="WebModule.cs">
       <SubType>Component</SubType>
     </Compile>
