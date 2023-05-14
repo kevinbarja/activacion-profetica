@@ -27,13 +27,6 @@ namespace ActivacionProfetica.Module.DatabaseUpdate
             base.UpdateDatabaseAfterUpdateSchema();
             new OperationTypeData(this);
 
-
-            //string name = "MyName";
-            //DomainObject1 theObject = ObjectSpace.FirstOrDefault<DomainObject1>(u => u.Name == name);
-            //if(theObject == null) {
-            //    theObject = ObjectSpace.CreateObject<DomainObject1>();
-            //    theObject.Name = name;
-            //}
 #if !RELEASE
             ApplicationUser sampleUser = ObjectSpace.FirstOrDefault<ApplicationUser>(u => u.UserName == "Usuario");
             if (sampleUser == null)
@@ -71,7 +64,7 @@ namespace ActivacionProfetica.Module.DatabaseUpdate
             if (adminRole == null)
             {
                 adminRole = ObjectSpace.CreateObject<PermissionPolicyRole>();
-                adminRole.Name = "Administratores";
+                adminRole.Name = "Administradores";
             }
             adminRole.IsAdministrative = true;
             userAdmin.Roles.Add(adminRole);

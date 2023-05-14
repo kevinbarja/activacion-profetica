@@ -94,8 +94,6 @@ namespace ActivacionProfetica.Module.BusinessObjects
                    SkipNullOrEmptyValues = true)]
         public bool ChurchNameValidated => (!IsCcecoMember && ChurchName != string.Empty) || (IsCcecoMember);
 
-        //(!IsCcecoMember && ChurchName != string.Empty) || (IsCcecoMember);
-
         [OnChangedProperty(nameof(IsCcecoMember))]
         public void OnChangeIsCcecoMember(object oldValue, object newValue)
         {

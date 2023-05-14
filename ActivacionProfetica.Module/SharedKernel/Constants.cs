@@ -16,6 +16,8 @@
         public static class View
         {
             public const string AuditListView = "Audit_ListView";
+            public const string OperationPlacesLookupListView = "Operation_Places_LookupListView";
+
         }
 
         public static class StringSize

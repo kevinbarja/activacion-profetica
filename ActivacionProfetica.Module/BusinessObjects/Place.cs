@@ -14,8 +14,13 @@ namespace ActivacionProfetica.Module.BusinessObjects
     [Persistent(Schema.Ap + nameof(Place))]
     public class Place : BaseEntity, IPlace, ITreeNode
     {
+        public static int LeonSector = 1;
+        public static int ShofarSector = 2;
+        public static int AguilaSector = 3;
+
         private Place parentPlace;
         private string name;
+        Operation operation;
 
         [Caption("Nombre")]
         [Size(255), Nullable(false), RequiredField]
@@ -43,6 +48,19 @@ namespace ActivacionProfetica.Module.BusinessObjects
         public XPCollection<Place> ChildrenPlace
         {
             get => GetCollection<Place>(nameof(ChildrenPlace));
+        }
+
+        [Caption("Operación")]
+        [Association("Operation-Places")]
+        [Persistent("Operation_Places")]
+        //[ModelDefault("LookupProperty", "Name")]
+        [ImmediatePostData]
+        //[DataSourceCriteria("Squad=='@This.Squad'")]
+        [VisibleInLookupListView(true), VisibleInListView(true)]
+        public Operation Operation
+        {
+            get => operation;
+            set => SetPropertyValue(ref operation, value);
         }
 
         public Place(Session session) : base(session)

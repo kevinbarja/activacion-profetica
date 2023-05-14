@@ -1,14 +1,24 @@
 ﻿using ActivacionProfetica.Module.SharedKernel;
 using DevExpress.ExpressApp.ConditionalAppearance;
+using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
+using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using static ActivacionProfetica.Module.SharedKernel.Constants;
 using Caption = System.ComponentModel.DisplayNameAttribute;
 
 namespace ActivacionProfetica.Module.BusinessObjects
 {
+    [Appearance("HidePlacesSelection", TargetItems = nameof(Places),
+    Visibility = ViewItemVisibility.Hide,
+    Criteria = nameof(OperationType) + " is Null")]
+    [Appearance("HideOperationCode", TargetItems = nameof(Id),
+    Visibility = ViewItemVisibility.Hide,
+    Criteria = "IsNewObject(this)")]
     [Caption("Operación")]
     [DefaultProperty(nameof(Id))]
     [Persistent(Schema.Ap + nameof(Operation))]
@@ -30,8 +40,8 @@ namespace ActivacionProfetica.Module.BusinessObjects
         [Association("Customer-Operations")]
         [Persistent("Customer_Operations")]
         [ImmediatePostData]
-        [ModelDefault("View", "Customer_LookupListView")]
-        //[ModelDefault("LookupProperty", "CI")]
+        //[ModelDefault("View", "Customer_LookupListView")]
+        [ModelDefault("LookupProperty", "{0:FullName} ({0:CI})")]
         public Customer Customer
         {
             get => customer;
@@ -48,6 +58,76 @@ namespace ActivacionProfetica.Module.BusinessObjects
             get => operationType;
             set => SetPropertyValue(ref operationType, value);
         }
+
+        [MemberDesignTimeVisibility(false)]
+        [NonPersistent]
+        public XPCollection<Place> PlacesFiltered
+        {
+            get
+            {
+                List<Place> placesDatasource = new List<Place>();
+
+                XPQuery<Place> places = Session.Query<Place>();
+                var placesFiltered = from p in places
+                                     where p.Operation == null
+                                     select p;
+
+                foreach (var placeFiltered in placesFiltered)
+                {
+                    if (this.OperationType.Id == OperationType.ReservaOperationType)
+                    {
+                        if (CheckInheritance(placeFiltered, Place.ShofarSector, Place.AguilaSector))
+                        {
+                            placesDatasource.Add(placeFiltered);
+                        }
+                    }
+                    else
+                    {
+                        placesDatasource.Add(placeFiltered);
+                    }
+                }
+                return new XPCollection<Place>(Session, placesDatasource);
+            }
+        }
+
+        private bool CheckInheritance(Place currentPlace, int parentPlaceId, int otherParentPlaceId)
+        {
+            if (currentPlace.Id == parentPlaceId || currentPlace.Id == otherParentPlaceId)
+            {
+                return true;
+            }
+
+            for (Place place = currentPlace.ParentPlace;
+                place != null; place = place.ParentPlace)
+            {
+                if (place.Id == parentPlaceId || place.Id == otherParentPlaceId)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        [Caption("Selección de lugares")]
+        [DataSourceProperty(nameof(PlacesFiltered), DataSourcePropertyIsNullMode.SelectNothing)]
+        [Association("Operation-Places")]
+        public XPCollection<Place> Places =>
+            GetCollection<Place>(nameof(Places));
+
+        [OnChangedProperty(nameof(OperationType))]
+        public void OnChangeOperationType(object currentValue, object newValue)
+        {
+            Places.Reload();
+        }
+
+        [RuleFromBoolProperty("ValidateEmptyPlaces",
+                    DefaultContexts.Save,
+                    "Debe seleccionar al menos un lugar.",
+                    UsedProperties = nameof(Places))]
+        [NonPersistent]
+        [MemberDesignTimeVisibility(false)]
+        public bool ValidateEmptyPlaces => Places.Any();
+
 
         public Operation(Session session) : base(session)
         {

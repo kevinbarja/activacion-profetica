@@ -126,6 +126,7 @@
     <Compile Include="Controllers\AuditController.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Controllers\OperationController.cs" />
     <Compile Include="DatabaseUpdate\OperationTypeData.cs" />
     <Compile Include="DatabaseUpdate\Updater.cs" />
     <Compile Include="BusinessObjects\ApplicationUser.cs" />

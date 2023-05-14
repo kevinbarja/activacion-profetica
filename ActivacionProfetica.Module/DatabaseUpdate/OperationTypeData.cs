@@ -34,6 +34,10 @@ namespace ActivacionProfetica.Module.DatabaseUpdate
                 StringBuilder descriptionReservaOperationType = new StringBuilder("- Puede reservar los sectores Shofar y Águila.");
                 descriptionReservaOperationType.Append(Environment.NewLine);
                 descriptionReservaOperationType.AppendLine("- Léon sólo se permite al contado.");
+                descriptionReservaOperationType.Append(Environment.NewLine);
+                descriptionReservaOperationType.AppendLine("- Antes de Julio: 3 cuotas en 3 meses 40%-30%-30%");
+                descriptionReservaOperationType.Append(Environment.NewLine);
+                descriptionReservaOperationType.AppendLine("- Posterior a Julio: 2 cuotas en 2 meses 70%-30%");
                 reserva.Description = descriptionReservaOperationType.ToString();
 
                 var ofrenda = Updater.ObjectSpace.CreateObject<OperationType>();
