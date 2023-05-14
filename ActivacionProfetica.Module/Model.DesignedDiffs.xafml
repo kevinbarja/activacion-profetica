@@ -13,6 +13,7 @@
       <Item Id="ActivacionProfetica" Caption="Activación Profética" IsNewNode="True">
         <Items IsNewNode="True">
           <Item Id="Customers" Caption="Personas" ImageName="BO_Department" ViewId="Customer_ListView" IsNewNode="True" />
+          <Item Id="Places" Caption="Lugares" ViewId="Place_ListView" IsNewNode="True" />
           <Item Id="Sales" Caption="Ventas" ViewId="Sale_ListView" IsNewNode="True" />
         </Items>
       </Item>
@@ -52,5 +53,14 @@
         <ColumnInfo Id="OperationTypeCaption" Width="341" />
       </Columns>
     </ListView>
+    <DetailView Id="Customer_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Customer" ShowCaption="False" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
   </Views>
 </Application>

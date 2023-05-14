@@ -120,6 +120,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessObjects\Place.cs" />
     <Compile Include="BusinessObjects\Sale.cs" />
     <Compile Include="Controllers\AuditController.cs">
       <SubType>Code</SubType>
