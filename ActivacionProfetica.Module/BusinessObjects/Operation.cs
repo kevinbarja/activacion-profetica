@@ -40,7 +40,6 @@ namespace ActivacionProfetica.Module.BusinessObjects
         [Association("Customer-Operations")]
         [Persistent("Customer_Operations")]
         [ImmediatePostData]
-        //[ModelDefault("View", "Customer_LookupListView")]
         [ModelDefault("LookupProperty", "{0:FullName} ({0:CI})")]
         public Customer Customer
         {
@@ -86,7 +85,10 @@ namespace ActivacionProfetica.Module.BusinessObjects
                         placesDatasource.Add(placeFiltered);
                     }
                 }
-                return new XPCollection<Place>(Session, placesDatasource);
+
+                var result = new XPCollection<Place>(Session, placesDatasource);
+
+                return result;
             }
         }
 
@@ -108,7 +110,7 @@ namespace ActivacionProfetica.Module.BusinessObjects
             return false;
         }
 
-        [Caption("Selección de lugares")]
+        [Caption("Selección de asientos")]
         [DataSourceProperty(nameof(PlacesFiltered), DataSourcePropertyIsNullMode.SelectNothing)]
         [Association("Operation-Places")]
         public XPCollection<Place> Places =>
@@ -122,12 +124,11 @@ namespace ActivacionProfetica.Module.BusinessObjects
 
         [RuleFromBoolProperty("ValidateEmptyPlaces",
                     DefaultContexts.Save,
-                    "Debe seleccionar al menos un lugar.",
+                    "Debe seleccionar al menos un asiento.",
                     UsedProperties = nameof(Places))]
         [NonPersistent]
         [MemberDesignTimeVisibility(false)]
         public bool ValidateEmptyPlaces => Places.Any();
-
 
         public Operation(Session session) : base(session)
         {

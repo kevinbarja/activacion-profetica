@@ -1,16 +1,21 @@
 ﻿using ActivacionProfetica.Module.SharedKernel;
+using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Base.General;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using System.ComponentModel;
+using System.Drawing;
 using static ActivacionProfetica.Module.BusinessObjects.Place;
 using static ActivacionProfetica.Module.SharedKernel.Constants;
 using Caption = System.ComponentModel.DisplayNameAttribute;
 
 namespace ActivacionProfetica.Module.BusinessObjects
 {
-    [Caption("Lugar")]
+    //[Appearance("RiskAcceptanceAcceptedHide", Visibility = ViewItemVisibility.Hide, TargetItems = "Accepted;", Criteria = "[Risk].[AttachFile] Is Null", Context = "Risk_RiskAcceptances_ListView")]
+    [Appearance("FontColorRed", AppearanceItemType = "ViewItem", TargetItems = "*", Context = "Operation_Places_LookupListView", Criteria = "Operation is not null", FontStyle = FontStyle.Strikeout, BackColor = "253, 125, 125")]
+    [Caption("Asiento")]
+    [DefaultProperty(nameof(Path))]
     [Persistent(Schema.Ap + nameof(Place))]
     public class Place : BaseEntity, IPlace, ITreeNode
     {
@@ -31,7 +36,6 @@ namespace ActivacionProfetica.Module.BusinessObjects
             set => SetPropertyValue(ref name, value);
         }
 
-        //[ModelDefault("View", "CuentaContable_CuentaMayor_LookupListView")]
         [Caption("Lugar superior")]
         [Persistent("ParentPlace_Place")]
         [Association("ParentPlace-ChildrenPlace")]
@@ -53,9 +57,7 @@ namespace ActivacionProfetica.Module.BusinessObjects
         [Caption("Operación")]
         [Association("Operation-Places")]
         [Persistent("Operation_Places")]
-        //[ModelDefault("LookupProperty", "Name")]
         [ImmediatePostData]
-        //[DataSourceCriteria("Squad=='@This.Squad'")]
         [VisibleInLookupListView(true), VisibleInListView(true)]
         public Operation Operation
         {
@@ -89,6 +91,41 @@ namespace ActivacionProfetica.Module.BusinessObjects
                 }
                 return true;
             }
+        }
+
+        private string path;
+
+        [Caption("Nombre completo")]
+        [Size(StringSize.ShortSringSize)]
+        [VisibleInDetailView(false), VisibleInListView(true), VisibleInLookupListView(false)]
+        public string Path
+        {
+            get
+            {
+                if (path == null)
+                {
+                    path = CalculatePath(this);
+                }
+                return path;
+            }
+        }
+        protected override void OnChanged(string propertyName, object oldValue, object newValue)
+        {
+            base.OnChanged(propertyName, oldValue, newValue);
+            if (!IsLoading && (propertyName == "Parent" || propertyName == "Name") && oldValue != newValue)
+            {
+                path = CalculatePath(this);
+                OnChanged("Path");
+            }
+        }
+        private string CalculatePath(ITreeNode node)
+        {
+            string result = node.Name;
+            if (node.Parent != null)
+            {
+                result = CalculatePath(node.Parent) + " - " + result;
+            }
+            return result;
         }
 
 

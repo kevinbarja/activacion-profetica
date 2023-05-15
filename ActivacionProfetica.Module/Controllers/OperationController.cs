@@ -2,6 +2,7 @@
 using ActivacionProfetica.Module.SharedKernel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.SystemModule;
+using DevExpress.Xpo;
 using System;
 using System.Collections;
 using System.Linq;
@@ -54,17 +55,34 @@ namespace ActivacionProfetica.Module.Controllers
             }
             foreach (Place placeSelected in selectedPlaces)
             {
-                if (placeSelected.ChildrenPlace != null && placeSelected.ChildrenPlace.Any())
+                using (UnitOfWork uow = new UnitOfWork(placeSelected.Session.DataLayer))
                 {
-                    MessageOptions parametrosMensaje = new MessageOptions
+                    var currentplaceSelected = uow.GetObjectByKey<Place>(placeSelected.Id);
+
+                    if (currentplaceSelected.ChildrenPlace != null && currentplaceSelected.ChildrenPlace.Any())
                     {
-                        Duration = 4000,
-                        Message = "Seleccionó un lugar que no es un asiento, revise e intente nuevamente.",
-                        Type = InformationType.Warning
-                    };
-                    parametrosMensaje.Web.Position = InformationPosition.Top;
-                    Application.ShowViewStrategy.ShowMessage(parametrosMensaje);
-                    e.Cancel = true;
+                        MessageOptions parametrosMensaje = new MessageOptions
+                        {
+                            Duration = 4000,
+                            Message = $"El lugar '{placeSelected.Path}' no es un asiento, revise e intente nuevamente.",
+                            Type = InformationType.Warning
+                        };
+                        parametrosMensaje.Web.Position = InformationPosition.Top;
+                        Application.ShowViewStrategy.ShowMessage(parametrosMensaje);
+                        e.Cancel = true;
+                    }
+                    else if (currentplaceSelected.Operation != null && currentplaceSelected.Operation.Id != 0)
+                    {
+                        MessageOptions parametrosMensaje = new MessageOptions
+                        {
+                            Duration = 4000,
+                            Message = $"El asiento '{placeSelected.Path}' no está disponible",
+                            Type = InformationType.Warning
+                        };
+                        parametrosMensaje.Web.Position = InformationPosition.Top;
+                        Application.ShowViewStrategy.ShowMessage(parametrosMensaje);
+                        e.Cancel = true;
+                    }
                 }
             }
         }
