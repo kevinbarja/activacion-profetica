@@ -75,7 +75,7 @@ namespace ActivacionProfetica.Module.BusinessObjects
                 {
                     if (this.OperationType.Id == OperationType.ReservaOperationType)
                     {
-                        if (CheckInheritance(placeFiltered, Place.ShofarSector, Place.AguilaSector))
+                        if (CheckInheritance(placeFiltered, Place.ShofarSector, Place.EagleSector))
                         {
                             placesDatasource.Add(placeFiltered);
                         }

@@ -12,6 +12,7 @@ using Caption = System.ComponentModel.DisplayNameAttribute;
 
 namespace ActivacionProfetica.Module.BusinessObjects
 {
+    [Appearance("WhiteText", TargetItems = nameof(Id), Context = "ListView;Operation_Places_LookupListView", FontStyle = FontStyle.Bold, FontColor = "255,255,255")]
     //[Appearance("RiskAcceptanceAcceptedHide", Visibility = ViewItemVisibility.Hide, TargetItems = "Accepted;", Criteria = "[Risk].[AttachFile] Is Null", Context = "Risk_RiskAcceptances_ListView")]
     [Appearance("FontColorRed", AppearanceItemType = "ViewItem", TargetItems = "*", Context = "Operation_Places_LookupListView", Criteria = "Operation is not null", FontStyle = FontStyle.Strikeout, BackColor = "253, 125, 125")]
     [Caption("Asiento")]
@@ -19,13 +20,22 @@ namespace ActivacionProfetica.Module.BusinessObjects
     [Persistent(Schema.Ap + nameof(Place))]
     public class Place : BaseEntity, IPlace, ITreeNode
     {
-        public static int LeonSector = 1;
+        public static int LionSector = 1;
         public static int ShofarSector = 2;
-        public static int AguilaSector = 3;
+        public static int EagleSector = 3;
 
         private Place parentPlace;
         private string name;
         Operation operation;
+
+        [Caption(".")]
+        [Appearance("DisableCode", Enabled = false)]
+        [VisibleInDetailView(false), VisibleInListView(true), VisibleInLookupListView(true)]
+        public new int Id
+        {
+            get => base.Id;
+            set => base.Id = value;
+        }
 
         [Caption("Nombre")]
         [Size(255), Nullable(false), RequiredField]

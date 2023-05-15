@@ -26,6 +26,8 @@ namespace ActivacionProfetica.Module.DatabaseUpdate
         {
             base.UpdateDatabaseAfterUpdateSchema();
             new OperationTypeData(this);
+            new PlaceData(this);
+            //new EagleSector(this);
 
 #if !RELEASE
             ApplicationUser sampleUser = ObjectSpace.FirstOrDefault<ApplicationUser>(u => u.UserName == "Usuario");

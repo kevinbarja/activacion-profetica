@@ -93,6 +93,7 @@
     <Reference Include="DevExpress.XtraReports.v22.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="mscorlib">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -127,7 +128,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Controllers\OperationController.cs" />
+    <Compile Include="DatabaseUpdate\EagleSector.cs" />
     <Compile Include="DatabaseUpdate\OperationTypeData.cs" />
+    <Compile Include="DatabaseUpdate\PlaceData.cs" />
     <Compile Include="DatabaseUpdate\Updater.cs" />
     <Compile Include="BusinessObjects\ApplicationUser.cs" />
     <Compile Include="BusinessObjects\ApplicationUserLoginInfo.cs" />
@@ -154,6 +157,7 @@
   <ItemGroup>
     <None Include="BusinessObjects\ReadMe.txt" />
     <None Include="Controllers\ReadMe.txt" />
+    <EmbeddedResource Include="DatabaseUpdate\Csv\seats.csv" />
     <None Include="DatabaseUpdate\ReadMe.txt" />
     <None Include="Images\ReadMe.txt" />
     <None Include="ReadMe.txt" />
