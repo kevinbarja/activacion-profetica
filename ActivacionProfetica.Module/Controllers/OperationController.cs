@@ -1,5 +1,4 @@
 ﻿using ActivacionProfetica.Module.BusinessObjects;
-using ActivacionProfetica.Module.SharedKernel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Xpo;
@@ -18,7 +17,7 @@ namespace ActivacionProfetica.Module.Controllers
         /// </summary>
         public OperationController()
         {
-            TargetViewId = Constants.View.OperationPlacesLookupListView;
+            TargetViewId = "None";// Constants.View.OperationPlacesLookupListView;
         }
 
         /// <summary>
@@ -71,7 +70,7 @@ namespace ActivacionProfetica.Module.Controllers
                         Application.ShowViewStrategy.ShowMessage(parametrosMensaje);
                         e.Cancel = true;
                     }
-                    else if (currentplaceSelected.Operation != null && currentplaceSelected.Operation.Id != 0)
+                    else if (currentplaceSelected.Operation != null && currentplaceSelected.Operation.InternalId != 0)
                     {
                         MessageOptions parametrosMensaje = new MessageOptions
                         {

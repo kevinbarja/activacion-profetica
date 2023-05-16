@@ -21,16 +21,18 @@ namespace ActivacionProfetica.Module.DatabaseUpdate
             if (isEmpty)
             {
                 var venta = Updater.ObjectSpace.CreateObject<OperationType>();
-                venta.Id = OperationType.VentaOperationType;
+                venta.InternalId = OperationType.VentaOperationType;
                 venta.Name = "Venta";
+                venta.PlaceStatusName = "Vendido";
                 StringBuilder descriptionVentaOperationType = new StringBuilder("- Venta al contado.");
                 descriptionVentaOperationType.Append(Environment.NewLine);
                 descriptionVentaOperationType.AppendLine("- Todos los sectores pueden ser adquiridos al contado.");
                 venta.Description = descriptionVentaOperationType.ToString();
 
                 var reserva = Updater.ObjectSpace.CreateObject<OperationType>();
-                reserva.Id = OperationType.ReservaOperationType;
+                reserva.InternalId = OperationType.ReservaOperationType;
                 reserva.Name = "Reserva";
+                reserva.PlaceStatusName = "Reservado";
                 StringBuilder descriptionReservaOperationType = new StringBuilder("- Puede reservar los sectores Shofar y Águila.");
                 descriptionReservaOperationType.Append(Environment.NewLine);
                 descriptionReservaOperationType.AppendLine("- Léon sólo se permite al contado.");
@@ -41,20 +43,31 @@ namespace ActivacionProfetica.Module.DatabaseUpdate
                 reserva.Description = descriptionReservaOperationType.ToString();
 
                 var ofrenda = Updater.ObjectSpace.CreateObject<OperationType>();
-                ofrenda.Id = OperationType.OfrendaOperationType;
+                ofrenda.InternalId = OperationType.OfrendaOperationType;
                 ofrenda.Name = "Ofrenda";
-                StringBuilder descriptionOfrendaOperationType = new StringBuilder("- En los cultos se ofrendas entradas.");
+                ofrenda.PlaceStatusName = "Ofrendado";
+                StringBuilder descriptionOfrendaOperationType = new StringBuilder("- En los cultos se ofrendan entradas a costo 0.");
                 descriptionOfrendaOperationType.Append(Environment.NewLine);
                 descriptionOfrendaOperationType.AppendLine("- Aplica a cualquier sector.");
                 ofrenda.Description = descriptionOfrendaOperationType.ToString();
 
                 var consignacion = Updater.ObjectSpace.CreateObject<OperationType>();
-                consignacion.Id = OperationType.ConsignacionOperationType;
+                consignacion.InternalId = OperationType.ConsignacionOperationType;
                 consignacion.Name = "Consignación";
+                consignacion.PlaceStatusName = "En consignación";
                 StringBuilder descriptionConsignacionOperationType = new StringBuilder("- Mami Gladis puede acceder a entradas consignadas y luego pagarlas.");
                 descriptionConsignacionOperationType.Append(Environment.NewLine);
                 descriptionConsignacionOperationType.AppendLine("- Aplica a cualquier sector.");
                 consignacion.Description = descriptionConsignacionOperationType.ToString();
+
+                var borrador = Updater.ObjectSpace.CreateObject<OperationType>();
+                borrador.InternalId = OperationType.DraftOperationType;
+                borrador.Name = "Borrador";
+                borrador.PlaceStatusName = "En borrador";
+                StringBuilder borradorConsignacionOperationType = new StringBuilder("- ");
+                borradorConsignacionOperationType.Append(Environment.NewLine);
+                borradorConsignacionOperationType.AppendLine("- ");
+                borrador.Description = borradorConsignacionOperationType.ToString();
             }
         }
     }

@@ -1,4 +1,5 @@
 ﻿using DevExpress.Xpo;
+using System;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
@@ -14,11 +15,68 @@ namespace ActivacionProfetica.Module.SharedKernel
 
         [Key(true)]
         [MemberDesignTimeVisibility(false)]
-        public int Id
+        public int InternalId
         {
             get => id;
             set => SetPropertyValue(ref id, value);
         }
+
+        //ApplicationUser GetCurrentUser()
+        //{
+        //    if (Session != null)
+        //    {
+        //        //if (SecuritySystem.CurrentUserId != null && SecuritySystem.CurrentUserId.ToString() != "")
+        //        //{
+        //        return Session.FindObject<ApplicationUser>(CriteriaOperator.Parse("Oid=CurrentUserId()"));  // In non-XAF apps where SecuritySystem.Instance is unavailable (v20.1.7+).
+        //        //}
+        //    }
+        //    return null;
+        //    //return Session.GetObjectByKey<ApplicationUser>(SecuritySystem.CurrentUserId);  // In XAF apps for versions older than v20.1.7.
+        //}
+        //public override void AfterConstruction()
+        //{
+        //    base.AfterConstruction();
+        //    CreatedOn = DateTime.Now;
+        //    CreatedBy = GetCurrentUser();
+        //}
+        //protected override void OnSaving()
+        //{
+        //    base.OnSaving();
+        //    UpdatedOn = DateTime.Now;
+        //    UpdatedBy = GetCurrentUser();
+        //}
+        //ApplicationUser createdBy;
+        //[VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
+        //[ModelDefault("AllowEdit", "False")]
+        //public ApplicationUser CreatedBy
+        //{
+        //    get { return createdBy; }
+        //    set { SetPropertyValue("CreatedBy", ref createdBy, value); }
+        //}
+        //DateTime createdOn;
+        //[VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
+        //[ModelDefault("AllowEdit", "False"), ModelDefault("DisplayFormat", "G")]
+        //public DateTime CreatedOn
+        //{
+        //    get { return createdOn; }
+        //    set { SetPropertyValue("CreatedOn", ref createdOn, value); }
+        //}
+        //ApplicationUser updatedBy;
+        //[VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
+        //[ModelDefault("AllowEdit", "False")]
+        //public ApplicationUser UpdatedBy
+        //{
+        //    get { return updatedBy; }
+        //    set { SetPropertyValue("UpdatedBy", ref updatedBy, value); }
+        //}
+        //DateTime updatedOn;
+        //[VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
+        //[ModelDefault("AllowEdit", "False"), ModelDefault("DisplayFormat", "G")]
+        //public DateTime UpdatedOn
+        //{
+        //    get { return updatedOn; }
+        //    set { SetPropertyValue("UpdatedOn", ref updatedOn, value); }
+        //}
 
         protected new object GetPropertyValue([CallerMemberName] string propertyName = null)
             => base.GetPropertyValue(propertyName);
@@ -66,6 +124,27 @@ namespace ActivacionProfetica.Module.SharedKernel
             OnChanged(propertyName);
         }
 
-        //TODO: CreateBy, CreateAt, UpdateAt, UpdateBy
+
+        protected override void OnDeleting()
+        {
+            base.OnDeleting();
+            if (Session.CollectReferencingObjects(this).Count > 0)
+            {
+                string usedby = "Usado por: " + Environment.NewLine;
+                int i = 0;
+
+                foreach (var obj in Session.CollectReferencingObjects(this))
+                {
+                    i++;
+                    usedby += obj.GetType().Name + Environment.NewLine;
+                    if (i > 2)
+                    {
+                        usedby += "entre otros...";
+                        break;
+                    }
+                }
+                throw new Exception(usedby);
+            }
+        }
     }
 }

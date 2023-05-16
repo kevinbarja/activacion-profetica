@@ -32,7 +32,7 @@ namespace ActivacionProfetica.Module.BusinessObjects
         [VisibleInDetailView(true), VisibleInListView(true), VisibleInLookupListView(true)]
         public new int Id
         {
-            get => base.Id;
+            get => base.InternalId;
         }
 
         [Caption("Persona")]
@@ -73,7 +73,7 @@ namespace ActivacionProfetica.Module.BusinessObjects
 
                 foreach (var placeFiltered in placesFiltered)
                 {
-                    if (this.OperationType.Id == OperationType.ReservaOperationType)
+                    if (this.OperationType.InternalId == OperationType.ReservaOperationType)
                     {
                         if (CheckInheritance(placeFiltered, Place.ShofarSector, Place.EagleSector))
                         {

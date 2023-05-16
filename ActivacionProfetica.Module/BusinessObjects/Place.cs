@@ -34,8 +34,8 @@ namespace ActivacionProfetica.Module.BusinessObjects
         [VisibleInDetailView(false), VisibleInListView(true), VisibleInLookupListView(true)]
         public new int Id
         {
-            get => base.Id;
-            set => base.Id = value;
+            get => base.InternalId;
+            set => base.InternalId = value;
         }
 
         [Caption("Nombre")]

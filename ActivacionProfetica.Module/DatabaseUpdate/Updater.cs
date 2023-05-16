@@ -39,7 +39,7 @@ namespace ActivacionProfetica.Module.DatabaseUpdate
                 // Set a password if the standard authentication type is used
                 sampleUser.SetPassword("");
 
-                // The UserLoginInfo object requires a user object Id (Oid).
+                // The UserLoginInfo object requires a user object InternalId (Oid).
                 // Commit the user object to the database before you create a UserLoginInfo object. This will correctly initialize the user key property.
                 ObjectSpace.CommitChanges(); //This line persists created object(s).
                 ((ISecurityUserWithLoginInfo)sampleUser).CreateUserLoginInfo(SecurityDefaults.PasswordAuthentication, ObjectSpace.GetKeyValueAsString(sampleUser));
@@ -56,7 +56,7 @@ namespace ActivacionProfetica.Module.DatabaseUpdate
                 // Set a password if the standard authentication type is used
                 userAdmin.SetPassword("");
 
-                // The UserLoginInfo object requires a user object Id (Oid).
+                // The UserLoginInfo object requires a user object InternalId (Oid).
                 // Commit the user object to the database before you create a UserLoginInfo object. This will correctly initialize the user key property.
                 ObjectSpace.CommitChanges(); //This line persists created object(s).
                 ((ISecurityUserWithLoginInfo)userAdmin).CreateUserLoginInfo(SecurityDefaults.PasswordAuthentication, ObjectSpace.GetKeyValueAsString(userAdmin));

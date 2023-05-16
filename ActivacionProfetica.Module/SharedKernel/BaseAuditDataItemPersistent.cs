@@ -24,11 +24,17 @@ namespace ActivacionProfetica.Module.SharedKernel
                 {
                     switch (PropertyName)
                     {
-                        case "CreateAt":
+                        case "CreateOn":
                             result = "Fecha de registro";
                             break;
                         case "CreateBy":
                             result = "Registrado por";
+                            break;
+                        case "UpdatedOn":
+                            result = "Fecha de actualización";
+                            break;
+                        case "UpdatedBy":
+                            result = "Actualizado por";
                             break;
                         default:
                             result = CaptionHelper.GetMemberCaption(AuditedObject.Target.GetType(), PropertyName);
@@ -38,7 +44,7 @@ namespace ActivacionProfetica.Module.SharedKernel
                 if (result == "" || result == null)
                 {
                     if (id != 0)
-                        result = $"Objeto: {CaptionHelper.GetClassCaption(AuditedObject.DisplayName)} Id: {id}";
+                        result = $"Objeto: {CaptionHelper.GetClassCaption(AuditedObject.DisplayName)} InternalId: {id}";
                     else
                     {
                         result = $"Objeto: {CaptionHelper.GetClassCaption(AuditedObject.DisplayName)}";

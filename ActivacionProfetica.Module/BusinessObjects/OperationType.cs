@@ -16,8 +16,10 @@ namespace ActivacionProfetica.Module.BusinessObjects
         public static int ReservaOperationType = 2;
         public static int OfrendaOperationType = 3;
         public static int ConsignacionOperationType = 4;
+        public static int DraftOperationType = 5;
 
         private string name;
+        private string placeStatusName;
         private string description;
 
         public OperationType(Session session) : base(session)
@@ -31,6 +33,15 @@ namespace ActivacionProfetica.Module.BusinessObjects
         {
             get => name;
             set => SetPropertyValue(ref name, value);
+        }
+
+        [Caption("Estado del asiento")]
+        [Size(StringSize.ShortSringSize), Nullable(false), RequiredField]
+        [VisibleInDetailView(true), VisibleInListView(true), VisibleInLookupListView(false)]
+        public string PlaceStatusName
+        {
+            get => placeStatusName;
+            set => SetPropertyValue(ref placeStatusName, value);
         }
 
         [Caption("Descripción")]
