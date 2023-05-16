@@ -129,6 +129,9 @@
     <Compile Include="Controllers\AuditController.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Controllers\MyStateMachineController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controllers\OperationController.cs" />
     <Compile Include="Controllers\OperationDefaultValuesController.cs">
       <SubType>Component</SubType>

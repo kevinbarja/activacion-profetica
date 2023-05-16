@@ -74,11 +74,6 @@
         <ColumnInfo Id="FullName" Index="1" />
       </Columns>
     </ListView>
-    <DetailView Id="Operation_DetailView">
-      <Items>
-        <PropertyEditor Id="Places" LinkView="Operation_Places_LookupListView" />
-      </Items>
-    </DetailView>
     <ListView Id="Operation_Places_ListView">
       <Columns>
         <ColumnInfo Id="Name" Index="-1" />

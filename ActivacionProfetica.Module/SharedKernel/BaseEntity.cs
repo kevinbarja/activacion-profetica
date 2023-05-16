@@ -1,4 +1,8 @@
-﻿using DevExpress.Xpo;
+﻿using ActivacionProfetica.Module.BusinessObjects;
+using DevExpress.Data.Filtering;
+using DevExpress.ExpressApp.Model;
+using DevExpress.Persistent.Base;
+using DevExpress.Xpo;
 using System;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -21,62 +25,62 @@ namespace ActivacionProfetica.Module.SharedKernel
             set => SetPropertyValue(ref id, value);
         }
 
-        //ApplicationUser GetCurrentUser()
-        //{
-        //    if (Session != null)
-        //    {
-        //        //if (SecuritySystem.CurrentUserId != null && SecuritySystem.CurrentUserId.ToString() != "")
-        //        //{
-        //        return Session.FindObject<ApplicationUser>(CriteriaOperator.Parse("Oid=CurrentUserId()"));  // In non-XAF apps where SecuritySystem.Instance is unavailable (v20.1.7+).
-        //        //}
-        //    }
-        //    return null;
-        //    //return Session.GetObjectByKey<ApplicationUser>(SecuritySystem.CurrentUserId);  // In XAF apps for versions older than v20.1.7.
-        //}
-        //public override void AfterConstruction()
-        //{
-        //    base.AfterConstruction();
-        //    CreatedOn = DateTime.Now;
-        //    CreatedBy = GetCurrentUser();
-        //}
-        //protected override void OnSaving()
-        //{
-        //    base.OnSaving();
-        //    UpdatedOn = DateTime.Now;
-        //    UpdatedBy = GetCurrentUser();
-        //}
-        //ApplicationUser createdBy;
-        //[VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
-        //[ModelDefault("AllowEdit", "False")]
-        //public ApplicationUser CreatedBy
-        //{
-        //    get { return createdBy; }
-        //    set { SetPropertyValue("CreatedBy", ref createdBy, value); }
-        //}
-        //DateTime createdOn;
-        //[VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
-        //[ModelDefault("AllowEdit", "False"), ModelDefault("DisplayFormat", "G")]
-        //public DateTime CreatedOn
-        //{
-        //    get { return createdOn; }
-        //    set { SetPropertyValue("CreatedOn", ref createdOn, value); }
-        //}
-        //ApplicationUser updatedBy;
-        //[VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
-        //[ModelDefault("AllowEdit", "False")]
-        //public ApplicationUser UpdatedBy
-        //{
-        //    get { return updatedBy; }
-        //    set { SetPropertyValue("UpdatedBy", ref updatedBy, value); }
-        //}
-        //DateTime updatedOn;
-        //[VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
-        //[ModelDefault("AllowEdit", "False"), ModelDefault("DisplayFormat", "G")]
-        //public DateTime UpdatedOn
-        //{
-        //    get { return updatedOn; }
-        //    set { SetPropertyValue("UpdatedOn", ref updatedOn, value); }
-        //}
+        ApplicationUser GetCurrentUser()
+        {
+            if (Session != null)
+            {
+                //if (SecuritySystem.CurrentUserId != null && SecuritySystem.CurrentUserId.ToString() != "")
+                //{
+                return Session.FindObject<ApplicationUser>(CriteriaOperator.Parse("Oid=CurrentUserId()"));  // In non-XAF apps where SecuritySystem.Instance is unavailable (v20.1.7+).
+                //}
+            }
+            return null;
+            //return Session.GetObjectByKey<ApplicationUser>(SecuritySystem.CurrentUserId);  // In XAF apps for versions older than v20.1.7.
+        }
+        public override void AfterConstruction()
+        {
+            base.AfterConstruction();
+            CreatedOn = DateTime.Now;
+            CreatedBy = GetCurrentUser();
+        }
+        protected override void OnSaving()
+        {
+            base.OnSaving();
+            UpdatedOn = DateTime.Now;
+            UpdatedBy = GetCurrentUser();
+        }
+        ApplicationUser createdBy;
+        [VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
+        [ModelDefault("AllowEdit", "False")]
+        public ApplicationUser CreatedBy
+        {
+            get { return createdBy; }
+            set { SetPropertyValue("CreatedBy", ref createdBy, value); }
+        }
+        DateTime createdOn;
+        [VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
+        [ModelDefault("AllowEdit", "False"), ModelDefault("DisplayFormat", "G")]
+        public DateTime CreatedOn
+        {
+            get { return createdOn; }
+            set { SetPropertyValue("CreatedOn", ref createdOn, value); }
+        }
+        ApplicationUser updatedBy;
+        [VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
+        [ModelDefault("AllowEdit", "False")]
+        public ApplicationUser UpdatedBy
+        {
+            get { return updatedBy; }
+            set { SetPropertyValue("UpdatedBy", ref updatedBy, value); }
+        }
+        DateTime updatedOn;
+        [VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
+        [ModelDefault("AllowEdit", "False"), ModelDefault("DisplayFormat", "G")]
+        public DateTime UpdatedOn
+        {
+            get { return updatedOn; }
+            set { SetPropertyValue("UpdatedOn", ref updatedOn, value); }
+        }
 
         protected new object GetPropertyValue([CallerMemberName] string propertyName = null)
             => base.GetPropertyValue(propertyName);

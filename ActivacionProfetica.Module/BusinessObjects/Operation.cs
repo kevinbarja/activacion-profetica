@@ -3,7 +3,6 @@ using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
-using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -26,6 +25,14 @@ namespace ActivacionProfetica.Module.BusinessObjects
     {
         Customer customer;
         OperationType operationType;
+
+        public override void AfterConstruction()
+        {
+            base.AfterConstruction();
+            OperationType = (from s in Session.Query<OperationType>()
+                             where s.InternalId == OperationType.DraftOperationType
+                             select s).Single();
+        }
 
         [Caption("Código")]
         [Appearance("DisableCode", Enabled = false)]
@@ -122,13 +129,13 @@ namespace ActivacionProfetica.Module.BusinessObjects
             Places.Reload();
         }
 
-        [RuleFromBoolProperty("ValidateEmptyPlaces",
-                    DefaultContexts.Save,
-                    "Debe seleccionar al menos un asiento.",
-                    UsedProperties = nameof(Places))]
-        [NonPersistent]
-        [MemberDesignTimeVisibility(false)]
-        public bool ValidateEmptyPlaces => Places.Any();
+        //[RuleFromBoolProperty("ValidateEmptyPlaces",
+        //            DefaultContexts.Save,
+        //            "Debe seleccionar al menos un asiento.",
+        //            UsedProperties = nameof(Places))]
+        //[NonPersistent]
+        //[MemberDesignTimeVisibility(false)]
+        //public bool ValidateEmptyPlaces => Places.Any();
 
         public Operation(Session session) : base(session)
         {
