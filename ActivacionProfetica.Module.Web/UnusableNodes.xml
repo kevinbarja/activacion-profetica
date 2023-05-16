@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views Id="Views">
+    <DetailView Id="Sale_DetailView">
+      <Items Id="Items">
+        <PropertyEditor Id="Customer" DisplayFormat="{0:FullName} ({0:CI})" />
+      </Items>
+    </DetailView>
+  </Views>
+</Application>

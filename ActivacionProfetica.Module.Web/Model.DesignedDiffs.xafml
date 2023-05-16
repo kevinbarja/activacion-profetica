@@ -16,10 +16,6 @@
     </PropertyEditor>
   </ViewItems>
   <Views>
-    <DetailView Id="Sale_DetailView">
-      <Items>
-        <PropertyEditor Id="Customer" DisplayFormat="{0:FullName} ({0:CI})" />
-      </Items>
-    </DetailView>
+    <ListView Id="Place_SimpleListView" EditorTypeName="DevExpress.ExpressApp.Web.Editors.ASPx.ASPxGridListEditor" />
   </Views>
 </Application>

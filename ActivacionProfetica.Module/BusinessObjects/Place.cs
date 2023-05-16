@@ -27,6 +27,7 @@ namespace ActivacionProfetica.Module.BusinessObjects
         private Place parentPlace;
         private string name;
         Operation operation;
+        private bool isLeaf;
 
         [Caption(".")]
         [Appearance("DisableCode", Enabled = false)]
@@ -57,7 +58,8 @@ namespace ActivacionProfetica.Module.BusinessObjects
             set => SetPropertyValue(ref parentPlace, value);
         }
 
-        [MemberDesignTimeVisibility(false)]
+        [MemberDesignTimeVisibility(true)]
+        [VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
         [Association("ParentPlace-ChildrenPlace")]
         public XPCollection<Place> ChildrenPlace
         {
@@ -73,6 +75,14 @@ namespace ActivacionProfetica.Module.BusinessObjects
         {
             get => operation;
             set => SetPropertyValue(ref operation, value);
+        }
+
+        [Caption("¿Es asiento?")]
+        [VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
+        public bool IsLeaf
+        {
+            get => isLeaf;
+            set => SetPropertyValue(ref isLeaf, value);
         }
 
         public Place(Session session) : base(session)

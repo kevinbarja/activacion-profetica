@@ -17,6 +17,7 @@
           <Item Id="OperationTypes" ViewId="OperationType_ListView" Caption="Tipo de operaciones" IsNewNode="True" />
           <Item Id="Places" Caption="Asientos" ViewId="" IsNewNode="True">
             <Items IsNewNode="True">
+              <Item Id="@873239e0-5184-4f76-96fc-7ec119fe5810" Caption="Vista lista" ViewId="Place_SimpleListView" IsNewNode="True" />
               <Item Id="TreeView" Caption="Vista árbol" ViewId="Place_ListView" IsNewNode="True" />
             </Items>
           </Item>
@@ -100,6 +101,16 @@
         <ColumnInfo Id="Path" Index="1" SortIndex="-1" SortOrder="None" />
         <ColumnInfo Id="Operation" Width="187" Index="2" />
         <ColumnInfo Id="Id" Index="3" SortIndex="0" SortOrder="Ascending" />
+      </Columns>
+    </ListView>
+    <ListView Id="Place_SimpleListView" ClassName="ActivacionProfetica.Module.BusinessObjects.Place" IsNewNode="True">
+      <Columns IsNewNode="True">
+        <ColumnInfo Id="@7faa21fd-c4c7-427f-9b6f-83be723e4ee7" PropertyName="IsLeaf" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="ParentPlace" PropertyName="ParentPlace" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="Name" PropertyName="Name" Width="118" Index="0" IsNewNode="True" />
+        <ColumnInfo Id="Path" PropertyName="Path" Index="1" IsNewNode="True" />
+        <ColumnInfo Id="Operation" PropertyName="Operation" Width="187" Index="2" IsNewNode="True" />
+        <ColumnInfo Id="Id" PropertyName="Id" Index="3" SortIndex="0" SortOrder="Ascending" IsNewNode="True" />
       </Columns>
     </ListView>
   </Views>

@@ -72,6 +72,7 @@ namespace ActivacionProfetica.Module.DatabaseUpdate
                     seet = CreateObject<Place>();
                     seet.ParentPlace = rowObj;
                     seet.Name = seetName;
+                    seet.IsLeaf = true;
                 }
                 SaveChanges();
             }
@@ -86,6 +87,7 @@ namespace ActivacionProfetica.Module.DatabaseUpdate
                 var place = Updater.ObjectSpace.CreateObject<Place>();
                 place.Name = i.ToString();
                 place.ParentPlace = eaglePlace;
+                place.IsLeaf = true;
             }
             SaveChanges();
         }
