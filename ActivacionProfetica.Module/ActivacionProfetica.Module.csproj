@@ -133,6 +133,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controllers\OperationController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\OperationPlacesLookupController.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Controllers\OperationDefaultValuesController.cs">

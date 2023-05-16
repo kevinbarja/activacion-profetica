@@ -109,17 +109,24 @@ namespace ActivacionProfetica.Module.BusinessObjects
             return false;
         }
 
-        [ModelDefault("AllowEdit", "False")]
+        //[ModelDefault("AllowEdit", "False")]
         [Caption("Selección de asientos")]
         [DataSourceProperty(nameof(PlacesFiltered), DataSourcePropertyIsNullMode.SelectNothing)]
         [Association("Operation-Places")]
+        [ImmediatePostData]
         public XPCollection<Place> Places =>
             GetCollection<Place>(nameof(Places));
 
         [OnChangedProperty(nameof(PlaceStatus))]
         public void OnChangeOperationType(object currentValue, object newValue)
         {
-            Places.Reload();
+            // Places.Reload();
+        }
+
+        [OnChangedProperty(nameof(Places))]
+        public void OnChangePlaces(object currentValue, object newValue)
+        {
+            // Places.Reload();
         }
 
         //[RuleFromBoolProperty("ValidateEmptyPlaces",

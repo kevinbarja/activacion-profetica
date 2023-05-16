@@ -56,16 +56,12 @@
           <LayoutGroup Id="SimpleEditors" IsCardGroup="True" ShowCaption="True" Caption="Información" IsCollapsibleGroup="True" IsGroupCollapsed="False">
             <LayoutGroup Id="Place">
               <LayoutItem Id="@65603873-b7bf-42c9-9667-2f8c98700b82" ViewItem="Path" ShowCaption="True" Index="1" IsNewNode="True" />
-              <LayoutItem Id="Sector" Index="2" Removed="True" />
-              <LayoutItem Id="ParentPlace" Index="3" />
-              <LayoutItem Id="Operation" Index="4" />
             </LayoutGroup>
             <LayoutGroup Id="BaseEntity" Removed="True" />
           </LayoutGroup>
           <LayoutGroup Id="SimpleEditors_Copy" Index="0" ShowCaption="True" IsCardGroup="True" IsCollapsibleGroup="True" IsGroupCollapsed="True" Caption="Auditoría" IsNewNode="True">
-            <LayoutGroup Id="BaseEntity" Index="1" Direction="Horizontal" ShowCaption="True" Caption="Base Entity" IsNewNode="True">
+            <LayoutGroup Id="BaseEntity" Index="1" Direction="Horizontal" ShowCaption="" Caption="Base Entity" IsNewNode="True">
               <LayoutGroup Id="BaseEntity_col1" Index="0" ShowCaption="False" IsNewNode="True">
-                <LayoutItem Id="InternalId" ViewItem="InternalId" ShowCaption="" Index="0" IsNewNode="True" />
                 <LayoutItem Id="CreatedBy" ViewItem="CreatedBy" ShowCaption="" Index="1" IsNewNode="True" />
                 <LayoutItem Id="CreatedOn" ViewItem="CreatedOn" ShowCaption="" Index="2" IsNewNode="True" />
               </LayoutGroup>
@@ -78,6 +74,15 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <ListView Id="Place_SimpleListView" EditorTypeName="DevExpress.ExpressApp.Web.Editors.ASPx.ASPxGridListEditor" />
+    <ListView Id="Place_ListView">
+      <Columns>
+        <ColumnInfo Id="RowName" Index="-1" />
+        <ColumnInfo Id="Sector" Index="-1" />
+        <ColumnInfo Id="Status" Index="3" PropertyName="Status.SingularName" Caption="Estado" />
+        <ColumnInfo Id="Operation" Index="4" />
+        <ColumnInfo Id="InternalId" Index="5" />
+      </Columns>
+    </ListView>
+    <ListView Id="Place_SimpleListView" EditorTypeName="DevExpress.ExpressApp.Web.Editors.ASPx.ASPxGridListEditor" Criteria="[IsLeaf] = True" Caption="Asientos" />
   </Views>
 </Application>

@@ -30,16 +30,15 @@ namespace ActivacionProfetica.Module.BusinessObjects
         private string name;
         Operation operation;
         private Sector sector;
+        private string letterName;
+        private string rowName;
         private bool isLeaf;
+        private PlaceStatus status;
 
-        //[Caption(".")]
-        //[Appearance("DisableCode", Enabled = false)]
-        //[VisibleInDetailView(false), VisibleInListView(true), VisibleInLookupListView(true)]
-        //public new int Id
-        //{
-        //    get => base.InternalId;
-        //    set => base.InternalId = value;
-        //}
+        public override void AfterConstruction()
+        {
+
+        }
 
         [Caption("Nombre")]
         [Size(255), Nullable(false), RequiredField]
@@ -48,6 +47,24 @@ namespace ActivacionProfetica.Module.BusinessObjects
         {
             get => name;
             set => SetPropertyValue(ref name, value);
+        }
+
+        [Caption("Letra")]
+        [Size(255), Nullable(false)]
+        [VisibleInDetailView(true), VisibleInListView(true), VisibleInLookupListView(true)]
+        public string LetterName
+        {
+            get => letterName;
+            set => SetPropertyValue(ref letterName, value);
+        }
+
+        [Caption("Fila")]
+        [Size(255), Nullable(false)]
+        [VisibleInDetailView(true), VisibleInListView(true), VisibleInLookupListView(true)]
+        public string RowName
+        {
+            get => rowName;
+            set => SetPropertyValue(ref rowName, value);
         }
 
         [Caption("Sector")]
@@ -59,6 +76,16 @@ namespace ActivacionProfetica.Module.BusinessObjects
             set => SetPropertyValue(ref sector, value);
         }
 
+        [Caption("Estado")]
+        [RequiredField]
+        [Association("PlaceStatus-Places")]
+        [Persistent("PlaceStatus_Places")]
+        [ImmediatePostData]
+        public PlaceStatus Status
+        {
+            get => status;
+            set => SetPropertyValue(ref status, value);
+        }
 
         [Caption("Lugar superior")]
         [Persistent("ParentPlace_Place")]

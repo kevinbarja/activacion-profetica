@@ -60,5 +60,10 @@ namespace ActivacionProfetica.Module.BusinessObjects
         [MemberDesignTimeVisibility(false)]
         [Association("PlaceStatus-Operations")]
         public XPCollection<Operation> Operations => GetCollection<Operation>(nameof(Operations));
+
+        [Caption("Operaciones")]
+        [MemberDesignTimeVisibility(false)]
+        [Association("PlaceStatus-Places")]
+        public XPCollection<Place> Places => GetCollection<Place>(nameof(Places));
     }
 }

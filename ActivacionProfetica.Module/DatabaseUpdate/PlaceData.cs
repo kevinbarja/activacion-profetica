@@ -26,15 +26,23 @@ namespace ActivacionProfetica.Module.DatabaseUpdate
                 return;
             }
 
+            var availablePlaceStatus = (from s in Updater.Session.Query<PlaceStatus>()
+                                        where s.InternalId == PlaceStatus.AvailablePlaceStatus
+                                        select s).Single();
+
             //Create lion sector
             var lionPlace = Updater.ObjectSpace.CreateObject<Place>();
             lionPlace.InternalId = Place.LionSector;
             lionPlace.Name = "León";
+            lionPlace.LetterName = string.Empty;
+            lionPlace.RowName = string.Empty;
 
             //Create shofar sector
             var shofarPlace = CreateObject<Place>();
             shofarPlace.InternalId = Place.ShofarSector;
             shofarPlace.Name = "Shofar";
+            shofarPlace.LetterName = string.Empty;
+            shofarPlace.RowName = string.Empty;
 
             SaveChanges();
 
@@ -50,6 +58,8 @@ namespace ActivacionProfetica.Module.DatabaseUpdate
                     sector = CreateObject<Place>();
                     sector.ParentPlace = parentPlace;
                     sector.Name = sectorName;
+                    sector.LetterName = sectorName;
+                    sector.RowName = string.Empty;
                 }
                 SaveChanges();
 
@@ -61,19 +71,29 @@ namespace ActivacionProfetica.Module.DatabaseUpdate
                     rowObj = CreateObject<Place>();
                     rowObj.ParentPlace = sector;
                     rowObj.Name = rowName;
+                    rowObj.LetterName = sectorName;
+                    rowObj.RowName = rowName;
                 }
                 SaveChanges();
 
                 //Seet
                 var seetName = Convert.ToString(row["ASIENTO"]);
-                var seet = FindObject<Place>(CriteriaOperator.Parse($"Name = '{seetName}' And ParentPlace.Name = '{sectorName}' And ParentPlace.ParentPlace.Name = '{rowName}'"));
+                var seet = FindObject<Place>(CriteriaOperator.Parse($"Name = '{seetName}' And ParentPlace.Name = '{rowName}' And ParentPlace.ParentPlace.Name = '{sectorName}'"));
                 if (seet is null)
                 {
                     seet = CreateObject<Place>();
                     seet.ParentPlace = rowObj;
                     seet.Name = seetName;
                     seet.IsLeaf = true;
-                    seet.Sector = (seet.ParentPlace.ParentPlace.InternalId == Place.LionSector) ? BusinessObjects.Enums.Sector.Lion : BusinessObjects.Enums.Sector.Shofar;
+                    seet.Sector = (sector.ParentPlace.InternalId == Place.LionSector) ? BusinessObjects.Enums.Sector.Lion : BusinessObjects.Enums.Sector.Shofar;
+                    seet.LetterName = sectorName;
+                    seet.RowName = rowName;
+                    seet.Status = availablePlaceStatus;
+                }
+                else
+                {
+                    //TODO: Uncomment this validation
+                    //throw new Exception($"Seet repeated: seetName = '{seetName}' And rowName = '{rowName}' And sectorName = '{sectorName}'");
                 }
                 SaveChanges();
             }
@@ -82,7 +102,8 @@ namespace ActivacionProfetica.Module.DatabaseUpdate
             var eaglePlace = Updater.ObjectSpace.CreateObject<Place>();
             eaglePlace.InternalId = Place.EagleSector;
             eaglePlace.Name = "Águila";
-
+            eaglePlace.LetterName = string.Empty;
+            eaglePlace.RowName = string.Empty;
             for (int i = 1; i <= 1700; i++)
             {
                 var place = Updater.ObjectSpace.CreateObject<Place>();
@@ -90,6 +111,9 @@ namespace ActivacionProfetica.Module.DatabaseUpdate
                 place.Sector = BusinessObjects.Enums.Sector.Eagle;
                 place.ParentPlace = eaglePlace;
                 place.IsLeaf = true;
+                place.LetterName = string.Empty;
+                place.RowName = string.Empty;
+                place.Status = availablePlaceStatus;
             }
             SaveChanges();
         }
