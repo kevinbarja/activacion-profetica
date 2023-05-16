@@ -16,7 +16,7 @@ namespace ActivacionProfetica.Module.DatabaseUpdate
     // For more typical usage scenarios, be sure to check out https://docs.devexpress.com/eXpressAppFramework/DevExpress.ExpressApp.Updating.ModuleUpdater
     public class Updater : ModuleUpdater
     {
-        private const string CreateSchemeScript = "IF NOT EXISTS ( SELECT  * FROM sys.schemas WHERE   name = N'ap' ) EXEC('CREATE SCHEMA [ap] AUTHORIZATION [dbo]');";
+        private const string CreateSchemeScript = "IF NOT EXISTS ( SELECT  * FROM sys.schemas WHERE   Name = N'ap' ) EXEC('CREATE SCHEMA [ap] AUTHORIZATION [dbo]');";
 
         public Updater(IObjectSpace objectSpace, Version currentDBVersion) :
             base(objectSpace, currentDBVersion)
@@ -25,9 +25,8 @@ namespace ActivacionProfetica.Module.DatabaseUpdate
         public override void UpdateDatabaseAfterUpdateSchema()
         {
             base.UpdateDatabaseAfterUpdateSchema();
-            new OperationTypeData(this);
+            new PlaseStatusData(this);
             new PlaceData(this);
-            //new EagleSector(this);
 
 #if !RELEASE
             ApplicationUser sampleUser = ObjectSpace.FirstOrDefault<ApplicationUser>(u => u.UserName == "Usuario");
@@ -61,7 +60,7 @@ namespace ActivacionProfetica.Module.DatabaseUpdate
                 ObjectSpace.CommitChanges(); //This line persists created object(s).
                 ((ISecurityUserWithLoginInfo)userAdmin).CreateUserLoginInfo(SecurityDefaults.PasswordAuthentication, ObjectSpace.GetKeyValueAsString(userAdmin));
             }
-            // If a role with the Administrators name doesn't exist in the database, create this role
+            // If a role with the Administrators singularName doesn't exist in the database, create this role
             PermissionPolicyRole adminRole = ObjectSpace.FirstOrDefault<PermissionPolicyRole>(r => r.Name == "Administradores");
             if (adminRole == null)
             {

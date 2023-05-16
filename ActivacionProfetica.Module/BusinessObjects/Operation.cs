@@ -14,32 +14,24 @@ namespace ActivacionProfetica.Module.BusinessObjects
 {
     [Appearance("HidePlacesSelection", TargetItems = nameof(Places),
     Visibility = ViewItemVisibility.Hide,
-    Criteria = nameof(OperationType) + " is Null")]
-    [Appearance("HideOperationCode", TargetItems = nameof(Id),
+    Criteria = nameof(PlaceStatus) + " is Null")]
+    [Appearance("HideOperationCode", TargetItems = nameof(InternalId),
     Visibility = ViewItemVisibility.Hide,
     Criteria = "IsNewObject(this)")]
     [Caption("Operación")]
-    [DefaultProperty(nameof(Id))]
+    [DefaultProperty(nameof(InternalId))]
     [Persistent(Schema.Ap + nameof(Operation))]
     public class Operation : BaseEntity
     {
         Customer customer;
-        OperationType operationType;
+        PlaceStatus placeStatus;
 
         public override void AfterConstruction()
         {
             base.AfterConstruction();
-            OperationType = (from s in Session.Query<OperationType>()
-                             where s.InternalId == OperationType.DraftOperationType
-                             select s).Single();
-        }
-
-        [Caption("Código")]
-        [Appearance("DisableCode", Enabled = false)]
-        [VisibleInDetailView(true), VisibleInListView(true), VisibleInLookupListView(true)]
-        public new int Id
-        {
-            get => base.InternalId;
+            PlaceStatus = (from s in Session.Query<PlaceStatus>()
+                           where s.InternalId == PlaceStatus.AvailablePlaceStatus
+                           select s).Single();
         }
 
         [Caption("Persona")]
@@ -54,15 +46,15 @@ namespace ActivacionProfetica.Module.BusinessObjects
             set => SetPropertyValue(ref customer, value);
         }
 
-        [Caption("Tipo de operación")]
+        [Caption("Estado de los asientos seleccionados")]
         [RequiredField]
-        [Association("OperationType-Operations")]
-        [Persistent("OperationType_Operations")]
+        [Association("PlaceStatus-Operations")]
+        [Persistent("PlaceStatus_Operations")]
         [ImmediatePostData]
-        public OperationType OperationType
+        public PlaceStatus PlaceStatus
         {
-            get => operationType;
-            set => SetPropertyValue(ref operationType, value);
+            get => placeStatus;
+            set => SetPropertyValue(ref placeStatus, value);
         }
 
         [MemberDesignTimeVisibility(false)]
@@ -80,7 +72,7 @@ namespace ActivacionProfetica.Module.BusinessObjects
 
                 foreach (var placeFiltered in placesFiltered)
                 {
-                    if (this.OperationType.InternalId == OperationType.ReservaOperationType)
+                    if (this.PlaceStatus.InternalId == PlaceStatus.ReservedPlaceStatus)
                     {
                         if (CheckInheritance(placeFiltered, Place.ShofarSector, Place.EagleSector))
                         {
@@ -101,7 +93,7 @@ namespace ActivacionProfetica.Module.BusinessObjects
 
         private bool CheckInheritance(Place currentPlace, int parentPlaceId, int otherParentPlaceId)
         {
-            if (currentPlace.Id == parentPlaceId || currentPlace.Id == otherParentPlaceId)
+            if (currentPlace.InternalId == parentPlaceId || currentPlace.InternalId == otherParentPlaceId)
             {
                 return true;
             }
@@ -109,7 +101,7 @@ namespace ActivacionProfetica.Module.BusinessObjects
             for (Place place = currentPlace.ParentPlace;
                 place != null; place = place.ParentPlace)
             {
-                if (place.Id == parentPlaceId || place.Id == otherParentPlaceId)
+                if (place.InternalId == parentPlaceId || place.InternalId == otherParentPlaceId)
                 {
                     return true;
                 }
@@ -117,13 +109,14 @@ namespace ActivacionProfetica.Module.BusinessObjects
             return false;
         }
 
+        [ModelDefault("AllowEdit", "False")]
         [Caption("Selección de asientos")]
         [DataSourceProperty(nameof(PlacesFiltered), DataSourcePropertyIsNullMode.SelectNothing)]
         [Association("Operation-Places")]
         public XPCollection<Place> Places =>
             GetCollection<Place>(nameof(Places));
 
-        [OnChangedProperty(nameof(OperationType))]
+        [OnChangedProperty(nameof(PlaceStatus))]
         public void OnChangeOperationType(object currentValue, object newValue)
         {
             Places.Reload();

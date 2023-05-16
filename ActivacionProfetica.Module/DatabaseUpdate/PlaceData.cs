@@ -28,12 +28,12 @@ namespace ActivacionProfetica.Module.DatabaseUpdate
 
             //Create lion sector
             var lionPlace = Updater.ObjectSpace.CreateObject<Place>();
-            lionPlace.Id = Place.LionSector;
+            lionPlace.InternalId = Place.LionSector;
             lionPlace.Name = "León";
 
             //Create shofar sector
             var shofarPlace = CreateObject<Place>();
-            shofarPlace.Id = Place.ShofarSector;
+            shofarPlace.InternalId = Place.ShofarSector;
             shofarPlace.Name = "Shofar";
 
             SaveChanges();
@@ -73,19 +73,21 @@ namespace ActivacionProfetica.Module.DatabaseUpdate
                     seet.ParentPlace = rowObj;
                     seet.Name = seetName;
                     seet.IsLeaf = true;
+                    seet.Sector = (seet.ParentPlace.ParentPlace.InternalId == Place.LionSector) ? BusinessObjects.Enums.Sector.Lion : BusinessObjects.Enums.Sector.Shofar;
                 }
                 SaveChanges();
             }
 
             //Create eagle sector
             var eaglePlace = Updater.ObjectSpace.CreateObject<Place>();
-            eaglePlace.Id = Place.EagleSector;
+            eaglePlace.InternalId = Place.EagleSector;
             eaglePlace.Name = "Águila";
 
             for (int i = 1; i <= 1700; i++)
             {
                 var place = Updater.ObjectSpace.CreateObject<Place>();
                 place.Name = i.ToString();
+                place.Sector = BusinessObjects.Enums.Sector.Eagle;
                 place.ParentPlace = eaglePlace;
                 place.IsLeaf = true;
             }

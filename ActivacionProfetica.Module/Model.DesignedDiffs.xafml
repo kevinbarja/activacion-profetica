@@ -14,9 +14,9 @@
         <Items IsNewNode="True">
           <Item Id="Customers" Caption="Personas" ImageName="BO_Department" ViewId="Customer_ListView" IsNewNode="True" />
           <Item Id="Operations" Caption="Operaciones" ViewId="Operation_ListView" IsNewNode="True" />
-          <Item Id="OperationTypes" ViewId="OperationType_ListView" Caption="Tipo de operaciones" IsNewNode="True" />
           <Item Id="Places" Caption="Asientos" ViewId="" IsNewNode="True">
             <Items IsNewNode="True">
+              <Item Id="@86f69f98-cc7a-493d-8573-13c75285a74b" ViewId="PlaceStatus_ListView" Caption="Estados de los asientos" IsNewNode="True" />
               <Item Id="@873239e0-5184-4f76-96fc-7ec119fe5810" Caption="Vista lista" ViewId="Place_SimpleListView" IsNewNode="True" />
               <Item Id="TreeView" Caption="Vista árbol" ViewId="Place_ListView" IsNewNode="True" />
             </Items>
@@ -61,20 +61,86 @@
     </ListView>
     <DetailView Id="Customer_DetailView">
       <Layout>
-        <LayoutGroup Id="Main">
-          <LayoutGroup Id="SimpleEditors">
-            <LayoutGroup Id="Customer" ShowCaption="False" />
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="Customer" Caption="Información personal" IsCollapsibleGroup="True" RelativeSize="25.531914893617021">
+              <LayoutGroup Id="Customer_col1" RelativeSize="50">
+                <LayoutItem Id="CI" RelativeSize="36.170212765957444" />
+                <LayoutItem Id="FullName" RelativeSize="27.659574468085108" />
+                <LayoutItem Id="WhatsApp" RelativeSize="36.170212765957444" />
+              </LayoutGroup>
+              <LayoutGroup Id="Customer_col2" RelativeSize="50">
+                <LayoutItem Id="IsCcecoMember" RelativeSize="36.170212765957444" />
+                <LayoutItem Id="ChurchName" RelativeSize="63.829787234042556" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="BaseEntity" Caption="Auditoría" IsCollapsibleGroup="True" IsGroupCollapsed="True" RelativeSize="74.468085106382972">
+              <LayoutGroup Id="BaseEntity_col1" RelativeSize="50">
+                <LayoutItem Id="CreatedBy" Index="0" RelativeSize="9.7982708933717575" />
+                <LayoutItem Id="CreatedOn" Index="1" RelativeSize="90.201729106628235" />
+                <LayoutItem Id="InternalId" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="BaseEntity_col2" RelativeSize="50">
+                <LayoutItem Id="UpdatedBy" RelativeSize="9.7982708933717575" />
+                <LayoutItem Id="UpdatedOn" RelativeSize="90.201729106628235" />
+              </LayoutGroup>
+            </LayoutGroup>
           </LayoutGroup>
         </LayoutGroup>
       </Layout>
     </DetailView>
+    <ListView Id="Customer_ListView" Caption="Personas">
+      <Columns>
+        <ColumnInfo Id="CreatedBy" Index="4" Width="148" />
+        <ColumnInfo Id="CreatedOn" Index="5" />
+      </Columns>
+    </ListView>
     <ListView Id="Customer_LookupListView">
       <Columns>
         <ColumnInfo Id="CI" Index="0" />
         <ColumnInfo Id="FullName" Index="1" />
       </Columns>
     </ListView>
-    <ListView Id="Operation_Places_ListView">
+    <DetailView Id="Operation_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Operation">
+              <LayoutItem Id="InternalId" ViewItem="InternalId" ShowCaption="" Index="0" IsNewNode="True" />
+              <LayoutItem Id="Customer" Index="1" />
+              <LayoutItem Id="PlaceStatus" Index="2" />
+            </LayoutGroup>
+            <LayoutGroup Id="BaseEntity" Caption="Auditoría" Removed="True">
+              <LayoutGroup Id="BaseEntity_col1">
+                <LayoutItem Id="InternalId" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="Places_Group" Direction="Vertical" Caption="Selección de asientos">
+            <LayoutGroup Id="BaseEntity" Index="1" Direction="Horizontal" ShowCaption="True" Caption="Auditoría" IsNewNode="True">
+              <LayoutGroup Id="BaseEntity_col1" Index="0" ShowCaption="False" IsNewNode="True">
+                <LayoutItem Id="CreatedBy" ViewItem="CreatedBy" ShowCaption="" Index="1" IsNewNode="True" />
+                <LayoutItem Id="CreatedOn" ViewItem="CreatedOn" ShowCaption="" Index="2" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="BaseEntity_col2" Index="1" ShowCaption="False" IsNewNode="True">
+                <LayoutItem Id="UpdatedBy" ViewItem="UpdatedBy" ShowCaption="" Index="0" IsNewNode="True" />
+                <LayoutItem Id="UpdatedOn" ViewItem="UpdatedOn" ShowCaption="" Index="1" IsNewNode="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="Operation_ListView">
+      <Columns>
+        <ColumnInfo Id="InternalId" Index="0" />
+        <ColumnInfo Id="Customer" Index="1" />
+        <ColumnInfo Id="PlaceStatus" Index="2" />
+        <ColumnInfo Id="CreatedBy" Index="3" />
+        <ColumnInfo Id="CreatedOn" Index="4" />
+      </Columns>
+    </ListView>
+    <ListView Id="Operation_Places_ListView" AllowNew="True">
       <Columns>
         <ColumnInfo Id="Name" Index="-1" />
         <ColumnInfo Id="Operation" Index="-1" />
@@ -84,7 +150,7 @@
     <ListView Id="Operation_Places_LookupListView" ClassName="ActivacionProfetica.Module.BusinessObjects.Place" IsNewNode="True">
       <Columns IsNewNode="True">
         <ColumnInfo Id="Name" PropertyName="Name" SortIndex="-1" SortOrder="None" Index="0" Width="308" IsNewNode="True" />
-        <ColumnInfo Id="@5969e1e5-6be1-48b9-8e15-33b126f4138e" PropertyName="Id" Index="1" SortIndex="0" SortOrder="Ascending" Width="244" IsNewNode="True" />
+        <ColumnInfo Id="@08517a3f-4a92-4432-8b83-c0de536ee68f" PropertyName="InternalId" SortIndex="0" SortOrder="Ascending" Caption="." IsNewNode="True" />
       </Columns>
       <Sorting IsNewNode="True">
         <SortProperty Id="OrderPlacesByIdAsc" PropertyName="Id" IsNewNode="True" />
@@ -95,7 +161,7 @@
         <ColumnInfo Id="Name" Width="118" Index="0" />
         <ColumnInfo Id="Path" Index="1" SortIndex="-1" SortOrder="None" />
         <ColumnInfo Id="Operation" Width="187" Index="2" />
-        <ColumnInfo Id="Id" Index="3" SortIndex="0" SortOrder="Ascending" />
+        <ColumnInfo Id="InternalId" Index="3" SortIndex="0" SortOrder="Ascending" Caption="." />
       </Columns>
     </ListView>
     <ListView Id="Place_SimpleListView" ClassName="ActivacionProfetica.Module.BusinessObjects.Place" IsNewNode="True">
@@ -105,7 +171,14 @@
         <ColumnInfo Id="Name" PropertyName="Name" Width="118" Index="0" IsNewNode="True" />
         <ColumnInfo Id="Path" PropertyName="Path" Index="1" IsNewNode="True" />
         <ColumnInfo Id="Operation" PropertyName="Operation" Width="187" Index="2" IsNewNode="True" />
-        <ColumnInfo Id="Id" PropertyName="Id" Index="3" SortIndex="0" SortOrder="Ascending" IsNewNode="True" />
+      </Columns>
+    </ListView>
+    <ListView Id="PlaceStatus_ListView">
+      <Columns>
+        <ColumnInfo Id="SingularName" Index="-1" />
+        <ColumnInfo Id="PluralName" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="Description" Index="1" />
+        <ColumnInfo Id="InternalId" SortIndex="0" SortOrder="Ascending" Index="2" />
       </Columns>
     </ListView>
   </Views>

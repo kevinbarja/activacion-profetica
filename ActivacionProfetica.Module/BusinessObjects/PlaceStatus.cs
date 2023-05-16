@@ -1,47 +1,50 @@
 ﻿using ActivacionProfetica.Module.SharedKernel;
+using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using System.ComponentModel;
+using System.Drawing;
 using static ActivacionProfetica.Module.SharedKernel.Constants;
 using Caption = System.ComponentModel.DisplayNameAttribute;
 
 namespace ActivacionProfetica.Module.BusinessObjects
 {
-    [Caption("Tipo de operación")]
-    [DefaultProperty(nameof(Name))]
-    [Persistent(Schema.Ap + nameof(OperationType))]
-    public class OperationType : BaseEntity, IAPLookupView
+    [Caption("Estados de los asientos")]
+    [Appearance("WhiteText", TargetItems = nameof(InternalId), Context = "ListView", FontStyle = FontStyle.Bold, FontColor = "255,255,255")]
+    [DefaultProperty(nameof(PluralName))]
+    [Persistent(Schema.Ap + nameof(PlaceStatus))]
+    public class PlaceStatus : BaseEntity//, IAPLookupView
     {
-        public static int VentaOperationType = 1;
-        public static int ReservaOperationType = 2;
-        public static int OfrendaOperationType = 3;
-        public static int ConsignacionOperationType = 4;
-        public static int DraftOperationType = 5;
+        public static int AvailablePlaceStatus = 1;
+        public static int SoldPlaceStatus = 2;
+        public static int ReservedPlaceStatus = 3;
+        public static int ConsignmentPlaceStatus = 4;
+        public static int OfferingPlaceStatus = 5;
 
-        private string name;
-        private string placeStatusName;
+        private string singularName;
+        private string pluralName;
         private string description;
 
-        public OperationType(Session session) : base(session)
+        public PlaceStatus(Session session) : base(session)
         {
         }
 
-        [Caption("Nombre")]
+        [Caption("Nombre en singular")]
         [Size(StringSize.ShortSringSize), Nullable(false), RequiredField]
         [VisibleInDetailView(true), VisibleInListView(true), VisibleInLookupListView(true)]
-        public string Name
+        public string SingularName
         {
-            get => name;
-            set => SetPropertyValue(ref name, value);
+            get => singularName;
+            set => SetPropertyValue(ref singularName, value);
         }
 
-        [Caption("Estado del asiento")]
+        [Caption("Nombre en plural")]
         [Size(StringSize.ShortSringSize), Nullable(false), RequiredField]
         [VisibleInDetailView(true), VisibleInListView(true), VisibleInLookupListView(false)]
-        public string PlaceStatusName
+        public string PluralName
         {
-            get => placeStatusName;
-            set => SetPropertyValue(ref placeStatusName, value);
+            get => pluralName;
+            set => SetPropertyValue(ref pluralName, value);
         }
 
         [Caption("Descripción")]
@@ -55,7 +58,7 @@ namespace ActivacionProfetica.Module.BusinessObjects
 
         [Caption("Operaciones")]
         [MemberDesignTimeVisibility(false)]
-        [Association("OperationType-Operations")]
+        [Association("PlaceStatus-Operations")]
         public XPCollection<Operation> Operations => GetCollection<Operation>(nameof(Operations));
     }
 }

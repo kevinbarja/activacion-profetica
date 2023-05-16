@@ -1,11 +1,11 @@
 ﻿using ActivacionProfetica.Module.BusinessObjects;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp.Model;
-using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using System;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using Caption = System.ComponentModel.DisplayNameAttribute;
 
 namespace ActivacionProfetica.Module.SharedKernel
 {
@@ -17,8 +17,9 @@ namespace ActivacionProfetica.Module.SharedKernel
 
         private int id;
 
+        [Caption("Código")]
         [Key(true)]
-        [MemberDesignTimeVisibility(false)]
+        //[MemberDesignTimeVisibility(false)]
         public int InternalId
         {
             get => id;
@@ -29,13 +30,9 @@ namespace ActivacionProfetica.Module.SharedKernel
         {
             if (Session != null)
             {
-                //if (SecuritySystem.CurrentUserId != null && SecuritySystem.CurrentUserId.ToString() != "")
-                //{
                 return Session.FindObject<ApplicationUser>(CriteriaOperator.Parse("Oid=CurrentUserId()"));  // In non-XAF apps where SecuritySystem.Instance is unavailable (v20.1.7+).
-                //}
             }
             return null;
-            //return Session.GetObjectByKey<ApplicationUser>(SecuritySystem.CurrentUserId);  // In XAF apps for versions older than v20.1.7.
         }
         public override void AfterConstruction()
         {
@@ -50,23 +47,28 @@ namespace ActivacionProfetica.Module.SharedKernel
             UpdatedBy = GetCurrentUser();
         }
         ApplicationUser createdBy;
-        [VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
+        //[VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
+        [Caption("Registrado por")]
         [ModelDefault("AllowEdit", "False")]
         public ApplicationUser CreatedBy
         {
             get { return createdBy; }
             set { SetPropertyValue("CreatedBy", ref createdBy, value); }
         }
+
         DateTime createdOn;
-        [VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
+        [Caption("Fecha de registro")]
+        //[VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
         [ModelDefault("AllowEdit", "False"), ModelDefault("DisplayFormat", "G")]
         public DateTime CreatedOn
         {
             get { return createdOn; }
             set { SetPropertyValue("CreatedOn", ref createdOn, value); }
         }
+
         ApplicationUser updatedBy;
-        [VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
+        [Caption("Actualizado por")]
+        //[VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
         [ModelDefault("AllowEdit", "False")]
         public ApplicationUser UpdatedBy
         {
@@ -74,7 +76,8 @@ namespace ActivacionProfetica.Module.SharedKernel
             set { SetPropertyValue("UpdatedBy", ref updatedBy, value); }
         }
         DateTime updatedOn;
-        [VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
+        [Caption("Fecha actualización")]
+        //[VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
         [ModelDefault("AllowEdit", "False"), ModelDefault("DisplayFormat", "G")]
         public DateTime UpdatedOn
         {

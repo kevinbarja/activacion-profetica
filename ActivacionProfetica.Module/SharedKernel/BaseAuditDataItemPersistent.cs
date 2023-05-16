@@ -58,7 +58,7 @@ namespace ActivacionProfetica.Module.SharedKernel
         {
             get
             {
-                //Implement a custom logic to obtain a display name based on the OperationType.
+                //Implement a custom logic to obtain a display singularName based on the PlaceStatus.
                 string operationTypeString = string.Empty;
                 if (OperationType != null)
                 {

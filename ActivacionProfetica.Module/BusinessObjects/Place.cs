@@ -1,4 +1,5 @@
-﻿using ActivacionProfetica.Module.SharedKernel;
+﻿using ActivacionProfetica.Module.BusinessObjects.Enums;
+using ActivacionProfetica.Module.SharedKernel;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Base.General;
@@ -12,9 +13,10 @@ using Caption = System.ComponentModel.DisplayNameAttribute;
 
 namespace ActivacionProfetica.Module.BusinessObjects
 {
-    [Appearance("WhiteText", TargetItems = nameof(Id), Context = "ListView;Operation_Places_LookupListView", FontStyle = FontStyle.Bold, FontColor = "255,255,255")]
+    [Appearance("WhiteText", TargetItems = nameof(InternalId), Context = "ListView;Operation_Places_LookupListView", Criteria = "Operation is null", FontStyle = FontStyle.Bold, FontColor = "255,255,255")]
     //[Appearance("RiskAcceptanceAcceptedHide", Visibility = ViewItemVisibility.Hide, TargetItems = "Accepted;", Criteria = "[Risk].[AttachFile] Is Null", Context = "Risk_RiskAcceptances_ListView")]
     [Appearance("FontColorRed", AppearanceItemType = "ViewItem", TargetItems = "*", Context = "Operation_Places_LookupListView", Criteria = "Operation is not null", FontStyle = FontStyle.Strikeout, BackColor = "253, 125, 125")]
+    [Appearance("RedText", TargetItems = nameof(InternalId), Context = "Operation_Places_LookupListView", Criteria = "Operation is not null", FontStyle = FontStyle.Bold, FontColor = "253, 125, 125")]
     [Caption("Asiento")]
     [DefaultProperty(nameof(Path))]
     [Persistent(Schema.Ap + nameof(Place))]
@@ -27,16 +29,17 @@ namespace ActivacionProfetica.Module.BusinessObjects
         private Place parentPlace;
         private string name;
         Operation operation;
+        private Sector sector;
         private bool isLeaf;
 
-        [Caption(".")]
-        [Appearance("DisableCode", Enabled = false)]
-        [VisibleInDetailView(false), VisibleInListView(true), VisibleInLookupListView(true)]
-        public new int Id
-        {
-            get => base.InternalId;
-            set => base.InternalId = value;
-        }
+        //[Caption(".")]
+        //[Appearance("DisableCode", Enabled = false)]
+        //[VisibleInDetailView(false), VisibleInListView(true), VisibleInLookupListView(true)]
+        //public new int Id
+        //{
+        //    get => base.InternalId;
+        //    set => base.InternalId = value;
+        //}
 
         [Caption("Nombre")]
         [Size(255), Nullable(false), RequiredField]
@@ -46,6 +49,16 @@ namespace ActivacionProfetica.Module.BusinessObjects
             get => name;
             set => SetPropertyValue(ref name, value);
         }
+
+        [Caption("Sector")]
+        [Size(255), Nullable(false), RequiredField]
+        [VisibleInDetailView(true), VisibleInListView(true), VisibleInLookupListView(false)]
+        public Sector Sector
+        {
+            get => sector;
+            set => SetPropertyValue(ref sector, value);
+        }
+
 
         [Caption("Lugar superior")]
         [Persistent("ParentPlace_Place")]
@@ -132,7 +145,7 @@ namespace ActivacionProfetica.Module.BusinessObjects
         protected override void OnChanged(string propertyName, object oldValue, object newValue)
         {
             base.OnChanged(propertyName, oldValue, newValue);
-            if (!IsLoading && (propertyName == "Parent" || propertyName == "Name") && oldValue != newValue)
+            if (!IsLoading && (propertyName == "Parent" || propertyName == "SingularName") && oldValue != newValue)
             {
                 path = CalculatePath(this);
                 OnChanged("Path");
@@ -170,7 +183,7 @@ namespace ActivacionProfetica.Module.BusinessObjects
         ITreeNode ITreeNode.Parent => ParentPlace;
 
         //[Browsable(false)]
-        //public string Name => string.Empty;
+        //public string SingularName => string.Empty;
         #endregion
     }
 }

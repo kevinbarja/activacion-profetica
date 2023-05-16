@@ -122,8 +122,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BusinessObjects\Enums\PlaceStatus.cs" />
-    <Compile Include="BusinessObjects\OperationType.cs" />
+    <Compile Include="BusinessObjects\Enums\Sector.cs" />
+    <Compile Include="BusinessObjects\PlaceStatus.cs" />
     <Compile Include="BusinessObjects\Place.cs" />
     <Compile Include="BusinessObjects\Operation.cs" />
     <Compile Include="Controllers\AuditController.cs">
@@ -132,12 +132,13 @@
     <Compile Include="Controllers\MyStateMachineController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\OperationController.cs" />
+    <Compile Include="Controllers\OperationController.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Controllers\OperationDefaultValuesController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="DatabaseUpdate\EagleSector.cs" />
-    <Compile Include="DatabaseUpdate\OperationTypeData.cs" />
+    <Compile Include="DatabaseUpdate\PlaseStatusData.cs" />
     <Compile Include="DatabaseUpdate\PlaceData.cs" />
     <Compile Include="DatabaseUpdate\Updater.cs" />
     <Compile Include="BusinessObjects\ApplicationUser.cs" />
@@ -178,6 +179,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="UnusableNodes.xml">
+      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="UnusableNodes1.xml">
+      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="UnusableNodes2.xml">
       <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
       <SubType>Designer</SubType>
     </None>

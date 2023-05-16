@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views Id="Views">
+    <ListView Id="Place_SimpleListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="Id" PropertyName="Id" Index="3" SortIndex="0" SortOrder="Ascending" />
+      </Columns>
+    </ListView>
+    <ListView Id="Operation_Places_LookupListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="@5969e1e5-6be1-48b9-8e15-33b126f4138e" PropertyName="Id" Index="1" SortIndex="0" SortOrder="Ascending" Width="244" />
+      </Columns>
+    </ListView>
+    <ListView Id="Place_ListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="Id" Index="3" SortIndex="0" SortOrder="Ascending" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

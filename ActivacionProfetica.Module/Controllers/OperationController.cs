@@ -1,4 +1,5 @@
 ﻿using ActivacionProfetica.Module.BusinessObjects;
+using ActivacionProfetica.Module.SharedKernel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Xpo;
@@ -17,7 +18,7 @@ namespace ActivacionProfetica.Module.Controllers
         /// </summary>
         public OperationController()
         {
-            TargetViewId = "None";// Constants.View.OperationPlacesLookupListView;
+            TargetViewId = Constants.View.OperationPlacesLookupListView;
         }
 
         /// <summary>
@@ -56,7 +57,7 @@ namespace ActivacionProfetica.Module.Controllers
             {
                 using (UnitOfWork uow = new UnitOfWork(placeSelected.Session.DataLayer))
                 {
-                    var currentplaceSelected = uow.GetObjectByKey<Place>(placeSelected.Id);
+                    var currentplaceSelected = uow.GetObjectByKey<Place>(placeSelected.InternalId);
 
                     if (currentplaceSelected.ChildrenPlace != null && currentplaceSelected.ChildrenPlace.Any())
                     {

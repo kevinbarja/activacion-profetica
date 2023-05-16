@@ -16,6 +16,68 @@
     </PropertyEditor>
   </ViewItems>
   <Views>
+    <DetailView Id="Operation_DetailView">
+      <Items>
+        <PropertyEditor Id="Places" LinkView="Operation_Places_LookupListView" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors" ShowCaption="True" Caption="Información general" IsCardGroup="True" IsCollapsibleGroup="True" />
+          <LayoutGroup Id="Places_Group" IsCollapsibleGroup="True">
+            <LayoutGroup Id="BaseEntity" Removed="True" />
+          </LayoutGroup>
+          <LayoutGroup Id="Audit" Index="2" ShowCaption="True" Caption="Auditoría" IsCollapsibleGroup="True" IsGroupCollapsed="True" IsNewNode="True">
+            <LayoutGroup Id="BaseEntity" Index="1" Direction="Horizontal" ShowCaption="" Caption="Auditoría" IsNewNode="True">
+              <LayoutGroup Id="BaseEntity_col1" Index="0" ShowCaption="False" IsNewNode="True">
+                <LayoutItem Id="CreatedBy" ViewItem="CreatedBy" ShowCaption="" Index="1" IsNewNode="True" />
+                <LayoutItem Id="CreatedOn" ViewItem="CreatedOn" ShowCaption="" Index="2" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="BaseEntity_col2" Index="1" ShowCaption="False" IsNewNode="True">
+                <LayoutItem Id="UpdatedBy" ViewItem="UpdatedBy" ShowCaption="" Index="0" IsNewNode="True" />
+                <LayoutItem Id="UpdatedOn" ViewItem="UpdatedOn" ShowCaption="" Index="1" IsNewNode="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="Operation_ListView" Caption="Operaciones" />
+    <ListView Id="Operation_Places_ListView" EditorTypeName="DevExpress.ExpressApp.Web.Editors.ASPx.ASPxGridListEditor" IsGroupPanelVisible="False">
+      <Columns>
+        <ColumnInfo Id="Sector" SortOrder="None" GroupIndex="-1" Index="-1" />
+        <ColumnInfo Id="Path" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="InternalId" Index="1" SortIndex="0" SortOrder="Ascending" Width="147" Caption="." />
+      </Columns>
+    </ListView>
+    <ListView Id="Operation_Places_LookupListView" Caption="Asientos" />
+    <DetailView Id="Place_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors" IsCardGroup="True" ShowCaption="True" Caption="Información" IsCollapsibleGroup="True" IsGroupCollapsed="False">
+            <LayoutGroup Id="Place">
+              <LayoutItem Id="@65603873-b7bf-42c9-9667-2f8c98700b82" ViewItem="Path" ShowCaption="True" Index="1" IsNewNode="True" />
+              <LayoutItem Id="Sector" Index="2" Removed="True" />
+              <LayoutItem Id="ParentPlace" Index="3" />
+              <LayoutItem Id="Operation" Index="4" />
+            </LayoutGroup>
+            <LayoutGroup Id="BaseEntity" Removed="True" />
+          </LayoutGroup>
+          <LayoutGroup Id="SimpleEditors_Copy" Index="0" ShowCaption="True" IsCardGroup="True" IsCollapsibleGroup="True" IsGroupCollapsed="True" Caption="Auditoría" IsNewNode="True">
+            <LayoutGroup Id="BaseEntity" Index="1" Direction="Horizontal" ShowCaption="True" Caption="Base Entity" IsNewNode="True">
+              <LayoutGroup Id="BaseEntity_col1" Index="0" ShowCaption="False" IsNewNode="True">
+                <LayoutItem Id="InternalId" ViewItem="InternalId" ShowCaption="" Index="0" IsNewNode="True" />
+                <LayoutItem Id="CreatedBy" ViewItem="CreatedBy" ShowCaption="" Index="1" IsNewNode="True" />
+                <LayoutItem Id="CreatedOn" ViewItem="CreatedOn" ShowCaption="" Index="2" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="BaseEntity_col2" Index="1" ShowCaption="False" IsNewNode="True">
+                <LayoutItem Id="UpdatedBy" ViewItem="UpdatedBy" ShowCaption="" Index="0" IsNewNode="True" />
+                <LayoutItem Id="UpdatedOn" ViewItem="UpdatedOn" ShowCaption="" Index="1" IsNewNode="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
     <ListView Id="Place_SimpleListView" EditorTypeName="DevExpress.ExpressApp.Web.Editors.ASPx.ASPxGridListEditor" />
   </Views>
 </Application>
