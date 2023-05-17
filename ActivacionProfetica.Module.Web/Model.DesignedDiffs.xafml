@@ -5,6 +5,32 @@
       <Action Id="Exportar" IsPostBackRequired="True" />
     </Actions>
   </ActionDesign>
+  <NavigationItems>
+    <Items>
+      <Item Id="@fa8f286f-daeb-482e-b9c6-689f737ac75c" Caption="Parametrizaciones" IsNewNode="True">
+        <Items IsNewNode="True">
+          <Item Id="@ffcd03d8-c3aa-4793-88b8-2e2cf142e9cb" ViewId="PaymentPlan_ListView" Index="0" IsNewNode="True" />
+          <Item Id="XpoStateMachine_ListView" ViewId="XpoStateMachine_ListView" ObjectKey="" Caption="Transición de estados" Index="1" IsNewNode="True" />
+          <Item Id="@86f69f98-cc7a-493d-8573-13c75285a74b" ViewId="PlaceStatus_ListView" Index="2" IsNewNode="True" />
+        </Items>
+      </Item>
+      <Item Id="ActivacionProfetica">
+        <Items>
+          <Item Id="Operations" Index="0" />
+          <Item Id="Places">
+            <Items>
+              <Item Id="@86f69f98-cc7a-493d-8573-13c75285a74b" Removed="True" />
+            </Items>
+          </Item>
+        </Items>
+      </Item>
+      <Item Id="State Machine" Removed="True">
+        <Items>
+          <Item Id="XpoStateMachine_ListView" Removed="True" />
+        </Items>
+      </Item>
+    </Items>
+  </NavigationItems>
   <Options CollectionsEditMode="Edit" />
   <SchemaModules>
     <SchemaModule Name="SystemAspNetModule" Version="22.2.4.0" IsNewNode="True" />
@@ -65,6 +91,12 @@
       <Sorting>
         <SortProperty Id="OrderPlacesByIdAsc" Removed="True" />
       </Sorting>
+    </ListView>
+    <ListView Id="PaymentPlan_ListView">
+      <Columns>
+        <ColumnInfo Id="Sector" Width="157" />
+        <ColumnInfo Id="LimitDate" Width="206" />
+      </Columns>
     </ListView>
     <DetailView Id="Place_DetailView">
       <Layout>

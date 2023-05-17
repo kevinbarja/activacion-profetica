@@ -14,6 +14,7 @@ namespace ActivacionProfetica.Module.Controllers
         {
             base.OnActivated();
             Frame.GetController<NewObjectViewController>().NewObjectAction.Active["Startup"] = false;
+            //TODO: Desactivate unlink places when place status is Consignacion and update cuota.
         }
     }
 }

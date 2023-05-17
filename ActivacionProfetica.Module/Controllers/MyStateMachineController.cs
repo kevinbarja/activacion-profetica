@@ -6,7 +6,7 @@ using System;
 
 namespace ActivacionProfetica.Module.Controllers
 {
-    public partial class MyStateMachineController : ViewController
+    public partial class MyStateMachineController : ViewController<DetailView>
     {
         protected override void OnActivated()
         {
@@ -31,6 +31,7 @@ namespace ActivacionProfetica.Module.Controllers
             try
             {
                 //TODO: Validate no reservar asientos en León
+                //TODO: Validate concurrence on other operation
                 //Update estado de los asientos
                 var operation = (View.CurrentObject as Operation);
                 foreach (var place in operation.Places)

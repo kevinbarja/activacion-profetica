@@ -123,15 +123,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessObjects\Enums\Sector.cs" />
+    <Compile Include="BusinessObjects\PaymentPlan.cs" />
+    <Compile Include="BusinessObjects\PaymentPlanDetail.cs" />
     <Compile Include="BusinessObjects\PlaceStatus.cs" />
     <Compile Include="BusinessObjects\Place.cs" />
     <Compile Include="BusinessObjects\Operation.cs" />
     <Compile Include="Controllers\AuditController.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Controllers\MyStateMachineController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Controllers\MyStateMachineController.cs" />
     <Compile Include="Controllers\OperationListViewCustomizationController.cs" />
     <Compile Include="Controllers\OperationPlacesLookupController.cs">
       <SubType>Code</SubType>
