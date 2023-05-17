@@ -7,17 +7,19 @@
   </ActionDesign>
   <NavigationItems>
     <Items>
-      <Item Id="@fa8f286f-daeb-482e-b9c6-689f737ac75c" Caption="Parametrizaciones" IsNewNode="True">
+      <Item Id="@fa8f286f-daeb-482e-b9c6-689f737ac75c" Caption="Parametrizaciones" Index="0" IsNewNode="True">
         <Items IsNewNode="True">
-          <Item Id="@ffcd03d8-c3aa-4793-88b8-2e2cf142e9cb" ViewId="PaymentPlan_ListView" Index="0" IsNewNode="True" />
-          <Item Id="XpoStateMachine_ListView" ViewId="XpoStateMachine_ListView" ObjectKey="" Caption="Transición de estados" Index="1" IsNewNode="True" />
+          <Item Id="@b6ad8ea1-91ed-4164-8e8d-783b547f9d71" ViewId="Sector_ListView" Index="0" IsNewNode="True" />
+          <Item Id="@ffcd03d8-c3aa-4793-88b8-2e2cf142e9cb" ViewId="PaymentPlan_ListView" Index="1" IsNewNode="True" />
           <Item Id="@86f69f98-cc7a-493d-8573-13c75285a74b" ViewId="PlaceStatus_ListView" Index="2" IsNewNode="True" />
+          <Item Id="XpoStateMachine_ListView" ViewId="XpoStateMachine_ListView" ObjectKey="" Caption="Transiciones de estados" Index="3" IsNewNode="True" />
         </Items>
       </Item>
-      <Item Id="ActivacionProfetica">
+      <Item Id="ActivacionProfetica" Index="1">
         <Items>
-          <Item Id="Operations" Index="0" />
-          <Item Id="Places">
+          <Item Id="Customers" Index="0" />
+          <Item Id="Operations" Index="1" />
+          <Item Id="Places" Index="3">
             <Items>
               <Item Id="@86f69f98-cc7a-493d-8573-13c75285a74b" Removed="True" />
             </Items>
@@ -48,11 +50,18 @@
       </Items>
       <Layout>
         <LayoutGroup Id="Main">
-          <LayoutGroup Id="SimpleEditors" ShowCaption="True" Caption="Información general" IsCardGroup="True" IsCollapsibleGroup="True" />
-          <LayoutGroup Id="Places_Group" IsCollapsibleGroup="True">
-            <LayoutGroup Id="BaseEntity" Removed="True" />
+          <LayoutGroup Id="SimpleEditors" ShowCaption="True" Caption="Información general" IsCardGroup="True" IsCollapsibleGroup="True" Index="0" />
+          <LayoutGroup Id="PlacesSelection" Index="1" ShowCaption="True" Caption="Selección de asientos" IsCollapsibleGroup="True" IsNewNode="True">
+            <LayoutGroup Id="Places" Index="0" ShowCaption="True" IsNewNode="True">
+              <LayoutItem Id="Places" ViewItem="Places" ShowCaption="False" Index="0" IsNewNode="True" />
+            </LayoutGroup>
           </LayoutGroup>
-          <LayoutGroup Id="Audit" Index="2" ShowCaption="True" Caption="Auditoría" IsCollapsibleGroup="True" IsGroupCollapsed="True" IsNewNode="True">
+          <LayoutGroup Id="Payments" Index="2" ShowCaption="True" Caption="Cuotas" IsCollapsibleGroup="True" IsNewNode="True">
+            <LayoutGroup Id="Payments" Index="1" ShowCaption="True" IsNewNode="True">
+              <LayoutItem Id="Payments" ViewItem="Payments" ShowCaption="False" Index="0" IsNewNode="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="Audit" Index="3" ShowCaption="True" Caption="Auditoría" IsCollapsibleGroup="True" IsGroupCollapsed="True" IsNewNode="True">
             <LayoutGroup Id="BaseEntity" Index="1" Direction="Horizontal" ShowCaption="" Caption="Auditoría" IsNewNode="True">
               <LayoutGroup Id="BaseEntity_col1" Index="0" ShowCaption="False" IsNewNode="True">
                 <LayoutItem Id="CreatedBy" ViewItem="CreatedBy" ShowCaption="" Index="1" IsNewNode="True" />
@@ -64,10 +73,26 @@
               </LayoutGroup>
             </LayoutGroup>
           </LayoutGroup>
+          <TabbedGroup Id="Tabs" Removed="True">
+            <LayoutGroup Id="Payments" Removed="True" />
+            <LayoutGroup Id="Places" Removed="True" />
+          </TabbedGroup>
         </LayoutGroup>
       </Layout>
     </DetailView>
     <ListView Id="Operation_ListView" Caption="Operaciones" />
+    <ListView Id="Operation_Payments_ListView">
+      <Columns>
+        <ColumnInfo Id="PaymentPlanDetail" Width="107" Index="-1" SortIndex="0" SortOrder="Ascending" />
+        <ColumnInfo Id="NumeroCuota" PropertyName="PaymentPlanDetail.Number" Caption="Número cuota" Index="0" SortIndex="-1" SortOrder="None" IsNewNode="True" />
+        <ColumnInfo Id="Cuota" PropertyName="PaymentPlanDetail.Description" Caption="Cuota" Index="1" Width="282" IsNewNode="True" />
+        <ColumnInfo Id="LimitPaymentDate" PropertyName="PaymentPlanDetail.LimitDate" Index="2" Width="186" IsNewNode="True" />
+        <ColumnInfo Id="Amount" Index="3" Width="95" />
+        <ColumnInfo Id="PaymentStatus" Index="4" Width="78" />
+        <ColumnInfo Id="PaymentDate" Index="5" Width="151" />
+        <ColumnInfo Id="PaymentMethod" Width="132" Index="6" />
+      </Columns>
+    </ListView>
     <ListView Id="Operation_Places_ListView" EditorTypeName="DevExpress.ExpressApp.Web.Editors.ASPx.ASPxGridListEditor" IsGroupPanelVisible="False">
       <Columns>
         <ColumnInfo Id="InternalId" Index="-1" SortIndex="-1" SortOrder="None" Width="147" Caption="." />
@@ -92,12 +117,59 @@
         <SortProperty Id="OrderPlacesByIdAsc" Removed="True" />
       </Sorting>
     </ListView>
-    <ListView Id="PaymentPlan_ListView">
+    <DetailView Id="PaymentPlan_DetailView" Caption="Plan de financiamiento">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors" IsCardGroup="True" IsCollapsibleGroup="True" ShowCaption="True" Caption="Información general">
+            <LayoutGroup Id="BaseEntity" Removed="True" />
+          </LayoutGroup>
+          <LayoutGroup Id="SimpleEditors_Copy" Index="0" ShowCaption="True" IsCollapsibleGroup="True" IsNewNode="True">
+            <LayoutItem Id="PaymentPlanDetails" ViewItem="PaymentPlanDetails" ShowCaption="" Index="0" IsNewNode="True" />
+          </LayoutGroup>
+          <LayoutGroup Id="BaseEntity" Index="1" Direction="Horizontal" ShowCaption="True" Caption="Auditoría" IsCollapsibleGroup="True" IsGroupCollapsed="True" IsNewNode="True">
+            <LayoutGroup Id="BaseEntity_col1" Index="0" ShowCaption="False" IsNewNode="True">
+              <LayoutItem Id="CreatedBy" ViewItem="CreatedBy" ShowCaption="" Index="1" IsNewNode="True" />
+              <LayoutItem Id="CreatedOn" ViewItem="CreatedOn" ShowCaption="" Index="2" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="BaseEntity_col2" Index="1" ShowCaption="False" IsNewNode="True">
+              <LayoutItem Id="UpdatedBy" ViewItem="UpdatedBy" ShowCaption="" Index="0" IsNewNode="True" />
+              <LayoutItem Id="UpdatedOn" ViewItem="UpdatedOn" ShowCaption="" Index="1" IsNewNode="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="PaymentPlanDetails_Group" Removed="True">
+            <LayoutItem Id="PaymentPlanDetails" Removed="True" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="PaymentPlan_ListView" Caption="Planes de financiamiento">
       <Columns>
         <ColumnInfo Id="Sector" Width="157" />
         <ColumnInfo Id="LimitDate" Width="206" />
       </Columns>
     </ListView>
+    <ListView Id="PaymentPlan_PaymentPlanDetails_ListView">
+      <Columns>
+        <ColumnInfo Id="Number" Index="0" />
+        <ColumnInfo Id="Description" Index="1" Width="268" />
+        <ColumnInfo Id="Percentage" Width="113" />
+        <ColumnInfo Id="LimitDate" Width="190" />
+      </Columns>
+    </ListView>
+    <DetailView Id="PaymentPlanDetail_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="PaymentPlanDetail" IsCollapsibleGroup="True" ShowCaption="True" Caption="Información de la cuota" />
+            <LayoutGroup Id="BaseEntity" ShowCaption="True" IsCardGroup="True" IsCollapsibleGroup="True" IsGroupCollapsed="True" Caption="Auditoría">
+              <LayoutGroup Id="BaseEntity_col1">
+                <LayoutItem Id="InternalId" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
     <DetailView Id="Place_DetailView">
       <Layout>
         <LayoutGroup Id="Main">
@@ -132,5 +204,29 @@
       </Columns>
     </ListView>
     <ListView Id="Place_SimpleListView" EditorTypeName="DevExpress.ExpressApp.Web.Editors.ASPx.ASPxGridListEditor" Criteria="[IsLeaf] = True" Caption="Asientos" />
+    <DetailView Id="Sector_DetailView" Caption="Sectore" FreezeLayout="True" AllowDelete="False" AllowEdit="False" AllowNew="False">
+      <Layout IsNewNode="True" Removed="True">
+        <LayoutGroup Id="Main" Index="0" ShowCaption="False" IsNewNode="True">
+          <LayoutGroup Id="SimpleEditors" Index="0" ShowCaption="False" IsNewNode="True">
+            <LayoutGroup Id="Sector" Index="0" ShowCaption="False" IsNewNode="True">
+              <LayoutItem Id="Name" ViewItem="Name" ShowCaption="" Index="0" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="BaseEntity" Index="1" Direction="Horizontal" ShowCaption="True" Caption="Auditoría" IsCollapsibleGroup="True" IsGroupCollapsed="True" IsNewNode="True">
+              <LayoutGroup Id="BaseEntity_col1" Index="0" ShowCaption="False" IsNewNode="True">
+                <LayoutItem Id="CreatedBy" ViewItem="CreatedBy" ShowCaption="" Index="1" IsNewNode="True" />
+                <LayoutItem Id="CreatedOn" ViewItem="CreatedOn" ShowCaption="" Index="2" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="BaseEntity_col2" Index="1" ShowCaption="False" IsNewNode="True">
+                <LayoutItem Id="UpdatedBy" ViewItem="UpdatedBy" ShowCaption="" Index="0" IsNewNode="True" />
+                <LayoutItem Id="UpdatedOn" ViewItem="UpdatedOn" ShowCaption="" Index="1" IsNewNode="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="Sector_ListView" AllowDelete="False" AllowNew="False" />
+    <DetailView Id="XpoStateMachine_DetailView" Caption="Transición de estados" />
+    <ListView Id="XpoStateMachine_ListView" Caption="Transiciones de estados" />
   </Views>
 </Application>

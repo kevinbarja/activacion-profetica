@@ -122,12 +122,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BusinessObjects\Enums\Sector.cs" />
+    <Compile Include="BusinessObjects\Enums\PaymentMethod.cs" />
+    <Compile Include="BusinessObjects\Enums\PaymentStatus.cs" />
     <Compile Include="BusinessObjects\PaymentPlan.cs" />
     <Compile Include="BusinessObjects\PaymentPlanDetail.cs" />
+    <Compile Include="BusinessObjects\Payment.cs" />
     <Compile Include="BusinessObjects\PlaceStatus.cs" />
     <Compile Include="BusinessObjects\Place.cs" />
     <Compile Include="BusinessObjects\Operation.cs" />
+    <Compile Include="BusinessObjects\Sector.cs" />
     <Compile Include="Controllers\AuditController.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -138,6 +141,7 @@
     </Compile>
     <Compile Include="DatabaseUpdate\PlaseStatusData.cs" />
     <Compile Include="DatabaseUpdate\PlaceData.cs" />
+    <Compile Include="DatabaseUpdate\SectorData.cs" />
     <Compile Include="DatabaseUpdate\Updater.cs" />
     <Compile Include="BusinessObjects\ApplicationUser.cs" />
     <Compile Include="BusinessObjects\ApplicationUserLoginInfo.cs" />
@@ -165,7 +169,6 @@
     <EmbeddedResource Include="Properties\licenses.licx" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="BusinessObjects\ReadMe.txt" />
     <None Include="Controllers\ReadMe.txt" />
     <EmbeddedResource Include="DatabaseUpdate\Csv\seats.csv" />
     <None Include="DatabaseUpdate\ReadMe.txt" />

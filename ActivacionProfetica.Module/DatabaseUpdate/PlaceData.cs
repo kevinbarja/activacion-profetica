@@ -11,7 +11,7 @@ namespace ActivacionProfetica.Module.DatabaseUpdate
     public class PlaceData : BaseData
     {
         private const string FileName = "seats.csv";
-        private readonly string[] eagleSector = { "A", "B", "C", "D", "E", "F" };
+        private readonly string[] eagleSectorLetters = { "A", "B", "C", "D", "E", "F" };
 
         public PlaceData(Updater updater) : base(updater)
         {
@@ -26,21 +26,34 @@ namespace ActivacionProfetica.Module.DatabaseUpdate
                 return;
             }
 
+            var lionSector = (from s in Updater.Session.Query<Sector>()
+                              where s.InternalId == Sector.LionSectorId
+                              select s).Single();
+
+            var shofarSector = (from s in Updater.Session.Query<Sector>()
+                                where s.InternalId == Sector.ShofarSectorId
+                                select s).Single();
+
+            var eagleSector = (from s in Updater.Session.Query<Sector>()
+                               where s.InternalId == Sector.EagleSectorId
+                               select s).Single();
+
+
             var availablePlaceStatus = (from s in Updater.Session.Query<PlaceStatus>()
                                         where s.InternalId == PlaceStatus.AvailablePlaceStatus
                                         select s).Single();
 
             //Create lion sector
             var lionPlace = Updater.ObjectSpace.CreateObject<Place>();
-            lionPlace.InternalId = Place.LionSector;
-            lionPlace.Name = "León";
+            lionPlace.InternalId = Sector.LionSectorId;
+            lionPlace.Name = Sector.LionSectorName;
             lionPlace.LetterName = string.Empty;
             lionPlace.RowName = string.Empty;
 
             //Create shofar sector
             var shofarPlace = CreateObject<Place>();
-            shofarPlace.InternalId = Place.ShofarSector;
-            shofarPlace.Name = "Shofar";
+            shofarPlace.InternalId = Sector.ShofarSectorId;
+            shofarPlace.Name = Sector.ShofarSectorName;
             shofarPlace.LetterName = string.Empty;
             shofarPlace.RowName = string.Empty;
 
@@ -54,7 +67,7 @@ namespace ActivacionProfetica.Module.DatabaseUpdate
                 var sector = FindObject<Place>(CriteriaOperator.Parse($"Name = '{sectorName}'"));
                 if (sector is null)
                 {
-                    var parentPlace = (eagleSector.Contains(sectorName)) ? lionPlace : shofarPlace;
+                    var parentPlace = (eagleSectorLetters.Contains(sectorName)) ? lionPlace : shofarPlace;
                     sector = CreateObject<Place>();
                     sector.ParentPlace = parentPlace;
                     sector.Name = sectorName;
@@ -85,7 +98,7 @@ namespace ActivacionProfetica.Module.DatabaseUpdate
                     seet.ParentPlace = rowObj;
                     seet.Name = seetName;
                     seet.IsLeaf = true;
-                    seet.Sector = (sector.ParentPlace.InternalId == Place.LionSector) ? BusinessObjects.Enums.Sector.Lion : BusinessObjects.Enums.Sector.Shofar;
+                    seet.Sector = (sector.ParentPlace.InternalId == Sector.LionSectorId) ? lionSector : shofarSector;
                     seet.LetterName = sectorName;
                     seet.RowName = rowName;
                     seet.Status = availablePlaceStatus;
@@ -100,15 +113,15 @@ namespace ActivacionProfetica.Module.DatabaseUpdate
 
             //Create eagle sector
             var eaglePlace = Updater.ObjectSpace.CreateObject<Place>();
-            eaglePlace.InternalId = Place.EagleSector;
-            eaglePlace.Name = "Águila";
+            eaglePlace.InternalId = Sector.EagleSectorId;
+            eaglePlace.Name = Sector.EagleSectorName;
             eaglePlace.LetterName = string.Empty;
             eaglePlace.RowName = string.Empty;
             for (int i = 1; i <= 1700; i++)
             {
                 var place = Updater.ObjectSpace.CreateObject<Place>();
                 place.Name = i.ToString();
-                place.Sector = BusinessObjects.Enums.Sector.Eagle;
+                place.Sector = eagleSector;
                 place.ParentPlace = eaglePlace;
                 place.IsLeaf = true;
                 place.LetterName = string.Empty;

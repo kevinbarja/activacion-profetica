@@ -1,10 +1,11 @@
 ﻿using ActivacionProfetica.Module.SharedKernel;
+using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
+using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using static ActivacionProfetica.Module.SharedKernel.Constants;
@@ -25,6 +26,8 @@ namespace ActivacionProfetica.Module.BusinessObjects
     {
         Customer customer;
         PlaceStatus placeStatus;
+        Sector sector;
+        PaymentPlan paymentPlan;
 
         public override void AfterConstruction()
         {
@@ -57,37 +60,67 @@ namespace ActivacionProfetica.Module.BusinessObjects
             set => SetPropertyValue(ref placeStatus, value);
         }
 
+        [Caption("Sector")]
+        [RequiredField]
+        [Association("Sector-Operations")]
+        [Persistent("Sector_Operations")]
+        [ImmediatePostData]
+        public Sector Sector
+        {
+            get => sector;
+            set => SetPropertyValue(ref sector, value);
+        }
+
+
+
+        [Caption("Plan de financiamiento")]
+        [RequiredField]
+        [Association("PaymentPlan-Operations")]
+        [Persistent("PaymentPlan_Operations")]
+        [DataSourceCriteria("Sector=='@This.Sector'")]
+        public PaymentPlan PaymentPlan
+        {
+            get => paymentPlan;
+            set => SetPropertyValue(ref paymentPlan, value);
+        }
+
         [MemberDesignTimeVisibility(false)]
         [NonPersistent]
         public XPCollection<Place> PlacesFiltered
         {
             get
             {
-                List<Place> placesDatasource = new List<Place>();
-
-                XPQuery<Place> places = Session.Query<Place>();
-                var placesFiltered = from p in places
-                                     where p.Operation == null
-                                     select p;
-
-                foreach (var placeFiltered in placesFiltered)
+                XPCollection<Place> placesWihtoutStaff = new XPCollection<Place>(Session)
                 {
-                    if (this.PlaceStatus.InternalId == PlaceStatus.ReservedPlaceStatus)
-                    {
-                        if (CheckInheritance(placeFiltered, Place.ShofarSector, Place.EagleSector))
-                        {
-                            placesDatasource.Add(placeFiltered);
-                        }
-                    }
-                    else
-                    {
-                        placesDatasource.Add(placeFiltered);
-                    }
-                }
+                    Criteria = CriteriaOperator.Parse("[Sector] = [Operation.Sector] And [IsLeaf] = True And [Status.Description] = 'Disponible'")
+                };
+                return placesWihtoutStaff;
 
-                var result = new XPCollection<Place>(Session, placesDatasource);
+                //List<Place> placesDatasource = new List<Place>();
 
-                return result;
+                //XPQuery<Place> places = Session.Query<Place>();
+                //var placesFiltered = from p in places
+                //                     where p.Operation == null
+                //                     select p;
+
+                //foreach (var placeFiltered in placesFiltered)
+                //{
+                //    if (this.PlaceStatus.InternalId == PlaceStatus.ReservedPlaceStatus)
+                //    {
+                //        if (CheckInheritance(placeFiltered, Sector.ShofarSectorId, Sector.EagleSectorId))
+                //        {
+                //            placesDatasource.Add(placeFiltered);
+                //        }
+                //    }
+                //    else
+                //    {
+                //        placesDatasource.Add(placeFiltered);
+                //    }
+                //}
+
+                //var result = new XPCollection<Place>(Session, placesDatasource);
+
+                //return result;
             }
         }
 
@@ -129,13 +162,17 @@ namespace ActivacionProfetica.Module.BusinessObjects
             // Places.Reload();
         }
 
-        //[RuleFromBoolProperty("ValidateEmptyPlaces",
-        //            DefaultContexts.Save,
-        //            "Debe seleccionar al menos un asiento.",
-        //            UsedProperties = nameof(Places))]
-        //[NonPersistent]
-        //[MemberDesignTimeVisibility(false)]
-        //public bool ValidateEmptyPlaces => Places.Any();
+        [RuleFromBoolProperty("ValidateEmptyPlaces",
+                    DefaultContexts.Save,
+                    "Debe seleccionar al menos un asiento.",
+                    UsedProperties = nameof(Places))]
+        [NonPersistent]
+        [MemberDesignTimeVisibility(false)]
+        public bool ValidateEmptyPlaces => Places.Any();
+
+        [Caption("Cuotas")]
+        [Association("Operation-Payments"), Aggregated]
+        public XPCollection<Payment> Payments => GetCollection<Payment>();
 
         public Operation(Session session) : base(session)
         {

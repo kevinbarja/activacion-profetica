@@ -52,8 +52,8 @@ namespace ActivacionProfetica.Module.BusinessObjects
 
         //[DisplayName("%")]
         [ModelDefault("DisplayFormat", "{0:P0}")]
-        [RuleRange(DefaultContexts.Save, 1, 100)]
-        [Caption("Porcentaje")]
+        [RuleRange(DefaultContexts.Save, 0, 1)]
+        [Caption("Porcentaje de pago")]
         public decimal Percentage
         {
             get => percentage;
@@ -61,13 +61,17 @@ namespace ActivacionProfetica.Module.BusinessObjects
         }
 
         [Caption("Fecha límite de pago")]
-        [RequiredField]
         [VisibleInDetailView(true), VisibleInListView(true), VisibleInLookupListView(true)]
         public DateTime LimitDate
         {
             get => limitDate;
             set => SetPropertyValue(ref limitDate, value);
         }
+
+        [MemberDesignTimeVisibility(false)]
+        [Caption("Pago")]
+        [Association("PaymentPlanDetail-Payments")]
+        public XPCollection<Payment> Payments => GetCollection<Payment>();
 
         public PaymentPlanDetail(Session session) : base(session)
         {

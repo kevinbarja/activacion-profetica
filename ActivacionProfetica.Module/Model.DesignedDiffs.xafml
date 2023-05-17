@@ -26,7 +26,7 @@
       <Item Id="Reports" Visible="False" />
     </Items>
   </NavigationItems>
-  <Options LookupSmallCollectionItemCount="1">
+  <Options LookupSmallCollectionItemCount="20">
     <LayoutManagerOptions RequiredFieldMark="*" />
   </Options>
   <SchemaModules>

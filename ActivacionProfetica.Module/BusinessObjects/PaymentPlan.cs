@@ -1,5 +1,4 @@
-﻿using ActivacionProfetica.Module.BusinessObjects.Enums;
-using ActivacionProfetica.Module.SharedKernel;
+﻿using ActivacionProfetica.Module.SharedKernel;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using System;
@@ -15,7 +14,7 @@ namespace ActivacionProfetica.Module.BusinessObjects
     public class PaymentPlan : BaseEntity
     {
         private string description;
-        private Sector sector = Sector.Eagle;
+        private Sector sector;
         private DateTime limitDate;
 
 
@@ -28,8 +27,9 @@ namespace ActivacionProfetica.Module.BusinessObjects
             set => SetPropertyValue(ref description, value);
         }
 
-        [Caption("Sector")]
-        [Size(255), Nullable(false), RequiredField]
+        [Caption("Sector"), RequiredField]
+        [Association("Sector-PaymentPlans")]
+        [Persistent("Sector_PaymentPlans")]
         [VisibleInDetailView(true), VisibleInListView(true), VisibleInLookupListView(true)]
         public Sector Sector
         {
@@ -38,7 +38,6 @@ namespace ActivacionProfetica.Module.BusinessObjects
         }
 
         [Caption("Fecha máxima para acceder a este plan")]
-        [RequiredField]
         [VisibleInDetailView(true), VisibleInListView(true), VisibleInLookupListView(true)]
         public DateTime LimitDate
         {
@@ -49,6 +48,11 @@ namespace ActivacionProfetica.Module.BusinessObjects
         [Caption("Cuotas")]
         [Association("PaymentPlan-PaymentPlanDetails"), Aggregated]
         public XPCollection<PaymentPlanDetail> PaymentPlanDetails => GetCollection<PaymentPlanDetail>();
+
+        [MemberDesignTimeVisibility(false)]
+        [Caption("Operaciones")]
+        [Association("PaymentPlan-Operations")]
+        public XPCollection<Operation> Operations => GetCollection<Operation>();
 
         public PaymentPlan(Session session) : base(session)
         {

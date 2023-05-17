@@ -25,6 +25,7 @@ namespace ActivacionProfetica.Module.DatabaseUpdate
         public override void UpdateDatabaseAfterUpdateSchema()
         {
             base.UpdateDatabaseAfterUpdateSchema();
+            new SectorData(this);
             new PlaseStatusData(this);
             new PlaceData(this);
 

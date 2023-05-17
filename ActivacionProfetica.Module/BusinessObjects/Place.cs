@@ -1,5 +1,4 @@
-﻿using ActivacionProfetica.Module.BusinessObjects.Enums;
-using ActivacionProfetica.Module.SharedKernel;
+﻿using ActivacionProfetica.Module.SharedKernel;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Base.General;
@@ -22,10 +21,6 @@ namespace ActivacionProfetica.Module.BusinessObjects
     [Persistent(Schema.Ap + nameof(Place))]
     public class Place : BaseEntity, IPlace, ITreeNode
     {
-        public static int LionSector = 1;
-        public static int ShofarSector = 2;
-        public static int EagleSector = 3;
-
         private Place parentPlace;
         private string name;
         Operation operation;
@@ -68,7 +63,8 @@ namespace ActivacionProfetica.Module.BusinessObjects
         }
 
         [Caption("Sector")]
-        [Size(255), Nullable(false), RequiredField]
+        [Association("Sector-Places")]
+        [Persistent("Sector_Places")]
         [VisibleInDetailView(true), VisibleInListView(true), VisibleInLookupListView(false)]
         public Sector Sector
         {

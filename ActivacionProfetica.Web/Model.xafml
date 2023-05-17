@@ -1,3 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
+  <NavigationItems>
+    <Items>
+      <Item Id="Default" Caption="Seguridad" />
+    </Items>
+  </NavigationItems>
+  <SchemaModules>
+    <SchemaModule Name="SystemAspNetModule" Version="22.2.4.0" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="22.2.4.0" IsNewNode="True" />
+  </SchemaModules>
 </Application>
