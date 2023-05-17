@@ -3,9 +3,9 @@ using DevExpress.ExpressApp.SystemModule;
 
 namespace ActivacionProfetica.Module.Controllers
 {
-    public class OperationController : ViewController
+    public class OperationListViewCustomizationController : ViewController<ListView>
     {
-        public OperationController()
+        public OperationListViewCustomizationController()
         {
             TargetViewId = "Operation_Places_ListView";
         }

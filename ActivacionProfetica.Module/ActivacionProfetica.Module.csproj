@@ -132,14 +132,9 @@
     <Compile Include="Controllers\MyStateMachineController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\OperationController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Controllers\OperationListViewCustomizationController.cs" />
     <Compile Include="Controllers\OperationPlacesLookupController.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Controllers\OperationDefaultValuesController.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="DatabaseUpdate\PlaseStatusData.cs" />
     <Compile Include="DatabaseUpdate\PlaceData.cs" />

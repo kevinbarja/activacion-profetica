@@ -1,4 +1,5 @@
-﻿using DevExpress.ExpressApp;
+﻿using ActivacionProfetica.Module.BusinessObjects;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.StateMachine;
 using DevExpress.Persistent.Validation;
 using System;
@@ -29,6 +30,13 @@ namespace ActivacionProfetica.Module.Controllers
         {
             try
             {
+                //TODO: Validate no reservar asientos en León
+                //Update estado de los asientos
+                var operation = (View.CurrentObject as Operation);
+                foreach (var place in operation.Places)
+                {
+                    place.Status = operation.PlaceStatus;
+                }
                 View.ObjectSpace.CommitChanges();
             }
             catch (Exception ex)

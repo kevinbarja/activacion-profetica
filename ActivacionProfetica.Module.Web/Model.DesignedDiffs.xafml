@@ -44,12 +44,28 @@
     <ListView Id="Operation_ListView" Caption="Operaciones" />
     <ListView Id="Operation_Places_ListView" EditorTypeName="DevExpress.ExpressApp.Web.Editors.ASPx.ASPxGridListEditor" IsGroupPanelVisible="False">
       <Columns>
+        <ColumnInfo Id="InternalId" Index="-1" SortIndex="-1" SortOrder="None" Width="147" Caption="." />
+        <ColumnInfo Id="LetterName" Index="-1" SortIndex="0" SortOrder="Ascending" />
+        <ColumnInfo Id="RowName" Index="-1" />
         <ColumnInfo Id="Sector" SortOrder="None" GroupIndex="-1" Index="-1" />
-        <ColumnInfo Id="Path" SortIndex="-1" SortOrder="None" />
-        <ColumnInfo Id="InternalId" Index="1" SortIndex="0" SortOrder="Ascending" Width="147" Caption="." />
+        <ColumnInfo Id="Path" SortIndex="-1" SortOrder="None" Width="290" />
+        <ColumnInfo Id="Status" Index="1" />
       </Columns>
     </ListView>
-    <ListView Id="Operation_Places_LookupListView" Caption="Asientos" />
+    <ListView Id="Operation_Places_LookupListView" Caption="Asientos" EditorTypeName="DevExpress.ExpressApp.Web.Editors.ASPx.ASPxGridListEditor" IsGroupPanelVisible="True" Criteria="[IsLeaf] = True And [Status.InternalId] = 1">
+      <Columns>
+        <ColumnInfo Id="Fila" PropertyName="RowName" SortOrder="Ascending" GroupIndex="2" Index="0" IsNewNode="True" />
+        <ColumnInfo Id="Path" PropertyName="Path" Index="1" Width="397" IsNewNode="True" />
+        <ColumnInfo Id="Order" PropertyName="InternalId" Caption="." Index="2" SortIndex="0" SortOrder="Descending" IsNewNode="True" />
+        <ColumnInfo Id="SubSector" PropertyName="LetterName" Caption="Sub-sector" Index="3" SortOrder="Ascending" GroupIndex="1" IsNewNode="True" />
+        <ColumnInfo Id="Sector" PropertyName="Sector" SortOrder="Ascending" GroupIndex="0" Index="4" IsNewNode="True" />
+        <ColumnInfo Id="@08517a3f-4a92-4432-8b83-c0de536ee68f" Removed="True" />
+        <ColumnInfo Id="Name" Removed="True" />
+      </Columns>
+      <Sorting>
+        <SortProperty Id="OrderPlacesByIdAsc" Removed="True" />
+      </Sorting>
+    </ListView>
     <DetailView Id="Place_DetailView">
       <Layout>
         <LayoutGroup Id="Main">

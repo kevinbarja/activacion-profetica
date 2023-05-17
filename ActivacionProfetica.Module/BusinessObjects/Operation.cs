@@ -111,7 +111,7 @@ namespace ActivacionProfetica.Module.BusinessObjects
 
         //[ModelDefault("AllowEdit", "False")]
         [Caption("Selección de asientos")]
-        [DataSourceProperty(nameof(PlacesFiltered), DataSourcePropertyIsNullMode.SelectNothing)]
+        //[DataSourceProperty(nameof(PlacesFiltered), DataSourcePropertyIsNullMode.SelectNothing)]
         [Association("Operation-Places")]
         [ImmediatePostData]
         public XPCollection<Place> Places =>
