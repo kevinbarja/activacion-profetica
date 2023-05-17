@@ -23,21 +23,11 @@ namespace ActivacionProfetica.Module.Controllers
         {
             if (e.Object is Place || e.PropertyName == nameof(Operation.PaymentPlan))
             {
-                Operation op = null;
-                if (!(View?.CurrentObject is IObjectRecord))
-                {
-                    op = View?.CurrentObject as Operation;
-                }
-                else
-                {
-                    op = ObjectSpace.GetObject(View?.CurrentObject) as Operation;
-                }
-
                 var operation = (!(View?.CurrentObject is IObjectRecord)) ?
                     View?.CurrentObject as Operation
                     : ObjectSpace.GetObject(View?.CurrentObject) as Operation;
 
-                if (operation.PaymentPlan != null && e.Object is Place)
+                if ((operation.PaymentPlan != null && e.Object is Place) || (operation.PaymentPlan != null && operation.Places.Count > 0))
                 {
                     operation.Payments.Reload();
                     if (!(e.NewValue is null && operation.Places.Count == 0))
@@ -51,7 +41,8 @@ namespace ActivacionProfetica.Module.Controllers
                             {
                                 payment.PaymentDate = DateTime.Now;
                             }
-                            int totalAmount = (operation.Places.Count + 1) * operation.Sector.Amount;
+                            int factor = ((e.NewValue is null && e.Object is Place) || e.NewValue is PaymentPlan) ? 0 : 1;
+                            int totalAmount = (operation.Places.Count + factor) * operation.Sector.Amount;
                             payment.Amount = (int)(paymentPlanDetail.Percentage * totalAmount);
 
                             operation.Payments.Add(payment);

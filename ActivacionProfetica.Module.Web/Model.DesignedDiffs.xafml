@@ -46,6 +46,7 @@
   <Views>
     <DetailView Id="Operation_DetailView">
       <Items>
+        <PropertyEditor Id="Payments" AllowEdit="True" />
         <PropertyEditor Id="Places" LinkView="Operation_Places_LookupListView" />
       </Items>
       <Layout>
@@ -81,7 +82,7 @@
       </Layout>
     </DetailView>
     <ListView Id="Operation_ListView" Caption="Operaciones" />
-    <ListView Id="Operation_Payments_ListView" AllowEdit="True">
+    <ListView Id="Operation_Payments_ListView" AllowEdit="True" AllowDelete="False" AllowNew="True">
       <Columns>
         <ColumnInfo Id="PaymentPlanDetail" Width="107" Index="-1" SortIndex="0" SortOrder="Ascending" />
         <ColumnInfo Id="NumeroCuota" PropertyName="PaymentPlanDetail.Number" Caption="Número cuota" Index="0" SortIndex="-1" SortOrder="None" AllowEdit="False" IsNewNode="True" />
