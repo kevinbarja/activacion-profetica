@@ -20,14 +20,17 @@ namespace ActivacionProfetica.Module.DatabaseUpdate
                 var lionSector = Updater.ObjectSpace.CreateObject<Sector>();
                 lionSector.InternalId = Sector.LionSectorId;
                 lionSector.Name = Sector.LionSectorName;
+                lionSector.Amount = 250;
 
                 var shofarSector = Updater.ObjectSpace.CreateObject<Sector>();
                 shofarSector.InternalId = Sector.ShofarSectorId;
                 shofarSector.Name = Sector.ShofarSectorName;
+                shofarSector.Amount = 200;
 
                 var eagleSector = Updater.ObjectSpace.CreateObject<Sector>();
                 eagleSector.InternalId = Sector.EagleSectorId;
                 eagleSector.Name = Sector.EagleSectorName;
+                eagleSector.Amount = 140;
             }
         }
     }

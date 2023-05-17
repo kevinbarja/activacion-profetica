@@ -134,7 +134,11 @@
     <Compile Include="Controllers\AuditController.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Controllers\BussinessObjectViewController.cs" />
     <Compile Include="Controllers\MyStateMachineController.cs" />
+    <Compile Include="Controllers\OperationDetailViewController.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Controllers\OperationListViewCustomizationController.cs" />
     <Compile Include="Controllers\OperationPlacesLookupController.cs">
       <SubType>Code</SubType>

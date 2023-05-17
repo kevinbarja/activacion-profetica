@@ -52,12 +52,12 @@
         <LayoutGroup Id="Main">
           <LayoutGroup Id="SimpleEditors" ShowCaption="True" Caption="Información general" IsCardGroup="True" IsCollapsibleGroup="True" Index="0" />
           <LayoutGroup Id="PlacesSelection" Index="1" ShowCaption="True" Caption="Selección de asientos" IsCollapsibleGroup="True" IsNewNode="True">
-            <LayoutGroup Id="Places" Index="0" ShowCaption="True" IsNewNode="True">
+            <LayoutGroup Id="Places" Index="0" ShowCaption="False" IsNewNode="True">
               <LayoutItem Id="Places" ViewItem="Places" ShowCaption="False" Index="0" IsNewNode="True" />
             </LayoutGroup>
           </LayoutGroup>
           <LayoutGroup Id="Payments" Index="2" ShowCaption="True" Caption="Cuotas" IsCollapsibleGroup="True" IsNewNode="True">
-            <LayoutGroup Id="Payments" Index="1" ShowCaption="True" IsNewNode="True">
+            <LayoutGroup Id="Payments" Index="1" ShowCaption="False" IsNewNode="True">
               <LayoutItem Id="Payments" ViewItem="Payments" ShowCaption="False" Index="0" IsNewNode="True" />
             </LayoutGroup>
           </LayoutGroup>
@@ -81,13 +81,13 @@
       </Layout>
     </DetailView>
     <ListView Id="Operation_ListView" Caption="Operaciones" />
-    <ListView Id="Operation_Payments_ListView">
+    <ListView Id="Operation_Payments_ListView" AllowEdit="True">
       <Columns>
         <ColumnInfo Id="PaymentPlanDetail" Width="107" Index="-1" SortIndex="0" SortOrder="Ascending" />
-        <ColumnInfo Id="NumeroCuota" PropertyName="PaymentPlanDetail.Number" Caption="Número cuota" Index="0" SortIndex="-1" SortOrder="None" IsNewNode="True" />
-        <ColumnInfo Id="Cuota" PropertyName="PaymentPlanDetail.Description" Caption="Cuota" Index="1" Width="282" IsNewNode="True" />
-        <ColumnInfo Id="LimitPaymentDate" PropertyName="PaymentPlanDetail.LimitDate" Index="2" Width="186" IsNewNode="True" />
-        <ColumnInfo Id="Amount" Index="3" Width="95" />
+        <ColumnInfo Id="NumeroCuota" PropertyName="PaymentPlanDetail.Number" Caption="Número cuota" Index="0" SortIndex="-1" SortOrder="None" AllowEdit="False" IsNewNode="True" />
+        <ColumnInfo Id="Cuota" PropertyName="PaymentPlanDetail.Description" Caption="Cuota" Index="1" Width="282" AllowEdit="False" IsNewNode="True" />
+        <ColumnInfo Id="LimitPaymentDate" PropertyName="PaymentPlanDetail.LimitDate" Index="2" Width="186" AllowEdit="False" IsNewNode="True" />
+        <ColumnInfo Id="Amount" Index="3" Width="95" AllowEdit="False" />
         <ColumnInfo Id="PaymentStatus" Index="4" Width="78" />
         <ColumnInfo Id="PaymentDate" Index="5" Width="151" />
         <ColumnInfo Id="PaymentMethod" Width="132" Index="6" />

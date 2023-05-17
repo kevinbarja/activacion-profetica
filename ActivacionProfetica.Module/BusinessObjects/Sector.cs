@@ -20,6 +20,7 @@ namespace ActivacionProfetica.Module.BusinessObjects
         public static string EagleSectorName = "Águila";
 
         private string name;
+        int amount;
 
         [Caption("Nombre")]
         [Size(255), Nullable(false), RequiredField]
@@ -28,6 +29,14 @@ namespace ActivacionProfetica.Module.BusinessObjects
         {
             get => name;
             set => SetPropertyValue(ref name, value);
+        }
+
+        [Caption("Ofrenda")]
+        [VisibleInDetailView(true), VisibleInListView(true), VisibleInLookupListView(true)]
+        public int Amount
+        {
+            get { return amount; }
+            set { amount = value; }
         }
 
         [MemberDesignTimeVisibility(false)]

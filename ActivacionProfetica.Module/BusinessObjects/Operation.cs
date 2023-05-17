@@ -6,6 +6,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
+using System;
 using System.ComponentModel;
 using System.Linq;
 using static ActivacionProfetica.Module.SharedKernel.Constants;
@@ -75,9 +76,11 @@ namespace ActivacionProfetica.Module.BusinessObjects
 
         [Caption("Plan de financiamiento")]
         [RequiredField]
+        [ImmediatePostData]
         [Association("PaymentPlan-Operations")]
         [Persistent("PaymentPlan_Operations")]
         [DataSourceCriteria("Sector=='@This.Sector'")]
+        //TODO: Add limit date condition.
         public PaymentPlan PaymentPlan
         {
             get => paymentPlan;
@@ -156,11 +159,12 @@ namespace ActivacionProfetica.Module.BusinessObjects
             // Places.Reload();
         }
 
-        [OnChangedProperty(nameof(Places))]
-        public void OnChangePlaces(object currentValue, object newValue)
-        {
-            // Places.Reload();
-        }
+        //[OnChangedProperty(nameof(Operation))]
+        //public void OnChangePlaces(object currentValue, object newValue)
+        //{
+        //    CalculatePayments();
+        //    // Places.Reload();
+        //}
 
         [RuleFromBoolProperty("ValidateEmptyPlaces",
                     DefaultContexts.Save,
@@ -173,6 +177,44 @@ namespace ActivacionProfetica.Module.BusinessObjects
         [Caption("Cuotas")]
         [Association("Operation-Payments"), Aggregated]
         public XPCollection<Payment> Payments => GetCollection<Payment>();
+
+
+        //[OnChangedProperty(nameof(PaymentPlan))]
+        //public void OnChangePaymentPlan(object currentValue, object newValue)
+        //{
+        //    CalculatePayments();
+        //}
+
+        public void CalculatePayments()
+        {
+            Payments.Reload();
+            if (Places.Count > 0 && PaymentPlan != null)
+            {
+                foreach (var paymentPlanDetail in PaymentPlan.PaymentPlanDetails)
+                {
+                    var payment = new Payment(Session);
+                    payment.PaymentPlanDetail = paymentPlanDetail;
+                    if (paymentPlanDetail.LimitDate == null)
+                    {
+                        payment.PaymentDate = DateTime.Now;
+                    }
+                    int totalAmount = Places.Count * Sector.Amount;
+                    payment.Amount = (int)(paymentPlanDetail.Percentage * totalAmount);
+
+                    Payments.Add(payment);
+                }
+                CallOnChanged(nameof(Payments));
+            }
+        }
+
+        //protected override void OnChanged(string propertyName, object oldValue, object newValue)
+        //{
+        //    base.OnChanged(propertyName, oldValue, newValue);
+        //    if (propertyName == nameof(Operation) || propertyName == nameof(Operation.PaymentPlan))
+        //    {
+        //        CalculatePayments();
+        //    }
+        //}
 
         public Operation(Session session) : base(session)
         {
