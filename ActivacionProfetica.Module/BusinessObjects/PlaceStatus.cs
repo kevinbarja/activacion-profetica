@@ -11,7 +11,7 @@ namespace ActivacionProfetica.Module.BusinessObjects
 {
     [Caption("Estados de los asientos")]
     [Appearance("WhiteText", TargetItems = nameof(InternalId), Context = "ListView", FontStyle = FontStyle.Bold, FontColor = "255,255,255")]
-    [DefaultProperty(nameof(PluralName))]
+    [DefaultProperty(nameof(SingularName))]
     [Persistent(Schema.Ap + nameof(PlaceStatus))]
     public class PlaceStatus : BaseEntity//, IAPLookupView
     {

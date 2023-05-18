@@ -14,7 +14,7 @@ namespace ActivacionProfetica.Module.BusinessObjects
     {
         PaymentPlanDetail paymentPlanDetail;
         int amount;
-        DateTime paymentDate;
+        DateTime? paymentDate;
         PaymentMethod paymentMethod;
         PaymentStatus paymentStatus;
         Operation operation;
@@ -43,7 +43,7 @@ namespace ActivacionProfetica.Module.BusinessObjects
         public PaymentStatus PaymentStatus
         {
             get { return paymentStatus; }
-            set { paymentStatus = value; }
+            set => SetPropertyValue(ref paymentStatus, value);
         }
 
         [Caption("Monto")]
@@ -51,23 +51,38 @@ namespace ActivacionProfetica.Module.BusinessObjects
         public int Amount
         {
             get { return amount; }
-            set { amount = value; }
+            set => SetPropertyValue(ref amount, value);
         }
 
         [Caption("Fecha de pago")]
+        [Nullable(true)]
         [VisibleInDetailView(true), VisibleInListView(true), VisibleInLookupListView(true)]
-        public DateTime PaymentDate
+        public DateTime? PaymentDate
         {
             get { return paymentDate; }
-            set { paymentDate = value; }
+            set => SetPropertyValue(ref paymentDate, value);
         }
 
         [Caption("Método de pago")]
+        [ImmediatePostData]
         [VisibleInDetailView(true), VisibleInListView(true), VisibleInLookupListView(true)]
         public PaymentMethod PaymentMethod
         {
             get { return paymentMethod; }
-            set { paymentMethod = value; }
+            set => SetPropertyValue(ref paymentMethod, value);
+        }
+
+        [OnChangedProperty(nameof(PaymentMethod))]
+        public void OnChangedPaymentMethod()
+        {
+            if (PaymentMethod == PaymentMethod.None)
+            {
+                PaymentDate = null;
+            }
+            else
+            {
+                PaymentDate = DateTime.Now;
+            }
         }
 
         public Payment(Session session) : base(session)

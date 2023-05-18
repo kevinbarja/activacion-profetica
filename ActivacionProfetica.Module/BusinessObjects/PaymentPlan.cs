@@ -15,7 +15,7 @@ namespace ActivacionProfetica.Module.BusinessObjects
     {
         private string description;
         private Sector sector;
-        private DateTime limitDate;
+        private DateTime? limitDate;
 
 
         [Caption("Descripción")]
@@ -38,8 +38,9 @@ namespace ActivacionProfetica.Module.BusinessObjects
         }
 
         [Caption("Fecha máxima para acceder a este plan")]
+        [Nullable(true)]
         [VisibleInDetailView(true), VisibleInListView(true), VisibleInLookupListView(true)]
-        public DateTime LimitDate
+        public DateTime? LimitDate
         {
             get => limitDate;
             set => SetPropertyValue(ref limitDate, value);

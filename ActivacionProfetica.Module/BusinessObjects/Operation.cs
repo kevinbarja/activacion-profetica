@@ -3,7 +3,6 @@ using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
-using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using System.ComponentModel;
 using System.Linq;
@@ -15,9 +14,15 @@ namespace ActivacionProfetica.Module.BusinessObjects
     [Appearance("HidePlacesSelection", TargetItems = nameof(Places),
     Visibility = ViewItemVisibility.Hide,
     Criteria = nameof(PlaceStatus) + " is Null")]
+
     [Appearance("HideOperationCode", TargetItems = nameof(InternalId),
     Visibility = ViewItemVisibility.Hide,
     Criteria = "IsNewObject(this)")]
+
+    [Appearance("DisableSector", TargetItems = nameof(Sector),
+    Enabled = false,
+    Criteria = "!IsNewObject(this)")]
+
     [Caption("Operación")]
     [DefaultProperty(nameof(InternalId))]
     [Persistent(Schema.Ap + nameof(Operation))]
@@ -106,13 +111,13 @@ namespace ActivacionProfetica.Module.BusinessObjects
             GetCollection<Place>(nameof(Places));
 
 
-        [RuleFromBoolProperty("ValidateEmptyPlaces",
-                    DefaultContexts.Save,
-                    "Debe seleccionar al menos un asiento.",
-                    UsedProperties = nameof(Places))]
-        [NonPersistent]
-        [MemberDesignTimeVisibility(false)]
-        public bool ValidateEmptyPlaces => Places.Any();
+        //[RuleFromBoolProperty("ValidateEmptyPlaces",
+        //            DefaultContexts.Save,
+        //            "Debe seleccionar al menos un asiento.",
+        //            UsedProperties = nameof(Places))]
+        //[NonPersistent]
+        //[MemberDesignTimeVisibility(false)]
+        //public bool ValidateEmptyPlaces => Places.Any();
 
         [Caption("Cuotas")]
         [Association("Operation-Payments"), Aggregated]

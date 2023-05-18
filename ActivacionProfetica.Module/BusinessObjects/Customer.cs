@@ -14,6 +14,7 @@ namespace ActivacionProfetica.Module.BusinessObjects
     [Appearance("HideAdvisorInfo", TargetItems = nameof(ChurchName),
     Visibility = ViewItemVisibility.Hide,
     Criteria = nameof(IsCcecoMember) + "=True")]
+
     [Caption("Persona")]
     [ImageName("BO_Person")]
     [DefaultProperty(nameof(FullName))]

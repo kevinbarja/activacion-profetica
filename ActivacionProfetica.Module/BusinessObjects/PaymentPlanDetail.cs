@@ -19,7 +19,7 @@ namespace ActivacionProfetica.Module.BusinessObjects
         private int number;
         private string description;
         private decimal percentage;
-        private DateTime limitDate;
+        private DateTime? limitDate;
 
         [Caption("Plan de financiamiento")]
         [Association("PaymentPlan-PaymentPlanDetails")]
@@ -61,8 +61,9 @@ namespace ActivacionProfetica.Module.BusinessObjects
         }
 
         [Caption("Fecha límite de pago")]
+        [Nullable(true)]
         [VisibleInDetailView(true), VisibleInListView(true), VisibleInLookupListView(true)]
-        public DateTime LimitDate
+        public DateTime? LimitDate
         {
             get => limitDate;
             set => SetPropertyValue(ref limitDate, value);

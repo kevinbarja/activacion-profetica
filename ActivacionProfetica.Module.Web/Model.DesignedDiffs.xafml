@@ -57,19 +57,25 @@
   <Views>
     <DetailView Id="Operation_DetailView">
       <Items>
-        <PropertyEditor Id="PaymentPlan" DataSourceCriteria="[Sector] = '@This.Sector' And [LimitDate] Is Null Or [Sector] = '@This.Sector' And [LimitDate] &gt;= LocalDateTimeToday()" />
+        <PropertyEditor Id="PaymentPlan" DataSourceCriteria="[Sector] = '@This.Sector' And [LimitDate] Is Null Or [Sector] = '@This.Sector' And [LimitDate] &gt;= LocalDateTimeToday()" View="PaymentPlan_LookupListView" />
         <PropertyEditor Id="Payments" AllowEdit="True" />
-        <PropertyEditor Id="Places" DataSourceCriteria="[IsLeaf] = True And [Status.InternalId] = 1 And [Sector] = '@This.Sector'" LinkView="Operation_Places_LookupListView" />
+        <PropertyEditor Id="Places" DataSourceCriteria="[IsLeaf] = True And [Status.InternalId] = 1 And [Sector] = '@This.Sector' And [Operation] Is Null" LinkView="Operation_Places_LookupListView" />
+        <PropertyEditor Id="Sector" View="Sector_LookupListView" />
       </Items>
       <Layout>
         <LayoutGroup Id="Main">
-          <LayoutGroup Id="SimpleEditors" ShowCaption="True" Caption="Información general" IsCardGroup="True" IsCollapsibleGroup="True" Index="0" />
-          <LayoutGroup Id="PlacesSelection" Index="1" ShowCaption="True" Caption="Selección de asientos" IsCollapsibleGroup="True" IsNewNode="True">
+          <LayoutGroup Id="SimpleEditors" ShowCaption="True" Caption="Información general" IsCardGroup="True" IsCollapsibleGroup="True" Index="0">
+            <LayoutGroup Id="Operation">
+              <LayoutItem Id="PaymentPlan" Removed="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="PlacesSelection" Index="1" ShowCaption="True" Caption="Asientos" IsCollapsibleGroup="True" IsNewNode="True">
             <LayoutGroup Id="Places" Index="0" ShowCaption="False" IsNewNode="True">
               <LayoutItem Id="Places" ViewItem="Places" ShowCaption="False" Index="0" IsNewNode="True" />
             </LayoutGroup>
           </LayoutGroup>
-          <LayoutGroup Id="Payments" Index="2" ShowCaption="True" Caption="Cuotas" IsCollapsibleGroup="True" IsNewNode="True">
+          <LayoutGroup Id="Payments" Index="2" ShowCaption="True" Caption="Plan de financiamiento" IsCollapsibleGroup="True" IsNewNode="True">
+            <LayoutItem Id="PaymentPlan" ViewItem="PaymentPlan" ShowCaption="" Index="0" IsNewNode="True" />
             <LayoutGroup Id="Payments" Index="1" ShowCaption="False" IsNewNode="True">
               <LayoutItem Id="Payments" ViewItem="Payments" ShowCaption="False" Index="0" IsNewNode="True" />
             </LayoutGroup>
@@ -101,8 +107,12 @@
         <ColumnInfo Id="NumeroCuota" PropertyName="PaymentPlanDetail.Number" Caption="Número cuota" Index="0" SortIndex="-1" SortOrder="None" AllowEdit="False" IsNewNode="True" />
         <ColumnInfo Id="Cuota" PropertyName="PaymentPlanDetail.Description" Caption="Cuota" Index="1" Width="282" AllowEdit="False" IsNewNode="True" />
         <ColumnInfo Id="LimitPaymentDate" PropertyName="PaymentPlanDetail.LimitDate" Index="2" Width="186" AllowEdit="False" IsNewNode="True" />
-        <ColumnInfo Id="Amount" Index="3" Width="95" AllowEdit="False" />
-        <ColumnInfo Id="PaymentDate" Index="4" Width="151" />
+        <ColumnInfo Id="Amount" Index="3" Width="95" AllowEdit="False">
+          <Summary>
+            <ColumnSummaryItem Id="@b22451a8-a936-49ae-bb19-f5613a3967ab" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="PaymentDate" Index="4" Width="151" AllowEdit="False" />
         <ColumnInfo Id="PaymentMethod" Width="132" Index="5" />
       </Columns>
     </ListView>
@@ -166,6 +176,7 @@
         <ColumnInfo Id="LimitDate" Width="206" />
       </Columns>
     </ListView>
+    <ListView Id="PaymentPlan_LookupListView" AllowNew="False" />
     <ListView Id="PaymentPlan_PaymentPlanDetails_ListView">
       <Columns>
         <ColumnInfo Id="Number" Index="0" />
@@ -244,6 +255,7 @@
       </Layout>
     </DetailView>
     <ListView Id="Sector_ListView" AllowDelete="False" AllowNew="False" />
+    <ListView Id="Sector_LookupListView" AllowNew="False" />
     <DetailView Id="XpoStateMachine_DetailView" Caption="Transición de estados" />
     <ListView Id="XpoStateMachine_ListView" Caption="Transiciones de estados" />
   </Views>

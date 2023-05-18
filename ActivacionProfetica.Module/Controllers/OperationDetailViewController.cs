@@ -2,7 +2,6 @@
 using ActivacionProfetica.Module.SharedKernel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Xpo;
-using System;
 
 namespace ActivacionProfetica.Module.Controllers
 {
@@ -38,10 +37,10 @@ namespace ActivacionProfetica.Module.Controllers
                             var payment = new Payment(((XPObjectSpace)ObjectSpace).Session);
                             payment.InternalId = paymentPlanDetail.Number * -1;
                             payment.PaymentPlanDetail = paymentPlanDetail;
-                            if (paymentPlanDetail.LimitDate == null)
-                            {
-                                payment.PaymentDate = DateTime.Now;
-                            }
+                            //if (paymentPlanDetail.LimitDate == null || paymentPlanDetail.LimitDate == DateTime.MinValue)
+                            //{
+                            //    payment.PaymentDate = DateTime.Now;
+                            //}
                             int factor = ((e.NewValue is null && e.Object is Place) || e.NewValue is PaymentPlan) ? 0 : 1;
                             int totalAmount = (operation.Places.Count + factor) * operation.Sector.Amount;
                             payment.Amount = (int)(paymentPlanDetail.Percentage * totalAmount);
@@ -58,26 +57,6 @@ namespace ActivacionProfetica.Module.Controllers
                     operation.Payments.Reload();
                     operation.CallOnChanged(nameof(Operation.Payments));
                 }
-                /*
-                //var session = ((XPObjectSpace)this.ObjectSpace).Session;
-
-                var operation = View.CurrentObject as Operation;
-                //Payments.Reload();
-                foreach (var paymentPlanDetail in operation.PaymentPlan.PaymentPlanDetails)
-                {
-                    var payment = new Payment(operation.Session);
-                    payment.PaymentPlanDetail = paymentPlanDetail;
-                    if (paymentPlanDetail.LimitDate == null)
-                    {
-                        payment.PaymentDate = DateTime.Now;
-                    }
-                    int totalAmount = operation.Places.Count * operation.Sector.Amount;
-                    payment.Amount = (int)(paymentPlanDetail.Percentage * totalAmount);
-
-                    operation.Payments.Add(payment);
-                }
-                //operation.CallOnChanged(nameof(Operation.Payments));
-                */
             }
         }
 
