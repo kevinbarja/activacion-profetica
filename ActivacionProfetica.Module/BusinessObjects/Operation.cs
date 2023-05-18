@@ -1,12 +1,10 @@
 ﻿using ActivacionProfetica.Module.SharedKernel;
-using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-using System;
 using System.ComponentModel;
 using System.Linq;
 using static ActivacionProfetica.Module.SharedKernel.Constants;
@@ -72,59 +70,15 @@ namespace ActivacionProfetica.Module.BusinessObjects
             set => SetPropertyValue(ref sector, value);
         }
 
-
-
         [Caption("Plan de financiamiento")]
         [RequiredField]
         [ImmediatePostData]
         [Association("PaymentPlan-Operations")]
         [Persistent("PaymentPlan_Operations")]
-        //[DataSourceCriteria("Sector=='@This.Sector'")]
-        //TODO: Add limit date condition.
         public PaymentPlan PaymentPlan
         {
             get => paymentPlan;
             set => SetPropertyValue(ref paymentPlan, value);
-        }
-
-        [MemberDesignTimeVisibility(false)]
-        [NonPersistent]
-        public XPCollection<Place> PlacesFiltered
-        {
-            get
-            {
-                XPCollection<Place> placesWihtoutStaff = new XPCollection<Place>(Session)
-                {
-                    Criteria = CriteriaOperator.Parse("[Sector] = [Operation.Sector] And [IsLeaf] = True And [Status.Description] = 'Disponible'")
-                };
-                return placesWihtoutStaff;
-
-                //List<Place> placesDatasource = new List<Place>();
-
-                //XPQuery<Place> places = Session.Query<Place>();
-                //var placesFiltered = from p in places
-                //                     where p.Operation == null
-                //                     select p;
-
-                //foreach (var placeFiltered in placesFiltered)
-                //{
-                //    if (this.PlaceStatus.InternalId == PlaceStatus.ReservedPlaceStatus)
-                //    {
-                //        if (CheckInheritance(placeFiltered, Sector.ShofarSectorId, Sector.EagleSectorId))
-                //        {
-                //            placesDatasource.Add(placeFiltered);
-                //        }
-                //    }
-                //    else
-                //    {
-                //        placesDatasource.Add(placeFiltered);
-                //    }
-                //}
-
-                //var result = new XPCollection<Place>(Session, placesDatasource);
-
-                //return result;
-            }
         }
 
         private bool CheckInheritance(Place currentPlace, int parentPlaceId, int otherParentPlaceId)
@@ -145,26 +99,12 @@ namespace ActivacionProfetica.Module.BusinessObjects
             return false;
         }
 
-        //[ModelDefault("AllowEdit", "False")]
         [Caption("Selección de asientos")]
-        //[DataSourceProperty(nameof(PlacesFiltered), DataSourcePropertyIsNullMode.SelectNothing)]
         [Association("Operation-Places")]
         [ImmediatePostData]
         public XPCollection<Place> Places =>
             GetCollection<Place>(nameof(Places));
 
-        [OnChangedProperty(nameof(PlaceStatus))]
-        public void OnChangeOperationType(object currentValue, object newValue)
-        {
-            // Places.Reload();
-        }
-
-        //[OnChangedProperty(nameof(Operation))]
-        //public void OnChangePlaces(object currentValue, object newValue)
-        //{
-        //    CalculatePayments();
-        //    // Places.Reload();
-        //}
 
         [RuleFromBoolProperty("ValidateEmptyPlaces",
                     DefaultContexts.Save,
@@ -179,42 +119,19 @@ namespace ActivacionProfetica.Module.BusinessObjects
         public XPCollection<Payment> Payments => GetCollection<Payment>();
 
 
-        //[OnChangedProperty(nameof(PaymentPlan))]
-        //public void OnChangePaymentPlan(object currentValue, object newValue)
-        //{
-        //    CalculatePayments();
-        //}
-
-        public void CalculatePayments()
+        [OnChangedProperty(nameof(Sector))]
+        public void OnChangeOperationType(object currentValue, object newValue)
         {
-            Payments.Reload();
-            if (Places.Count > 0 && PaymentPlan != null)
-            {
-                foreach (var paymentPlanDetail in PaymentPlan.PaymentPlanDetails)
-                {
-                    var payment = new Payment(Session);
-                    payment.PaymentPlanDetail = paymentPlanDetail;
-                    if (paymentPlanDetail.LimitDate == null)
-                    {
-                        payment.PaymentDate = DateTime.Now;
-                    }
-                    int totalAmount = Places.Count * Sector.Amount;
-                    payment.Amount = (int)(paymentPlanDetail.Percentage * totalAmount);
+            PaymentPlan = null;
+            Places.Reload();
+            CallOnChanged(nameof(Places));
 
-                    Payments.Add(payment);
-                }
-                CallOnChanged(nameof(Payments));
-            }
         }
 
-        //protected override void OnChanged(string propertyName, object oldValue, object newValue)
-        //{
-        //    base.OnChanged(propertyName, oldValue, newValue);
-        //    if (propertyName == nameof(Operation) || propertyName == nameof(Operation.PaymentPlan))
-        //    {
-        //        CalculatePayments();
-        //    }
-        //}
+        [NonPersistent]
+        [VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
+        public bool FirstPaymentDone => Payments.Any(p => p.PaymentStatus != Enums.PaymentStatus.Pending);
+
 
         public Operation(Session session) : base(session)
         {

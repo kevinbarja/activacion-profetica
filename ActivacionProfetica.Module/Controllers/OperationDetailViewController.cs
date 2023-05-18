@@ -36,6 +36,7 @@ namespace ActivacionProfetica.Module.Controllers
                         foreach (var paymentPlanDetail in operation.PaymentPlan.PaymentPlanDetails)
                         {
                             var payment = new Payment(((XPObjectSpace)ObjectSpace).Session);
+                            payment.InternalId = paymentPlanDetail.Number * -1;
                             payment.PaymentPlanDetail = paymentPlanDetail;
                             if (paymentPlanDetail.LimitDate == null)
                             {

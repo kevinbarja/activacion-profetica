@@ -7,7 +7,18 @@
   </ActionDesign>
   <NavigationItems>
     <Items>
-      <Item Id="@fa8f286f-daeb-482e-b9c6-689f737ac75c" Caption="Parametrizaciones" Index="0" IsNewNode="True">
+      <Item Id="ActivacionProfetica" Index="0">
+        <Items>
+          <Item Id="Customers" Index="0" Removed="True" />
+          <Item Id="Operations" Index="1" />
+          <Item Id="Places" Index="3" Removed="True">
+            <Items>
+              <Item Id="@86f69f98-cc7a-493d-8573-13c75285a74b" Removed="True" />
+            </Items>
+          </Item>
+        </Items>
+      </Item>
+      <Item Id="@fa8f286f-daeb-482e-b9c6-689f737ac75c" Caption="Parametrizaciones" Index="1" IsNewNode="True">
         <Items IsNewNode="True">
           <Item Id="@b6ad8ea1-91ed-4164-8e8d-783b547f9d71" ViewId="Sector_ListView" Index="0" IsNewNode="True" />
           <Item Id="@ffcd03d8-c3aa-4793-88b8-2e2cf142e9cb" ViewId="PaymentPlan_ListView" Index="1" IsNewNode="True" />
@@ -15,13 +26,13 @@
           <Item Id="XpoStateMachine_ListView" ViewId="XpoStateMachine_ListView" ObjectKey="" Caption="Transiciones de estados" Index="3" IsNewNode="True" />
         </Items>
       </Item>
-      <Item Id="ActivacionProfetica" Index="1">
-        <Items>
-          <Item Id="Customers" Index="0" />
-          <Item Id="Operations" Index="1" />
-          <Item Id="Places" Index="3">
-            <Items>
-              <Item Id="@86f69f98-cc7a-493d-8573-13c75285a74b" Removed="True" />
+      <Item Id="@9ab3605d-bd9e-4d68-b3b7-ccf377b8449f" Caption="Reportes" IsNewNode="True">
+        <Items IsNewNode="True">
+          <Item Id="Customers" Index="0" Caption="Personas" ViewId="Customer_ListView" ImageName="BO_Department" IsNewNode="True" />
+          <Item Id="Places" Caption="Asientos" ViewId="" Index="3" IsNewNode="True">
+            <Items IsNewNode="True">
+              <Item Id="@873239e0-5184-4f76-96fc-7ec119fe5810" Caption="Vista lista" ViewId="Place_SimpleListView" Index="0" IsNewNode="True" />
+              <Item Id="TreeView" Caption="Vista árbol" ViewId="Place_ListView" Index="1" IsNewNode="True" />
             </Items>
           </Item>
         </Items>
@@ -46,7 +57,7 @@
   <Views>
     <DetailView Id="Operation_DetailView">
       <Items>
-        <PropertyEditor Id="PaymentPlan" DataSourceCriteria="[Sector] = '@This.Sector'" />
+        <PropertyEditor Id="PaymentPlan" DataSourceCriteria="[Sector] = '@This.Sector' And [LimitDate] Is Null Or [Sector] = '@This.Sector' And [LimitDate] &gt;= LocalDateTimeToday()" />
         <PropertyEditor Id="Payments" AllowEdit="True" />
         <PropertyEditor Id="Places" DataSourceCriteria="[IsLeaf] = True And [Status.InternalId] = 1 And [Sector] = '@This.Sector'" LinkView="Operation_Places_LookupListView" />
       </Items>
