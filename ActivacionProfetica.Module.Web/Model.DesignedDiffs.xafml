@@ -7,7 +7,7 @@
   </ActionDesign>
   <NavigationItems>
     <Items>
-      <Item Id="@9df7dfcd-1a93-42a6-bd50-13addec98f85" Caption="Consultas" Index="0" Visible="False" IsNewNode="True">
+      <Item Id="@9df7dfcd-1a93-42a6-bd50-13addec98f85" Caption="Consultas" Index="0" Visible="True" IsNewNode="True">
         <Items IsNewNode="True">
           <Item Id="Operations_Copy_Copy" ViewId="PublicOperation_ListView" Caption="Mis operaciones realizadas" Index="0" IsNewNode="True" />
         </Items>
@@ -122,7 +122,11 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <ListView Id="Operation_ListView" Caption="Operaciones" />
+    <ListView Id="Operation_ListView" Caption="Operaciones">
+      <Columns>
+        <ColumnInfo Id="PlacesQuantity" Index="7" Width="121" />
+      </Columns>
+    </ListView>
     <ListView Id="Operation_Payments_ListView" AllowEdit="True" AllowDelete="False" AllowNew="True" ShowDetailView="False" DetailViewID="">
       <Columns>
         <ColumnInfo Id="PaymentPlanDetail" Width="107" Index="-1" SortIndex="0" SortOrder="Ascending" />
@@ -223,10 +227,19 @@
       </Columns>
     </ListView>
     <DetailView Id="PaymentPlanDetail_DetailView">
+      <Items>
+        <PropertyEditor Id="PaymentPlan" PropertyName="PaymentPlan" IsNewNode="True" />
+      </Items>
       <Layout>
         <LayoutGroup Id="Main">
           <LayoutGroup Id="SimpleEditors">
-            <LayoutGroup Id="PaymentPlanDetail" IsCollapsibleGroup="True" ShowCaption="True" Caption="Información de la cuota" />
+            <LayoutGroup Id="PaymentPlanDetail" IsCollapsibleGroup="True" ShowCaption="True" Caption="Información de la cuota">
+              <LayoutItem Id="PaymentPlan" ViewItem="PaymentPlan" Index="0" IsNewNode="True" />
+              <LayoutItem Id="Number" Index="1" />
+              <LayoutItem Id="Description" Index="2" />
+              <LayoutItem Id="Percentage" Index="3" />
+              <LayoutItem Id="LimitDate" Index="4" />
+            </LayoutGroup>
             <LayoutGroup Id="BaseEntity" ShowCaption="True" IsCardGroup="True" IsCollapsibleGroup="True" IsGroupCollapsed="True" Caption="Auditoría">
               <LayoutGroup Id="BaseEntity_col1">
                 <LayoutItem Id="InternalId" Removed="True" />
@@ -295,7 +308,60 @@
         <ColumnInfo Id="InternalId" Index="1" />
       </Columns>
     </ListView>
-    <ListView Id="PublicOperation_ListView" ClassName="ActivacionProfetica.Module.BusinessObjects.Operation" Caption="Operaciones" IsNewNode="True">
+    <DetailView Id="PublicOperation_DetailView" CaptionColon=":" EnableCaptionColon="True" CaptionLocation="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" CaptionWordWrap="Default" EnableLayoutGroupImages="True" RequiredFieldMark="*" ClassName="ActivacionProfetica.Module.BusinessObjects.Operation" AllowEdit="False" AllowDelete="False" AllowNew="False" IsNewNode="True">
+      <Items IsNewNode="True">
+        <PropertyEditor Id="AllPaymentsPayed" PropertyName="AllPaymentsPayed" IsNewNode="True" />
+        <PropertyEditor Id="AnyPaymentsInArrears" PropertyName="AnyPaymentsInArrears" IsNewNode="True" />
+        <PropertyEditor Id="CreatedBy" PropertyName="CreatedBy" IsNewNode="True" />
+        <PropertyEditor Id="CreatedOn" PropertyName="CreatedOn" IsNewNode="True" />
+        <PropertyEditor Id="Customer" PropertyName="Customer" IsNewNode="True" />
+        <PropertyEditor Id="FirstPaymentDone" PropertyName="FirstPaymentDone" IsNewNode="True" />
+        <PropertyEditor Id="InternalId" PropertyName="InternalId" IsNewNode="True" />
+        <PropertyEditor Id="PaymentPlan" PropertyName="PaymentPlan" View="PaymentPlan_LookupListView" DataSourceCriteria="[Sector] = '@This.Sector' And [LimitDate] Is Null Or [Sector] = '@This.Sector' And [LimitDate] &gt;= LocalDateTimeToday()" IsNewNode="True" />
+        <PropertyEditor Id="Payments" PropertyName="Payments" View="Operation_Payments_ListView" IsNewNode="True" />
+        <PropertyEditor Id="Places" PropertyName="Places" LinkView="Operation_Places_LookupListView" View="Operation_Places_ListView" DataSourceCriteria="[IsLeaf] = True And [Status.InternalId] = 1 And [Sector] = '@This.Sector' And [Operation] Is Null" IsNewNode="True" />
+        <PropertyEditor Id="PlaceStatus" PropertyName="PlaceStatus" IsNewNode="True" />
+        <PropertyEditor Id="Sector" PropertyName="Sector" View="Sector_LookupListView" IsNewNode="True" />
+        <PropertyEditor Id="UpdatedBy" PropertyName="UpdatedBy" IsNewNode="True" />
+        <PropertyEditor Id="UpdatedOn" PropertyName="UpdatedOn" IsNewNode="True" />
+      </Items>
+      <Layout IsNewNode="True">
+        <LayoutGroup Id="Main" Index="0" ShowCaption="False" IsNewNode="True">
+          <LayoutGroup Id="SimpleEditors" Index="0" ShowCaption="True" Caption="Información general" IsCollapsibleGroup="True" IsNewNode="True">
+            <LayoutGroup Id="Operation" Index="0" ShowCaption="False" IsNewNode="True">
+              <LayoutItem Id="InternalId" ViewItem="InternalId" ShowCaption="" Index="0" IsNewNode="True" />
+              <LayoutItem Id="Customer" Index="1" ViewItem="Customer" ShowCaption="" IsNewNode="True" />
+              <LayoutItem Id="PlaceStatus" Index="2" ViewItem="PlaceStatus" ShowCaption="" IsNewNode="True" />
+              <LayoutItem Id="Sector" ViewItem="Sector" ShowCaption="" Index="2" IsNewNode="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="PlacesSelection" Index="1" ShowCaption="True" Caption="Asientos" IsCollapsibleGroup="True" IsNewNode="True">
+            <LayoutGroup Id="Places" Index="0" ShowCaption="False" IsNewNode="True">
+              <LayoutItem Id="Places" ViewItem="Places" ShowCaption="False" Index="0" IsNewNode="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="Payments" Index="2" ShowCaption="True" Caption="Plan de financiamiento" IsCollapsibleGroup="True" IsNewNode="True">
+            <LayoutItem Id="PaymentPlan" ViewItem="PaymentPlan" ShowCaption="" Index="0" IsNewNode="True" />
+            <LayoutGroup Id="Payments" Index="1" ShowCaption="False" IsNewNode="True">
+              <LayoutItem Id="Payments" ViewItem="Payments" ShowCaption="False" Index="0" IsNewNode="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="Audit" Index="3" ShowCaption="True" Caption="Auditoría" IsCollapsibleGroup="True" IsGroupCollapsed="True" IsNewNode="True">
+            <LayoutGroup Id="BaseEntity" Index="1" Direction="Horizontal" ShowCaption="" Caption="Auditoría" IsNewNode="True">
+              <LayoutGroup Id="BaseEntity_col1" Index="0" ShowCaption="False" IsNewNode="True">
+                <LayoutItem Id="CreatedBy" ViewItem="CreatedBy" ShowCaption="" Index="1" IsNewNode="True" />
+                <LayoutItem Id="CreatedOn" ViewItem="CreatedOn" ShowCaption="" Index="2" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="BaseEntity_col2" Index="1" ShowCaption="False" IsNewNode="True">
+                <LayoutItem Id="UpdatedBy" ViewItem="UpdatedBy" ShowCaption="" Index="0" IsNewNode="True" />
+                <LayoutItem Id="UpdatedOn" ViewItem="UpdatedOn" ShowCaption="" Index="1" IsNewNode="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="PublicOperation_ListView" ClassName="ActivacionProfetica.Module.BusinessObjects.Operation" Caption="Operaciones" MasterDetailView="PublicOperation_DetailView" AllowNew="False" AllowDelete="False" IsNewNode="True">
       <Columns IsNewNode="True">
         <ColumnInfo Id="AnyPaymentsInArrears" PropertyName="AnyPaymentsInArrears" Index="-1" IsNewNode="True" />
         <ColumnInfo Id="CreatedBy" PropertyName="CreatedBy" Index="-1" IsNewNode="True" />

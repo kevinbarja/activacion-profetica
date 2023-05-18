@@ -46,7 +46,7 @@ namespace ActivacionProfetica.Module.BusinessObjects
         {
             get
             {
-                if (PaymentPlanDetail.LimitDate != null && PaymentPlanDetail.LimitDate > DateTime.Now && PaymentMethod == PaymentMethod.None)
+                if (PaymentPlanDetail.LimitDate != null && PaymentPlanDetail.LimitDate < DateTime.Now && PaymentMethod == PaymentMethod.None)
                 {
                     return PaymentStatus.InArrears;
                 }

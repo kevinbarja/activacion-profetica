@@ -22,7 +22,7 @@ namespace ActivacionProfetica.Module.BusinessObjects
     Visibility = ViewItemVisibility.Hide,
     Criteria = "IsNewObject(this)")]
 
-    [Appearance("DisableSector", TargetItems = nameof(Sector),
+    [Appearance("DisableSector", TargetItems = "Sector,Customer,PaymentPlan,Places",
     Enabled = false,
     Criteria = "!IsNewObject(this)")]
 
@@ -147,6 +147,15 @@ namespace ActivacionProfetica.Module.BusinessObjects
         [VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
         public bool AnyPaymentsInArrears => Payments.Any(p => p.PaymentPlanDetail.LimitDate != null && p.PaymentPlanDetail.LimitDate > DateTime.Now && p.PaymentMethod == PaymentMethod.None);
 
+        [NonPersistent]
+        [Caption("¿Todos los pagos estas realizados?")]
+        [VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
+        public bool AllPaymentsPayed => !Payments.Any(p => p.PaymentMethod == PaymentMethod.None);
+
+        [NonPersistent]
+        [Caption("Cantidad de asientos")]
+        [VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
+        public int PlacesQuantity => Places.Count;
 
         public Operation(Session session) : base(session)
         {
