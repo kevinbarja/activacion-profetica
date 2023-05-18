@@ -46,8 +46,9 @@
   <Views>
     <DetailView Id="Operation_DetailView">
       <Items>
+        <PropertyEditor Id="PaymentPlan" DataSourceCriteria="[Sector] = '@This.Sector'" />
         <PropertyEditor Id="Payments" AllowEdit="True" />
-        <PropertyEditor Id="Places" LinkView="Operation_Places_LookupListView" />
+        <PropertyEditor Id="Places" DataSourceCriteria="[IsLeaf] = True And [Status.InternalId] = 1 And [Sector] = '@This.Sector'" LinkView="Operation_Places_LookupListView" />
       </Items>
       <Layout>
         <LayoutGroup Id="Main">
@@ -82,29 +83,34 @@
       </Layout>
     </DetailView>
     <ListView Id="Operation_ListView" Caption="Operaciones" />
-    <ListView Id="Operation_Payments_ListView" AllowEdit="True" AllowDelete="False" AllowNew="True">
+    <ListView Id="Operation_Payments_ListView" AllowEdit="True" AllowDelete="False" AllowNew="True" ShowDetailView="False" DetailViewID="">
       <Columns>
         <ColumnInfo Id="PaymentPlanDetail" Width="107" Index="-1" SortIndex="0" SortOrder="Ascending" />
+        <ColumnInfo Id="PaymentStatus" Index="-1" Width="78" />
         <ColumnInfo Id="NumeroCuota" PropertyName="PaymentPlanDetail.Number" Caption="Número cuota" Index="0" SortIndex="-1" SortOrder="None" AllowEdit="False" IsNewNode="True" />
         <ColumnInfo Id="Cuota" PropertyName="PaymentPlanDetail.Description" Caption="Cuota" Index="1" Width="282" AllowEdit="False" IsNewNode="True" />
         <ColumnInfo Id="LimitPaymentDate" PropertyName="PaymentPlanDetail.LimitDate" Index="2" Width="186" AllowEdit="False" IsNewNode="True" />
         <ColumnInfo Id="Amount" Index="3" Width="95" AllowEdit="False" />
-        <ColumnInfo Id="PaymentStatus" Index="4" Width="78" />
-        <ColumnInfo Id="PaymentDate" Index="5" Width="151" />
-        <ColumnInfo Id="PaymentMethod" Width="132" Index="6" />
+        <ColumnInfo Id="PaymentDate" Index="4" Width="151" />
+        <ColumnInfo Id="PaymentMethod" Width="132" Index="5" />
       </Columns>
     </ListView>
-    <ListView Id="Operation_Places_ListView" EditorTypeName="DevExpress.ExpressApp.Web.Editors.ASPx.ASPxGridListEditor" IsGroupPanelVisible="False">
+    <ListView Id="Operation_Places_ListView" EditorTypeName="DevExpress.ExpressApp.Web.Editors.ASPx.ASPxGridListEditor" IsGroupPanelVisible="False" ShowDetailView="False" AllowDelete="False" AllowUnlink="True">
       <Columns>
         <ColumnInfo Id="InternalId" Index="-1" SortIndex="-1" SortOrder="None" Width="147" Caption="." />
         <ColumnInfo Id="LetterName" Index="-1" SortIndex="0" SortOrder="Ascending" />
         <ColumnInfo Id="RowName" Index="-1" />
         <ColumnInfo Id="Sector" SortOrder="None" GroupIndex="-1" Index="-1" />
         <ColumnInfo Id="Path" SortIndex="-1" SortOrder="None" Width="290" />
-        <ColumnInfo Id="Status" Index="1" />
+        <ColumnInfo Id="Status" Index="1" Width="132" />
+        <ColumnInfo Id="Amount" PropertyName="Sector.Amount" Width="103" IsNewNode="True">
+          <Summary IsNewNode="True">
+            <ColumnSummaryItem Id="Total" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
       </Columns>
     </ListView>
-    <ListView Id="Operation_Places_LookupListView" Caption="Asientos" EditorTypeName="DevExpress.ExpressApp.Web.Editors.ASPx.ASPxGridListEditor" IsGroupPanelVisible="True" Criteria="[IsLeaf] = True And [Status.InternalId] = 1">
+    <ListView Id="Operation_Places_LookupListView" Caption="Asientos" EditorTypeName="DevExpress.ExpressApp.Web.Editors.ASPx.ASPxGridListEditor" IsGroupPanelVisible="True" Criteria="">
       <Columns>
         <ColumnInfo Id="Fila" PropertyName="RowName" SortOrder="Ascending" GroupIndex="2" Index="0" IsNewNode="True" />
         <ColumnInfo Id="Path" PropertyName="Path" Index="1" Width="397" IsNewNode="True" />

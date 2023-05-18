@@ -53,6 +53,7 @@ namespace ActivacionProfetica.Module.Controllers
                 else
                 {
                     //Clean payments
+                    ObjectSpace.Delete(operation.Payments);
                     operation.Payments.Reload();
                     operation.CallOnChanged(nameof(Operation.Payments));
                 }

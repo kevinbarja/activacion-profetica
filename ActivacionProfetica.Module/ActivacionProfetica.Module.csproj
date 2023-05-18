@@ -143,6 +143,7 @@
     <Compile Include="Controllers\OperationPlacesLookupController.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Controllers\ShowDetailViewFromListViewController.cs" />
     <Compile Include="DatabaseUpdate\PlaseStatusData.cs" />
     <Compile Include="DatabaseUpdate\PlaceData.cs" />
     <Compile Include="DatabaseUpdate\SectorData.cs" />

@@ -79,7 +79,7 @@ namespace ActivacionProfetica.Module.BusinessObjects
         [ImmediatePostData]
         [Association("PaymentPlan-Operations")]
         [Persistent("PaymentPlan_Operations")]
-        [DataSourceCriteria("Sector=='@This.Sector'")]
+        //[DataSourceCriteria("Sector=='@This.Sector'")]
         //TODO: Add limit date condition.
         public PaymentPlan PaymentPlan
         {
