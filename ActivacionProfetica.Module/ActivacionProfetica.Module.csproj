@@ -146,10 +146,12 @@
     <Compile Include="Controllers\ShowDetailViewFromListViewController.cs" />
     <Compile Include="DatabaseUpdate\PlaseStatusData.cs" />
     <Compile Include="DatabaseUpdate\PlaceData.cs" />
+    <Compile Include="DatabaseUpdate\RolData.cs" />
     <Compile Include="DatabaseUpdate\SectorData.cs" />
     <Compile Include="DatabaseUpdate\Updater.cs" />
     <Compile Include="BusinessObjects\ApplicationUser.cs" />
     <Compile Include="BusinessObjects\ApplicationUserLoginInfo.cs" />
+    <Compile Include="DatabaseUpdate\UserData.cs" />
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
     </Compile>

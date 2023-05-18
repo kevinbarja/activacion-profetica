@@ -21,6 +21,13 @@
 
         }
 
+        public static class Role
+        {
+            public const string Public = "Acceso público";
+            public const string Admin = "Acceso completo";
+            public const string Sales = "Secretaría";
+        }
+
         public static class StringSize
         {
             public const int ShortSringSize = 255;

@@ -7,7 +7,7 @@
   </ActionDesign>
   <NavigationItems>
     <Items>
-      <Item Id="@9df7dfcd-1a93-42a6-bd50-13addec98f85" Caption="Consultas" Index="0" Visible="True" IsNewNode="True">
+      <Item Id="Consultas" Caption="Consultas" Index="0" Visible="True" IsNewNode="True">
         <Items IsNewNode="True">
           <Item Id="Operations_Copy_Copy" ViewId="PublicOperation_ListView" Caption="Mis operaciones realizadas" Index="0" IsNewNode="True" />
         </Items>
@@ -24,7 +24,7 @@
           </Item>
         </Items>
       </Item>
-      <Item Id="@fa8f286f-daeb-482e-b9c6-689f737ac75c" Caption="Parametrizaciones" Index="2" IsNewNode="True">
+      <Item Id="Parametrizaciones" Caption="Parametrizaciones" Index="2" IsNewNode="True">
         <Items IsNewNode="True">
           <Item Id="@b6ad8ea1-91ed-4164-8e8d-783b547f9d71" ViewId="Sector_ListView" Index="0" IsNewNode="True" />
           <Item Id="@ffcd03d8-c3aa-4793-88b8-2e2cf142e9cb" ViewId="PaymentPlan_ListView" Index="1" IsNewNode="True" />
@@ -32,7 +32,7 @@
           <Item Id="XpoStateMachine_ListView" ViewId="XpoStateMachine_ListView" ObjectKey="" Caption="Transiciones de estados" Index="3" IsNewNode="True" />
         </Items>
       </Item>
-      <Item Id="@9ab3605d-bd9e-4d68-b3b7-ccf377b8449f" Caption="Reportes" Index="3" IsNewNode="True">
+      <Item Id="Reportes" Caption="Reportes" Index="3" IsNewNode="True">
         <Items IsNewNode="True">
           <Item Id="@d84b9f6a-421e-42f7-bd84-1482be7620f9" Caption="Cobros" Index="0" ViewId="ReportPayment_ListView" IsNewNode="True" />
           <Item Id="Operations_Copy_Copy" Caption="Operaciones" ViewId="Operation_ListView" Index="1" IsNewNode="True" />
