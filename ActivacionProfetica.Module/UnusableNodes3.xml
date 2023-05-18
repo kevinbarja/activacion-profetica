@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views Id="Views">
+    <DetailView Id="Operation_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="Places_Group" Direction="Vertical" Caption="Selección de asientos">
+            <LayoutGroup Id="BaseEntity" Index="1" Direction="Horizontal" ShowCaption="True" Caption="Auditoría">
+              <LayoutGroup Id="BaseEntity_col1" Index="0" ShowCaption="False">
+                <LayoutItem Id="CreatedBy" ViewItem="CreatedBy" ShowCaption="" Index="1" />
+                <LayoutItem Id="CreatedOn" ViewItem="CreatedOn" ShowCaption="" Index="2" />
+              </LayoutGroup>
+              <LayoutGroup Id="BaseEntity_col2" Index="1" ShowCaption="False">
+                <LayoutItem Id="UpdatedBy" ViewItem="UpdatedBy" ShowCaption="" Index="0" />
+                <LayoutItem Id="UpdatedOn" ViewItem="UpdatedOn" ShowCaption="" Index="1" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

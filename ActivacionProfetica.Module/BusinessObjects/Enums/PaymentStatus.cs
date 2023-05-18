@@ -8,7 +8,9 @@ namespace ActivacionProfetica.Module.BusinessObjects.Enums
         Pending,
         [XafDisplayName("En mora")]
         InArrears,
-        [XafDisplayName("Pagado")]
-        Payed
+        [XafDisplayName("Pagado en fecha")]
+        PayedOk,
+        [XafDisplayName("Pagado en mora")]
+        PayedInArrears
     }
 }

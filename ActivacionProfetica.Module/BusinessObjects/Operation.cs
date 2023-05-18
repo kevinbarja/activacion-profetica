@@ -1,9 +1,12 @@
-﻿using ActivacionProfetica.Module.SharedKernel;
+﻿using ActivacionProfetica.Module.BusinessObjects.Enums;
+using ActivacionProfetica.Module.SharedKernel;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
+using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
+using System;
 using System.ComponentModel;
 using System.Linq;
 using static ActivacionProfetica.Module.SharedKernel.Constants;
@@ -111,13 +114,13 @@ namespace ActivacionProfetica.Module.BusinessObjects
             GetCollection<Place>(nameof(Places));
 
 
-        //[RuleFromBoolProperty("ValidateEmptyPlaces",
-        //            DefaultContexts.Save,
-        //            "Debe seleccionar al menos un asiento.",
-        //            UsedProperties = nameof(Places))]
-        //[NonPersistent]
-        //[MemberDesignTimeVisibility(false)]
-        //public bool ValidateEmptyPlaces => Places.Any();
+        [RuleFromBoolProperty("ValidateEmptyPlaces",
+                    DefaultContexts.Save,
+                    "Debe seleccionar al menos un asiento.",
+                    UsedProperties = nameof(Places))]
+        [NonPersistent]
+        [MemberDesignTimeVisibility(false)]
+        public bool ValidateEmptyPlaces => Places.Any();
 
         [Caption("Cuotas")]
         [Association("Operation-Payments"), Aggregated]
@@ -125,7 +128,7 @@ namespace ActivacionProfetica.Module.BusinessObjects
 
 
         [OnChangedProperty(nameof(Sector))]
-        public void OnChangeOperationType(object currentValue, object newValue)
+        public void OnChangeOperationType()
         {
             PaymentPlan = null;
             Places.Reload();
@@ -134,8 +137,15 @@ namespace ActivacionProfetica.Module.BusinessObjects
         }
 
         [NonPersistent]
+        [Caption("Existe algún pago")]
         [VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
-        public bool FirstPaymentDone => Payments.Any(p => p.PaymentStatus != Enums.PaymentStatus.Pending);
+        public bool FirstPaymentDone => Payments.Any(p => p.PaymentStatus != PaymentStatus.Pending);
+
+
+        [NonPersistent]
+        [Caption("¿Existe algún pago en mora?")]
+        [VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
+        public bool AnyPaymentsInArrears => Payments.Any(p => p.PaymentPlanDetail.LimitDate != null && p.PaymentPlanDetail.LimitDate > DateTime.Now && p.PaymentMethod == PaymentMethod.None);
 
 
         public Operation(Session session) : base(session)

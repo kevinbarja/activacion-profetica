@@ -1,5 +1,6 @@
 ﻿using ActivacionProfetica.Module.BusinessObjects.Enums;
 using ActivacionProfetica.Module.SharedKernel;
+using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using System;
@@ -16,10 +17,10 @@ namespace ActivacionProfetica.Module.BusinessObjects
         int amount;
         DateTime? paymentDate;
         PaymentMethod paymentMethod;
-        PaymentStatus paymentStatus;
+        //PaymentStatus paymentStatus;
         Operation operation;
 
-        [MemberDesignTimeVisibility(false)]
+        [VisibleInListView(false), VisibleInLookupListView(false), VisibleInDetailView(false)]
         [Caption("Operación")]
         [Association("Operation-Payments")]
         [Persistent("Operation_Payments")]
@@ -39,11 +40,29 @@ namespace ActivacionProfetica.Module.BusinessObjects
         }
 
         [Caption("Estado")]
+        [NonPersistent]
         [VisibleInDetailView(true), VisibleInListView(true), VisibleInLookupListView(true)]
         public PaymentStatus PaymentStatus
         {
-            get { return paymentStatus; }
-            set => SetPropertyValue(ref paymentStatus, value);
+            get
+            {
+                if (PaymentPlanDetail.LimitDate != null && PaymentPlanDetail.LimitDate > DateTime.Now && PaymentMethod == PaymentMethod.None)
+                {
+                    return PaymentStatus.InArrears;
+                }
+                else if (PaymentMethod == PaymentMethod.None)
+                {
+                    return PaymentStatus.Pending;
+                }
+                else if ((PaymentMethod != PaymentMethod.None) && (PaymentPlanDetail.LimitDate != null && PaymentDate > PaymentPlanDetail.LimitDate))
+                {
+                    return PaymentStatus.PayedInArrears;
+                }
+                else
+                {
+                    return PaymentStatus.PayedOk;
+                }
+            }
         }
 
         [Caption("Monto")]
@@ -54,6 +73,7 @@ namespace ActivacionProfetica.Module.BusinessObjects
             set => SetPropertyValue(ref amount, value);
         }
 
+        [ModelDefault("DisplayFormat", "{0:g}")]
         [Caption("Fecha de pago")]
         [Nullable(true)]
         [VisibleInDetailView(true), VisibleInListView(true), VisibleInLookupListView(true)]

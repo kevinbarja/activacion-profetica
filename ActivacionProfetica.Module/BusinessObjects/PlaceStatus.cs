@@ -29,7 +29,7 @@ namespace ActivacionProfetica.Module.BusinessObjects
         {
         }
 
-        [Caption("Nombre en singular")]
+        [Caption("Nombre")]
         [Size(StringSize.ShortSringSize), Nullable(false), RequiredField]
         [VisibleInDetailView(true), VisibleInListView(true), VisibleInLookupListView(true)]
         public string SingularName

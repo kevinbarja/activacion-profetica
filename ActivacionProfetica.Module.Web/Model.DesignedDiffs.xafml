@@ -7,10 +7,16 @@
   </ActionDesign>
   <NavigationItems>
     <Items>
-      <Item Id="ActivacionProfetica" Index="0">
+      <Item Id="@9df7dfcd-1a93-42a6-bd50-13addec98f85" Caption="Consultas" Index="0" Visible="False" IsNewNode="True">
+        <Items IsNewNode="True">
+          <Item Id="Operations_Copy_Copy" ViewId="PublicOperation_ListView" Caption="Mis operaciones realizadas" Index="0" IsNewNode="True" />
+        </Items>
+      </Item>
+      <Item Id="ActivacionProfetica" Index="1">
         <Items>
           <Item Id="Customers" Index="0" Removed="True" />
-          <Item Id="Operations" Index="1" />
+          <Item Id="Operations" Index="0" Caption="Mis operaciones" ViewId="Operation_ListView" />
+          <Item Id="Operations_Copy" Caption="Operaciones" ViewId="Operation_ListView" Index="1" IsNewNode="True" />
           <Item Id="Places" Index="3" Removed="True">
             <Items>
               <Item Id="@86f69f98-cc7a-493d-8573-13c75285a74b" Removed="True" />
@@ -18,7 +24,7 @@
           </Item>
         </Items>
       </Item>
-      <Item Id="@fa8f286f-daeb-482e-b9c6-689f737ac75c" Caption="Parametrizaciones" Index="1" IsNewNode="True">
+      <Item Id="@fa8f286f-daeb-482e-b9c6-689f737ac75c" Caption="Parametrizaciones" Index="2" IsNewNode="True">
         <Items IsNewNode="True">
           <Item Id="@b6ad8ea1-91ed-4164-8e8d-783b547f9d71" ViewId="Sector_ListView" Index="0" IsNewNode="True" />
           <Item Id="@ffcd03d8-c3aa-4793-88b8-2e2cf142e9cb" ViewId="PaymentPlan_ListView" Index="1" IsNewNode="True" />
@@ -26,9 +32,11 @@
           <Item Id="XpoStateMachine_ListView" ViewId="XpoStateMachine_ListView" ObjectKey="" Caption="Transiciones de estados" Index="3" IsNewNode="True" />
         </Items>
       </Item>
-      <Item Id="@9ab3605d-bd9e-4d68-b3b7-ccf377b8449f" Caption="Reportes" IsNewNode="True">
+      <Item Id="@9ab3605d-bd9e-4d68-b3b7-ccf377b8449f" Caption="Reportes" Index="3" IsNewNode="True">
         <Items IsNewNode="True">
-          <Item Id="Customers" Index="0" Caption="Personas" ViewId="Customer_ListView" ImageName="BO_Department" IsNewNode="True" />
+          <Item Id="@d84b9f6a-421e-42f7-bd84-1482be7620f9" Caption="Cobros" Index="0" ViewId="ReportPayment_ListView" IsNewNode="True" />
+          <Item Id="Operations_Copy_Copy" Caption="Operaciones" ViewId="Operation_ListView" Index="1" IsNewNode="True" />
+          <Item Id="Customers" Index="2" Caption="Personas" ViewId="Customer_ListView" ImageName="BO_Department" IsNewNode="True" />
           <Item Id="Places" Caption="Asientos" ViewId="" Index="3" IsNewNode="True">
             <Items IsNewNode="True">
               <Item Id="@873239e0-5184-4f76-96fc-7ec119fe5810" Caption="Vista lista" ViewId="Place_SimpleListView" Index="0" IsNewNode="True" />
@@ -55,6 +63,21 @@
     </PropertyEditor>
   </ViewItems>
   <Views>
+    <ListView Id="MyOperation_ListView" ClassName="ActivacionProfetica.Module.BusinessObjects.Operation" Caption="Operaciones" Criteria="[CreatedBy.Oid] = CurrentUserId()" IsNewNode="True">
+      <Columns IsNewNode="True">
+        <ColumnInfo Id="AnyPaymentsInArrears" PropertyName="AnyPaymentsInArrears" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="CreatedBy" PropertyName="CreatedBy" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="FirstPaymentDone" PropertyName="FirstPaymentDone" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="UpdatedBy" PropertyName="UpdatedBy" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="UpdatedOn" PropertyName="UpdatedOn" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="InternalId" PropertyName="InternalId" Index="0" IsNewNode="True" />
+        <ColumnInfo Id="Customer" PropertyName="Customer" Index="1" IsNewNode="True" />
+        <ColumnInfo Id="PlaceStatus" PropertyName="PlaceStatus" Index="2" IsNewNode="True" />
+        <ColumnInfo Id="Sector" PropertyName="Sector" Index="2" IsNewNode="True" />
+        <ColumnInfo Id="PaymentPlan" PropertyName="PaymentPlan" Index="4" Width="167" IsNewNode="True" />
+        <ColumnInfo Id="CreatedOn" PropertyName="CreatedOn" Index="5" IsNewNode="True" />
+      </Columns>
+    </ListView>
     <DetailView Id="Operation_DetailView">
       <Items>
         <PropertyEditor Id="PaymentPlan" DataSourceCriteria="[Sector] = '@This.Sector' And [LimitDate] Is Null Or [Sector] = '@This.Sector' And [LimitDate] &gt;= LocalDateTimeToday()" View="PaymentPlan_LookupListView" />
@@ -145,6 +168,20 @@
         <SortProperty Id="OrderPlacesByIdAsc" Removed="True" />
       </Sorting>
     </ListView>
+    <DetailView Id="Payment_DetailView" AllowDelete="False" AllowEdit="False" AllowNew="False" Caption="Cobro">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Payment" IsCollapsibleGroup="True" IsGroupCollapsed="False" Caption="Información del cobro" />
+            <LayoutGroup Id="BaseEntity" IsCollapsibleGroup="True" IsGroupCollapsed="True" Caption="Auditoría">
+              <LayoutGroup Id="BaseEntity_col1">
+                <LayoutItem Id="InternalId" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
     <DetailView Id="PaymentPlan_DetailView" Caption="Plan de financiamiento">
       <Layout>
         <LayoutGroup Id="Main">
@@ -233,6 +270,66 @@
       </Columns>
     </ListView>
     <ListView Id="Place_SimpleListView" EditorTypeName="DevExpress.ExpressApp.Web.Editors.ASPx.ASPxGridListEditor" Criteria="[IsLeaf] = True" Caption="Asientos" />
+    <DetailView Id="PlaceStatus_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="PlaceStatus">
+              <LayoutItem Id="SingularName" Index="0" />
+              <LayoutItem Id="PluralName" Index="1" />
+              <LayoutItem Id="Description" ViewItem="Description" ShowCaption="" Index="2" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="BaseEntity" IsCollapsibleGroup="True" IsCardGroup="True" ShowCaption="True" Caption="Auditoría" IsGroupCollapsed="True" />
+          </LayoutGroup>
+          <LayoutGroup Id="SizeableEditors">
+            <LayoutItem Id="Description" Removed="True" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="PlaceStatus_ListView">
+      <Columns>
+        <ColumnInfo Id="Description" Width="117" Index="-1" />
+        <ColumnInfo Id="PluralName" Index="-1" />
+        <ColumnInfo Id="SingularName" SortIndex="1" Index="0" Caption="Nombre" />
+        <ColumnInfo Id="InternalId" Index="1" />
+      </Columns>
+    </ListView>
+    <ListView Id="PublicOperation_ListView" ClassName="ActivacionProfetica.Module.BusinessObjects.Operation" Caption="Operaciones" IsNewNode="True">
+      <Columns IsNewNode="True">
+        <ColumnInfo Id="AnyPaymentsInArrears" PropertyName="AnyPaymentsInArrears" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="CreatedBy" PropertyName="CreatedBy" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="FirstPaymentDone" PropertyName="FirstPaymentDone" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="UpdatedBy" PropertyName="UpdatedBy" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="UpdatedOn" PropertyName="UpdatedOn" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="InternalId" PropertyName="InternalId" Index="0" IsNewNode="True" />
+        <ColumnInfo Id="Customer" PropertyName="Customer" Index="1" IsNewNode="True" />
+        <ColumnInfo Id="PlaceStatus" PropertyName="PlaceStatus" Index="2" IsNewNode="True" />
+        <ColumnInfo Id="Sector" PropertyName="Sector" Index="2" IsNewNode="True" />
+        <ColumnInfo Id="PaymentPlan" PropertyName="PaymentPlan" Index="4" Width="109" IsNewNode="True" />
+        <ColumnInfo Id="CreatedOn" PropertyName="CreatedOn" Index="5" IsNewNode="True" />
+      </Columns>
+    </ListView>
+    <ListView Id="ReportPayment_ListView" ClassName="ActivacionProfetica.Module.BusinessObjects.Payment" ShowDetailView="True" AllowDelete="False" AllowEdit="False" Caption="Cobros" IsNewNode="True">
+      <Columns IsNewNode="True">
+        <ColumnInfo Id="Code" PropertyName="InternalId" Index="-1" Width="83" SortIndex="0" SortOrder="Descending" IsNewNode="True" />
+        <ColumnInfo Id="CreatedBy" PropertyName="CreatedBy" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="CreatedOn" PropertyName="CreatedOn" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="InternalId" PropertyName="InternalId" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="UpdatedOn" PropertyName="UpdatedOn" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="Operación" PropertyName="Operation" Index="0" Width="199" IsNewNode="True" />
+        <ColumnInfo Id="PlaceStatus" PropertyName="Operation.PlaceStatus" Caption="Estado de los asientos" Index="1" Width="129" IsNewNode="True" />
+        <ColumnInfo Id="Sector" PropertyName="Operation.Sector" Index="2" IsNewNode="True" />
+        <ColumnInfo Id="PaymentPlan" PropertyName="Operation.PaymentPlan.Description" Caption="Plan de financiamiento" Index="3" Width="309" IsNewNode="True" />
+        <ColumnInfo Id="PaymentPlanDetail" PropertyName="PaymentPlanDetail" Index="4" Width="144" IsNewNode="True" />
+        <ColumnInfo Id="PaymentStatus" PropertyName="PaymentStatus" Index="5" Width="181" IsNewNode="True" />
+        <ColumnInfo Id="Amount" PropertyName="Amount" Index="6" Width="106" IsNewNode="True" />
+        <ColumnInfo Id="LimitDate" PropertyName="PaymentPlanDetail.LimitDate" Index="7" Width="143" IsNewNode="True" />
+        <ColumnInfo Id="PaymentDate" PropertyName="PaymentDate" Index="8" Width="160" SortIndex="1" SortOrder="Descending" IsNewNode="True" />
+        <ColumnInfo Id="PaymentMethod" PropertyName="PaymentMethod" Index="9" Width="132" IsNewNode="True" />
+        <ColumnInfo Id="UpdatedBy" PropertyName="UpdatedBy" Index="10" Caption="Actualizado por" IsNewNode="True" />
+      </Columns>
+    </ListView>
     <DetailView Id="Sector_DetailView" Caption="Sectore" FreezeLayout="True" AllowDelete="False" AllowEdit="False" AllowNew="False">
       <Layout IsNewNode="True" Removed="True">
         <LayoutGroup Id="Main" Index="0" ShowCaption="False" IsNewNode="True">

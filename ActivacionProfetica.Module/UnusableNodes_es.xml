@@ -1,0 +1,1253 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel Id="BOModel">
+    <Class Name="DevExpress.ExpressApp.Notifications.CommonNotificationItem" Caption="Elemento de notificación común">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="NotificationSource" Caption="Fuente de notificación" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.ExpressApp.Notifications.Notification" Caption="Notificación">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="AlarmTime" Caption="Hora de alarma" />
+        <Member Name="State" Caption="Estado" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.ExpressApp.Notifications.NotificationsObject" ObjectCaptionFormat="{0:NotificationsCount} Recordatorio(s)">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="Notifications" Caption="Notificaciones" />
+        <Member Name="NotificationsState" Caption="Estado de notificaciones" />
+        <Member Name="Postpone" Caption="Posponer" />
+        <Member Name="ShowNotificationsWindow" Caption="Mostrar ventana de notificaciones" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.Agenda">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="AgendaTipoPersonas" Caption="Tipo de Agenda" />
+        <Member Name="ApellidoCasada" Caption="Apellido de Casada" />
+        <Member Name="Centro_Centro" Caption="Centro" />
+        <Member Name="CiudadResidencia_Ciudad" Caption="Ciudad de residencia" />
+        <Member Name="CorreoElectronicoPersonalNP" Caption="Correo Electronico Personal" />
+        <Member Name="DireccionAgendas" Caption="Direcciones" />
+        <Member Name="Empleadoes" Caption="Trabajador" />
+        <Member Name="FechaNacimiento" Caption="Fecha de Nacimiento" />
+        <Member Name="Genero" Caption="Género" />
+        <Member Name="LugarEmisionDocumento_Departamento" Caption="Lugar de Emisión del documento" />
+        <Member Name="LugarNacimiento_Ciudad" Caption="Lugar de Nacimiento" />
+        <Member Name="Nacionalidad_Pais" Caption="Nacionalidad" />
+        <Member Name="NombreAgenda" Caption="Nombr" />
+        <Member Name="TelefonoAgendas" Caption="Teléfonos" />
+        <Member Name="TipoDocumento_TipoDocumento" Caption="Tipo de Documento" />
+        <Member Name="Titulo" Caption="Título" />
+        <Member Name="tituloCortesia" Caption="Título de Cortesía" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.AgendaTipoPersona" Caption="Tipo de Persona" />
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.Area" Caption="Área">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="Cargoes" Caption="Cargos" />
+        <Member Name="Descripcion" Caption="Descripción" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.AreaAcademica" Caption="Área Académica" />
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.Aula">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="Codigo" Caption="Código" />
+        <Member Name="PertenenciaNP" Caption="¿Quién usa esta aula?" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.BecaClasificacion" Caption="Clasificación de Becas">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="BecaDescuentoes" Caption="Descuentos de Becas" />
+        <Member Name="Descripcion" Caption="Descripción" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.BecaCompromisoPrograma" Caption="Inscripción a programa de servicio">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="BecaRegistroHoras" Caption="Registro de horas" />
+        <Member Name="DescripcionBecaCompromisoProgramaNP" Caption="Programa NP arreglar" />
+        <Member Name="Programa_BecaPrograma" Caption="Programa" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.BecaDescuento" Caption="Becas y Descuentos">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="AsignacionBecas" Caption="Asignación de becas" />
+        <Member Name="CantidadFijaMateria" Caption="Cantidad de materias que incluye la beca o descuento" />
+        <Member Name="CantidadHoraServicio" Caption="Cantidad de horas de servicio requeridas" />
+        <Member Name="CantidadMateriaNP" Caption="¿Que cantidad de materias incluye la beca?" />
+        <Member Name="Clasificacion_BecaClasificacion" Caption="Clasificación" />
+        <Member Name="ConfirmaciónMateriaSinPago" Caption="¿Se permite confirmar materia sin pago?" />
+        <Member Name="CostoMatricula" Caption="Costo de Matricula" />
+        <Member Name="Descripcion" Caption="Descripción" />
+        <Member Name="PagoMateriaCongelada" Caption="¿Congelamiento de materias con costo?" />
+        <Member Name="PagoMateriaReprobada" Caption="En caso de reprobar ¿La materia tiene costo?" />
+        <Member Name="PagoMatricula" Caption="¿Se paga matrícula?" />
+        <Member Name="PorcentajeDescuento" Caption="Porcentaje de la beca o descuento" />
+        <Member Name="Validez" Caption="Validez de la beca o descuento" />
+        <Member Name="ValidezNP" Caption="Validez de la beca o descuento" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.BecaEstado" Caption="Estado de la Beca o descuento">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="AsignacionBecas" Caption="Asignación de Becas" />
+        <Member Name="Descripcion" Caption="Descripción" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.BecaHorarioPrograma" Caption="Horarios del programa">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="HoraFin" Caption="Hora de Fin" />
+        <Member Name="HoraInicio" Caption="Hora de Inicio" />
+        <Member Name="Miercoles" Caption="Miércoles" />
+        <Member Name="Programa_Programa" Caption="Programa" />
+        <Member Name="Sabado" Caption="Sábado" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.BecaPrograma" Caption="Programa">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="BecaCompromisoProgramas" Caption="Registro en el programa" />
+        <Member Name="BecaHorarioProgramas" Caption="Horario del programa" />
+        <Member Name="Descripcion" Caption="Descripción" />
+        <Member Name="FechaFin" Caption="Fecha de Finalización" />
+        <Member Name="FechaInicio" Caption="Fecha de Inicio" />
+        <Member Name="Observacion" Caption="Observación" />
+        <Member Name="Supervisor_Empleado" Caption="Supervisor del programa" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.BecaRegistroHora" Caption="Registrar horas de servicio">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="BecaCompromisoPrograma_BecaCompromisoPrograma" Caption="Programa" />
+        <Member Name="HoraFin" Caption="Hora de Finalización" />
+        <Member Name="HoraInicio" Caption="Hora de Inicio" />
+        <Member Name="TotalHora" Caption="Total Horas a registrar" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.BecaRevision" Caption="Revisión de becas y descuentos">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="AsignacionBeca_AsignacionBeca" Caption="Asignación de beca" />
+        <Member Name="FechaRevision" Caption="Fecha de Revisión" />
+        <Member Name="Observacion" Caption="Observación" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.BecaTipo" Caption="Tipos de becas">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="Descripcion" Caption="Descripción" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.CalendarioNoLaboral">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="Gestion" Caption="Gestión" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.CantidadMateriaPlan" Caption="Cantidad de Materias por Plan">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="CantidadMateria" Caption="Cantidad de Materia" />
+        <Member Name="CantidadMateriaPlanFrecuenciaPagoCuotas" Caption="Frecuencia de pago" />
+        <Member Name="Descripcion" Caption="Descripción" />
+        <Member Name="ListaPrecioCarreraModalidadEstudioCantidadMateriaPlans" Caption="Cantidad de materias por lista de precio" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.CantidadMateriaPlanFrecuenciaPagoCuota" Caption="Cantidad de materia por frecuencia de pago">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="CantidadMateriaDefaultPrimeraCuota" Caption="¿Cuantás materias debe cubrir el primer pago?" DisplayFormat="{0:F}" EditMask="F" />
+        <Member Name="CantidadMateriaMinimaPrimeraCuota" Caption="¿Cuántas materias debe cubrir minimamente el primer pago?" DisplayFormat="{0:F}" EditMask="F" />
+        <Member Name="CantidadMateriaPlan_CantidadMateriaPlan" Caption="Plan" />
+        <Member Name="CantidadMateriaPlanFrecuenciaPagoCuotaFormaPagoes" Caption="Cantidad de materias por frecuencia de pago" />
+        <Member Name="DescripcionNP" Caption="Descripción" />
+        <Member Name="FrecuenciaPagoCuota_FrecuenciaPagoCuota" Caption="Frecuencia de pago" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.CantidadMateriaPlanFrecuenciaPagoCuotaFormaPago" Caption="Cantidad de materias por formas de pago">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="Cuota_CantidadMateriaPlanFrecuenciaPagoCuota" Caption="Cuota" />
+        <Member Name="DescripcionNP" Caption="Descripción" />
+        <Member Name="FormaPago_FormaPago" Caption="Forma de pago" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.Cargo">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="Area_Area" Caption="Área" />
+        <Member Name="CargoCollection" Caption="Cargo" />
+        <Member Name="CargoEmpleadoes" Caption="Cargos de Empleados" />
+        <Member Name="Clasificacion_ClasificacionCargo" Caption="Clasificación del cargo" />
+        <Member Name="Descripcion" Caption="Descripción" />
+        <Member Name="Puesto" Caption="Nombre" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.CargoAdicionalPlan" Caption="Cargo adicional">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="Descripcion" Caption="Descripción" />
+        <Member Name="ListaPrecioPensumCargoAdicionalPlans" Caption="Lista de precio por pensum" />
+        <Member Name="TipoCargo_TipoCargo" Caption="Tipo de cargo" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.CargoEmpleado">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="Cargo_Cargo" Caption="Cargo" />
+        <Member Name="Empleado_Empleado" Caption="Trabajador" />
+        <Member Name="FechaCreacion" Caption="Fecha de Creación" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.Carrera">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="FechaApertura" Caption="Fecha de Apertura" />
+        <Member Name="ImageProperty" Caption="Logo" />
+        <Member Name="ResolucionGubernamental" Caption="Resolución Gubernamental por Apertura" />
+        <Member Name="ResolucionRectoral" Caption="Resolución Rectoral por Apertura" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.CarreraModalidadEstudio" Caption="Modalidad de estudio de la carrera">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="AprobadoMinisterio" Caption="¿Aprobado por el ministerio?" />
+        <Member Name="ListaPrecioCarreraModalidadEstudios" Caption="Lista de precio" />
+        <Member Name="ModalidadEstudio_ModalidadEstudio" Caption="Modalidad de Estudio" />
+        <Member Name="NroPensumActual" Caption="Nro de Pensum Actual" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.CarreraResponsable" Caption="Responsable de Carrera">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="Ayudante_Empleado" Caption="Ayudante" />
+        <Member Name="Carrera_Carrera" Caption="Carrera" />
+        <Member Name="FechaFin" Caption="Fecha Final" />
+        <Member Name="FechaInicio" Caption="Fecha Inicial" />
+        <Member Name="Responsable_Empleado" Caption="Responsable" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.Centro">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="AgendaCollection" Caption="Agendas" />
+        <Member Name="Ciudad_Ciudad" Caption="Ciudad" />
+        <Member Name="Descripcion" Caption="Descripción" />
+        <Member Name="FaxCentroes" Caption="Fax" />
+        <Member Name="TelefonoCentroes" Caption="Teléfonos" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.Ciclo">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="Numero" Caption="Número de ciclo" ToolTip="Ej. Si es de tipo modular &quot;0&quot; indica que es módulo 0, &quot;1&quot; indica que es el módulo 1." />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.CicloInicio" Caption="Inicio de Ciclo">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="Ciclo_Ciclo" Caption="Ciclo" />
+        <Member Name="FechaCongelamiento" Caption="Fecha  de Congelamiento" />
+        <Member Name="FechaEntregaPlanilla" Caption="Fecha de Entrega  de Planilla" />
+        <Member Name="FechaFin" Caption="Fecha Final del Ciclo" />
+        <Member Name="FechaInicio" Caption="Fecha de Inicio de Ciclo " />
+        <Member Name="FechaRetiro" Caption="Fecha de Retiro" />
+        <Member Name="Turno_Turno" Caption="Turno" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.Ciudad">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="AgendaCollection" Caption="Agenda" />
+        <Member Name="AgendaCollection2" Caption="Agenda" />
+        <Member Name="Centroes" Caption="Centros" />
+        <Member Name="CodigoTelefono" Caption="Código de Teléfono" />
+        <Member Name="Colegios" Caption="Colegio" />
+        <Member Name="Descripcion" Caption="Descripción" />
+        <Member Name="FechaCreacion" Caption="Fecha de Creación" />
+        <Member Name="Pais_Pais" Caption="País" />
+        <Member Name="Provincia_Provincia" Caption="Provincia" />
+        <Member Name="ProvinciaNP" Caption="Provincia" />
+        <Member Name="Sigla" Caption="Código de ciudad" />
+        <Member Name="Universidads" Caption="Universidades" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.ClasificacionCargo" Caption="Clasificación del Cargo">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="Cargoes" Caption="Cargos de la clasificación" />
+        <Member Name="Descripcion" Caption="Descripción" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.ClasificacionPortafolio" Caption="Clasificación del Portafolio" />
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.Colegio">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="Ciudad_Ciudad" Caption="Ciudad" />
+        <Member Name="Clasificacion" Caption="Clasificación" />
+        <Member Name="ClasificacionNP" Caption="Clasificación" />
+        <Member Name="Descripcion" Caption="Descripción" />
+        <Member Name="DireccionColegios" Caption="Dirección" />
+        <Member Name="TelefonoColegios" Caption="Teléfono" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.ContenidoEdicionTEC" Caption="Contenido de la Edición">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="ProgramacionTECs" Caption="Programación Formación Continua" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.CotizacionAcademicaPregrado" Caption="Cotización Académica para Pregrado">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="CantidadMateria" Caption="Cantidad de Materia" />
+        <Member Name="CostoMateria" Caption="Costo por Materia" EditMask="F" DisplayFormat="{0:F}" />
+        <Member Name="DescripcionNP" Caption="Descripción" />
+        <Member Name="Descuento" DisplayFormat="{0:F}" EditMask="F" />
+        <Member Name="PertenenciaNP" Caption="Pertenencia" />
+        <Member Name="Plan_ListaPrecioPensumCantidadMateriaPlan" Caption="Plan" />
+        <Member Name="Prospecto_InformacionProspecto" Caption="Prospesto" />
+        <Member Name="SimulacionCuotas" Caption="Simulación de Cuotas" />
+        <Member Name="TotalAPagar" Caption="Total a Pagar" DisplayFormat="{0:F}" EditMask="F" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.Cuota">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="Descripcion" Caption="Descripción" />
+        <Member Name="FrecuenciaPagoCuotas" Caption="Frecuencia de Pago de Cuotas" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.Departamento">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="AgendaCollection" Caption="Agendas" />
+        <Member Name="Descripcion" Caption="Descripción" />
+        <Member Name="Extension" Caption="Extensión" />
+        <Member Name="FechaCreacion" Caption="Fecha de Creación" />
+        <Member Name="Pais_Pais" Caption="País" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.DireccionAgenda" Caption="Dirección">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="Agenda_Agenda" Caption="Agenda" />
+        <Member Name="Descripcion" Caption="Descripción" />
+        <Member Name="Direccion" Caption="Dirección" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.DireccionColegio" Caption="Dirección Colegio">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="Colegio_Colegio" Caption="Colegio" />
+        <Member Name="Descripcion" Caption="Descripción" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.DisciplinaAcademica" Caption="Disciplina Académica" />
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.DocumentoEstudianteRecepcion" Caption="Recepción de documentos de estudiante">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="DocumentoEstudiante_DocumentoEstudiante" Caption="Documento a recpecionar" />
+        <Member Name="FechaEmision" Caption="Fecha de Emisión" />
+        <Member Name="FechaLegalizacion" Caption="Fecha de Legalización" />
+        <Member Name="FechaRecepcion" Caption="Fecha de Recepción" />
+        <Member Name="FechaVencimiento" Caption="Fecha de Vencimiento" />
+        <Member Name="GestionExpedicion" Caption="Gestión de Expedición" />
+        <Member Name="NumeroDocumento" Caption="Número de Documento" />
+        <Member Name="Observacion" Caption="Observación" />
+        <Member Name="Tipo_TipoPapel" Caption="Tipo de papel" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.EdicionPostgrado" Caption="Edición de la arrera">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="ModuloEdicionPostgradoes" Caption="Materias" />
+        <Member Name="NumeroNP" Caption="Número de Edición" />
+        <Member Name="Postgrado_Postgrado" Caption="Carrera" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.EdicionTEC" Caption="Edición">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="ContenidoEdicionTECs" Caption="Contenido de la Edición" />
+        <Member Name="NumeroNP" Caption="Número de Edición" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.Electiva">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="CicloInicio_CicloInicio" Caption="Inicio de Ciclo" />
+        <Member Name="Materia_MallaCurricular" Caption="Materia Electiva" />
+        <Member Name="NombreMateria" Caption="Nombre de la Materia" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.Empleado" Caption="Trabajador">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="AutorizacionPlantillas1" Caption="Autorización Plantillas" />
+        <Member Name="Autorizacions" Caption="Autorizaciones" />
+        <Member Name="CargoEmpleadoes" Caption="Cargo Empleado" />
+        <Member Name="CodigoSeguroMedico" Caption="Código de Seguro Médico" />
+        <Member Name="GrupoSanguineo" Caption="Grupo Sanguíineo" />
+        <Member Name="Pasoes" Caption="Pasos" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.Equivalencia">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="EstadoNP" Caption="Estado" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.EstadoPlanPago" Caption="Estado del Plan de Pago">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="Descripcion" Caption="Descripción" />
+        <Member Name="PlanPagoCabeceras" Caption="Plan de pago" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.EstadoTelefono" Caption="Estado del Teléfono">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="Descripcion" Caption="Descripción" />
+        <Member Name="TelefonoAgendas" Caption="Teléfonos" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.Estudiante">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="Agenda_Agenda" Caption="Agenda" />
+        <Member Name="Centro_Centro" Caption="Centro" />
+        <Member Name="CodigoSeguroMedico" Caption="Código de Seguro Médico" />
+        <Member Name="CorreoElectronicoUtepsa" Caption="Correo Electrónico Utepsa" />
+        <Member Name="CorreoElectronicoUtepsaNP" Caption="Correo Electrónico Utepsa" />
+        <Member Name="FechaCreacion" Caption="Fecha de Creación" />
+        <Member Name="GrupoSanguineo" Caption="Grupo Sanguíneo" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.FaxCentro" Caption="Fax del Centro">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="Centro_Centro" Caption="Centro" />
+        <Member Name="Numero" Caption="Número" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.FormaPago" Caption="Forma de Pago">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="CantidadMateriaPlanFrecuenciaPagoCuotaFormaPagoes" Caption="Formas de pago por cantidad de materias" />
+        <Member Name="Descripcion" Caption="Descripción" />
+        <Member Name="ListaPrecios" Caption="Lista de Precios" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.FrecuenciaPago" Caption="Frecuencia de Pago">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="CantidadDias" Caption="Cantidad de Días" />
+        <Member Name="Descripcion" Caption="Descripción" />
+        <Member Name="FrecuenciaPagoCuotas" Caption="Frecuencia de Pago por Cuota" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.FrecuenciaPagoCuota" Caption="Frecuencia de Pago por Cuota">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="CantidadMateriaPlanFrecuenciaPagoCuotas" Caption="Cantidad de materias por frecuencia de pago" />
+        <Member Name="Cuota_Cuota" Caption="Cuota" />
+        <Member Name="DescripcionNP" Caption="Descripción" />
+        <Member Name="FrecuenciaPago_FrecuenciaPago" Caption="Frecuencia de pago" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.HistoricoReprogramacionCuota" Caption="Histórico de Reprogramación de Cuota">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="Cuota_PlanPagoCuota" Caption="Cuotas" />
+        <Member Name="DescripcionNP" Caption="Descripción" />
+        <Member Name="FechaReprogramacion" Caption="Fecha de Reprogramación" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.Horario">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="Descripcion" Caption="Descripción" />
+        <Member Name="HoraFin" EditMask="(0?\d|1\d|2[0-3])\:[0-5]\d" Caption="Hora de Finalización" />
+        <Member Name="HoraInicio" EditMask="(0?\d|1\d|2[0-3])\:[0-5]\d" Caption="Hora de Inicio" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.HorarioPostgrado" Caption="Horario" />
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.HorarioTEC" Caption="Horario" />
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.ListaPrecio" Caption="Lista de Precio">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="codigoPlan" Caption="código del Plan" />
+        <Member Name="FormaPago_FormaPago" Caption="Forma de pago" />
+        <Member Name="ListaPrecioCarreraModalidadEstudios" Caption="Lista de precio por modalidad de estudio" />
+        <Member Name="Matricula" Caption="Matrícula" />
+        <Member Name="MontoMatricula_CargoAdicionalPlan" Caption="Precio de Matrícula" />
+        <Member Name="PertenenciaNP" Caption="Pertenencia" />
+        <Member Name="TipoPlan_TipoPlan" Caption="Tipo de plan" />
+        <Member Name="TipoPlanNP" Caption="Tipo de Plan" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.ListaPrecioCarreraModalidadEstudio" Caption="Lista de Precio por Carrera">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="CargoAdicionalPlanNP" Caption="Recargo adicional" />
+        <Member Name="Carrera_CarreraModalidadEstudio" Caption="Carrera" />
+        <Member Name="ListaPrecio_ListaPrecio" Caption="Lista de Precio" />
+        <Member Name="ListaPrecioCarreraModalidadEstudioCantidadMateriaPlans" Caption="Cantidad de Materias por Lista de Precio" />
+        <Member Name="ListaPrecioCarreraModalidadEstudioCargoAdicionalPlans" Caption="Cargo Adicional por Lista de Precio" />
+        <Member Name="PeriodoFinal_Periodo" Caption="Periodo de Finalización" />
+        <Member Name="PeriodoInicial_Periodo" Caption="Periodo de Inicio" />
+        <Member Name="PrecioMateria" Caption="Precio de Materia" DisplayFormat="{0:F}" EditMask="F" />
+        <Member Name="PrecioMateriaNP" Caption="Precio de Materia" DisplayFormat="{0:F}" EditMask="F" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.ListaPrecioCarreraModalidadEstudioCantidadMateriaPlan" Caption="Cantidad de Materias por Lista de Precio">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="CantidadMateria" Caption="Cantidad de Materias" />
+        <Member Name="CantidadMateriaNP" Caption="Cantidad de Materias" />
+        <Member Name="CantidadMateriaPlan_CantidadMateriaPlan" Caption="Cantidad de Materia por Plan" />
+        <Member Name="CantidadMateriaPlanNP" Caption="Plan" />
+        <Member Name="CotizacionAcademicaPregradoes" Caption="Cotización académica" />
+        <Member Name="DescripcionNP" Caption="Descripción" />
+        <Member Name="ListaPrecioCarreraModalidadEstudio_ListaPrecioCarreraModalidadEstudio" Caption="Lista de Precio" />
+        <Member Name="PlanPagoCabeceras" Caption="Plan de Pago" />
+        <Member Name="PrecioMateria" Caption="Precio por Materia" DisplayFormat="{0:F}" EditMask="F" />
+        <Member Name="PrecioMateriaNP" Caption="Precio por Materia" DisplayFormat="{0:F}" EditMask="F" />
+        <Member Name="PrecioVentaTotal" Caption="Precio de Venta" DisplayFormat="{0:F}" EditMask="F" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.ListaPrecioCarreraModalidadEstudioCargoAdicionalPlan" Caption="Cargo Adicional por Lista de Precio">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="CargoAdicionalPlan_CargoAdicionalPlan" Caption="Recargo Adicional" />
+        <Member Name="ListaPrecioCarreraModalidadEstudio_ListaPrecioCarreraModalidadEstudio" Caption="Lista de Precio" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.MallaCurricular">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="Credito" DisplayFormat="{0:F}" EditMask="F" Caption="Crédito" />
+        <Member Name="DescripcionMallaCurricularNP" Caption="Descripción" />
+        <Member Name="HoraInvestigacion" Caption="Horas de Investigación" />
+        <Member Name="HoraPractica" Caption="Horas Prácticas" />
+        <Member Name="HoraTeoria" Caption="Horas Teóricas" />
+        <Member Name="Nivel_Nivel" Caption="Nivel" />
+        <Member Name="Pensum_Pensum" Caption="Pensum" />
+        <Member Name="PesoMateria" Caption="Peso" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.MallaElectiva">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="Materia_Materia" Caption="Materia" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.Materia">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="HoraPractica" Caption="Horas Prácticas" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.MateriaModalidadEstudio" Caption="Modalidades Habilitadas para la Materia">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="Materia_Materia" Caption="Materia" />
+        <Member Name="ModalidadEstudio_ModalidadEstudio" Caption="Modalidad de Estudio" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.ModalidadEstudio" Caption="Modalidad de Estudio" />
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.Modulo" Caption="Materia">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="ModuloEdicionPostgradoes" Caption="Materia Edición Carrera" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.ModuloEdicionPostgrado">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="Modulo_Modulo" Caption="Materia" />
+        <Member Name="ModuloEdicionPostgradoNP" Caption="Materia Edición Carrera" />
+        <Member Name="ModuloNP" Caption="Materia" />
+        <Member Name="ProgramacionPostgradoes" Caption="Programación Carreras" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.Nivel">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="Descripcion" Caption="Descripción" />
+        <Member Name="MallaCurriculars" Caption="Malla Curricular" />
+        <Member Name="Numero" Caption="Número" />
+        <Member Name="TipoPeriodo_TipoPeriodo" Caption="Tipo de Periodo" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.NivelAcademico" Caption="Nivel Académico">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="PertenenciaNP" Caption="Pertenencia" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.Pais" Caption="País">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="AgendaCollection" Caption="Agendas" />
+        <Member Name="CodigoTelefono" Caption="Código de Teléfono" />
+        <Member Name="Departamentoes" Caption="Departamentos" />
+        <Member Name="Descripcion" Caption="Descripción" />
+        <Member Name="FechaCreacion" Caption="Fecha de Creación" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.Pensum">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="HorasPracticaEmpresarial" Caption="Horas de Práctica Empresarial" />
+        <Member Name="HorasResponsabilidadSocial" Caption="Horas de Responsabilidad Social" />
+        <Member Name="MallaCurriculars" Caption="Malla Curricular" />
+        <Member Name="ModalidadEstudio_ModalidadEstudio" Caption="Modalidad de Estudio" />
+        <Member Name="Numero" Caption="Número de Pensum" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.PlanEstudio" Caption="Plan de Estudio">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="Descripcion" Caption="Descripción" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.PlanPagoCabecera" Caption="Plan de Pago">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="CantidadMateria" Caption="Cantidad de Materia" />
+        <Member Name="CostoMateria" Caption="Costo de Materia" DisplayFormat="{0:F}" EditMask="F" />
+        <Member Name="DescripcionNP" Caption="Descripción" />
+        <Member Name="Descuento" DisplayFormat="{0:F}" EditMask="F" />
+        <Member Name="Estado_EstadoPlanPago" Caption="Estado" />
+        <Member Name="MotivoDescuento_AsignacionBeca" Caption="Motivo de descuento" />
+        <Member Name="Observacion" Caption="Observación" />
+        <Member Name="PertenenciaNP" Caption="PertenenciA" />
+        <Member Name="Plan_ListaPrecioPensumCantidadMateriaPlan" Caption="Plan" />
+        <Member Name="PlanPagoCuotas" Caption="Cuotas" />
+        <Member Name="SubtotalAPagar" Caption="Subtotal" DisplayFormat="{0:F}" EditMask="F" />
+        <Member Name="TotalAPagar" DisplayFormat="{0:F}" EditMask="F" Caption="Total a Pagar" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.PlanPagoCuota" Caption="Cuotas del plan de pago">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="Cabecera_PlanPagoCabecera" Caption="Plan de pago" />
+        <Member Name="DescripcionNP" Caption="Descripción" />
+        <Member Name="FechaPago" Caption="Fecha de Pago" />
+        <Member Name="FechaReprogramacion" Caption="Fecha de Reprogramación" />
+        <Member Name="HistoricoReprogramacionCuotas" Caption="Histórico de Reprogramación de Cuotas" />
+        <Member Name="MontoAPagar" Caption="Monto a Pagar" DisplayFormat="{0:F}" EditMask="F" />
+        <Member Name="NumeroCuota" Caption="Número de Cuota" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.Postgrado" Caption="Carrera" />
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.Prerequisito">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="CantidadMateriasVencidas" Caption="Cantidad de Materias Vencidas" />
+        <Member Name="MateriaOrigen_MallaCurricular" Caption="Materia" />
+        <Member Name="MateriaPrerequisito_MallaCurricular" Caption="Prerrequisito" />
+        <Member Name="Periodo_Periodo" Caption="Periodo" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.PrerequisitoElectiva">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="MateriaElectiva_MallaElectiva" Caption="Materia Electiva" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.PrerequisitoTEC">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="MateriaOrigen_ContenidoEdicionTEC" Caption="Materia Origen" />
+        <Member Name="MateriaPrerequisito_ContenidoEdicionTEC" Caption="Prerequisito" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.ProgramacionPostgrado" Caption="Programación de la Carrera">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="DescripcionProgramacionPostgradoNP" Caption="Descripción de la Programación" />
+        <Member Name="ModuloEdicion_ModuloEdicionPostgrado" Caption="Materia de la Edición" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.ProgramacionTEC" Caption="Programación">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="HorarioTECs" Caption="Horario" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.Provincia">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="Ciudads" Caption="Ciudadad" />
+        <Member Name="Departamento_Departamento" Caption="Departamento" />
+        <Member Name="DepartamentoNP" Caption="Departamento" />
+        <Member Name="Descripcion" Caption="Descripción" />
+        <Member Name="FechaCreacion" Caption="Fecha de Creación" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.ResponsableArea" Caption="Responsable Área" />
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.ResponsableCarrera" Caption="Jefe de Carrera">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="Carrera_Carrera" Caption="Carrera" />
+        <Member Name="DescripcionNP" Caption="Descripción" />
+        <Member Name="FechaFin" Caption="Fecha de Finalización" />
+        <Member Name="FechaInicio" Caption="Fecha de Inicio" />
+        <Member Name="Responsable_Empleado" Caption="Responsable" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.ResponsableSeccionAcademica" Caption="Responsable de Sección Académica">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="DescripcionNP" Caption="Descripción" />
+        <Member Name="FechaFin" Caption="Fecha de Finalización" />
+        <Member Name="FechaInicio" Caption="Fecha de Inicio" />
+        <Member Name="Responsable_Empleado" Caption="Responsable" />
+        <Member Name="SeccionAcademica_SeccionAcademica" Caption="Sección Académica" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.SeccionAcademica" Caption="Sección Académica">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="Descripcion" Caption="Descripción" />
+        <Member Name="PertenenciaNP" Caption="Pertenencia" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.SimulacionCuota" Caption="Simulación de Cuotas">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="Cabecera_CotizacionAcademicaPregrado" Caption="Cotización" />
+        <Member Name="DescripcionNP" Caption="Descripción" />
+        <Member Name="FechaPago" Caption="Fecha de Pago" />
+        <Member Name="MontoAPagar" Caption="Monto a Pagar" DisplayFormat="{0:F}" EditMask="F" />
+        <Member Name="NumeroCuota" Caption="Número de Cuota" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.TelefonoAgenda" Caption="Teléfono de Agenda">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="Agenda_Agenda" Caption="Agenda" />
+        <Member Name="Estado_EstadoTelefonoAgenda" Caption="Estado" />
+        <Member Name="Numero" Caption="Número" />
+        <Member Name="Tipo_TipoTelefono" Caption="Tipo" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.TelefonoCentro" Caption="Teléfono de Centro">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="Centro_Centro" Caption="Centro" />
+        <Member Name="Numero" Caption="Número" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.TelefonoColegio" Caption="Teléfono Colegio">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="Colegio_Colegio" Caption="Colegio" />
+        <Member Name="Numero" EditMask="(\(\d\d\d\) )?\d{1,3}-\d\d-\d\d" Caption="Número" />
+        <Member Name="TipoNP" Caption="Tipo" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.TipoCargo" Caption="Tipo de Cargo">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="CargoAdicionalPlans" Caption="Cargo Adicional por Plan" />
+        <Member Name="Descripcion" Caption="Descripción" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.TipoPersona" Caption="Tipo de Agenda">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="AgendaTipoPersonas" Caption="Tipo de Agenda" />
+        <Member Name="Descripcion" Caption="Descripción" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.TipoPlan" Caption="Tipo de Plan">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="ListaPrecios" Caption="Lista de Precios" />
+        <Member Name="ModalidadEstudio_ModalidadEstudio" Caption="Modalidad de estudio" />
+        <Member Name="TipoPlanColegios" Caption="Excepcional: Colegios beneficiarios" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.TipoPlanColegio" Caption="Tipo de Plan por Colegio">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="ColegioBeneficiario_Colegio" Caption="Colegio Beneficiario" />
+        <Member Name="TipoPlan_TipoPlan" Caption="Tipo de Plan" />
+        <Member Name="TipoPlanNP" Caption="Tipo de Plan" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.TipoResponsabilidad" Caption="Tipo de Responsabilidad">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="Descripcion" Caption="Descripción" />
+        <Member Name="Proveedors" Caption="Proveedores" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.TipoTelefono" Caption="Tipo de Teléfono">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="Descripcion" Caption="Descripción" />
+        <Member Name="TelefonoAgendas" Caption="Teléfonos" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.Turno">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="CicloInicios" Caption="Ciclo de Inicio" />
+        <Member Name="Descripcion" Caption="Descripción" />
+        <Member Name="ModalidadEstudio_ModalidadEstudio" Caption="Modalidad de Estudio" />
+        <Member Name="PlanEstudio_PlanEstudio" Caption="Plan de Estudio" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.VersionPostgrado" Caption="Versión de la Carrera">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="Descripcion" PredefinedValues="" />
+        <Member Name="Edicion_EdicionPostgrado" Caption="Edición de la Carrera" />
+        <Member Name="NumeroNP" Caption="Número de Versión" />
+      </OwnMembers>
+    </Class>
+    <Class Name="UTEPSA.SAF.BACKOFFICE.XAF.Module.BusinessObjects.SAFDB.VersionTEC" Caption="Versión">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="DescripcionVersionTECNP" Caption="Descripción de Versión" />
+        <Member Name="Edicion_EdicionTEC" Caption="Edición" />
+        <Member Name="NumeroNP" Caption="Número de Versión" />
+        <Member Name="Observacion" Caption="Observación" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Localization Id="Localization">
+    <LocalizationGroup Name="Notifications">
+      <LocalizationItem Name="NotificationViewCaption" Value="Recordatorio(s)" />
+      <LocalizationItem Name="ShowNotificationsActionDisabledTooltip" Value="No hay elementos para mostrar" />
+      <LocalizationItem Name="ShowNotificationsActionEnabledTooltip" Value="Mostrar notificaciones" />
+    </LocalizationGroup>
+    <LocalizationGroup Name="Enums">
+      <LocalizationGroup Name="DevExpress.ExpressApp.Notifications.NotificationItemState" Value="Estado del elemento de notificación">
+        <LocalizationItem Name="Active" Value="Activo" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="DevExpress.ExpressApp.Notifications.NotificationsType" Value="Tipo de notificaciones">
+        <LocalizationItem Name="Active" Value="Activo" />
+      </LocalizationGroup>
+    </LocalizationGroup>
+    <LocalizationGroup Name="Namespaces">
+      <LocalizationItem Name="DevExpress.ExpressApp.Notifications" Value="Notificaciones" />
+    </LocalizationGroup>
+  </Localization>
+  <Views Id="Views">
+    <DetailView Id="Agenda_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Agenda" Caption="Información General" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="AgendaTipoPersona_LookupListView" Caption="Tipo de Agenda" />
+    <DetailView Id="Area_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="Cargoes_Group" Caption="Cargos del área" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="CantidadMateriaPlan_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <TabbedGroup Id="Tabs" Caption="Tabs" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="CantidadMateriaPlanFrecuenciaPagoCuota_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="CantidadMateriaPlanFrecuenciaPagoCuota" Caption="Cantidad de materia por frecuencia de pago" />
+          </LayoutGroup>
+          <LayoutGroup Id="CantidadMateriaPlanFrecuenciaPagoCuotaFormaPagoes_Group" Caption="Forma de pago habilitada" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="Carrera_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors" Caption="Carrera" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="CarreraModalidadEstudio_LookupListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="Carrera_Carrera.Descripcion" Caption="Carrera" />
+      </Columns>
+    </ListView>
+    <ListView Id="CicloInicio_ListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="Modalidad de Estudio" Caption="Modalidad de Estudio" />
+      </Columns>
+    </ListView>
+    <DetailView Id="Ciudad_DetailView">
+      <Items Id="Items">
+        <PropertyEditor Id="Pais_Pais" Caption="País" />
+      </Items>
+    </DetailView>
+    <DetailView Id="Colegio_DetailView">
+      <Items Id="Items">
+        <PropertyEditor Id="Clasificacion" PredefinedValues="A;B;C;D" />
+        <PropertyEditor Id="DireccionColegios" Caption="Direcciones" />
+        <PropertyEditor Id="TelefonoColegios" Caption="Teléfonos" />
+      </Items>
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="TelefonoColegios" Caption="Teléfonos" />
+            <LayoutGroup Id="DireccionColegios" Caption="Direcciones" />
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="CommonNotificationItem_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="CotizacionAcademicaPregrado_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="CotizacionAcademicaPregrado" Caption="Cotización Académica para Pregrado" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="Departamento_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors" Caption="Fila1" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="DireccionAgenda_DetailView">
+      <Items Id="Items">
+        <PropertyEditor Id="Referencia" Caption="Referencia" />
+      </Items>
+    </DetailView>
+    <DetailView Id="DocumentoEstudianteAlternativoRecepcion_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="DocumentoEstudianteAlternativoRecepcion" Caption="Recepción de documentos de Estudiantes" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="DocumentoEstudianteRecepcion_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="DocumentoEstudianteRecepcion" Caption="Recepción de documentos de Estudiantes" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="EdicionPostgrado_DetailView" Caption="Edición de la Carrera" />
+    <ListView Id="EdicionPostgrado_ListView" Caption="Edición de la Carrera" />
+    <DetailView Id="Equivalencia_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors" Caption="Equivalencia" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="FileAttachmentBase_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="FileData_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <ListView Id="GrupoCicloInicio_ListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="Modalidad de Estudio" Caption="Modalidad de Estudio" />
+      </Columns>
+    </ListView>
+    <DetailView Id="Horario_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors" Caption="Horario" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="ListaPrecio_ListaPrecioCarreraModalidadEstudios_ListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="Carrera_CarreraModalidadEstudio" Caption="Modalidad de Estudio" />
+      </Columns>
+    </ListView>
+    <ListView Id="ListaPrecio_ListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="MontoMatricula_CargoAdicionalPlan" Caption="Precio de Matrícula" />
+      </Columns>
+    </ListView>
+    <DetailView Id="ListaPrecioCarreraModalidadEstudio_DetailView">
+      <Items Id="Items">
+        <PropertyEditor Id="CargoAdicionalPlanNP" Caption="Recargo adicional" />
+      </Items>
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="ListaPrecioCarreraModalidadEstudio" Caption="Lista de Precio por Carrera" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="ListaPrecioCarreraModalidadEstudioCantidadMateriaPlan_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="ListaPrecioCarreraModalidadEstudioCantidadMateriaPlan" Caption="Cantidad de Materias por Lista de Precio" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="MallaCurricular_ListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="Pensum_Pensum" Caption="Carrera" />
+      </Columns>
+    </ListView>
+    <ListView Id="MallaElectiva_ListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="Materia_Materia" Caption="Materia Electiva" />
+      </Columns>
+    </ListView>
+    <DetailView Id="Notification_DetailView">
+      <Items Id="Items">
+        <PropertyEditor Id="State" Caption="Estado" />
+      </Items>
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main" Caption="Principal">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Notification" Caption="Notificación" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="Notification_ListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="State" Caption="Estado" />
+      </Columns>
+    </ListView>
+    <DetailView Id="NotificationsObject_DetailView">
+      <Items Id="Items">
+        <PropertyEditor Id="Postpone" Caption="Tiempo de pausa" />
+        <PropertyEditor Id="ShowNotificationsWindow" Caption="Mostrar ventana de notificaciones" />
+      </Items>
+      <Layout Id="Layout">
+        <LayoutGroup Id="MasterGroup">
+          <LayoutGroup Id="Main" Caption="Principal" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="NotificationsObject_ListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="ShowNotificationsWindow" Caption="Mostrar ventana de notificaciones" />
+      </Columns>
+    </ListView>
+    <ListView Id="NotificationsObject_LookupListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="ShowNotificationsWindow" Caption="Mostrar ventana de notificaciones" />
+      </Columns>
+    </ListView>
+    <ListView Id="NotificationsObject_Notifications_ListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="State" Caption="Estado" />
+      </Columns>
+    </ListView>
+    <DetailView Id="Pais_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors" Caption="Fila1" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="Pensum_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors" Caption="Pensum" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="Pensum_DetailView_GrupoBorrador">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors" Caption="Pensum" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="PermisoNavegacionExtra_DetailView">
+      <Items Id="Items">
+        <PropertyEditor Id="NavigateState" Caption="Navegar" />
+      </Items>
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="PermisoTipoExtra_DetailView">
+      <Items Id="Items">
+        <PropertyEditor Id="TargetType" Caption="Tipo de destino" />
+        <PropertyEditor Id="WriteState" Caption="Escribir" />
+      </Items>
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main" Caption="Principal">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="PermissionPolicyTypePermissionObject" Caption="Tipo de política de permiso Objeto de permiso" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="PermisoTipoExtra_ListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="WriteState" Caption="Escribir" />
+        <ColumnInfo Id="TargetType" Caption="Tipo de destino" />
+      </Columns>
+    </ListView>
+    <ListView Id="PermisoTipoExtra_LookupListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="Role" Caption="Rol" />
+        <ColumnInfo Id="TargetType" Caption="Tipo de destino" />
+        <ColumnInfo Id="WriteState" Caption="Escribir" />
+      </Columns>
+    </ListView>
+    <DetailView Id="PlanEstudio_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="Turnoes_Group" Caption="Turnos" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="PlanPagoCabecera_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="PlanPagoCabecera" Caption="Plan de Pago" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="PlanPagoCabecera_DetailView_Recargo">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="PlanPagoCabecera" Caption="Plan de Pago" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="Postgrado_DetailView" Caption="Carrera" />
+    <ListView Id="Postgrado_EdicionPostgradoes_ListView" Caption="Edición de la Carrera" />
+    <ListView Id="Postgrado_ListView" Caption="Carrera" />
+    <ListView Id="Postgrado_LookupListView" Caption="Carrera" />
+    <DetailView Id="Prerequisito_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors" Caption="Prerequisitos" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="ProgramacionPostgrado_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="ProgramacionPostgrado" Caption="Programación de la Carrera" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="ProgramacionTEC_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="ProgramacionTEC" Caption="Programación" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="ResponsableCarrera_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="ResponsableCarrera" Caption="Jefe de Carrera" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="ResponsableSeccionAcademica_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="ResponsableSeccionAcademica" Caption="Responsable de Sección Académica" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="SeccionAcademica_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="AreaAcademicas" Caption="Área Académicas" />
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="TelefonoAgenda_DetailView">
+      <Items Id="Items">
+        <PropertyEditor Id="Numero" EditMask="(\(\d\d\d\) )?\d{1,3}-\d\d-\d\d" />
+      </Items>
+    </DetailView>
+    <DetailView Id="TelefonoColegio_DetailView">
+      <Items Id="Items">
+        <PropertyEditor Id="Numero" EditMask="(\(\d\d\d\) )?\d{1,3}-\d\d-\d\d\d" />
+      </Items>
+    </DetailView>
+    <DetailView Id="Turno_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors" Caption="Turno" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="VersionPostgrado_DetailView" Caption="Versión de la Carrera" />
+    <ListView Id="VersionPostgrado_ListView" Caption="Versión de la Carrera" />
+    <ListView Id="VersionPostgrado_LookupListView" Caption="Versión de la Carrera" />
+    <ListView Id="PermissionPolicyMemberPermissionsObject_LookupListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="WriteState" Caption="Escribir" />
+      </Columns>
+    </ListView>
+    <ListView Id="PermissionPolicyObjectPermissionsObject_LookupListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="WriteState" Caption="Escribir" />
+      </Columns>
+    </ListView>
+    <ListView Id="PermissionPolicyTypePermissionObject_LookupListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="WriteState" Caption="Escribir" />
+        <ColumnInfo Id="NavigateState" Caption="Navegar" />
+      </Columns>
+    </ListView>
+  </Views>
+  <ActionDesign Id="ActionDesign">
+    <Actions Id="Actions">
+      <Action Id="ShowNotificationsAction" ToolTip="Mostrar acción de notificaciones" ShortCaption="Mostrar acción de notificaciones" Caption="Mostrar acción de notificaciones" />
+    </Actions>
+  </ActionDesign>
+  <NavigationItems Id="NavigationItems">
+    <Items Id="Items">
+      <Item Id="Default" Caption="Administración Del Sistema" />
+      <Item Id="ParametrizacionAcademica">
+        <Items Id="Items">
+          <Item Id="Administración académica">
+            <Items Id="Items">
+              <Item Id="Tipo de Bachillerato" Caption="Tipo de Bachillerato" />
+            </Items>
+          </Item>
+        </Items>
+      </Item>
+    </Items>
+  </NavigationItems>
+  <Validation Id="Validation">
+    <Rules Id="Rules">
+      <RuleCriteria Id="CalendarioNoLaboralValidarMotivoEnBlanco" CustomMessageTemplate="El &quot;Motivo&quot; es un dato obligatorio." />
+      <RuleRange Id="CantidadMateriaPlanValidarCantidadMateriaRango" CustomMessageTemplate="La Cantidad de Materia debe ser mayor a 0" />
+      <RuleCriteria Id="CantidadMateriaPlanValidarDescripcionEnBlanco" CustomMessageTemplate="La &quot;Descripción&quot; es un dato obligatorio." />
+      <RuleCriteria Id="CargoValidarPuestoEnBlanco" CustomMessageTemplate="La &quot;Descripción&quot; es un dato obligatorio." />
+      <RuleCombinationOfPropertiesIsUnique Id="CicloValidarPeriodoNumeroValorUnico" CustomMessageTemplate="Ya existe el ciclo para este periodo" />
+      <RuleUniqueValue Id="CiudadValidarDescripcionValorUnico" CustomMessageTemplate="La &quot;Descripción&quot; ya existe" />
+      <RuleUniqueValue Id="CiudadValidarSiglaValorUnico" CustomMessageTemplate="La &quot;Sigla&quot; ya existe." />
+      <RuleCriteria Id="ClasificacionCargoValidarDescripciónEnBlanco" CustomMessageTemplate="La &quot;Descripción&quot; es un dato obligatorio." />
+      <RuleUniqueValue Id="DepartamentoValidarDescripcionValorUnico" CustomMessageTemplate="La &quot;Descripción&quot; ya existe" />
+      <RuleUniqueValue Id="DepartamentoValidarSiglaValorUnico" CustomMessageTemplate="La &quot;Sigla&quot; ya existe." />
+      <RuleCriteria Id="DireccionAgendaValidarDireccionEnBlanco" CustomMessageTemplate="La &quot;Dirección&quot; es un dato obligatorio." />
+      <RuleCriteria Id="DireccionAgendaValidarReferenciaEnBlanco" CustomMessageTemplate="La &quot;Referencia&quot; es un dato obligatorio." />
+      <RuleCriteria Id="DireccionColegioValidarDescripcionEnBlanco" CustomMessageTemplate="La &quot;Descripción&quot; es un dato obligatorio." />
+      <RuleCriteria Id="DireccionColegioValidarReferenciaEnBlanco" CustomMessageTemplate="La &quot;Referencia&quot; es un dato obligatorio." />
+      <RuleCriteria Id="DisciplinaAcademicaValidarDescripcionEnBlanco" CustomMessageTemplate="La &quot;Descripción&quot; es un dato obligatorio." />
+      <RuleCriteria Id="DocumentoEstudianteAlternativoRecepcionValidarCantidadMayorA0" CustomMessageTemplate="&quot;Cantidad&quot; debe ser mayor a 0" />
+      <RuleCriteria Id="DocumentoEstudianteRecepcionValidarCantidadMayorA0" CustomMessageTemplate="&quot;Cantidad&quot; debe ser mayor a 0" />
+      <RuleCriteria Id="EstadoTelefonoValidarDescripcionEnBlanco" CustomMessageTemplate="La &quot;Descripción&quot; es un dato obligatorio." />
+      <RuleCriteria Id="EstudianteValidarNumeroDocumentoEnBlanco" CustomMessageTemplate="El &quot;Número de documento&quot; es un dato obligatorio." />
+      <RuleCriteria Id="HorarioValidarDescripcionEnBlanco" CustomMessageTemplate="La &quot;Descripción&quot; es un dato obligatorio." />
+      <RuleCriteria Id="HorarioValidarHoraFinRango" CustomMessageTemplate="La&quot;Hora de Inicio&quot; debe ser mayor a 7 am y menor a 12 pm." />
+      <RuleCriteria Id="HorarioValidarHoraInicioRango" CustomMessageTemplate="La&quot;Hora de Inicio&quot; debe ser mayor a 7 am y menor a 10 pm." />
+      <RuleCriteria Id="HorarioValidarSiglaEnBlanco" CustomMessageTemplate="La &quot;Sigla&quot; es un dato obligatorio." />
+      <RuleRange Id="ListaPrecioCarreraModalidadEstudioCantidadMateriaPlanValidarCantidadMateriaRango" CustomMessageTemplate="La Cantidad de Materias debe ser mayor a 0" />
+      <RuleRequiredField Id="ListaPrecioPensumValidarCarrera_CarreraModalidadEstudioPrecioPlanVacio" Name="ListaPrecioPensumValidarPensum_PensumPrecioPlanVacio" />
+      <RuleRequiredField Id="ListaPrecioPensumValidarListaPrecio_ListaPrecioPlanVacio" Name="ListaPrecioPensumValidarListaPrecio_ListaPrecioPlanVacio" />
+      <RuleRequiredField Id="ListaPrecioPensumValidarPeriodoFinalPlanVacio" Name="ListaPrecioPensumValidarPensum_PensumPrecioPlanVacio" />
+      <RuleRequiredField Id="ListaPrecioPensumValidarPeriodoInicialPlanVacio" Name="ListaPrecioPensumValidarPensum_PensumPrecioPlanVacio" />
+      <RuleCriteria Id="ListaPrecioPensumValidarPeriodoInicioMenorQuePeriodoFin" CustomMessageTemplate="&quot;Periodo de Inicio&quot; debe ser menor al &quot;Periodo Final&quot;" />
+      <RuleRange Id="ListaPrecioPensumValidarPerioMateriaRango" CustomMessageTemplate="El Precio por materia debe ser mayor a 0" />
+      <RuleRange Id="ListaPreciopENSUMValidarPrecioMateriaRango" CustomMessageTemplate="El Precio de Materia debe ser mayor a 0" />
+      <RuleRequiredField Id="ListaPrecioPensumValidarPrecioMateriaVacio" Name="ListaPrecioPensumValidarPensum_PensumPrecioPlanVacio" />
+      <RuleRange Id="ListaPrecioValidarCodigoPlanRango" CustomMessageTemplate="El código del plan debe ser mayor a 0" />
+      <RuleUniqueValue Id="ListaPrecioValidarCodigoPlanUnico" CustomMessageTemplate="El &quot;Código de Plan&quot; ya existe." />
+      <RuleRequiredField Id="ListaPrecioValidarCodigoPlanVacio" Name="ListaPrecioValidarCodigoPlanVacio" />
+      <RuleRequiredField Id="ListaPrecioValidarFormaPago_FormaPagoVacio" Name="ListaPrecioValidarFormaPago_FormaPagoVacio" />
+      <RuleRequiredField Id="ListaPrecioValidarMontoMatriculaVacio" Name="ListaPrecioValidarMontoMatriculaVacio" />
+      <RuleRequiredField Id="ListaPrecioValidarPertenenciaVacio" Name="ListaPrecioValidarCodigoPlanVacio" />
+      <RuleRequiredField Id="ListaPrecioValidarTipoPlan_TipoPlanVacio" Name="ListaPrecioValidarTipoPlan_TipoPlanVacio" />
+      <RuleCombinationOfPropertiesIsUnique Id="MallaCurricularValidarNivelOrdenPensumUnico" CustomMessageTemplate="Ya existe el Orden &quot;{Orden}&quot; para el &quot;{Nivel_Nivel}&quot;" />
+      <RuleRange Id="MallaCurricularValidarPesoRango" CustomMessageTemplate="El Orden debe ser mayor a 0" />
+      <RuleValueComparison Id="MateriaAdvertirCreditoValor0" CustomMessageTemplate="Esta creando una materia con 0 créditos" />
+      <RuleUniqueValue Id="MateriaAdvertirSiglaRepetida" CustomMessageTemplate="Ya esiste una materia con la misma Sigla." />
+      <RuleCriteria Id="PaisValidarCodigoTelefonoEnBlanco" CustomMessageTemplate="El &quot;Código de teléfono&quot; es un dato obligatorio." />
+      <RuleUniqueValue Id="PaisValidarCodigoTelefonoValorUnico" CustomMessageTemplate="El &quot;Código de teléfono&quot; ya existe." />
+      <RuleUniqueValue Id="PaisValidarDescripcionValorUnico" CustomMessageTemplate="La &quot;Descripción&quot; ya existe." />
+      <RuleCriteria Id="PaisValidarNacionalidadEnBlanco" CustomMessageTemplate="La &quot;Nacionalidad&quot; es un dato obligatorio." />
+      <RuleRequiredField Id="PaisValidarNacionalidadVacio" CustomMessageTemplate="" />
+      <RuleUniqueValue Id="PaisValidarNacionalidadValorUnico" CustomMessageTemplate="La &quot;Nacionalidad&quot; ya existe." />
+      <RuleCriteria Id="PaisValidarSiglaEnBlanco" CustomMessageTemplate="La &quot;Sigla&quot; es un dato obligatorio." />
+      <RuleUniqueValue Id="PaisValidarSiglaValorUnico" CustomMessageTemplate="La &quot;Sigla&quot; ya existe." />
+      <RuleCriteria Id="ProvinciaValidarDescripcionEnBlanco" CustomMessageTemplate="La &quot;Descripción&quot; es un dato obligatorio." />
+      <RuleUniqueValue Id="ProvinciaValidarDescripcionValorUnico" CustomMessageTemplate="La &quot;Descripción&quot; ya existe." />
+      <RuleUniqueValue Id="ProvinciaValidarSiglaValorUnico" CustomMessageTemplate="La &quot;Sigla&quot; ya existe." />
+      <RuleRequiredField Id="ResponsableCarreraValidarResponsableEmpleadoVacio" Name="ResponsableCarreraValidarResponsableEmpleadoVacio" />
+      <RuleRequiredField Id="SimulacionCuotaValidarCabeceraVacio" Name="SimulacionCuotaValidarCabeceraVacio" />
+      <RuleRequiredField Id="SimulacionCuotaValidarFechaPagoVacio" Name="SimulacionCuotaValidarCabeceraVacio" />
+      <RuleRequiredField Id="SimulacionCuotaValidarMontoAPagarVacio" Name="SimulacionCuotaValidarMontoAPagarVacio" />
+      <RuleRequiredField Id="SimulacionCuotaValidarNumeroCuotaVacio" Name="SimulacionCuotaValidarNumeroCuotaVacio" />
+      <RuleCriteria Id="TelefonoAgendaValidarNumeroEnBlanco" CustomMessageTemplate="El &quot;Número&quot; es un dato obligatorio." />
+      <RuleCriteria Id="TelefonoCentroValidarNumeroEnBlanco" CustomMessageTemplate="La &quot;Referencia&quot; es un dato obligatorio." />
+      <RuleCriteria Id="TelefonoColegioValidarReferenciaEnBlanco" CustomMessageTemplate="La &quot;Referencia&quot; es un dato obligatorio." />
+      <RuleCriteria Id="TelefonoColegioValidarTipoEnBlanco" CustomMessageTemplate="El &quot;Tipo&quot; es un dato obligatorio." />
+      <RuleCriteria Id="TipoPlanValidarNombreEnBlanco" CustomMessageTemplate="&quot;Nombre&quot; es un dato obligatorio." />
+      <RuleCriteria Id="TipoProgramaValidarNivelMayor0" CustomMessageTemplate="El Nivel debe ser mayor a 0" />
+      <RuleCriteria Id="TurnoValidarDescripcionEnBlanco" CustomMessageTemplate="La &quot;Descripción&quot; es un dato obligatorio." MessageTemplateMustSatisfyCriteria="La &quot;{TargetObject}&quot; objeto debe cumplir los siguientes criterios: &quot;{Criteria}&quot;." />
+    </Rules>
+  </Validation>
+</Application>

@@ -1,0 +1,784 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application Title="Activación Profética">
+  <ActionDesign>
+    <Actions>
+      <Action Id="Cancel" ConfirmationMessage="Los cambios no guardados se perderán. ¿Quiere proceder a la acción?" />
+      <Action Id="CopyModelDifference" Caption="Copie la diferencia del modelo" />
+      <Action Id="DeleteDashboard" Caption="Eliminar panel" />
+      <Action Id="Diagnostic Info.View Info">
+        <ChoiceActionItems>
+          <ChoiceActionItem Id="View Info" Caption="Ver Info" />
+        </ChoiceActionItems>
+      </Action>
+      <Action Id="ExportModelDifferences" Caption="Exportaciones de modelos de exportación" ToolTip="Exporta la configuración seleccionada (diferencias de modelo) a la carpeta {0}." />
+      <Action Id="ImportSharedModelDifference" ConfirmationMessage="Está a punto de sobrescribir la configuración compartida (diferencias de modelo) con el contenido del archivo {0}. Esto no puede deshacerse. ¿Quieres continuar?" Caption="Importar diferencia de modelo compartido" ToolTip="Importa la configuración compartida (diferencias de modelo) del archivo {0} ubicado en la carpeta de la aplicación." />
+      <Action Id="NextObject" ToolTip="Siguiente Registro" ShortCaption="Siguiente Registro" Caption="Siguiente Registro" />
+      <Action Id="PreviousObject" ToolTip="Registro Anterior" ShortCaption="Registro Anterior" Caption="Registro Anterior" />
+      <Action Id="ResetModelDifferences" ConfirmationMessage="Está a punto de restablecer la configuración seleccionada (diferencias de modelo). ¿Quieres continuar?" Caption="Restablecer las diferencias del modelo" ToolTip="Restablece la configuración seleccionada (diferencias de modelo). Los cambios se aplican después de que un usuario reinicia la aplicación." />
+      <Action Id="ResetViewSettings" ConfirmationMessage="Está a punto de restablecer todos los ajustes realizados para la vista &quot;{0}&quot;. ¿Quieres continuar?" ToolTip="Restablece todos los ajustes realizados para la vista &quot;{0}&quot;." />
+    </Actions>
+    <DisableReasons>
+      <Reason Id="CanCreate" Caption="No se puede crear una instancia de objeto" />
+      <Reason Id="IsModifiedObject" Caption="Guarde los cambios actuales antes de editar este registro" />
+      <Reason Id="UnsuitableType" Caption="No se puede crear un nuevo objeto del tipo seleccionado" />
+    </DisableReasons>
+  </ActionDesign>
+  <BOModel>
+    <Class Name="DevExpress.ExpressApp.SystemModule.AboutInfo">
+      <OwnMembers>
+        <Member Name="AboutInfoString" Caption="Acerca de la Info de la cadena" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.ExpressApp.SystemModule.DashboardCreationInfo">
+      <OwnMembers>
+        <Member Name="ViewItems" Caption="View Ítems" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.ExpressApp.SystemModule.DashboardName" Caption="Seleccione Tablero(s) para eliminar" />
+    <Class Name="DevExpress.ExpressApp.SystemModule.DashboardOrganizationItem">
+      <OwnMembers>
+        <Member Name="Item" Caption="Ítem" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.ExpressApp.SystemModule.ModelDifferenceCopyParameters" Caption="Copie las diferencias del modelo">
+      <OwnMembers>
+        <Member Name="CopyBehavior" Caption="Comportamiento de copia" />
+        <Member Name="SourceModelDifference" Caption="Diferencia del modelo de origen" />
+        <Member Name="TargetModelDifferences" Caption="Diferencias del modelo objetivo" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.ExpressApp.SystemModule.Notifications.PostponeTime" Caption="Posponer el tiempo">
+      <OwnMembers>
+        <Member Name="RemindIn" Caption="Recordar en" />
+        <Member Name="RemindInText" Caption="Recordar en" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.ExpressApp.SystemModule.ProcessDataLockingInfoDialogObject" Caption="Objeto de diálogo de información de bloqueo de datos de proceso" />
+    <Class Name="DevExpress.ExpressApp.Validation.AllContextsView.ContextValidationResult">
+      <OwnMembers>
+        <Member Name="BrokenRules" Caption="Reglas rotas" />
+        <Member Name="ContextValidationOutcome" Caption="Estado" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.ExpressApp.Validation.AllContextsView.DisplayableValidationResultItem">
+      <OwnMembers>
+        <Member Name="Outcome" Caption="Estado" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.Persistent.AuditTrail.BaseAuditedObjectWeakReference">
+      <OwnMembers>
+        <Member Name="GuidId" Caption="ID de guía" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.Persistent.BaseImpl.AuditDataItemPersistent" Caption="Artículo de datos de auditoría persistente">
+      <OwnMembers>
+        <Member Name="ModifiedOn" Caption="Modificado en" />
+        <Member Name="NewValue" Caption="Valor nuevo" />
+        <Member Name="OldValue" Caption="Valor antiguo" />
+        <Member Name="OperationType" Caption="Tipo de operación" />
+        <Member Name="PropertyName" Caption="Nombre de la propiedad modificada" />
+        <Member Name="UserName" Caption="Nombre de usuario" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.Persistent.BaseImpl.AuditedObjectWeakReference" Caption="Referencia débil del objeto auditado">
+      <OwnMembers>
+        <Member Name="AuditDataItems" Caption="Elementos de datos de auditoría" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.Persistent.BaseImpl.ModelDifference" Caption="Diferencia de modelo">
+      <OwnMembers>
+        <Member Name="Aspects" Caption="Aspectos" />
+        <Member Name="UserName" Caption="Nombre de usuario" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.Persistent.BaseImpl.ModelDifferenceAspect" Caption="Modelo Diferencia Aspecto" />
+    <Class Name="DevExpress.Persistent.BaseImpl.PermissionPolicy.PermissionPolicyMemberPermissionsObject" Caption="Permisos de operación de miembros">
+      <OwnMembers>
+        <Member Name="Members" Caption="Miembros" />
+        <Member Name="ReadState" Caption="Leer" />
+        <Member Name="TypePermissionObject" Caption="Escriba el objeto de permiso" />
+        <Member Name="WriteState" Caption="Escribir" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.Persistent.BaseImpl.PermissionPolicy.PermissionPolicyNavigationPermissionObject" Caption="Permisos de elementos de navegación">
+      <OwnMembers>
+        <Member Name="ItemPath" Caption="Ítem de navegación" />
+        <Member Name="NavigateState" Caption="Navegar" />
+        <Member Name="Role" Caption="Rol" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.Persistent.BaseImpl.PermissionPolicy.PermissionPolicyObjectPermissionsObject" Caption="Permisos de operación de objetos">
+      <OwnMembers>
+        <Member Name="NavigateState" Caption="Navegar" />
+        <Member Name="ReadState" Caption="Leer" />
+        <Member Name="TypePermissionObject" Caption="Escriba el objeto de permiso" />
+        <Member Name="WriteState" Caption="Escribir" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.Persistent.BaseImpl.PermissionPolicy.PermissionPolicyRoleBase" Caption="Rol base">
+      <OwnMembers>
+        <Member Name="CanEditModel" Caption="Puede editar el modelo" />
+        <Member Name="IsAdministrative" Caption="Es administrativo" />
+        <Member Name="NavigationPermissions" Caption="Permisos de navegación" />
+        <Member Name="PermissionPolicy" Caption="Política de permiso" />
+        <Member Name="TypePermissions" Caption="Escriba permisos" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.Persistent.BaseImpl.PermissionPolicy.PermissionPolicyTypePermissionObject" Caption="Tipo permisos de operación">
+      <OwnMembers>
+        <Member Name="MemberPermissions" Caption="Permisos de miembros" />
+        <Member Name="NavigateState" Caption="Navegar" />
+        <Member Name="ObjectPermissions" Caption="Permisos de objetos" />
+        <Member Name="ReadState" Caption="Leer" />
+        <Member Name="Role" Caption="Rol" />
+        <Member Name="TargetType" Caption="Tipo de destino" />
+        <Member Name="WriteState" Caption="Escribir" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.Persistent.Validation.IRuleBaseProperties">
+      <OwnMembers>
+        <Member Name="ResultType" Caption="Tipo de resultado" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.Persistent.Validation.IRuleCriteriaProperties">
+      <OwnMembers>
+        <Member Name="UsedProperties" Caption="Propiedades Usadas" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.Persistent.Validation.IRuleValueComparisonProperties">
+      <OwnMembers>
+        <Member Name="MessageTemplateMustBeEqualToOperand" Caption="La plantilla de mensaje debe ser igual al operando" />
+        <Member Name="MessageTemplateMustBeGreaterThanOperand" Caption="La plantilla de mensaje debe ser mayor que o igual al operando" />
+        <Member Name="MessageTemplateMustBeGreaterThanOrEqualToOperand" Caption="La plantilla de mensaje debe ser mayor que o igual al operando" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.Persistent.Validation.RuleBaseProperties">
+      <OwnMembers>
+        <Member Name="ResultType" Caption="Tipo de resultado" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.Persistent.Validation.RuleCriteriaProperties">
+      <OwnMembers>
+        <Member Name="UsedProperties" Caption="Propiedades Usadas" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.Persistent.Validation.RuleSetValidationResultItem">
+      <OwnMembers>
+        <Member Name="DisplayObjectName" Caption="Mostrar nombre del objeto" />
+        <Member Name="ValidationOutcome" Caption="Estado" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.Persistent.Validation.RuleValueComparisonProperties">
+      <OwnMembers>
+        <Member Name="MessageTemplateMustBeEqualToOperand" Caption="La plantilla de mensaje debe ser igual al operando" />
+        <Member Name="MessageTemplateMustBeGreaterThanOperand" Caption="La plantilla de mensaje debe ser mayor que o igual al operando" />
+        <Member Name="MessageTemplateMustBeGreaterThanOrEqualToOperand" Caption="La plantilla de mensaje debe ser mayor que o igual al operando" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.Xpo.PersistentBase" Caption="Base persistente" />
+  </BOModel>
+  <Localization>
+    <LocalizationGroup Name="Captions">
+      <LocalizationItem Name="DiagnosticChildWindowAddition" Value="(Pantalla hija)" />
+      <LocalizationItem Name="EditCriteria" Value="Editar criterios" />
+    </LocalizationGroup>
+    <LocalizationGroup Name="Enums">
+      <LocalizationGroup Name="DevExpress.ExpressApp.Editors.ViewItemVisibility" Value="Ver la visibilidad del artículo">
+        <LocalizationItem Name="ShowEmptySpace" Value="Mostrar espacios en blanco" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="DevExpress.ExpressApp.ModelDifferenceCopyBehavior" Value="Comportamiento de copia de diferencia de modelo">
+        <LocalizationItem Name="Overwrite" Value="Sobrescribir" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="DevExpress.Persistent.AuditTrail.AuditOperationType" Value="Tipo de operación de auditoría" />
+      <LocalizationGroup Name="DevExpress.Persistent.Base.SecurityPermissionPolicy" Value="Política de permiso de seguridad">
+        <LocalizationItem Name="AllowAllByDefault" Value="Permitir todo por defecto" />
+        <LocalizationItem Name="DenyAllByDefault" Value="Denegar todo por defecto" />
+        <LocalizationItem Name="ReadOnlyAllByDefault" Value="Todo solo lectura de forma predeterminada" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="DevExpress.Persistent.Base.SecurityPermissionState" Value="Estado de Permiso de Seguridad">
+        <LocalizationItem Name="Allow" Value="Permitir" />
+        <LocalizationItem Name="Deny" Value="Denegar" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="DevExpress.Persistent.Validation.CriteriaEvaluationBehavior">
+        <LocalizationItem Name="BeforeTransaction" Value="Antes de la transacción" />
+        <LocalizationItem Name="InTransaction" Value="En transacción" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="DevExpress.Persistent.Validation.StringComparisonType" Value="Tipo de comparación de cadenas" />
+      <LocalizationGroup Name="DevExpress.Persistent.Validation.ValidationOutcome" Value="Resultado de Validación">
+        <LocalizationItem Name="Skipped" Value="Omitido" />
+        <LocalizationItem Name="Valid" Value="Válido" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="DevExpress.Persistent.Validation.ValidationResultType" Value="Tipo de resultado de validación" />
+      <LocalizationGroup Name="DevExpress.Persistent.Validation.ValueComparisonType" Value="Tipo de comparación de valor" />
+    </LocalizationGroup>
+    <LocalizationGroup Name="Exceptions">
+      <LocalizationGroup Name="SystemExceptions">
+        <LocalizationItem Name="CannotFindTheMemberWithinTheClass" Value="No se puede encontrar el miembro '{0}' dentro de la clase '{1}'" />
+        <LocalizationItem Name="CustomPersistentPropertiesAreNotSupported" Value="Las propiedades persistentes personalizadas (definidas directamente en el modelo de aplicación o el sistema TypesInfo) no son compatibles con el tipo '{0}'." />
+        <LocalizationItem Name="DuplicatedVisibleInDashboardsClassCaption" Value="El tipo '{0}' y el tipo '{1}' tienen el mismo título que '{2}', por lo que no se pueden usar en el módulo Dashboards. Todos los tipos decorados con los atributos de VisibleInDashboards deben tener leyendas únicas." />
+        <LocalizationItem Name="InfiniteRecursionDetectedInGenerateColumns" Value="Recursión infinita detectada al generar columnas para la vista de lista de clase '{0}'. El recuento de anidamiento excede el límite de {1} (especificado mediante la propiedad MaxRecursionDepth). Por favor, compruebe la estructura del modelo de datos." />
+        <LocalizationItem Name="InvalidStreamDataException" Value="Error de carga del caché. Contacte a su administrador para más detalles." />
+      </LocalizationGroup>
+      <LocalizationGroup Name="UserVisibleExceptions">
+        <LocalizationItem Name="CannotLoadUserSettingsFromFile" Value="No se puede cargar la configuración del usuario desde el archivo Model.xafml." />
+        <LocalizationItem Name="CannotLoadUserSettingsFromTheDatabase" Value="No se puede cargar la configuración del usuario desde la base de datos.&#xD;&#xA;" />
+        <LocalizationItem Name="CannotSaveUserSettingsToTheDatabase" Value="No se puede guardar la configuración del usuario en la base de datos." />
+        <LocalizationGroup Name="Security">
+          <LocalizationItem Name="LoginFailed" Value="Usuario o Contraseña incorrectos. '{0}'. {1}" />
+          <LocalizationItem Name="RetypeTheInformation" Value="Asegúrese de que su nombre de usuario y contraseña son correctos." />
+        </LocalizationGroup>
+        <LocalizationItem Name="UserSettingsFailureSuggestion" Value="Consulte el archivo de registro para obtener detalles sobre el motivo de esta falla. Si necesita más ayuda, comuníquese con su administrador." />
+        <LocalizationGroup Name="Validation">
+          <LocalizationItem Name="ActionErrorMessageHeaderFormat" Value="Se detectaron problemas durante la validación de datos. Por favor lea la siguiente información para entender cuáles son y cómo usted puede corregirlos." />
+          <LocalizationItem Name="AllContextsErrorMessageHeader" Value="Se detectaron problemas durante la validación de datos. Por favor lea la siguiente información para entender cuáles son y cómo usted puede corregirlos." />
+          <LocalizationItem Name="DeleteErrorMessageHeader" Value="Se detectaron problemas durante la validación de datos. Por favor lea la siguiente información para entender cuáles son y cómo usted puede corregirlos." />
+          <LocalizationItem Name="SaveErrorMessageHeader" Value="Se detectaron problemas durante la validación de datos. Por favor lea la siguiente información para entender cuáles son y cómo usted puede corregirlos." />
+          <LocalizationItem Name="ValidationSucceededMessageHeader" Value="No se detectaron problemas." />
+        </LocalizationGroup>
+      </LocalizationGroup>
+    </LocalizationGroup>
+    <LocalizationGroup Name="Namespaces">
+      <LocalizationItem Name="DevExpress.ExpressApp.Editors" Value="Editores" />
+      <LocalizationItem Name="DevExpress.ExpressApp.SystemModule.Notifications" Value="Notificaciones" />
+      <LocalizationItem Name="DevExpress.Persistent.Validation" Value="Validación" />
+    </LocalizationGroup>
+    <LocalizationGroup Name="NotificationsPostponeTimesList">
+      <LocalizationItem Name="AtStartTime" Value="0 minutos" />
+      <LocalizationItem Name="EightHours" Value="8 horas" />
+      <LocalizationItem Name="ElevenHours" Value="11 horas" />
+      <LocalizationItem Name="FifteenMinutes" Value="15 minutos" />
+      <LocalizationItem Name="FiveHours" Value="5 horas" />
+      <LocalizationItem Name="FiveMinutes" Value="5 minutos" />
+      <LocalizationItem Name="FourDays" Value="4 días" />
+      <LocalizationItem Name="FourHours" Value="4 horas" />
+      <LocalizationItem Name="HalfDay" Value="0,5 días" />
+      <LocalizationItem Name="NineHours" Value="9 horas" />
+      <LocalizationItem Name="OneDay" Value="1 día" />
+      <LocalizationItem Name="OneHour" Value="1 hora" />
+      <LocalizationItem Name="OneWeek" Value="1 semana" />
+      <LocalizationItem Name="SevenHours" Value="7 horas" />
+      <LocalizationItem Name="SixHours" Value="6 horas" />
+      <LocalizationItem Name="TenHours" Value="10 horas" />
+      <LocalizationItem Name="TenMinutes" Value="10 minutos" />
+      <LocalizationItem Name="ThirtyMinutes" Value="30 minutos" />
+      <LocalizationItem Name="ThreeDays" Value="3 días" />
+      <LocalizationItem Name="ThreeHours" Value="3 horas" />
+      <LocalizationItem Name="TwoDays" Value="2 días" />
+      <LocalizationItem Name="TwoHours" Value="2 horas" />
+      <LocalizationItem Name="TwoWeeks" Value="2  semanas" />
+    </LocalizationGroup>
+    <LocalizationGroup Name="Texts">
+      <LocalizationItem Name="DefaultAspectText" Value="(Lenguaje por defecto)" />
+      <LocalizationItem Name="NullValueText" Value="Seleccione un valor" />
+      <LocalizationItem Name="SharedModelDifferenceName" Value="Diferencia de modelo compartido" />
+    </LocalizationGroup>
+  </Localization>
+  <Views>
+    <DetailView Id="ActionContainerDashboardOrganizationItem_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="ActionContainerDescriptor_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="AuditDataItemPersistent_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="AuditedObjectWeakReference_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="BaseAuditedObjectWeakReference_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="BaseObject_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="ContextValidationResult_DetailView">
+      <Items>
+        <PropertyEditor Id="ContextValidationOutcome" Caption="Estado" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <ListView Id="ContextValidationResult_DisplayableValidationResultItems_ListView">
+      <Columns>
+        <ColumnInfo Id="Outcome" Caption="Estado" />
+      </Columns>
+    </ListView>
+    <ListView Id="ContextValidationResult_ListView">
+      <Columns>
+        <ColumnInfo Id="ContextValidationOutcome" Caption="Estado" />
+      </Columns>
+    </ListView>
+    <ListView Id="ContextValidationResult_LookupListView">
+      <Columns>
+        <ColumnInfo Id="ContextValidationOutcome" Caption="Estado" />
+      </Columns>
+    </ListView>
+    <DetailView Id="CriteriaProvider_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="DashboardCreationInfo_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="DashboardCreationInfo">
+              <LayoutGroup Id="ViewItems" Caption="View Ítems" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="DashboardName_DetailView" Caption="Seleccione Tablero(s) para eliminar">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <ListView Id="DashboardName_ListView" Caption="Seleccione Tablero(s) para eliminar" />
+    <ListView Id="DashboardName_LookupListView" Caption="Seleccione Tablero(s) para eliminar" />
+    <DetailView Id="DashboardOrganizationItem_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="DashboardOrganizer_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="DashboardViewItemDescriptor_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="DiagnosticInfoObject_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="DisplayableValidationResultItem_DetailView">
+      <Items>
+        <PropertyEditor Id="Outcome" Caption="Estado" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="DisplayableValidationResultItem" Caption="Elemento de resultado de validación visualizable" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="DisplayableValidationResultItem_ListView">
+      <Columns>
+        <ColumnInfo Id="Outcome" Caption="Estado" />
+      </Columns>
+    </ListView>
+    <DetailView Id="IRuleBaseProperties_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="IRuleCollectionPropertyProperties_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="IRuleCombinationOfPropertiesIsUniqueProperties_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="IRuleCriteriaProperties_DetailView">
+      <Items>
+        <PropertyEditor Id="UsedProperties" Caption="Propiedades Usadas" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <ListView Id="IRuleCriteriaProperties_ListView">
+      <Columns>
+        <ColumnInfo Id="UsedProperties" Caption="Propiedades Usadas" />
+      </Columns>
+    </ListView>
+    <DetailView Id="IRuleFromBoolPropertyProperties_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="IRuleIsReferencedProperties_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="IRuleObjectExistsProperties_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="IRulePropertyValueProperties_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="IRuleRangeProperties_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="IRuleRegularExpressionProperties_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="IRuleRequiredFieldProperties_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="IRuleSearchObjectProperties_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="IRuleStringComparisonProperties_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="IRuleSupportsCollectionAggregatesProperties_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="IRuleUniqueValueProperties_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="IRuleValueComparisonProperties_DetailView">
+      <Items>
+        <PropertyEditor Id="MessageTemplateMustBeEqualToOperand" Caption="La plantilla de mensaje debe ser igual al operando" />
+        <PropertyEditor Id="MessageTemplateMustBeGreaterThanOperand" Caption="La plantilla de mensaje debe ser mayor que o igual al operando" />
+        <PropertyEditor Id="MessageTemplateMustBeGreaterThanOrEqualToOperand" Caption="La plantilla de mensaje debe ser mayor que o igual al operando" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <ListView Id="IRuleValueComparisonProperties_ListView">
+      <Columns>
+        <ColumnInfo Id="MessageTemplateMustBeEqualToOperand" Caption="La plantilla de mensaje debe ser igual al operando" />
+        <ColumnInfo Id="MessageTemplateMustBeGreaterThanOperand" Caption="La plantilla de mensaje debe ser mayor que o igual al operando" />
+        <ColumnInfo Id="MessageTemplateMustBeGreaterThanOrEqualToOperand" Caption="La plantilla de mensaje debe ser mayor que o igual al operando" />
+      </Columns>
+    </ListView>
+    <DetailView Id="ModelDifference_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="ModelDifferenceAspect_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="ModelDifferenceCopyParameters_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="PermissionPolicyMemberPermissionsObject_DetailView">
+      <Items>
+        <PropertyEditor Id="WriteState" Caption="Escribir" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <ListView Id="PermissionPolicyMemberPermissionsObject_ListView">
+      <Columns>
+        <ColumnInfo Id="WriteState" Caption="Escribir" />
+      </Columns>
+    </ListView>
+    <DetailView Id="PermissionPolicyNavigationPermissionObject_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="PermissionPolicyObjectPermissionsObject_DetailView">
+      <Items>
+        <PropertyEditor Id="WriteState" Caption="Escribir" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <ListView Id="PermissionPolicyObjectPermissionsObject_ListView">
+      <Columns>
+        <ColumnInfo Id="WriteState" Caption="Escribir" />
+      </Columns>
+    </ListView>
+    <DetailView Id="PermissionPolicyRoleBase_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <ListView Id="PermissionPolicyRoleBase_TypePermissions_ListView">
+      <Columns>
+        <ColumnInfo Id="TargetType" Caption="Tipo de destino" />
+        <ColumnInfo Id="WriteState" Caption="Escribir" />
+      </Columns>
+    </ListView>
+    <DetailView Id="PermissionPolicyTypePermissionObject_DetailView">
+      <Items>
+        <PropertyEditor Id="TargetType" Caption="Tipo de destino" />
+        <PropertyEditor Id="WriteState" Caption="Escribir" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="PermissionPolicyTypePermissionObject" Caption="Tipo de política de permiso Objeto de permiso" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="PermissionPolicyTypePermissionObject_ListView">
+      <Columns>
+        <ColumnInfo Id="TargetType" Caption="Tipo de destino" />
+        <ColumnInfo Id="WriteState" Caption="Escribir" />
+      </Columns>
+    </ListView>
+    <ListView Id="PermissionPolicyTypePermissionObject_LookupListView">
+      <Columns>
+        <ColumnInfo Id="TargetType" Caption="Tipo de destino" />
+      </Columns>
+    </ListView>
+    <ListView Id="PermissionPolicyTypePermissionObject_MemberPermissions_ListView">
+      <Columns>
+        <ColumnInfo Id="WriteState" Caption="Escribir" />
+      </Columns>
+    </ListView>
+    <ListView Id="PermissionPolicyTypePermissionObject_ObjectPermissions_ListView">
+      <Columns>
+        <ColumnInfo Id="WriteState" Caption="Escribir" />
+      </Columns>
+    </ListView>
+    <DetailView Id="PostponeTime_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="ProcessDataLockingInfoMergeDialog_DetailView">
+      <Items>
+        <StaticText Id="Message" Text="La información que intenta guardar es cambiada por otro usuario.&#xD;&#xA;Puede realizar cambios, actualizar datos y descartar los cambios, o cancelar la operación de guardar." />
+      </Items>
+    </DetailView>
+    <DetailView Id="ProcessDataLockingInfoRefreshDialog_DetailView">
+      <Items>
+        <StaticText Id="Message" Text="La información que intenta guardar es cambiada por otro usuario.&#xD;&#xA;Puede actualizar los datos y descartar los cambios, o cancelar la operación de guardar." />
+      </Items>
+    </DetailView>
+    <DetailView Id="RuleBaseProperties_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="RuleCombinationOfPropertiesIsUniqueProperties_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="RuleCriteriaProperties_DetailView">
+      <Items>
+        <PropertyEditor Id="UsedProperties" Caption="Propiedades Usadas" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <ListView Id="RuleCriteriaProperties_ListView">
+      <Columns>
+        <ColumnInfo Id="UsedProperties" Caption="Propiedades Usadas" />
+      </Columns>
+    </ListView>
+    <DetailView Id="RuleFromBoolPropertyProperties_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="RuleIsReferencedProperties_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="RuleObjectExistsProperties_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="RulePropertyValueProperties_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="RuleRangeProperties_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="RuleRegularExpressionProperties_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="RuleRequiredFieldProperties_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="RuleSearchObjectProperties_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="RuleSetValidationResult_ByTarget_Error_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal">
+          <LayoutGroup Id="Static" Caption="Estático" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="RuleSetValidationResult_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <ListView Id="RuleSetValidationResult_Results_ListView">
+      <Columns>
+        <ColumnInfo Id="ValidationOutcome" Caption="Estado" />
+      </Columns>
+    </ListView>
+    <DetailView Id="RuleSetValidationResultItem_DetailView">
+      <Items>
+        <PropertyEditor Id="ValidationOutcome" Caption="Estado" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <ListView Id="RuleSetValidationResultItem_ListView">
+      <Columns>
+        <ColumnInfo Id="ValidationOutcome" Caption="Estado" />
+      </Columns>
+    </ListView>
+    <ListView Id="RuleSetValidationResultItemAggregate_AggregatedResults_ListView">
+      <Columns>
+        <ColumnInfo Id="ValidationOutcome" Caption="Estado" />
+      </Columns>
+    </ListView>
+    <DetailView Id="RuleSetValidationResultItemAggregate_DetailView">
+      <Items>
+        <PropertyEditor Id="ValidationOutcome" Caption="Estado" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <ListView Id="RuleSetValidationResultItemAggregate_ListView">
+      <Columns>
+        <ColumnInfo Id="ValidationOutcome" Caption="Estado" />
+      </Columns>
+    </ListView>
+    <ListView Id="RuleSetValidationResultItemAggregate_LookupListView">
+      <Columns>
+        <ColumnInfo Id="ValidationOutcome" Caption="Estado" />
+      </Columns>
+    </ListView>
+    <DetailView Id="RuleStringComparisonProperties_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="RuleUniqueValueProperties_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="RuleValueComparisonProperties_DetailView">
+      <Items>
+        <PropertyEditor Id="MessageTemplateMustBeEqualToOperand" Caption="La plantilla de mensaje debe ser igual al operando" />
+        <PropertyEditor Id="MessageTemplateMustBeGreaterThanOperand" Caption="La plantilla de mensaje debe ser mayor que o igual al operando" />
+        <PropertyEditor Id="MessageTemplateMustBeGreaterThanOrEqualToOperand" Caption="La plantilla de mensaje debe ser mayor que o igual al operando" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <ListView Id="RuleValueComparisonProperties_ListView">
+      <Columns>
+        <ColumnInfo Id="MessageTemplateMustBeEqualToOperand" Caption="La plantilla de mensaje debe ser igual al operando" />
+        <ColumnInfo Id="MessageTemplateMustBeGreaterThanOperand" Caption="La plantilla de mensaje debe ser mayor que o igual al operando" />
+        <ColumnInfo Id="MessageTemplateMustBeGreaterThanOrEqualToOperand" Caption="La plantilla de mensaje debe ser mayor que o igual al operando" />
+      </Columns>
+    </ListView>
+    <DetailView Id="StaticImageDashboardOrganizationItem_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="StaticTextDashboardOrganizationItem_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="ValidationResults_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+    <ListView Id="ValidationResults_DisplayableValidationResultItems_ListView">
+      <Columns>
+        <ColumnInfo Id="Outcome" Caption="Estado" />
+      </Columns>
+    </ListView>
+    <DetailView Id="ValidationResults_Error_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal">
+          <LayoutGroup Id="Static" Caption="Estático" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="ValidationResults_Passed_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal">
+          <LayoutGroup Id="Static" Caption="Estático" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="ValidationResults_Results_ListView">
+      <Columns>
+        <ColumnInfo Id="ContextValidationOutcome" Caption="Estado" />
+      </Columns>
+    </ListView>
+    <DetailView Id="ViewDashboardOrganizationItem_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Principal" />
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

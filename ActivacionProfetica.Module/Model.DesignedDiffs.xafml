@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Application Title="ActivacionProfetica">
+<Application Title="ActivacionProfetica" PreferredLanguage="es">
   <BOModel>
     <Class Name="DevExpress.Persistent.BaseImpl.AuditDataItemPersistent">
       <OwnMembers>
@@ -116,18 +116,6 @@
               </LayoutGroup>
             </LayoutGroup>
           </LayoutGroup>
-          <LayoutGroup Id="Places_Group" Direction="Vertical" Caption="Selección de asientos">
-            <LayoutGroup Id="BaseEntity" Index="1" Direction="Horizontal" ShowCaption="True" Caption="Auditoría" IsNewNode="True">
-              <LayoutGroup Id="BaseEntity_col1" Index="0" ShowCaption="False" IsNewNode="True">
-                <LayoutItem Id="CreatedBy" ViewItem="CreatedBy" ShowCaption="" Index="1" IsNewNode="True" />
-                <LayoutItem Id="CreatedOn" ViewItem="CreatedOn" ShowCaption="" Index="2" IsNewNode="True" />
-              </LayoutGroup>
-              <LayoutGroup Id="BaseEntity_col2" Index="1" ShowCaption="False" IsNewNode="True">
-                <LayoutItem Id="UpdatedBy" ViewItem="UpdatedBy" ShowCaption="" Index="0" IsNewNode="True" />
-                <LayoutItem Id="UpdatedOn" ViewItem="UpdatedOn" ShowCaption="" Index="1" IsNewNode="True" />
-              </LayoutGroup>
-            </LayoutGroup>
-          </LayoutGroup>
         </LayoutGroup>
       </Layout>
     </DetailView>
@@ -183,8 +171,8 @@
     <ListView Id="PlaceStatus_ListView">
       <Columns>
         <ColumnInfo Id="SingularName" Index="-1" />
-        <ColumnInfo Id="PluralName" SortIndex="-1" SortOrder="None" />
         <ColumnInfo Id="Description" Index="1" />
+        <ColumnInfo Id="PluralName" SortIndex="-1" SortOrder="None" />
         <ColumnInfo Id="InternalId" SortIndex="0" SortOrder="Ascending" Index="2" />
       </Columns>
     </ListView>
