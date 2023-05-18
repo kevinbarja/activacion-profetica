@@ -218,7 +218,7 @@
       </Columns>
     </ListView>
     <ListView Id="PaymentPlan_LookupListView" AllowNew="False" />
-    <ListView Id="PaymentPlan_PaymentPlanDetails_ListView">
+    <ListView Id="PaymentPlan_PaymentPlanDetails_ListView" DetailViewID="WithoutMasterPaymentPlanDetail_DetailView">
       <Columns>
         <ColumnInfo Id="Number" Index="0" />
         <ColumnInfo Id="Description" Index="1" Width="268" />
@@ -419,6 +419,42 @@
     </DetailView>
     <ListView Id="Sector_ListView" AllowDelete="False" AllowNew="False" />
     <ListView Id="Sector_LookupListView" AllowNew="False" />
+    <DetailView Id="WithoutMasterPaymentPlanDetail_DetailView" CaptionColon=":" EnableCaptionColon="True" CaptionLocation="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" CaptionWordWrap="Default" EnableLayoutGroupImages="True" RequiredFieldMark="*" ClassName="ActivacionProfetica.Module.BusinessObjects.PaymentPlanDetail" IsNewNode="True">
+      <Items IsNewNode="True">
+        <PropertyEditor Id="CreatedBy" PropertyName="CreatedBy" IsNewNode="True" />
+        <PropertyEditor Id="CreatedOn" PropertyName="CreatedOn" IsNewNode="True" />
+        <PropertyEditor Id="Description" PropertyName="Description" IsNewNode="True" />
+        <PropertyEditor Id="InternalId" PropertyName="InternalId" IsNewNode="True" />
+        <PropertyEditor Id="LimitDate" PropertyName="LimitDate" IsNewNode="True" />
+        <PropertyEditor Id="Number" PropertyName="Number" IsNewNode="True" />
+        <PropertyEditor Id="PaymentPlan" PropertyName="PaymentPlan" IsNewNode="True" />
+        <PropertyEditor Id="Percentage" PropertyName="Percentage" IsNewNode="True" />
+        <PropertyEditor Id="UpdatedBy" PropertyName="UpdatedBy" IsNewNode="True" />
+        <PropertyEditor Id="UpdatedOn" PropertyName="UpdatedOn" IsNewNode="True" />
+      </Items>
+      <Layout IsNewNode="True">
+        <LayoutGroup Id="Main" Index="0" ShowCaption="False" IsNewNode="True">
+          <LayoutGroup Id="SimpleEditors" Index="0" ShowCaption="False" IsNewNode="True">
+            <LayoutGroup Id="PaymentPlanDetail" Index="0" ShowCaption="True" IsCollapsibleGroup="True" Caption="Información de la cuota" IsNewNode="True">
+              <LayoutItem Id="Number" ViewItem="Number" ShowCaption="" Index="1" IsNewNode="True" />
+              <LayoutItem Id="Description" ViewItem="Description" ShowCaption="" Index="2" IsNewNode="True" />
+              <LayoutItem Id="Percentage" ViewItem="Percentage" ShowCaption="" Index="3" IsNewNode="True" />
+              <LayoutItem Id="LimitDate" ViewItem="LimitDate" ShowCaption="" Index="4" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="BaseEntity" Index="1" Direction="Horizontal" ShowCaption="True" Caption="Auditoría" IsCollapsibleGroup="True" IsGroupCollapsed="True" IsNewNode="True">
+              <LayoutGroup Id="BaseEntity_col1" Index="0" ShowCaption="False" IsNewNode="True">
+                <LayoutItem Id="CreatedBy" ViewItem="CreatedBy" ShowCaption="" Index="1" IsNewNode="True" />
+                <LayoutItem Id="CreatedOn" ViewItem="CreatedOn" ShowCaption="" Index="2" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="BaseEntity_col2" Index="1" ShowCaption="False" IsNewNode="True">
+                <LayoutItem Id="UpdatedBy" ViewItem="UpdatedBy" ShowCaption="" Index="0" IsNewNode="True" />
+                <LayoutItem Id="UpdatedOn" ViewItem="UpdatedOn" ShowCaption="" Index="1" IsNewNode="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
     <DetailView Id="XpoStateMachine_DetailView" Caption="Transición de estados" />
     <ListView Id="XpoStateMachine_ListView" Caption="Transiciones de estados" />
   </Views>

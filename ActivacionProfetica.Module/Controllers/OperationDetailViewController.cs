@@ -1,7 +1,6 @@
 ﻿using ActivacionProfetica.Module.BusinessObjects;
 using ActivacionProfetica.Module.SharedKernel;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Xpo;
 
 namespace ActivacionProfetica.Module.Controllers
@@ -18,10 +17,10 @@ namespace ActivacionProfetica.Module.Controllers
             base.OnActivated();
             ObjectSpace.ObjectChanged += ObjectSpace_ObjectChanged;
             //Disable save button
-            ModificationsController controlador = Frame.GetController<ModificationsController>();
-            controlador.SaveAction.Active.SetItemValue("OnlySaveByStateMachine", false);
-            controlador.SaveAndCloseAction.Active.SetItemValue("OnlySaveByStateMachine", false);
-            controlador.SaveAndNewAction.Active.SetItemValue("OnlySaveByStateMachine", false);
+            //ModificationsController controlador = Frame.GetController<ModificationsController>();
+            //controlador.SaveAction.Active.SetItemValue("OnlySaveByStateMachine", false);
+            //controlador.SaveAndCloseAction.Active.SetItemValue("OnlySaveByStateMachine", false);
+            //controlador.SaveAndNewAction.Active.SetItemValue("OnlySaveByStateMachine", false);
         }
 
         void ObjectSpace_ObjectChanged(object sender, ObjectChangedEventArgs e)

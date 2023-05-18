@@ -133,13 +133,25 @@ namespace ActivacionProfetica.Module.BusinessObjects
             PaymentPlan = null;
             Places.Reload();
             CallOnChanged(nameof(Places));
-
         }
 
         [NonPersistent]
-        [Caption("Existe algún pago")]
+        [Caption("Al menos primer cuota pagada")]
         [VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
-        public bool FirstPaymentDone => Payments.Any(p => p.PaymentStatus != PaymentStatus.Pending);
+        public bool FirstPaymentDone
+        {
+            get
+            {
+                if (Payments is null || Payments.Count == 0)
+                {
+                    return false;
+                }
+                else
+                {
+                    return Payments.Any(p => p.PaymentStatus != PaymentStatus.Pending && p.PaymentPlanDetail.Number == 1);
+                }
+            }
+        }
 
 
         [NonPersistent]
@@ -156,6 +168,11 @@ namespace ActivacionProfetica.Module.BusinessObjects
         [Caption("Cantidad de asientos")]
         [VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
         public int PlacesQuantity => Places.Count;
+
+        [NonPersistent]
+        [Caption("Cantidad total de asientos de la persona")]
+        [VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
+        public int PlacesQuantityOfPerson => Customer.Operations.Where(o => o.PlaceStatus.InternalId == PlaceStatus.ReservedPlaceStatus).Sum(o => o.PlacesQuantity);
 
         private bool noCreatePayments;
 
