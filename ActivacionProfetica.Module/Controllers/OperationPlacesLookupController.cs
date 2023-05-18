@@ -63,6 +63,7 @@ namespace ActivacionProfetica.Module.Controllers
             }
             foreach (Place placeSelected in selectedPlaces)
             {
+                //TODO: Apply this validation on save controller
                 using (UnitOfWork uow = new UnitOfWork(placeSelected.Session.DataLayer))
                 {
                     var currentplaceSelected = uow.GetObjectByKey<Place>(placeSelected.InternalId);
@@ -79,7 +80,7 @@ namespace ActivacionProfetica.Module.Controllers
                         Application.ShowViewStrategy.ShowMessage(parametrosMensaje);
                         e.Cancel = true;
                     }
-                    else if (currentplaceSelected.Operation != null && currentplaceSelected.Operation.InternalId != 0)
+                    else if (currentplaceSelected.Operation != null && currentplaceSelected.Operation.PlaceStatus.InternalId != PlaceStatus.AvailablePlaceStatus)
                     {
                         MessageOptions parametrosMensaje = new MessageOptions
                         {

@@ -14,8 +14,8 @@ namespace ActivacionProfetica.Module.BusinessObjects
 {
     [Appearance("WhiteText", TargetItems = nameof(InternalId), Context = "ListView;Operation_Places_LookupListView", Criteria = "Operation is null", FontStyle = FontStyle.Bold, FontColor = "255,255,255")]
     //[Appearance("RiskAcceptanceAcceptedHide", Visibility = ViewItemVisibility.Hide, TargetItems = "Accepted;", Criteria = "[Risk].[AttachFile] Is Null", Context = "Risk_RiskAcceptances_ListView")]
-    [Appearance("FontColorRed", AppearanceItemType = "ViewItem", TargetItems = "*", Context = "Operation_Places_LookupListView", Criteria = "Operation is not null", FontStyle = FontStyle.Strikeout, BackColor = "253, 125, 125")]
-    [Appearance("RedText", TargetItems = nameof(InternalId), Context = "Operation_Places_LookupListView", Criteria = "Operation is not null", FontStyle = FontStyle.Bold, FontColor = "253, 125, 125")]
+    [Appearance("FontColorRed", AppearanceItemType = "ViewItem", TargetItems = "*", Context = "Operation_Places_LookupListView", Criteria = "Operation is not null", FontStyle = FontStyle.Bold)]
+    //[Appearance("RedText", TargetItems = nameof(InternalId), Context = "Operation_Places_LookupListView", Criteria = "Operation is not null", FontStyle = FontStyle.Bold, FontColor = "253, 125, 125")]
     [Caption("Asiento")]
     [DefaultProperty(nameof(Path))]
     [Persistent(Schema.Ap + nameof(Place))]

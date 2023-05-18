@@ -34,6 +34,7 @@ namespace ActivacionProfetica.Module.Controllers
                 //TODO: Validate concurrence on other operation
                 //Update estado de los asientos
                 var operation = (View.CurrentObject as Operation);
+                operation.NoCreatePayments = true;
                 foreach (var place in operation.Places)
                 {
                     place.Status = operation.PlaceStatus;

@@ -157,6 +157,17 @@ namespace ActivacionProfetica.Module.BusinessObjects
         [VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
         public int PlacesQuantity => Places.Count;
 
+        private bool noCreatePayments;
+
+        [NonPersistent]
+        [Caption("No crear pagos")]
+        [MemberDesignTimeVisibility(false)]
+        public bool NoCreatePayments
+        {
+            get { return noCreatePayments; }
+            set { noCreatePayments = value; }
+        }
+
         public Operation(Session session) : base(session)
         {
         }
