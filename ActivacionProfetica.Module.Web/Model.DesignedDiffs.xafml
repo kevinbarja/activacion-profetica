@@ -249,7 +249,7 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <DetailView Id="Place_DetailView">
+    <DetailView Id="Place_DetailView" AllowEdit="False" AllowDelete="False">
       <Layout>
         <LayoutGroup Id="Main">
           <LayoutGroup Id="SimpleEditors" IsCardGroup="True" ShowCaption="True" Caption="Información" IsCollapsibleGroup="True" IsGroupCollapsed="False">
@@ -273,7 +273,7 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <ListView Id="Place_ListView">
+    <ListView Id="Place_ListView" AllowLink="False" AllowNew="False" AllowDelete="False">
       <Columns>
         <ColumnInfo Id="RowName" Index="-1" />
         <ColumnInfo Id="Sector" Index="-1" />
@@ -282,7 +282,7 @@
         <ColumnInfo Id="InternalId" Index="5" />
       </Columns>
     </ListView>
-    <ListView Id="Place_SimpleListView" EditorTypeName="DevExpress.ExpressApp.Web.Editors.ASPx.ASPxGridListEditor" Criteria="[IsLeaf] = True" Caption="Asientos" />
+    <ListView Id="Place_SimpleListView" EditorTypeName="DevExpress.ExpressApp.Web.Editors.ASPx.ASPxGridListEditor" Criteria="[IsLeaf] = True" Caption="Asientos" AllowDelete="False" AllowNew="False" />
     <DetailView Id="PlaceStatus_DetailView">
       <Layout>
         <LayoutGroup Id="Main">

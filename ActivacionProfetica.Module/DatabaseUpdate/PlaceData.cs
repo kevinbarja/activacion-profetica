@@ -106,7 +106,7 @@ namespace ActivacionProfetica.Module.DatabaseUpdate
                 else
                 {
                     //TODO: Uncomment this validation
-                    //throw new Exception($"Seet repeated: seetName = '{seetName}' And rowName = '{rowName}' And sectorName = '{sectorName}'");
+                    throw new Exception($"Seet repeated: seetName = '{seetName}' And rowName = '{rowName}' And sectorName = '{sectorName}'");
                 }
                 SaveChanges();
             }
