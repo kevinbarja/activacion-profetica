@@ -30,7 +30,7 @@
     <LayoutManagerOptions RequiredFieldMark="*" />
   </Options>
   <SchemaModules>
-    <SchemaModule Name="SystemModule" Version="22.2.4.0" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="22.2.3.0" IsNewNode="True" />
   </SchemaModules>
   <Views>
     <ListView Id="ApplicationUser_ListView" Caption="Users" />

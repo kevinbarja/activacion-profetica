@@ -54,8 +54,8 @@
   </NavigationItems>
   <Options CollectionsEditMode="Edit" />
   <SchemaModules>
-    <SchemaModule Name="SystemAspNetModule" Version="22.2.4.0" IsNewNode="True" />
-    <SchemaModule Name="SystemModule" Version="22.2.4.0" IsNewNode="True" />
+    <SchemaModule Name="SystemAspNetModule" Version="22.2.3.0" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="22.2.3.0" IsNewNode="True" />
   </SchemaModules>
   <ViewItems>
     <PropertyEditor Name="PropertyEditors">
