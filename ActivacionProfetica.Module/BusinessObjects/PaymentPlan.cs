@@ -1,8 +1,10 @@
 ﻿using ActivacionProfetica.Module.SharedKernel;
+using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using System;
 using System.ComponentModel;
+using System.Linq;
 using static ActivacionProfetica.Module.SharedKernel.Constants;
 using Caption = System.ComponentModel.DisplayNameAttribute;
 
@@ -54,6 +56,25 @@ namespace ActivacionProfetica.Module.BusinessObjects
         [Caption("Operaciones")]
         [Association("PaymentPlan-Operations")]
         public XPCollection<Operation> Operations => GetCollection<Operation>();
+
+        [NonPersistent]
+        [Caption("¿Es ejecutivo de ventas?")]
+        [VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
+        public bool EsEjecutivoDeVentas
+        {
+            get
+            {
+                var currentUser = SecuritySystem.CurrentUser;
+                if (currentUser is ApplicationUser)
+                {
+                    ApplicationUser currentAppUser = currentUser as ApplicationUser;
+                    return currentAppUser.Roles.Any(r => r.Name == Role.OperationEjecutive);
+                }
+                {
+                    return false;
+                }
+            }
+        }
 
         public PaymentPlan(Session session) : base(session)
         {

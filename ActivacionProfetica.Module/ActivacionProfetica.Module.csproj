@@ -144,6 +144,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Controllers\ShowDetailViewFromListViewController.cs" />
+    <Compile Include="Controllers\VersionController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="DatabaseUpdate\PlaseStatusData.cs" />
     <Compile Include="DatabaseUpdate\PlaceData.cs" />
     <Compile Include="DatabaseUpdate\RolData.cs" />

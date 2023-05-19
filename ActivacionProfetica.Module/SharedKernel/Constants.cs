@@ -25,7 +25,8 @@
         {
             public const string Public = "Acceso público";
             public const string Admin = "Acceso completo";
-            public const string Sales = "Secretaría";
+            public const string OperationEjecutive = "Ejecutivo de operaciones";
+            public const string OperationSupervisor = "Supervisor de operaciones";
         }
 
         public static class StringSize

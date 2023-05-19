@@ -8,14 +8,15 @@ namespace ActivacionProfetica.Module.Web.Controllers
     {
         public FilterPublicListView()
         {
-            TargetViewId = "PublicOperation_ListView";
+            TargetViewId = "PublicOperation_ListView;";
         }
 
         protected override void OnActivated()
         {
             base.OnActivated();
             var currentUser = ObjectSpace.GetObjectByKey<ApplicationUser>(SecuritySystem.CurrentUserId);
-            View.CollectionSource.Criteria["FilterCurrentCustomer"] = CriteriaOperator.Parse($"[Customer.CI] = '{currentUser.UserName}'");
+            string criteria = $"[Customer.CI] = '{currentUser.UserName}'";
+            View.CollectionSource.Criteria["FilterCurrentCustomer"] = CriteriaOperator.Parse(criteria);
         }
     }
 }

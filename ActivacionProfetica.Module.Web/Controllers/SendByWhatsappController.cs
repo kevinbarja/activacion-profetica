@@ -57,7 +57,7 @@ namespace ActivacionProfetica.Module.Web.Controllers
                 ObjectSpace.CommitChanges();
             }
 
-            //WebApplication.Redirect(WebConfigurationManager.AppSettings["URLBase"] + "/" + "ErrorMessageURLExtinct.html");
+
             WebApplication.Redirect("https://api.whatsapp.com/send?phone=59175632256&text=%F0%9F%98%80Lleva%20el%20control%20de%20tu%20plan%2090%20d%C3%ADas%20ingresando%20a%20http%3A%2F%2Flocalhost%3A2064%20tu%20usuario%20es%20tu%20CI%20y%20la%20contrase%C3%B1a%20tu%20n%C3%BAmero%20de%20whatsapp.%20Bendiciones");
         }
 

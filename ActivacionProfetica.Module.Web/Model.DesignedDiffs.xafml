@@ -15,8 +15,8 @@
       <Item Id="ActivacionProfetica" Index="1">
         <Items>
           <Item Id="Customers" Index="0" Removed="True" />
-          <Item Id="Operations" Index="0" Caption="Mis operaciones" ViewId="Operation_ListView" />
-          <Item Id="Operations_Copy" Caption="Operaciones" ViewId="Operation_ListView" Index="1" IsNewNode="True" />
+          <Item Id="Operations" Index="0" Caption="Mis operaciones" ViewId="MyOperation_ListView" />
+          <Item Id="OperationNoAdmin" Caption="Operaciones" ViewId="Operation_ListView" Index="1" IsNewNode="True" />
           <Item Id="Places" Index="3" Removed="True">
             <Items>
               <Item Id="@86f69f98-cc7a-493d-8573-13c75285a74b" Removed="True" />
@@ -63,7 +63,7 @@
     </PropertyEditor>
   </ViewItems>
   <Views>
-    <ListView Id="MyOperation_ListView" ClassName="ActivacionProfetica.Module.BusinessObjects.Operation" Caption="Operaciones" Criteria="[CreatedBy.Oid] = CurrentUserId()" IsNewNode="True">
+    <ListView Id="MyOperation_ListView" ClassName="ActivacionProfetica.Module.BusinessObjects.Operation" Caption="Operaciones" Criteria="[CreatedBy.Oid] = CurrentUserId()" DataAccessMode="Server" IsNewNode="True">
       <Columns IsNewNode="True">
         <ColumnInfo Id="AnyPaymentsInArrears" PropertyName="AnyPaymentsInArrears" Index="-1" IsNewNode="True" />
         <ColumnInfo Id="CreatedBy" PropertyName="CreatedBy" Index="-1" IsNewNode="True" />
@@ -80,7 +80,7 @@
     </ListView>
     <DetailView Id="Operation_DetailView">
       <Items>
-        <PropertyEditor Id="PaymentPlan" DataSourceCriteria="[Sector] = '@This.Sector' And [LimitDate] Is Null Or [Sector] = '@This.Sector' And [LimitDate] &gt;= LocalDateTimeToday()" View="PaymentPlan_LookupListView" />
+        <PropertyEditor Id="PaymentPlan" DataSourceCriteria="[Sector] = '@This.Sector' And [LimitDate] Is Null And [EsEjecutivoDeVentas] = False Or [Sector] = '@This.Sector' And [LimitDate] &gt;= LocalDateTimeToday() And [EsEjecutivoDeVentas] = False Or [Sector] = '@This.Sector' And [LimitDate] Is Null And [EsEjecutivoDeVentas] = True And [PaymentPlanDetails][] Or [Sector] = '@This.Sector' And [LimitDate] &gt;= LocalDateTimeToday() And [EsEjecutivoDeVentas] = True And [PaymentPlanDetails][]" View="PaymentPlan_LookupListView" />
         <PropertyEditor Id="Payments" AllowEdit="True" />
         <PropertyEditor Id="Places" DataSourceCriteria="[IsLeaf] = True And [Status.InternalId] = 1 And [Sector] = '@This.Sector' And [Operation] Is Null Or [IsLeaf] = True And [Status.InternalId] = 1 And [Sector] = '@This.Sector' And [Operation.PlaceStatus.InternalId] = 1" LinkView="Operation_Places_LookupListView" />
         <PropertyEditor Id="Sector" View="Sector_LookupListView" />
@@ -122,7 +122,7 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <ListView Id="Operation_ListView" Caption="Operaciones">
+    <ListView Id="Operation_ListView" Caption="Operaciones" DataAccessMode="Server">
       <Columns>
         <ColumnInfo Id="PlacesQuantity" Index="7" Width="121" />
       </Columns>
@@ -282,7 +282,7 @@
         <ColumnInfo Id="InternalId" Index="5" />
       </Columns>
     </ListView>
-    <ListView Id="Place_SimpleListView" EditorTypeName="DevExpress.ExpressApp.Web.Editors.ASPx.ASPxGridListEditor" Criteria="[IsLeaf] = True" Caption="Asientos" AllowDelete="False" AllowNew="False" />
+    <ListView Id="Place_SimpleListView" EditorTypeName="DevExpress.ExpressApp.Web.Editors.ASPx.ASPxGridListEditor" Criteria="[IsLeaf] = True" Caption="Asientos" AllowDelete="False" AllowNew="False" DataAccessMode="Server" />
     <DetailView Id="PlaceStatus_DetailView">
       <Layout>
         <LayoutGroup Id="Main">
