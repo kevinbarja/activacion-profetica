@@ -179,7 +179,7 @@ namespace ActivacionProfetica.Module.BusinessObjects
             string result = node.Name;
             if (node.Parent != null)
             {
-                result = CalculatePath(node.Parent) + " - " + result;
+                result = CalculatePath(node.Parent) + "-" + result;
             }
             return result;
         }

@@ -1,6 +1,7 @@
 ﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Web;
+using DevExpress.ExpressApp.Web.Controls;
 using DevExpress.Persistent.AuditTrail;
 using DevExpress.Persistent.Base;
 using DevExpress.Web;
@@ -8,6 +9,7 @@ using System;
 using System.Configuration;
 using System.Web;
 using System.Web.Routing;
+using System.Web.UI.WebControls;
 
 namespace ActivacionProfetica.Web
 {
@@ -19,6 +21,10 @@ namespace ActivacionProfetica.Web
         }
         protected void Application_Start(Object sender, EventArgs e)
         {
+            XafPopupWindowControl.DefaultHeight = Unit.Percentage(80);
+            XafPopupWindowControl.DefaultWidth = Unit.Percentage(60);
+            XafPopupWindowControl.PopupTemplateType = PopupTemplateType.Dialog;
+            XafPopupWindowControl.ShowPopupMode = ShowPopupMode.Centered;
             DevExpress.ExpressApp.FrameworkSettings.DefaultSettingsCompatibilityMode = DevExpress.ExpressApp.FrameworkSettingsCompatibilityMode.Latest;
             RouteTable.Routes.RegisterXafRoutes();
             ASPxWebControl.CallbackError += new EventHandler(Application_Error);
