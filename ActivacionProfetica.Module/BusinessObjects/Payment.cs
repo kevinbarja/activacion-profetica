@@ -1,10 +1,12 @@
 ﻿using ActivacionProfetica.Module.BusinessObjects.Enums;
 using ActivacionProfetica.Module.SharedKernel;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using System;
+using System.Linq;
 using static ActivacionProfetica.Module.SharedKernel.Constants;
 using Caption = System.ComponentModel.DisplayNameAttribute;
 
@@ -23,6 +25,16 @@ namespace ActivacionProfetica.Module.BusinessObjects
         PaymentMethod paymentMethod;
         //PaymentStatus paymentStatus;
         Operation operation;
+
+        bool isReverted = false;
+
+        [Caption("¿Pago revertido?")]
+        [VisibleInDetailView(true), VisibleInListView(false), VisibleInLookupListView(false)]
+        public bool IsReverted
+        {
+            get { return isReverted; }
+            set => SetPropertyValue(ref isReverted, value);
+        }
 
         [VisibleInListView(false), VisibleInLookupListView(false), VisibleInDetailView(false)]
         [Caption("Operación")]
@@ -106,6 +118,25 @@ namespace ActivacionProfetica.Module.BusinessObjects
             else
             {
                 PaymentDate = DateTime.Now;
+            }
+        }
+
+        [NonPersistent]
+        [Caption("UsuarioActualEsSupervisor")]
+        [VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
+        public bool UsuarioActualEsSupervisor
+        {
+            get
+            {
+                var currentUser = SecuritySystem.CurrentUser;
+                if (currentUser is ApplicationUser)
+                {
+                    ApplicationUser currentAppUser = currentUser as ApplicationUser;
+                    return currentAppUser.Roles.Any(r => r.Name == Role.OperationSupervisor);
+                }
+                {
+                    return false;
+                }
             }
         }
 

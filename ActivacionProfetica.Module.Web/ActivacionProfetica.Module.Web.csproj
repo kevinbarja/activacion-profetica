@@ -165,6 +165,7 @@
     <Compile Include="Controllers\SendOperationByWhatsappController.cs" />
     <Compile Include="Controllers\ShowOperationReportController.cs" />
     <Compile Include="Editors\APLookupPropertyEditor.cs" />
+    <Compile Include="RevertPaymentController.cs" />
     <Compile Include="WebModule.cs">
       <SubType>Component</SubType>
     </Compile>

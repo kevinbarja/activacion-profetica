@@ -1,5 +1,6 @@
 ﻿using ActivacionProfetica.Module.BusinessObjects.Enums;
 using ActivacionProfetica.Module.SharedKernel;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
@@ -135,10 +136,49 @@ namespace ActivacionProfetica.Module.BusinessObjects
             CallOnChanged(nameof(Places));
         }
 
+
+
+
         [NonPersistent]
-        [Caption("Al menos primer cuota pagada")]
+        [Caption("¿Existe algún pago en mora?")]
         [VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
-        public bool FirstPaymentDone
+        public bool AnyPaymentsInArrears => Payments.Any(p => p.PaymentPlanDetail.LimitDate != null && p.PaymentPlanDetail.LimitDate > DateTime.Now && p.PaymentMethod == PaymentMethod.None);
+
+        [NonPersistent]
+        [Caption("Cantidad de asientos")]
+        [VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
+        public int PlacesQuantity => Places.Count;
+
+
+        private bool noCreatePayments;
+
+        [NonPersistent]
+        [Caption("No crear pagos")]
+        [MemberDesignTimeVisibility(false)]
+        public bool NoCreatePayments
+        {
+            get { return noCreatePayments; }
+            set { noCreatePayments = value; }
+        }
+
+        /// 
+        /// NON PERSISTENTS
+        /// 
+
+        [NonPersistent]
+        [Caption("TodosLosPagosRealizados")]
+        [VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
+        public bool TodosLosPagosRealizados => !Payments.Any(p => p.PaymentMethod == PaymentMethod.None) && Payments.Count() > 0;
+
+        [NonPersistent]
+        [Caption("EsShofarOEsAguila")]
+        [VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
+        public bool EsShofarOEsAguila => (Sector.Name == Sector.EagleSectorName || Sector.Name == Sector.ShofarSectorName);
+
+        [NonPersistent]
+        [Caption("PrimerCuotaPagada")]
+        [VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
+        public bool PrimerCuotaPagada
         {
             get
             {
@@ -155,35 +195,53 @@ namespace ActivacionProfetica.Module.BusinessObjects
 
 
         [NonPersistent]
-        [Caption("¿Existe algún pago en mora?")]
-        [VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
-        public bool AnyPaymentsInArrears => Payments.Any(p => p.PaymentPlanDetail.LimitDate != null && p.PaymentPlanDetail.LimitDate > DateTime.Now && p.PaymentMethod == PaymentMethod.None);
-
-        [NonPersistent]
-        [Caption("¿Todos los pagos estas realizados?")]
-        [VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
-        public bool AllPaymentsPayed => !Payments.Any(p => p.PaymentMethod == PaymentMethod.None) && Payments.Count() > 0;
-
-        [NonPersistent]
-        [Caption("Cantidad de asientos")]
-        [VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
-        public int PlacesQuantity => Places.Count;
-
-        [NonPersistent]
-        [Caption("Cantidad total de asientos de la persona")]
+        [Caption("AsientosReservadosPorPersona")]
         [VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
         public int PlacesQuantityOfPerson => Customer.Operations.Where(o => o.PlaceStatus.InternalId == PlaceStatus.ReservedPlaceStatus).Sum(o => o.PlacesQuantity);
 
-        private bool noCreatePayments;
 
         [NonPersistent]
-        [Caption("No crear pagos")]
-        [MemberDesignTimeVisibility(false)]
-        public bool NoCreatePayments
+        [Caption("AguilaSoloPuedeReservar1Asiento")]
+        [VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
+        public bool AguilaSoloPuedeReservar1Asiento
         {
-            get { return noCreatePayments; }
-            set { noCreatePayments = value; }
+            get
+            {
+                if (Sector.Name == Sector.EagleSectorName)
+                {
+                    var quantity = Customer.Operations.Where(o => o.PlaceStatus.InternalId == PlaceStatus.ReservedPlaceStatus && o.Sector.InternalId == Sector.EagleSectorId).Sum(o => o.PlacesQuantity);
+                    return (quantity <= 1);
+                }
+                else
+                {
+                    return true;
+                }
+            }
         }
+
+        [NonPersistent]
+        [Caption("UsuarioActualEsSupervisor")]
+        [VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
+        public bool UsuarioActualEsSupervisor
+        {
+            get
+            {
+                var currentUser = SecuritySystem.CurrentUser;
+                if (currentUser is ApplicationUser)
+                {
+                    ApplicationUser currentAppUser = currentUser as ApplicationUser;
+                    return currentAppUser.Roles.Any(r => r.Name == Role.OperationSupervisor);
+                }
+                {
+                    return false;
+                }
+            }
+        }
+
+        [NonPersistent]
+        [Caption("LaOperacionNoDebeTenerPagos")]
+        [VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
+        public bool LaOperacionNoDebeTenerPagos => Payments == null || Payments.Count() == Payments.Count(p => p.PaymentMethod == PaymentMethod.None);
 
         public Operation(Session session) : base(session)
         {

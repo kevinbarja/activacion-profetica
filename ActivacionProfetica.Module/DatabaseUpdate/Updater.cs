@@ -23,7 +23,7 @@ namespace ActivacionProfetica.Module.DatabaseUpdate
             new UserData(this);
             new SectorData(this);
             new PlaceStatusData(this);
-            //new PlaceData(this);
+            new PlaceData(this);
             new PaymentPlanData(this);
         }
 
