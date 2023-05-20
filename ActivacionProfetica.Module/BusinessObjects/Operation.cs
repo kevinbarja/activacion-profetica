@@ -18,7 +18,7 @@ namespace ActivacionProfetica.Module.BusinessObjects
     Visibility = ViewItemVisibility.Hide,
     Criteria = nameof(PlaceStatus) + " is Null")]
 
-    [Appearance("HideOperationCode", TargetItems = nameof(InternalId),
+    [Appearance("HideOperationCode", TargetItems = nameof(InternalId) + ";" + nameof(PlaceStatus),
     Visibility = ViewItemVisibility.Hide,
     Criteria = "IsNewObject(this)")]
 
@@ -162,7 +162,7 @@ namespace ActivacionProfetica.Module.BusinessObjects
         [NonPersistent]
         [Caption("¿Todos los pagos estas realizados?")]
         [VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
-        public bool AllPaymentsPayed => !Payments.Any(p => p.PaymentMethod == PaymentMethod.None);
+        public bool AllPaymentsPayed => !Payments.Any(p => p.PaymentMethod == PaymentMethod.None) && Payments.Count() > 0;
 
         [NonPersistent]
         [Caption("Cantidad de asientos")]
