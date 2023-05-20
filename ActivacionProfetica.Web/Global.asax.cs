@@ -45,12 +45,12 @@ namespace ActivacionProfetica.Web
                 WebApplication.Instance.ConnectionString = ConfigurationManager.ConnectionStrings["EasyTestConnectionString"].ConnectionString;
             }
 #endif
-#if DEBUG
+            //#if DEBUG
             if (System.Diagnostics.Debugger.IsAttached && WebApplication.Instance.CheckCompatibilityType == CheckCompatibilityType.DatabaseSchema)
             {
                 WebApplication.Instance.DatabaseUpdateMode = DatabaseUpdateMode.UpdateDatabaseAlways;
             }
-#endif
+            //#endif
             WebApplication.Instance.Setup();
             WebApplication.Instance.Start();
         }
