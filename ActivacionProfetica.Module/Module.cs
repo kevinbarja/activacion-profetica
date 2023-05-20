@@ -1,5 +1,8 @@
-﻿using DevExpress.ExpressApp;
+﻿using ActivacionProfetica.Module.BusinessObjects;
+using ActivacionProfetica.Module.Reports;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.ReportsV2;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp.Validation;
 using DevExpress.ExpressApp.Xpo;
@@ -19,7 +22,11 @@ namespace ActivacionProfetica.Module
         public override IEnumerable<ModuleUpdater> GetModuleUpdaters(IObjectSpace objectSpace, Version versionFromDB)
         {
             ModuleUpdater updater = new DatabaseUpdate.Updater(objectSpace, versionFromDB);
-            return new ModuleUpdater[] { updater };
+            PredefinedReportsUpdater predefinedReportsUpdater =
+              new PredefinedReportsUpdater(Application, objectSpace, versionFromDB);
+            predefinedReportsUpdater.AddPredefinedReport<OperationXtraReport>("Reporte", typeof(Operation), true);
+
+            return new ModuleUpdater[] { updater, predefinedReportsUpdater };
         }
         public override void Setup(XafApplication application)
         {
