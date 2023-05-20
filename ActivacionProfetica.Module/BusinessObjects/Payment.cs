@@ -1,5 +1,6 @@
 ﻿using ActivacionProfetica.Module.BusinessObjects.Enums;
 using ActivacionProfetica.Module.SharedKernel;
+using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
@@ -9,6 +10,9 @@ using Caption = System.ComponentModel.DisplayNameAttribute;
 
 namespace ActivacionProfetica.Module.BusinessObjects
 {
+    [Appearance("ResidualRiskLow", Enabled = false, TargetItems = "*",
+        Criteria = "[PaymentStatus] != ##Enum#ActivacionProfetica.Module.BusinessObjects.Enums.PaymentStatus,Pending# And IsNewObject(This) = False",
+        Context = "Operation_Payments_ListView", BackColor = "240, 240, 240")]
     [Caption("Pagos")]
     [Persistent(Schema.Ap + nameof(Payment))]
     public class Payment : BaseEntity

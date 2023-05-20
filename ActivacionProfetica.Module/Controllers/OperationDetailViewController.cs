@@ -1,6 +1,7 @@
 ﻿using ActivacionProfetica.Module.BusinessObjects;
 using ActivacionProfetica.Module.SharedKernel;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Xpo;
 
 namespace ActivacionProfetica.Module.Controllers
@@ -12,15 +13,23 @@ namespace ActivacionProfetica.Module.Controllers
             TargetViewId = Constants.View.OperationDetailView;
         }
 
+        private void ShowSaveButton(bool disable)
+        {
+            ModificationsController controlador = Frame.GetController<ModificationsController>();
+            controlador.SaveAction.Active.SetItemValue("OnlySaveByStateMachine", disable);
+            controlador.SaveAndCloseAction.Active.SetItemValue("OnlySaveByStateMachine", disable);
+            controlador.SaveAndNewAction.Active.SetItemValue("OnlySaveByStateMachine", disable);
+        }
+
         protected override void OnActivated()
         {
             base.OnActivated();
             ObjectSpace.ObjectChanged += ObjectSpace_ObjectChanged;
             //Disable save button
-            //ModificationsController controlador = Frame.GetController<ModificationsController>();
-            //controlador.SaveAction.Active.SetItemValue("OnlySaveByStateMachine", false);
-            //controlador.SaveAndCloseAction.Active.SetItemValue("OnlySaveByStateMachine", false);
-            //controlador.SaveAndNewAction.Active.SetItemValue("OnlySaveByStateMachine", false);
+            if (ObjectSpace.IsNewObject(View.CurrentObject))
+            {
+                ShowSaveButton(false);
+            }
         }
 
         void ObjectSpace_ObjectChanged(object sender, ObjectChangedEventArgs e)
@@ -73,6 +82,7 @@ namespace ActivacionProfetica.Module.Controllers
         protected override void OnDeactivated()
         {
             base.OnDeactivated();
+            ShowSaveButton(true);
             ObjectSpace.ObjectChanged -= ObjectSpace_ObjectChanged;
         }
     }
