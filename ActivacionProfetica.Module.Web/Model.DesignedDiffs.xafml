@@ -7,7 +7,7 @@
   </ActionDesign>
   <NavigationItems>
     <Items>
-      <Item Id="Consultas" Caption="Consultas" Index="0" Visible="True" IsNewNode="True">
+      <Item Id="Consultas" Caption="Consultas" Index="0" Visible="False" IsNewNode="True">
         <Items IsNewNode="True">
           <Item Id="Operations_Copy_Copy" ViewId="PublicOperation_ListView" Caption="Mis operaciones realizadas" Index="0" IsNewNode="True" />
         </Items>
