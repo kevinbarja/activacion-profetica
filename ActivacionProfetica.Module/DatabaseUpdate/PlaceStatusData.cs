@@ -7,9 +7,9 @@ using System.Text;
 
 namespace ActivacionProfetica.Module.DatabaseUpdate
 {
-    public class PlaseStatusData : BaseData
+    public class PlaceStatusData : BaseData
     {
-        public PlaseStatusData(Updater updater) : base(updater)
+        public PlaceStatusData(Updater updater) : base(updater)
         {
         }
 
@@ -87,12 +87,26 @@ namespace ActivacionProfetica.Module.DatabaseUpdate
                 //ConsignmentPlaceStatus
                 var offeringPlaceStatus = Updater.ObjectSpace.CreateObject<PlaceStatus>();
                 offeringPlaceStatus.InternalId = PlaceStatus.OfferingPlaceStatus;
-                offeringPlaceStatus.SingularName = "Ofrendado";
-                offeringPlaceStatus.PluralName = "Ofrendados";
+                offeringPlaceStatus.SingularName = "Ofrenda ministerio";
+                offeringPlaceStatus.PluralName = "Ofrenda ministerio";
                 StringBuilder descriptionOfferingPlaceStatus = new StringBuilder("- Estados anterior posible: 'Disponible'");
                 descriptionOfferingPlaceStatus.Append(Environment.NewLine);
                 descriptionOfferingPlaceStatus.AppendLine("- 'Disponible' -> 'Ofrendado': No realiza pago.");
                 offeringPlaceStatus.Description = descriptionReservedPlaceStatus.ToString();
+
+                //CortecyPlaceStatus
+                var cortecyPlaceStatus = Updater.ObjectSpace.CreateObject<PlaceStatus>();
+                cortecyPlaceStatus.InternalId = PlaceStatus.CortecyPlaceStatus;
+                cortecyPlaceStatus.SingularName = "Cortesía";
+                cortecyPlaceStatus.PluralName = "Cortesía";
+                cortecyPlaceStatus.Description = "Cortesía";
+
+                //NoAvailablePlaceStatus
+                var noAvailablePlaceStatus = Updater.ObjectSpace.CreateObject<PlaceStatus>();
+                noAvailablePlaceStatus.InternalId = PlaceStatus.NoAvailablePlaceStatus;
+                noAvailablePlaceStatus.SingularName = "Deshabilitado";
+                noAvailablePlaceStatus.PluralName = "Deshabilitado";
+                noAvailablePlaceStatus.Description = "Deshabilitado";
             }
         }
     }

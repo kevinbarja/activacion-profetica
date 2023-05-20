@@ -20,6 +20,8 @@ namespace ActivacionProfetica.Module.BusinessObjects
         public static int ReservedPlaceStatus = 3;
         public static int ConsignmentPlaceStatus = 4;
         public static int OfferingPlaceStatus = 5;
+        public static int CortecyPlaceStatus = 6;
+        public static int NoAvailablePlaceStatus = 7;
 
         private string singularName;
         private string pluralName;
