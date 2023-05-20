@@ -10,10 +10,10 @@ using System;
 
 namespace ActivacionProfetica.Module.Controllers
 {
-    public class SendByWhatsappController : ViewController<DetailView>
+    public class ShowOperationReportController : ViewController<DetailView>
     {
         SimpleAction sendMessage;
-        public SendByWhatsappController()
+        public ShowOperationReportController()
         {
             TargetViewId = Constants.View.OperationDetailView;
 
