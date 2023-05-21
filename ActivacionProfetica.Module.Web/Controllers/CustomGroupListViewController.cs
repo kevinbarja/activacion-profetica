@@ -17,24 +17,29 @@ namespace ActivacionProfetica.Module.Web.Controllers
         }
         private void CurrentRequestWindow_PagePreRender(object sender, EventArgs e)
         {
-            ASPxGridListEditor gridListEditor = View.Editor as ASPxGridListEditor;
-            if (gridListEditor != null)
+            if (View != null)
             {
-                string afterGroupRowClickScipt = string.Empty;
-                if (gridListEditor.Grid != null)
+
+
+                ASPxGridListEditor gridListEditor = View.Editor as ASPxGridListEditor;
+                if (gridListEditor != null)
                 {
-                    afterGroupRowClickScipt = String.IsNullOrEmpty(gridListEditor.Grid.ClientSideEvents.RowClick) ? "" :
-                 String.Format(" else {{ ({0})(s, e); }}", gridListEditor.Grid.ClientSideEvents.RowClick);
-                }
-                string rowClickHandler = @"function(s, e) {
+                    string afterGroupRowClickScipt = string.Empty;
+                    if (gridListEditor.Grid != null)
+                    {
+                        afterGroupRowClickScipt = String.IsNullOrEmpty(gridListEditor.Grid.ClientSideEvents.RowClick) ? "" :
+                     String.Format(" else {{ ({0})(s, e); }}", gridListEditor.Grid.ClientSideEvents.RowClick);
+                    }
+                    string rowClickHandler = @"function(s, e) {
                   if (s.IsGroupRow(e.visibleIndex)) {
                     s.IsGroupRowExpanded(e.visibleIndex) ? s.CollapseRow(e.visibleIndex) : s.ExpandRow(e.visibleIndex);
                   }" + afterGroupRowClickScipt + @" 
                 }";
 
-                if (gridListEditor.Grid != null)
-                {
-                    gridListEditor.Grid.ClientSideEvents.RowClick = rowClickHandler;
+                    if (gridListEditor.Grid != null)
+                    {
+                        gridListEditor.Grid.ClientSideEvents.RowClick = rowClickHandler;
+                    }
                 }
             }
         }
