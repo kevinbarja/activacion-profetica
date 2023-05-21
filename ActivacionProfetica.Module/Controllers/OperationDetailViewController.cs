@@ -46,6 +46,7 @@ namespace ActivacionProfetica.Module.Controllers
 
                     if ((operation.PaymentPlan != null && e.Object is Place) || (operation.PaymentPlan != null && operation.Places.Count > 0))
                     {
+                        ObjectSpace.Delete(operation.Payments);
                         operation.Payments.Reload();
                         if (!(e.NewValue is null && operation.Places.Count == 0))
                         {

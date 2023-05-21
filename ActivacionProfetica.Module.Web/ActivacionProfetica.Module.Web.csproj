@@ -158,10 +158,14 @@
     <Compile Include="Controllers\FilterPublicListView.cs" />
     <Compile Include="Controllers\HideDeleteActionListView.cs" />
     <Compile Include="Controllers\HideEditActionListViewController.cs" />
+    <Compile Include="Controllers\NewObjectFromNavigationController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controllers\OperationListViewCustomizationController.cs" />
     <Compile Include="Controllers\SendOperationByWhatsappController.cs" />
     <Compile Include="Controllers\ShowOperationReportController.cs" />
     <Compile Include="Editors\APLookupPropertyEditor.cs" />
+    <Compile Include="RevertPaymentController.cs" />
     <Compile Include="WebModule.cs">
       <SubType>Component</SubType>
     </Compile>

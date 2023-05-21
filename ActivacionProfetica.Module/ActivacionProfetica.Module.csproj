@@ -166,7 +166,8 @@
     <Compile Include="Controllers\VersionController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="DatabaseUpdate\PlaseStatusData.cs" />
+    <Compile Include="DatabaseUpdate\PaymentPlanData.cs" />
+    <Compile Include="DatabaseUpdate\PlaceStatusData.cs" />
     <Compile Include="DatabaseUpdate\PlaceData.cs" />
     <Compile Include="DatabaseUpdate\RolData.cs" />
     <Compile Include="DatabaseUpdate\SectorData.cs" />

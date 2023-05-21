@@ -22,8 +22,9 @@ namespace ActivacionProfetica.Module.DatabaseUpdate
             new RolData(this);
             new UserData(this);
             new SectorData(this);
-            new PlaseStatusData(this);
+            new PlaceStatusData(this);
             new PlaceData(this);
+            new PaymentPlanData(this);
         }
 
         public override void UpdateDatabaseBeforeUpdateSchema()

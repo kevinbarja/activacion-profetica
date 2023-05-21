@@ -33,22 +33,6 @@ namespace ActivacionProfetica.Module.DatabaseUpdate
                 Updater.ObjectSpace.CommitChanges(); //This line persists created object(s).
                 ((ISecurityUserWithLoginInfo)userAdmin).CreateUserLoginInfo(SecurityDefaults.PasswordAuthentication, Updater.ObjectSpace.GetKeyValueAsString(userAdmin));
                 userAdmin.Roles.Add(adminRole);
-
-
-                //Public user
-
-
-                //User admin
-                var userPublic = Updater.ObjectSpace.CreateObject<ApplicationUser>();
-                userPublic.UserName = "123";
-                userPublic.FullName = "Persona con acceso público";
-                userPublic.SetPassword("123");
-
-                // The UserLoginInfo object requires a user object InternalId (Oid).
-                // Commit the user object to the database before you create a UserLoginInfo object. This will correctly initialize the user key property.
-                Updater.ObjectSpace.CommitChanges(); //This line persists created object(s).
-                ((ISecurityUserWithLoginInfo)userPublic).CreateUserLoginInfo(SecurityDefaults.PasswordAuthentication, Updater.ObjectSpace.GetKeyValueAsString(userPublic));
-                userPublic.Roles.Add(publicRole);
             }
         }
     }

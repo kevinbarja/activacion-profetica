@@ -32,6 +32,7 @@ namespace ActivacionProfetica.Module.BusinessObjects
         [ToolTip("CI sin extensión")]
         [Nullable(false)]
         [RequiredField]
+        [ImmediatePostData]
         [RuleUniqueValue("ValidateUniqueCI", DefaultContexts.Save, CriteriaEvaluationBehavior = CriteriaEvaluationBehavior.BeforeTransaction, SkipNullOrEmptyValues = true)]
         [VisibleInDetailView(true), VisibleInListView(true), VisibleInLookupListView(true)]
         public string CI
