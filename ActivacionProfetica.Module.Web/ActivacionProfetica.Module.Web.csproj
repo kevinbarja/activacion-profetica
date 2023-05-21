@@ -152,6 +152,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\CustomGroupListViewController.cs" />
     <Compile Include="Controllers\ExportActionController.cs">
       <SubType>Component</SubType>
     </Compile>
