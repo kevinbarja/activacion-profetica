@@ -6,17 +6,20 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using System;
+using System.Drawing;
 using System.Linq;
 using static ActivacionProfetica.Module.SharedKernel.Constants;
 using Caption = System.ComponentModel.DisplayNameAttribute;
 
 namespace ActivacionProfetica.Module.BusinessObjects
 {
+    [Appearance("RedTextPayment", TargetItems = "*", Context = "LookupListView;ListView", Criteria = "[IsReverted] = True", FontStyle = FontStyle.Strikeout, FontColor = "253, 125, 125")]
     [Appearance("ResidualRiskLow", Enabled = false, TargetItems = "*",
         Criteria = "[PaymentMethod] != ##Enum#ActivacionProfetica.Module.BusinessObjects.Enums.PaymentMethod,None# And IsNewObject(This) = False",
         Context = "Operation_Payments_ListView", BackColor = "240, 240, 240")]
     [Caption("Pagos")]
     [Persistent(Schema.Ap + nameof(Payment))]
+
     public class Payment : BaseEntity
     {
         PaymentPlanDetail paymentPlanDetail;

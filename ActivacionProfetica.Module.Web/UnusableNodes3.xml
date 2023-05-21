@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views Id="Views">
+    <ListView Id="PublicOperation_ListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="FirstPaymentDone" PropertyName="FirstPaymentDone" Index="-1" />
+      </Columns>
+    </ListView>
+    <DetailView Id="PublicOperation_DetailView">
+      <Items Id="Items">
+        <PropertyEditor Id="FirstPaymentDone" PropertyName="FirstPaymentDone" />
+        <PropertyEditor Id="AllPaymentsPayed" PropertyName="AllPaymentsPayed" />
+      </Items>
+    </DetailView>
+    <ListView Id="MyOperation_ListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="FirstPaymentDone" PropertyName="FirstPaymentDone" Index="-1" />
+      </Columns>
+    </ListView>
+    <DetailView Id="Payment_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Payment">
+              <LayoutGroup Id="Payment_col1">
+                <LayoutItem Id="Amount" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

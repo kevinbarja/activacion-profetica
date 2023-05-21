@@ -241,7 +241,13 @@ namespace ActivacionProfetica.Module.BusinessObjects
         [NonPersistent]
         [Caption("LaOperacionNoDebeTenerPagos")]
         [VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
-        public bool LaOperacionNoDebeTenerPagos => Payments == null || Payments.Count() == Payments.Count(p => p.PaymentMethod == PaymentMethod.None);
+        public bool LaOperacionNoDebeTenerPagos => Payments == null || Payments.Count() == 0;
+
+        [NonPersistent]
+        [Caption("LosPagosDebeEstarRevertidos")]
+        [VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
+        public bool LosPagosDebeEstarRevertidos => Payments.Count() == Payments.Count(p => p.IsReverted);
+
 
         public Operation(Session session) : base(session)
         {
