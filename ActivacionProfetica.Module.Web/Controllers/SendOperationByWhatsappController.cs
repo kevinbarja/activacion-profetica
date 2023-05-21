@@ -3,13 +3,14 @@ using ActivacionProfetica.Module.SharedKernel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.ReportsV2;
-using DevExpress.ExpressApp.Web;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.XtraPrinting;
 using DevExpress.XtraReports.UI;
 using System;
 using System.IO;
+using System.Net.Http;
+using System.Text;
 
 namespace ActivacionProfetica.Module.Web.Controllers
 {
@@ -43,7 +44,8 @@ namespace ActivacionProfetica.Module.Web.Controllers
         private void ClearTasksAction_Execute(Object sender, SimpleActionExecuteEventArgs e)
         {
             var operation = (Operation)View.CurrentObject;
-
+            string number_whatsapp = "+591" + operation.Customer.WhatsApp;
+            HttpClient httpClient = new HttpClient();
             var reportOsProvider = ReportDataProvider.GetReportObjectSpaceProvider(this.Application.ServiceProvider);
             var reportStorage = ReportDataProvider.GetReportStorage(this.Application.ServiceProvider);
             IObjectSpace objectSpace = reportOsProvider.CreateObjectSpace(typeof(ReportDataV2));
@@ -61,15 +63,12 @@ namespace ActivacionProfetica.Module.Web.Controllers
                 var opcionesPdf = new PdfExportOptions();
                 opcionesPdf.ShowPrintDialogOnOpen = false;
                 reporte.ExportToPdf(flujo, opcionesPdf);
-
                 flujo.Seek(0, SeekOrigin.Begin);
                 byte[] contenidoReporte = flujo.ToArray();
                 string base64 = Convert.ToBase64String(contenidoReporte);
-                //TODO: Send to Leo web service
-
-                string pdfBase64 = "data:application/pdf;" + base64;
-
-                //WebApplication.Redirect("https://api.whatsapp.com/send?phone=59175632256&text=%F0%9F%98%80Lleva%20el%20control%20de%20tu%20plan%2090%20d%C3%ADas%20ingresando%20a%20http%3A%2F%2Flocalhost%3A2064%20tu%20usuario%20es%20tu%20CI%20y%20la%20contrase%C3%B1a%20tu%20n%C3%BAmero%20de%20whatsapp.%20Bendiciones");
+                string json = "{\"from_number\": \"" + number_whatsapp + "\", \"message\": \"Dios lo bendiga Gracias por su compra\", \"documento\": \"" + base64 + "\"}";
+                StringContent httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+                httpClient.PostAsync("http://envio-whatsapp.herokuapp.com/webhook", httpContent);
             }
         }
 
