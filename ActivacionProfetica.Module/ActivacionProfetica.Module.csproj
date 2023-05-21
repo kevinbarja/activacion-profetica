@@ -141,6 +141,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessObjects\Enums\Gender.cs" />
     <Compile Include="BusinessObjects\Enums\PaymentMethod.cs" />
     <Compile Include="BusinessObjects\Enums\PaymentStatus.cs" />
     <Compile Include="BusinessObjects\PaymentPlan.cs" />

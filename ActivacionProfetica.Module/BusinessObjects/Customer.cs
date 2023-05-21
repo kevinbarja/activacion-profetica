@@ -1,4 +1,5 @@
-﻿using ActivacionProfetica.Module.SharedKernel;
+﻿using ActivacionProfetica.Module.BusinessObjects.Enums;
+using ActivacionProfetica.Module.SharedKernel;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.Persistent.Base;
@@ -26,6 +27,8 @@ namespace ActivacionProfetica.Module.BusinessObjects
         string whatsApp = string.Empty;
         bool isCcecoMember = true;
         string churchName = "Casa de Oración Central";
+        int age = 0;
+        Gender gender = Gender.Male;
 
         [RuleRegularExpression(@"(?<!\d)", CustomMessageTemplate = @"´""CI"" debe contener sólo dígitos")]
         [Caption("CI")]
@@ -81,6 +84,25 @@ namespace ActivacionProfetica.Module.BusinessObjects
             get => churchName;
             set => SetPropertyValue(ref churchName, value);
         }
+
+        [Caption("Edad")]
+        [Nullable(true), RequiredField]
+        [VisibleInDetailView(true), VisibleInListView(false), VisibleInLookupListView(false)]
+        public int Age
+        {
+            get => age;
+            set => SetPropertyValue(ref age, value);
+        }
+
+        [Caption("Género")]
+        [Nullable(false), RequiredField]
+        [VisibleInDetailView(true), VisibleInListView(false), VisibleInLookupListView(false)]
+        public Gender Gender
+        {
+            get => gender;
+            set => SetPropertyValue(ref gender, value);
+        }
+
 
         [Caption("Operaciones")]
         [MemberDesignTimeVisibility(false)]
