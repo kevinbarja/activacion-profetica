@@ -3,6 +3,7 @@ using ActivacionProfetica.Module.SharedKernel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.ReportsV2;
+using DevExpress.ExpressApp.Web;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.XtraPrinting;
@@ -66,7 +67,9 @@ namespace ActivacionProfetica.Module.Web.Controllers
                 string base64 = Convert.ToBase64String(contenidoReporte);
                 //TODO: Send to Leo web service
 
-                //string pdfBase64 = "data:application/pdf;" + base64;
+                string pdfBase64 = "data:application/pdf;" + base64;
+
+                //WebApplication.Redirect("https://api.whatsapp.com/send?phone=59175632256&text=%F0%9F%98%80Lleva%20el%20control%20de%20tu%20plan%2090%20d%C3%ADas%20ingresando%20a%20http%3A%2F%2Flocalhost%3A2064%20tu%20usuario%20es%20tu%20CI%20y%20la%20contrase%C3%B1a%20tu%20n%C3%BAmero%20de%20whatsapp.%20Bendiciones");
             }
         }
 
