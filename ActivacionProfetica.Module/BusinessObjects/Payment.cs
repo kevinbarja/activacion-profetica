@@ -143,6 +143,27 @@ namespace ActivacionProfetica.Module.BusinessObjects
             }
         }
 
+
+        [NonPersistent]
+        [Caption("PaymentMethodCaption")]
+        [VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
+        public string PaymentMethodCaption
+        {
+            get
+            {
+                switch (PaymentMethod)
+                {
+                    case PaymentMethod.None:
+                        return "Pendiente";
+                    case PaymentMethod.QR:
+                        return "QR";
+                    case PaymentMethod.Cash:
+                        return "Efectivo";
+                    default:
+                        return string.Empty;
+                }
+            }
+        }
         public Payment(Session session) : base(session)
         {
         }
