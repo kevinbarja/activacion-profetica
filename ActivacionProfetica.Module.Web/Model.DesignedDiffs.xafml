@@ -69,7 +69,6 @@
         <ColumnInfo Id="AnyPaymentsInArrears" PropertyName="AnyPaymentsInArrears" Index="-1" IsNewNode="True" />
         <ColumnInfo Id="CreatedBy" PropertyName="CreatedBy" Index="-1" IsNewNode="True" />
         <ColumnInfo Id="CreatedOn" PropertyName="CreatedOn" Index="-1" IsNewNode="True" />
-        <ColumnInfo Id="FirstPaymentDone" PropertyName="FirstPaymentDone" Index="-1" IsNewNode="True" />
         <ColumnInfo Id="UpdatedBy" PropertyName="UpdatedBy" Index="-1" IsNewNode="True" />
         <ColumnInfo Id="InternalId" PropertyName="InternalId" Index="0" IsNewNode="True" />
         <ColumnInfo Id="Customer" PropertyName="Customer" Index="1" IsNewNode="True" />
@@ -84,7 +83,7 @@
         <Filter Id="@4e3b35f0-4811-47f4-8001-4b8ee9cc6d61" Caption="Todas mis operaciones" Index="1" IsNewNode="True" />
       </Filters>
     </ListView>
-    <ListView Id="MyReportPayment_ListView" ClassName="ActivacionProfetica.Module.BusinessObjects.Payment" AllowDelete="False" Caption="Mis cobros" Criteria="[UpdatedBy.Oid] = CurrentUserId()" IsNewNode="True">
+    <ListView Id="MyReportPayment_ListView" ClassName="ActivacionProfetica.Module.BusinessObjects.Payment" AllowDelete="False" Caption="Mis cobros" Criteria="[UpdatedBy.Oid] = CurrentUserId() And [IsReverted] = False" IsNewNode="True">
       <Columns IsNewNode="True">
         <ColumnInfo Id="Code" PropertyName="InternalId" Index="-1" Width="83" SortIndex="0" SortOrder="Descending" IsNewNode="True" />
         <ColumnInfo Id="CreatedBy" PropertyName="CreatedBy" Index="-1" IsNewNode="True" />
@@ -229,10 +228,9 @@
                 <LayoutItem Id="Operation" ViewItem="Operation" Index="0" IsNewNode="True" />
                 <LayoutItem Id="PaymentPlanDetail" Index="1" />
                 <LayoutItem Id="PaymentStatus" Index="2" />
-                <LayoutItem Id="Amount" Removed="True" />
               </LayoutGroup>
               <LayoutGroup Id="Payment_col2">
-                <LayoutItem Id="Amount" ViewItem="Amount" ShowCaption="" Index="2" IsNewNode="True" />
+                <LayoutItem Id="Amount" ShowCaption="" Index="2" ViewItem="Amount" IsNewNode="True" />
               </LayoutGroup>
             </LayoutGroup>
             <LayoutGroup Id="BaseEntity" IsCollapsibleGroup="True" IsGroupCollapsed="True" Caption="Auditoría">
@@ -373,12 +371,10 @@
     </ListView>
     <DetailView Id="PublicOperation_DetailView" CaptionColon=":" EnableCaptionColon="True" CaptionLocation="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" CaptionWordWrap="Default" EnableLayoutGroupImages="True" RequiredFieldMark="*" ClassName="ActivacionProfetica.Module.BusinessObjects.Operation" AllowEdit="False" AllowDelete="False" AllowNew="False" IsNewNode="True">
       <Items IsNewNode="True">
-        <PropertyEditor Id="AllPaymentsPayed" PropertyName="AllPaymentsPayed" IsNewNode="True" />
         <PropertyEditor Id="AnyPaymentsInArrears" PropertyName="AnyPaymentsInArrears" IsNewNode="True" />
         <PropertyEditor Id="CreatedBy" PropertyName="CreatedBy" IsNewNode="True" />
         <PropertyEditor Id="CreatedOn" PropertyName="CreatedOn" IsNewNode="True" />
         <PropertyEditor Id="Customer" PropertyName="Customer" IsNewNode="True" />
-        <PropertyEditor Id="FirstPaymentDone" PropertyName="FirstPaymentDone" IsNewNode="True" />
         <PropertyEditor Id="InternalId" PropertyName="InternalId" IsNewNode="True" />
         <PropertyEditor Id="PaymentPlan" PropertyName="PaymentPlan" View="PaymentPlan_LookupListView" DataSourceCriteria="[Sector] = '@This.Sector' And [LimitDate] Is Null Or [Sector] = '@This.Sector' And [LimitDate] &gt;= LocalDateTimeToday()" IsNewNode="True" />
         <PropertyEditor Id="Payments" PropertyName="Payments" View="Operation_Payments_ListView" IsNewNode="True" />
@@ -428,7 +424,6 @@
       <Columns IsNewNode="True">
         <ColumnInfo Id="AnyPaymentsInArrears" PropertyName="AnyPaymentsInArrears" Index="-1" IsNewNode="True" />
         <ColumnInfo Id="CreatedBy" PropertyName="CreatedBy" Index="-1" IsNewNode="True" />
-        <ColumnInfo Id="FirstPaymentDone" PropertyName="FirstPaymentDone" Index="-1" IsNewNode="True" />
         <ColumnInfo Id="UpdatedBy" PropertyName="UpdatedBy" Index="-1" IsNewNode="True" />
         <ColumnInfo Id="UpdatedOn" PropertyName="UpdatedOn" Index="-1" IsNewNode="True" />
         <ColumnInfo Id="InternalId" PropertyName="InternalId" Index="0" IsNewNode="True" />
@@ -462,12 +457,13 @@
         <ColumnInfo Id="PaymentMethod" PropertyName="PaymentMethod" Index="9" Width="132" IsNewNode="True" />
         <ColumnInfo Id="UpdatedBy" PropertyName="UpdatedBy" Index="10" Caption="Actualizado por" IsNewNode="True" />
       </Columns>
-      <Filters IsNewNode="True">
-        <Filter Id="@5d746519-dda9-4aa7-bbdb-2b5067c9f43a" Caption="Cobros del día" Criteria="IsOutlookIntervalToday([UpdatedOn]) And [PaymentMethod] != ##Enum#ActivacionProfetica.Module.BusinessObjects.Enums.PaymentMethod,None#" Index="0" IsNewNode="True" />
-        <Filter Id="@d14f9810-05c8-4570-ba89-126b983a8362" Caption="Todos los cobros" Criteria="[PaymentMethod] != ##Enum#ActivacionProfetica.Module.BusinessObjects.Enums.PaymentMethod,None#" Index="1" IsNewNode="True" />
-        <Filter Id="@9fc874e3-63c3-4b3d-ae7b-a21c0fe94a39" Caption="Cobros pendientes" Criteria="[PaymentMethod] = ##Enum#ActivacionProfetica.Module.BusinessObjects.Enums.PaymentMethod,None#" Index="2" IsNewNode="True" />
-        <Filter Id="@5d746519-dda9-4aa7-bbdb-2b5067c9f43a_Copy" Caption="Cobros en QR del día" Criteria="IsOutlookIntervalToday([UpdatedOn]) And [PaymentMethod] = ##Enum#ActivacionProfetica.Module.BusinessObjects.Enums.PaymentMethod,QR#" IsNewNode="True" />
-        <Filter Id="@5d746519-dda9-4aa7-bbdb-2b5067c9f43a_Copy_Copy" Caption="Cobros en efectivo del día" Criteria="IsOutlookIntervalToday([UpdatedOn]) And [PaymentMethod] = ##Enum#ActivacionProfetica.Module.BusinessObjects.Enums.PaymentMethod,Cash#" IsNewNode="True" />
+      <Filters CurrentFilterId="@5d746519-dda9-4aa7-bbdb-2b5067c9f43a" IsNewNode="True">
+        <Filter Id="@5d746519-dda9-4aa7-bbdb-2b5067c9f43a" Caption="Cobros del día" Criteria="IsOutlookIntervalToday([UpdatedOn]) And [PaymentMethod] &lt;&gt; ##Enum#ActivacionProfetica.Module.BusinessObjects.Enums.PaymentMethod,None# And [IsReverted] = False" Index="0" IsNewNode="True" />
+        <Filter Id="@d14f9810-05c8-4570-ba89-126b983a8362" Caption="Todos los cobros" Criteria="[PaymentMethod] &lt;&gt; ##Enum#ActivacionProfetica.Module.BusinessObjects.Enums.PaymentMethod,None# And [IsReverted] = False" Index="1" IsNewNode="True" />
+        <Filter Id="@9fc874e3-63c3-4b3d-ae7b-a21c0fe94a39" Caption="Cobros pendientes" Criteria="[PaymentMethod] = ##Enum#ActivacionProfetica.Module.BusinessObjects.Enums.PaymentMethod,None# And [IsReverted] = False" Index="2" IsNewNode="True" />
+        <Filter Id="@5d746519-dda9-4aa7-bbdb-2b5067c9f43a_Copy_Copy" Caption="Cobros en efectivo del día" Criteria="IsOutlookIntervalToday([UpdatedOn]) And [PaymentMethod] = ##Enum#ActivacionProfetica.Module.BusinessObjects.Enums.PaymentMethod,Cash# And [IsReverted] = False" Index="3" IsNewNode="True" />
+        <Filter Id="@5d746519-dda9-4aa7-bbdb-2b5067c9f43a_Copy" Caption="Cobros en QR del día" Criteria="IsOutlookIntervalToday([UpdatedOn]) And [PaymentMethod] = ##Enum#ActivacionProfetica.Module.BusinessObjects.Enums.PaymentMethod,QR# And [IsReverted] = False" Index="4" IsNewNode="True" />
+        <Filter Id="@461ea0be-f241-44cb-9254-4561fc5e20f6" Caption="Cobros revertidos" Index="5" Criteria="[IsReverted] = True" IsNewNode="True" />
       </Filters>
     </ListView>
     <DetailView Id="Sector_DetailView" Caption="Sectore" FreezeLayout="True" AllowDelete="False" AllowEdit="False" AllowNew="False">

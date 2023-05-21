@@ -6,17 +6,20 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using System;
+using System.Drawing;
 using System.Linq;
 using static ActivacionProfetica.Module.SharedKernel.Constants;
 using Caption = System.ComponentModel.DisplayNameAttribute;
 
 namespace ActivacionProfetica.Module.BusinessObjects
 {
+    [Appearance("RedTextPayment", TargetItems = "*", Context = "LookupListView;ListView", Criteria = "[IsReverted] = True", FontStyle = FontStyle.Strikeout, FontColor = "253, 125, 125")]
     [Appearance("ResidualRiskLow", Enabled = false, TargetItems = "*",
         Criteria = "[PaymentMethod] != ##Enum#ActivacionProfetica.Module.BusinessObjects.Enums.PaymentMethod,None# And IsNewObject(This) = False",
         Context = "Operation_Payments_ListView", BackColor = "240, 240, 240")]
     [Caption("Pagos")]
     [Persistent(Schema.Ap + nameof(Payment))]
+
     public class Payment : BaseEntity
     {
         PaymentPlanDetail paymentPlanDetail;
@@ -140,6 +143,27 @@ namespace ActivacionProfetica.Module.BusinessObjects
             }
         }
 
+
+        [NonPersistent]
+        [Caption("PaymentMethodCaption")]
+        [VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
+        public string PaymentMethodCaption
+        {
+            get
+            {
+                switch (PaymentMethod)
+                {
+                    case PaymentMethod.None:
+                        return "Pendiente";
+                    case PaymentMethod.QR:
+                        return "QR";
+                    case PaymentMethod.Cash:
+                        return "Efectivo";
+                    default:
+                        return string.Empty;
+                }
+            }
+        }
         public Payment(Session session) : base(session)
         {
         }
