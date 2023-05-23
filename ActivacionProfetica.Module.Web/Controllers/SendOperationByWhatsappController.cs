@@ -73,7 +73,7 @@ namespace ActivacionProfetica.Module.Web.Controllers
                 flujo.Seek(0, SeekOrigin.Begin);
                 byte[] contenidoReporte = flujo.ToArray();
                 string base64 = Convert.ToBase64String(contenidoReporte);
-                string json = "{\"from_number\": \"" + number_whatsapp + "\", \"message\": \"Operacion Exitosa " + operation.InternalId.ToString() + "\", \"documento\": \"" + base64 + "\"}";
+                string json = "{\"from_number\": \"" + number_whatsapp + "\", \"message\": \"operación-" + operation.InternalId.ToString() + ".pdf\", \"documento\": \"" + base64 + "\"}";
                 StringContent httpContent = new StringContent(json, Encoding.UTF8, "application/json");
                 httpClient.PostAsync("http://localhost:3000/webhook", httpContent);
             }
