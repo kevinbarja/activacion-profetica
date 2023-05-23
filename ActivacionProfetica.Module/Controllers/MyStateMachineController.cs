@@ -108,7 +108,7 @@ namespace ActivacionProfetica.Module.Controllers
 
                                 if (currentUserIsSupervisor)
                                 {
-                                    if (!(statusId != PlaceStatus.SoldPlaceStatus && statusId != PlaceStatus.ReservedPlaceStatus && statusId != PlaceStatus.CortecyPlaceStatus && statusId != PlaceStatus.NoAvailablePlaceStatus))
+                                    if (currentplaceSelected.Operation.InternalId != operation.InternalId && !(statusId != PlaceStatus.SoldPlaceStatus && statusId != PlaceStatus.ReservedPlaceStatus && statusId != PlaceStatus.CortecyPlaceStatus && statusId != PlaceStatus.NoAvailablePlaceStatus))
                                     {
                                         MessageOptions parametrosMensaje = new MessageOptions
                                         {
@@ -124,7 +124,7 @@ namespace ActivacionProfetica.Module.Controllers
                                 }
                                 else
                                 {
-                                    if (statusId != PlaceStatus.AvailablePlaceStatus)
+                                    if (currentplaceSelected.Operation.InternalId != operation.InternalId && statusId != PlaceStatus.AvailablePlaceStatus)
                                     {
                                         MessageOptions parametrosMensaje = new MessageOptions
                                         {
