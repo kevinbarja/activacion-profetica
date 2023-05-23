@@ -45,7 +45,7 @@ namespace ActivacionProfetica.Module.Web.Controllers
         private void ClearTasksAction_Execute(Object sender, SimpleActionExecuteEventArgs e)
         {
             var operation = (Operation)View.CurrentObject;
-            string number_whatsapp = "+591" + operation.Customer.WhatsApp;
+            string number_whatsapp = "591" + operation.Customer.WhatsApp + "@c.us";
             HttpClient httpClient = new HttpClient();
             var reportOsProvider = ReportDataProvider.GetReportObjectSpaceProvider(this.Application.ServiceProvider);
             var reportStorage = ReportDataProvider.GetReportStorage(this.Application.ServiceProvider);
@@ -75,7 +75,7 @@ namespace ActivacionProfetica.Module.Web.Controllers
                 string base64 = Convert.ToBase64String(contenidoReporte);
                 string json = "{\"from_number\": \"" + number_whatsapp + "\", \"message\": \"Operacion Exitosa " + operation.InternalId.ToString() + "\", \"documento\": \"" + base64 + "\"}";
                 StringContent httpContent = new StringContent(json, Encoding.UTF8, "application/json");
-                httpClient.PostAsync("http://envio-whatsapp.herokuapp.com/webhook", httpContent);
+                httpClient.PostAsync("http://localhost:3000/webhook", httpContent);
             }
         }
 
