@@ -121,6 +121,14 @@ namespace ActivacionProfetica.Module.BusinessObjects
             set => SetPropertyValue(ref isLeaf, value);
         }
 
+        [Caption("Asignado a")]
+        [NonPersistent]
+        [VisibleInDetailView(true), VisibleInListView(true), VisibleInLookupListView(true)]
+        public Customer Customer
+        {
+            get => Operation?.Customer;
+        }
+
         public Place(Session session) : base(session)
         {
         }
