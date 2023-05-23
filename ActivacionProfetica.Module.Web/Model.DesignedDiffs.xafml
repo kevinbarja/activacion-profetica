@@ -7,11 +7,6 @@
   </ActionDesign>
   <NavigationItems>
     <Items>
-      <Item Id="Consultas" Caption="Consultas" Index="0" Visible="False" IsNewNode="True">
-        <Items IsNewNode="True">
-          <Item Id="Operations_Copy_Copy" ViewId="PublicOperation_ListView" Caption="Mis operaciones realizadas" Index="0" IsNewNode="True" />
-        </Items>
-      </Item>
       <Item Id="ActivacionProfetica" Index="1">
         <Items>
           <Item Id="Customers" Index="0" Removed="True" />
@@ -35,15 +30,10 @@
       </Item>
       <Item Id="Reportes" Caption="Reportes" Index="3" IsNewNode="True">
         <Items IsNewNode="True">
-          <Item Id="@d84b9f6a-421e-42f7-bd84-1482be7620f9" Caption="Cobros" Index="0" ViewId="ReportPayment_ListView" IsNewNode="True" />
-          <Item Id="Operations_Copy_Copy" Caption="Operaciones" ViewId="Operation_ListView" Index="1" IsNewNode="True" />
+          <Item Id="Places" Caption="Asientos" Index="0" ViewId="Place_SimpleListView" IsNewNode="True" />
+          <Item Id="@d84b9f6a-421e-42f7-bd84-1482be7620f9" Caption="Cobros" Index="1" ViewId="ReportPayment_ListView" IsNewNode="True" />
           <Item Id="Customers" Index="2" Caption="Personas" ViewId="Customer_ListView" ImageName="BO_Department" IsNewNode="True" />
-          <Item Id="Places" Caption="Asientos" ViewId="" Index="3" IsNewNode="True">
-            <Items IsNewNode="True">
-              <Item Id="@873239e0-5184-4f76-96fc-7ec119fe5810" Caption="Vista lista" ViewId="Place_SimpleListView" Index="0" IsNewNode="True" />
-              <Item Id="TreeView" Caption="Vista árbol" ViewId="Place_ListView" Index="1" IsNewNode="True" />
-            </Items>
-          </Item>
+          <Item Id="Operations_Copy_Copy" Caption="Operaciones" ViewId="Operation_ListView" Index="3" IsNewNode="True" />
         </Items>
       </Item>
       <Item Id="State Machine" Removed="True">
@@ -107,17 +97,17 @@
         <ColumnInfo Id="UpdatedBy" PropertyName="UpdatedBy" Index="10" IsNewNode="True" />
       </Columns>
       <Filters CurrentFilterId="@5d746519-dda9-4aa7-bbdb-2b5067c9f43a" IsNewNode="True">
-        <Filter Id="@5d746519-dda9-4aa7-bbdb-2b5067c9f43a" Caption="Mis cobros del día" Criteria="IsOutlookIntervalToday([PaymentDate]) And [PaymentMethod] &lt;&gt; ##Enum#ActivacionProfetica.Module.BusinessObjects.Enums.PaymentMethod,None#" IsNewNode="True" />
-        <Filter Id="@5d746519-dda9-4aa7-bbdb-2b5067c9f43a_Copy" Caption="Mis cobros en QR del día" Criteria="IsOutlookIntervalToday([PaymentDate]) And [PaymentMethod] = ##Enum#ActivacionProfetica.Module.BusinessObjects.Enums.PaymentMethod,QR#" IsNewNode="True" />
-        <Filter Id="@5d746519-dda9-4aa7-bbdb-2b5067c9f43a_Copy_Copy" Caption="Mis cobros en efectivo del día" Criteria="IsOutlookIntervalToday([PaymentDate]) And [PaymentMethod] = ##Enum#ActivacionProfetica.Module.BusinessObjects.Enums.PaymentMethod,Cash#" IsNewNode="True" />
-        <Filter Id="@d14f9810-05c8-4570-ba89-126b983a8362" Caption="Todos mis cobros" Criteria="[PaymentMethod] != ##Enum#ActivacionProfetica.Module.BusinessObjects.Enums.PaymentMethod,None#" IsNewNode="True" />
+        <Filter Id="@5d746519-dda9-4aa7-bbdb-2b5067c9f43a" Caption="Mis cobros del día" Criteria="IsOutlookIntervalToday([PaymentDate]) And [PaymentMethod] &lt;&gt; ##Enum#ActivacionProfetica.Module.BusinessObjects.Enums.PaymentMethod,None# And [IsReverted] = False" IsNewNode="True" />
+        <Filter Id="@5d746519-dda9-4aa7-bbdb-2b5067c9f43a_Copy" Caption="Mis cobros en QR del día" Criteria="IsOutlookIntervalToday([PaymentDate]) And [PaymentMethod] = ##Enum#ActivacionProfetica.Module.BusinessObjects.Enums.PaymentMethod,QR# And [IsReverted] = False" IsNewNode="True" />
+        <Filter Id="@5d746519-dda9-4aa7-bbdb-2b5067c9f43a_Copy_Copy" Caption="Mis cobros en efectivo del día" Criteria="IsOutlookIntervalToday([PaymentDate]) And [PaymentMethod] = ##Enum#ActivacionProfetica.Module.BusinessObjects.Enums.PaymentMethod,Cash# And [IsReverted] = False" IsNewNode="True" />
+        <Filter Id="@d14f9810-05c8-4570-ba89-126b983a8362" Caption="Todos mis cobros" Criteria="[PaymentMethod] &lt;&gt; ##Enum#ActivacionProfetica.Module.BusinessObjects.Enums.PaymentMethod,None#" IsNewNode="True" />
       </Filters>
     </ListView>
     <DetailView Id="Operation_DetailView">
       <Items>
         <PropertyEditor Id="PaymentPlan" DataSourceCriteria="[Sector] = '@This.Sector' And [LimitDate] Is Null And [EsEjecutivoDeVentas] = False Or [Sector] = '@This.Sector' And [LimitDate] &gt;= LocalDateTimeToday() And [EsEjecutivoDeVentas] = False Or [Sector] = '@This.Sector' And [LimitDate] Is Null And [EsEjecutivoDeVentas] = True And [PaymentPlanDetails][] Or [Sector] = '@This.Sector' And [LimitDate] &gt;= LocalDateTimeToday() And [EsEjecutivoDeVentas] = True And [PaymentPlanDetails][]" View="PaymentPlan_LookupListView" />
         <PropertyEditor Id="Payments" AllowEdit="True" />
-        <PropertyEditor Id="Places" DataSourceCriteria="[IsLeaf] = True And [Status.InternalId] = 1 And [Sector] = '@This.Sector' And [Operation] Is Null Or [IsLeaf] = True And [Status.InternalId] = 1 And [Sector] = '@This.Sector' And [Operation.PlaceStatus.InternalId] = 1" LinkView="Operation_Places_LookupListView" />
+        <PropertyEditor Id="Places" DataSourceCriteria="[IsLeaf] = True And [Sector] = '@This.Sector' And [Status.InternalId] &lt;&gt; 2 And [Status.InternalId] &lt;&gt; 3 And [Status.InternalId] &lt;&gt; 6 And [Status.InternalId] &lt;&gt; 7" LinkView="Operation_Places_LookupListView" />
         <PropertyEditor Id="Sector" View="Sector_LookupListView" />
       </Items>
       <Layout>
@@ -171,10 +161,19 @@
         <Filter Id="@4e3b35f0-4811-47f4-8001-4b8ee9cc6d61w" Caption="Todas las operaciones" Index="1" IsNewNode="True" />
       </Filters>
     </ListView>
-    <ListView Id="Operation_Payments_ListView" AllowEdit="True" AllowDelete="False" AllowNew="True" ShowDetailView="False" DetailViewID="">
+    <ListView Id="Operation_Payments_ListView" AllowEdit="True" AllowDelete="False" AllowNew="True" ShowDetailView="False" FreezeColumnIndices="True" DetailViewID="">
       <Columns>
+        <ColumnInfo Id="CreatedBy" Index="-1" />
+        <ColumnInfo Id="CreatedOn" Index="-1" />
+        <ColumnInfo Id="InternalId" Index="-1" />
+        <ColumnInfo Id="IsReverted" Index="-1" />
+        <ColumnInfo Id="Operation" Index="-1" />
+        <ColumnInfo Id="PaymentMethodCaption" Index="-1" />
         <ColumnInfo Id="PaymentPlanDetail" Width="107" Index="-1" SortIndex="0" SortOrder="Ascending" />
         <ColumnInfo Id="PaymentStatus" Index="-1" Width="78" />
+        <ColumnInfo Id="UpdatedBy" Index="-1" />
+        <ColumnInfo Id="UpdatedOn" Index="-1" />
+        <ColumnInfo Id="UsuarioActualEsSupervisor" Index="-1" />
         <ColumnInfo Id="NumeroCuota" PropertyName="PaymentPlanDetail.Number" Caption="Número cuota" Index="0" SortIndex="-1" SortOrder="None" AllowEdit="False" IsNewNode="True" />
         <ColumnInfo Id="Cuota" PropertyName="PaymentPlanDetail.Description" Caption="Cuota" Index="1" Width="282" AllowEdit="False" IsNewNode="True" />
         <ColumnInfo Id="LimitPaymentDate" PropertyName="PaymentPlanDetail.LimitDate" Index="2" Width="186" AllowEdit="False" IsNewNode="True" />
@@ -183,34 +182,37 @@
             <ColumnSummaryItem Id="@b22451a8-a936-49ae-bb19-f5613a3967ab" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
-        <ColumnInfo Id="PaymentDate" Index="4" Width="151" AllowEdit="False" />
+        <ColumnInfo Id="PaymentDate" Index="4" Width="151" AllowEdit="True" />
         <ColumnInfo Id="PaymentMethod" Width="132" Index="5" />
       </Columns>
     </ListView>
     <ListView Id="Operation_Places_ListView" EditorTypeName="DevExpress.ExpressApp.Web.Editors.ASPx.ASPxGridListEditor" IsGroupPanelVisible="False" ShowDetailView="False" AllowDelete="False" AllowUnlink="True">
       <Columns>
+        <ColumnInfo Id="Customer" Width="136" Index="-1" />
         <ColumnInfo Id="InternalId" Index="-1" SortIndex="-1" SortOrder="None" Width="147" Caption="." />
         <ColumnInfo Id="LetterName" Index="-1" SortIndex="0" SortOrder="Ascending" />
         <ColumnInfo Id="RowName" Index="-1" />
         <ColumnInfo Id="Sector" SortOrder="None" GroupIndex="-1" Index="-1" />
         <ColumnInfo Id="Path" SortIndex="-1" SortOrder="None" Width="290" />
         <ColumnInfo Id="Status" Index="1" Width="132" />
-        <ColumnInfo Id="Amount" PropertyName="Sector.Amount" Width="103" IsNewNode="True">
+        <ColumnInfo Id="Amount" PropertyName="Sector.Amount" Width="103" Index="2" IsNewNode="True">
           <Summary IsNewNode="True">
             <ColumnSummaryItem Id="Total" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
       </Columns>
     </ListView>
-    <ListView Id="Operation_Places_LookupListView" Caption="Asientos" EditorTypeName="DevExpress.ExpressApp.Web.Editors.ASPx.ASPxGridListEditor" IsGroupPanelVisible="True" Criteria="">
+    <ListView Id="Operation_Places_LookupListView" Caption="Asientos" EditorTypeName="DevExpress.ExpressApp.Web.Editors.ASPx.ASPxGridListEditor" IsGroupPanelVisible="True" Criteria="" FreezeColumnIndices="True" PageSize="200">
       <Columns>
-        <ColumnInfo Id="Fila" PropertyName="RowName" SortOrder="Ascending" GroupIndex="2" Index="0" IsNewNode="True" />
-        <ColumnInfo Id="Path" PropertyName="Path" Index="1" Width="397" IsNewNode="True" />
-        <ColumnInfo Id="Order" PropertyName="InternalId" Caption="." Index="2" SortIndex="0" SortOrder="Descending" IsNewNode="True" />
-        <ColumnInfo Id="SubSector" PropertyName="LetterName" Caption="Sub-sector" Index="3" SortOrder="Ascending" GroupIndex="1" IsNewNode="True" />
-        <ColumnInfo Id="Sector" PropertyName="Sector" SortOrder="Ascending" GroupIndex="0" Index="4" IsNewNode="True" />
         <ColumnInfo Id="@08517a3f-4a92-4432-8b83-c0de536ee68f" Removed="True" />
         <ColumnInfo Id="Name" Removed="True" />
+        <ColumnInfo Id="Fila" PropertyName="RowName" SortOrder="Ascending" GroupIndex="2" Index="0" IsNewNode="True" />
+        <ColumnInfo Id="Order" PropertyName="InternalId" Caption="." Index="1" SortIndex="-1" SortOrder="None" Width="66" IsNewNode="True" />
+        <ColumnInfo Id="Path" PropertyName="Path" Index="2" Width="397" Caption="Asiento" IsNewNode="True" />
+        <ColumnInfo Id="Status" PropertyName="Status" Index="3" IsNewNode="True" />
+        <ColumnInfo Id="AsignadoA" PropertyName="Customer" Index="4" SortIndex="0" SortOrder="Ascending" Width="267" IsNewNode="True" />
+        <ColumnInfo Id="SubSector" PropertyName="LetterName" Caption="Sub-sector" Index="5" SortOrder="Ascending" GroupIndex="1" IsNewNode="True" />
+        <ColumnInfo Id="Sector" PropertyName="Sector" SortOrder="Ascending" GroupIndex="0" Index="6" IsNewNode="True" />
       </Columns>
       <Sorting>
         <SortProperty Id="OrderPlacesByIdAsc" Removed="True" />
@@ -278,7 +280,13 @@
         <ColumnInfo Id="LimitDate" Width="206" />
       </Columns>
     </ListView>
-    <ListView Id="PaymentPlan_LookupListView" AllowNew="False" />
+    <ListView Id="PaymentPlan_LookupListView" AllowNew="False" PageSize="1000" FreezeColumnIndices="True">
+      <Columns>
+        <ColumnInfo Id="Description" Index="0" />
+        <ColumnInfo Id="Sector" Index="1" />
+        <ColumnInfo Id="LimitDate" Index="2" />
+      </Columns>
+    </ListView>
     <ListView Id="PaymentPlan_PaymentPlanDetails_ListView" DetailViewID="WithoutMasterPaymentPlanDetail_DetailView">
       <Columns>
         <ColumnInfo Id="Number" Index="0" />
@@ -343,7 +351,17 @@
         <ColumnInfo Id="InternalId" Index="5" />
       </Columns>
     </ListView>
-    <ListView Id="Place_SimpleListView" EditorTypeName="DevExpress.ExpressApp.Web.Editors.ASPx.ASPxGridListEditor" Criteria="[IsLeaf] = True" Caption="Asientos" AllowDelete="False" AllowNew="False" DataAccessMode="Server" />
+    <ListView Id="Place_SimpleListView" EditorTypeName="DevExpress.ExpressApp.Web.Editors.ASPx.ASPxGridListEditor" Criteria="[IsLeaf] = True" Caption="Asientos" AllowDelete="False" AllowNew="False" DataAccessMode="Client" PageSize="1000">
+      <Columns>
+        <ColumnInfo Id="UpdatedBy" Index="-1" />
+        <ColumnInfo Id="Customer" PropertyName="Customer" Index="2" IsNewNode="True" />
+        <ColumnInfo Id="SubSector" Index="3" />
+        <ColumnInfo Id="UpdatedOn" Index="4" Width="141" />
+        <ColumnInfo Id="@64a81aa9-9369-4e53-8e61-b837fcbd694b" Index="5" />
+        <ColumnInfo Id="RowName" Index="6" />
+        <ColumnInfo Id="Sector" Index="7" />
+      </Columns>
+    </ListView>
     <DetailView Id="PlaceStatus_DetailView">
       <Layout>
         <LayoutGroup Id="Main">
@@ -457,13 +475,15 @@
         <ColumnInfo Id="PaymentMethod" PropertyName="PaymentMethod" Index="9" Width="132" IsNewNode="True" />
         <ColumnInfo Id="UpdatedBy" PropertyName="UpdatedBy" Index="10" Caption="Actualizado por" IsNewNode="True" />
       </Columns>
-      <Filters CurrentFilterId="@5d746519-dda9-4aa7-bbdb-2b5067c9f43a" IsNewNode="True">
+      <Filters CurrentFilterId="@d14f9810-05c8-4570-ba89-126b983a8362" IsNewNode="True">
         <Filter Id="@5d746519-dda9-4aa7-bbdb-2b5067c9f43a" Caption="Cobros del día" Criteria="IsOutlookIntervalToday([PaymentDate]) And [PaymentMethod] &lt;&gt; ##Enum#ActivacionProfetica.Module.BusinessObjects.Enums.PaymentMethod,None# And [IsReverted] = False" Index="0" IsNewNode="True" />
         <Filter Id="@d14f9810-05c8-4570-ba89-126b983a8362" Caption="Todos los cobros" Criteria="[PaymentMethod] &lt;&gt; ##Enum#ActivacionProfetica.Module.BusinessObjects.Enums.PaymentMethod,None# And [IsReverted] = False" Index="1" IsNewNode="True" />
-        <Filter Id="@9fc874e3-63c3-4b3d-ae7b-a21c0fe94a39" Caption="Cobros pendientes" Criteria="[PaymentMethod] = ##Enum#ActivacionProfetica.Module.BusinessObjects.Enums.PaymentMethod,None# And [IsReverted] = False" Index="2" IsNewNode="True" />
-        <Filter Id="@5d746519-dda9-4aa7-bbdb-2b5067c9f43a_Copy_Copy" Caption="Cobros en efectivo del día" Criteria="IsOutlookIntervalToday([PaymentDate]) And [PaymentMethod] = ##Enum#ActivacionProfetica.Module.BusinessObjects.Enums.PaymentMethod,Cash# And [IsReverted] = False" Index="3" IsNewNode="True" />
-        <Filter Id="@5d746519-dda9-4aa7-bbdb-2b5067c9f43a_Copy" Caption="Cobros en QR del día" Criteria="IsOutlookIntervalToday([PaymentDate]) And [PaymentMethod] = ##Enum#ActivacionProfetica.Module.BusinessObjects.Enums.PaymentMethod,QR# And [IsReverted] = False" Index="4" IsNewNode="True" />
-        <Filter Id="@461ea0be-f241-44cb-9254-4561fc5e20f6" Caption="Cobros revertidos" Index="5" Criteria="[IsReverted] = True" IsNewNode="True" />
+        <Filter Id="@9fc874e3-63c3-4b3d-ae7b-a21c0fe94a39" Caption="Todos los cobros pendientes" Criteria="[PaymentMethod] = ##Enum#ActivacionProfetica.Module.BusinessObjects.Enums.PaymentMethod,None# And [IsReverted] = False" Index="2" IsNewNode="True" />
+        <Filter Id="@5d746519-dda9-4aa7-bbdb-2b5067c9f43a_Copy_Copy_Copy" Caption="Todos los cobros en efectivo" Criteria="[PaymentMethod] = ##Enum#ActivacionProfetica.Module.BusinessObjects.Enums.PaymentMethod,Cash# And [IsReverted] = False" Index="3" IsNewNode="True" />
+        <Filter Id="@5d746519-dda9-4aa7-bbdb-2b5067c9f43a_Copy_Copy_Copy_Copy" Caption="Todos los cobros en QR" Criteria="[PaymentMethod] = ##Enum#ActivacionProfetica.Module.BusinessObjects.Enums.PaymentMethod,QR# And [IsReverted] = False" Index="4" IsNewNode="True" />
+        <Filter Id="@5d746519-dda9-4aa7-bbdb-2b5067c9f43a_Copy_Copy" Caption="Cobros en efectivo del día" Criteria="IsOutlookIntervalToday([PaymentDate]) And [PaymentMethod] = ##Enum#ActivacionProfetica.Module.BusinessObjects.Enums.PaymentMethod,Cash# And [IsReverted] = False" Index="5" IsNewNode="True" />
+        <Filter Id="@5d746519-dda9-4aa7-bbdb-2b5067c9f43a_Copy" Caption="Cobros en QR del día" Criteria="IsOutlookIntervalToday([PaymentDate]) And [PaymentMethod] = ##Enum#ActivacionProfetica.Module.BusinessObjects.Enums.PaymentMethod,QR# And [IsReverted] = False" Index="6" IsNewNode="True" />
+        <Filter Id="@461ea0be-f241-44cb-9254-4561fc5e20f6" Caption="Todos los cobros revertidos" Index="7" Criteria="[IsReverted] = True" IsNewNode="True" />
       </Filters>
     </ListView>
     <DetailView Id="Sector_DetailView" Caption="Sectore" FreezeLayout="True" AllowDelete="False" AllowEdit="False" AllowNew="False">
