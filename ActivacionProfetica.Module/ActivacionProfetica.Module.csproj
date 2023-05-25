@@ -164,9 +164,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Controllers\ShowDetailViewFromListViewController.cs" />
-    <Compile Include="Controllers\VersionController.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="DatabaseUpdate\PaymentPlanData.cs" />
     <Compile Include="DatabaseUpdate\PlaceStatusData.cs" />
     <Compile Include="DatabaseUpdate\PlaceData.cs" />
@@ -183,12 +180,6 @@
       <DependentUpon>Module.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Reports\DashboardXtraReport.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Reports\DashboardXtraReport.Designer.cs">
-      <DependentUpon>DashboardXtraReport.cs</DependentUpon>
-    </Compile>
     <Compile Include="Reports\OperationXtraReport.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -210,9 +201,6 @@
       <DependentUpon>Module.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
-    <EmbeddedResource Include="Reports\DashboardXtraReport.resx">
-      <DependentUpon>DashboardXtraReport.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Reports\OperationXtraReport.resx">
       <DependentUpon>OperationXtraReport.cs</DependentUpon>
     </EmbeddedResource>
