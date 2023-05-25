@@ -1,5 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application Title="ActivacionProfetica" PreferredLanguage="es">
+  <ActionDesign>
+    <Actions>
+      <Action Id="Cancel" Caption="Cancelar" />
+      <Action Id="CancelAction" Caption="Cancelar" />
+      <Action Id="ChangePasswordByUser" Caption="Cambiar Mi Contraseña" />
+      <Action Id="ChangeStateAction" Caption="Cambiar Estado" />
+      <Action Id="DialogCancel" Caption="Cancelar" />
+      <Action Id="DialogClose" Caption="Cerrar" />
+      <Action Id="ExportModelDifferences" Caption="Diferencias de modelo de exportación" />
+      <Action Id="Link" Caption="Adicionar" />
+      <Action Id="ListViewShowObject" Caption="Abrir" />
+      <Action Id="Logoff" Caption="Cerrar Sessión" />
+      <Action Id="Logon" Caption="Ingresar" />
+      <Action Id="MyDetails" Caption="Mi Detalle" />
+      <Action Id="NavigateBack" Caption="Atras" />
+      <Action Id="NavigateForward" Caption="Siguiente" />
+      <Action Id="New" Caption="Nuevo" />
+      <Action Id="NextObject" Caption="Siguiente Registro" />
+      <Action Id="Unlink" Caption="Deseleccionar" />
+    </Actions>
+  </ActionDesign>
   <BOModel>
     <Class Name="DevExpress.Persistent.BaseImpl.AuditDataItemPersistent">
       <OwnMembers>
@@ -70,7 +91,6 @@
                 <LayoutItem Id="WhatsApp" RelativeSize="36.170212765957444" />
               </LayoutGroup>
               <LayoutGroup Id="Customer_col2" RelativeSize="50">
-                <LayoutItem Id="IsCcecoMember" RelativeSize="36.170212765957444" />
                 <LayoutItem Id="ChurchName" RelativeSize="63.829787234042556" />
               </LayoutGroup>
             </LayoutGroup>

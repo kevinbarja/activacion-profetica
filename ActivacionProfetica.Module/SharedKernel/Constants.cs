@@ -18,6 +18,7 @@
             public const string AuditListView = "Audit_ListView";
             public const string OperationPlacesLookupListView = "Operation_Places_LookupListView";
             public const string OperationDetailView = "Operation_DetailView";
+            public const string PaymentListView = "ReportPayment_ListView";
 
         }
 
