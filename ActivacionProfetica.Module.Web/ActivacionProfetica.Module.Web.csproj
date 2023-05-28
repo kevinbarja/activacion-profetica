@@ -160,6 +160,7 @@
     <Compile Include="Controllers\FilterPublicListView.cs" />
     <Compile Include="Controllers\HideDeleteActionListView.cs" />
     <Compile Include="Controllers\HideEditActionListViewController.cs" />
+    <Compile Include="Controllers\HidePaginationListViewController.cs" />
     <Compile Include="Controllers\NewObjectFromNavigationController.cs">
       <SubType>Component</SubType>
     </Compile>
