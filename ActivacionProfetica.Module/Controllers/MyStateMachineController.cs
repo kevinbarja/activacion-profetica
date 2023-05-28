@@ -61,7 +61,7 @@ namespace ActivacionProfetica.Module.Controllers
                     MessageOptions parametrosMensaje = new MessageOptions
                     {
                         Duration = 4000,
-                        Message = $"Por favor llene todos los campos obligatorios denotados con el asterísco (*)",
+                        Message = $"Formulario llenado incorrectamente, por favor verifique los datos e intente nuevamente.",
                         Type = InformationType.Warning
                     };
                     parametrosMensaje.Web.Position = InformationPosition.Top;

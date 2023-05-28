@@ -154,12 +154,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\CustomGroupListViewController.cs" />
+    <Compile Include="Controllers\DisableValidationActonDetailViewController.cs" />
     <Compile Include="Controllers\ExportActionController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controllers\FilterPublicListView.cs" />
     <Compile Include="Controllers\HideDeleteActionListView.cs" />
     <Compile Include="Controllers\HideEditActionListViewController.cs" />
+    <Compile Include="Controllers\HideExportButtonListviewController.cs" />
     <Compile Include="Controllers\HidePaginationListViewController.cs" />
     <Compile Include="Controllers\NewObjectFromNavigationController.cs">
       <SubType>Component</SubType>
