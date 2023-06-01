@@ -142,7 +142,14 @@ namespace ActivacionProfetica.Module.Controllers
                         }
                     }
                 }
-
+                MessageOptions parameters = new MessageOptions
+                {
+                    Duration = 4000,
+                    Message = "Operación exitosa!",
+                    Type = InformationType.Success
+                };
+                parameters.Web.Position = InformationPosition.Top;
+                Application.ShowViewStrategy.ShowMessage(parameters);
                 //View.ObjectSpace.CommitChanges();
             }
             catch (Exception ex)

@@ -167,6 +167,24 @@ namespace ActivacionProfetica.Module.BusinessObjects
                 }
             }
         }
+
+        //[NonPersistent]
+        //[MemberDesignTimeVisibility(false)]
+        //[RuleFromBoolProperty("PaymentDateValidated",
+        //           DefaultContexts.Save,
+        //           "\"Fecha de pago\" no debe estar vacío.",
+        //           UsedProperties = nameof(PaymentMethod),
+        //           SkipNullOrEmptyValues = false)]
+        //public bool PaymentDateValidated => (PaymentMethod == PaymentMethod.None && PaymentDate is null) || (PaymentMethod != PaymentMethod.None && PaymentDate != null);
+
+        protected override void OnSaving()
+        {
+            base.OnSaving();
+            if (PaymentMethod != PaymentMethod.None && PaymentDate is null)
+            {
+                PaymentDate = DateTime.Now;
+            }
+        }
         public Payment(Session session) : base(session)
         {
         }

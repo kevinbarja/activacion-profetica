@@ -6,17 +6,18 @@ using DevExpress.ExpressApp.Web.SystemModule;
 
 namespace ActivacionProfetica.Module.Web.Controllers
 {
-    public class DisableValidationActonDetailViewController : ViewController<DetailView>
+    public class HideActionController : ViewController<DetailView>
     {
         private RefreshController refreshController;
         private ShowAllContextsController controller;
         private WebDeleteObjectsViewController deleteController;
         private WebRecordsNavigationController navController;
         private WebNewObjectViewController newController;
+        private WebResetViewSettingsController resetViewController;
 
         const string deactivateReason = "HiddenInDetailView";
 
-        public DisableValidationActonDetailViewController()
+        public HideActionController()
         {
             TargetViewId = Constants.View.OperationDetailView;
         }
@@ -53,6 +54,12 @@ namespace ActivacionProfetica.Module.Web.Controllers
             {
                 newController.NewObjectAction.Active.SetItemValue(deactivateReason, false);
             }
+
+            resetViewController = Frame.GetController<WebResetViewSettingsController>();
+            if (resetViewController != null)
+            {
+                resetViewController.ResetViewSettingsAction.Active.SetItemValue(deactivateReason, false);
+            }
         }
 
         protected override void OnDeactivated()
@@ -77,12 +84,17 @@ namespace ActivacionProfetica.Module.Web.Controllers
             {
                 navController.NextObjectAction.Active.RemoveItem(deactivateReason);
                 navController.PreviousObjectAction.Active.RemoveItem(deactivateReason);
-                refreshController = null;
+                navController = null;
             }
             if (newController != null)
             {
                 newController.NewObjectAction.Active.RemoveItem(deactivateReason);
-                refreshController = null;
+                newController = null;
+            }
+            if (resetViewController != null)
+            {
+                resetViewController.ResetViewSettingsAction.Active.RemoveItem(deactivateReason);
+                resetViewController = null;
             }
         }
     }

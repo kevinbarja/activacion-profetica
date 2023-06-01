@@ -154,7 +154,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\CustomGroupListViewController.cs" />
-    <Compile Include="Controllers\DisableValidationActonDetailViewController.cs" />
+    <Compile Include="Controllers\HideActionController.cs" />
     <Compile Include="Controllers\ExportActionController.cs">
       <SubType>Component</SubType>
     </Compile>
