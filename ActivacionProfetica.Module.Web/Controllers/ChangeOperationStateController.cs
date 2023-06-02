@@ -50,7 +50,12 @@ namespace ActivacionProfetica.Module.Controllers
                 };
                 parameters.Web.Position = InformationPosition.Top;
                 Application.ShowViewStrategy.ShowMessage(parameters);
-                WebWindow.CurrentRequestWindow.RegisterStartupScript("CustomNavigate", "setTimeout(function(){ window.top.location.reload(); }, 1500);");
+
+                if (View.CurrentObject is Operation && ((Operation)View.CurrentObject).PlaceStatus.InternalId == PlaceStatus.ReservedPlaceStatus)
+                {
+                    WebWindow.CurrentRequestWindow.RegisterStartupScript("CustomNavigate", "setTimeout(function(){ window.top.location.reload(); }, 1500);");
+                }
+
             }
             catch (Exception ex)
             {

@@ -12,6 +12,7 @@ using Caption = System.ComponentModel.DisplayNameAttribute;
 
 namespace ActivacionProfetica.Module.BusinessObjects
 {
+    [Appearance("HideInternalId", TargetItems = nameof(InternalId), Context = "ListView;Operation_Places_LookupListView", Visibility = DevExpress.ExpressApp.Editors.ViewItemVisibility.Hide)]
     [Appearance("WhiteText", TargetItems = nameof(InternalId), Context = "ListView;Operation_Places_LookupListView", Criteria = "Operation is null", FontStyle = FontStyle.Bold, FontColor = "255,255,255")]
     //[Appearance("RiskAcceptanceAcceptedHide", Visibility = ViewItemVisibility.Hide, TargetItems = "Accepted;", Criteria = "[Risk].[AttachFile] Is Null", Context = "Risk_RiskAcceptances_ListView")]
     [Appearance("FontColorRed", AppearanceItemType = "ViewItem", TargetItems = "*", Context = "Operation_Places_LookupListView", Criteria = "Operation is not null", FontStyle = FontStyle.Bold)]

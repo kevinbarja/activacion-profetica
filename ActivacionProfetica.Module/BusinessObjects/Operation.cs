@@ -15,6 +15,9 @@ using Caption = System.ComponentModel.DisplayNameAttribute;
 
 namespace ActivacionProfetica.Module.BusinessObjects
 {
+    [Appearance("GreenInternalId", TargetItems = nameof(InternalId),
+        Context = Constants.View.OperationDetailView, FontStyle = System.Drawing.FontStyle.Bold)]
+
     [Appearance("HidePlacesSelection", TargetItems = nameof(Places),
     Visibility = ViewItemVisibility.Hide,
     Criteria = nameof(PlaceStatus) + " is Null")]

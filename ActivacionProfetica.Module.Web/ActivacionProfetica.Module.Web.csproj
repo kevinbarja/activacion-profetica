@@ -168,10 +168,12 @@
     <Compile Include="Controllers\ChangeOperationStateController.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Controllers\MyTemplate.cs" />
     <Compile Include="Controllers\NewObjectFromNavigationController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controllers\OperationListViewCustomizationController.cs" />
+    <Compile Include="Controllers\PlaceLookupListViewController.cs" />
     <Compile Include="Controllers\SendOperationByWhatsappController.cs" />
     <Compile Include="Controllers\ShowOperationReportController.cs" />
     <Compile Include="Controllers\VersionController.cs">
