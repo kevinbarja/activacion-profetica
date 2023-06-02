@@ -4,6 +4,15 @@
     <Actions>
       <Action Id="Exportar" IsPostBackRequired="True" />
     </Actions>
+    <ActionToContainerMapping>
+      <ActionContainer Id="Edit">
+        <ActionLink ActionId="ChangeStateAction" Removed="True" />
+      </ActionContainer>
+      <ActionContainer Id="Save">
+        <ActionLink ActionId="SaveAndClose" Removed="True" />
+        <ActionLink ActionId="SaveAndNew" Removed="True" />
+      </ActionContainer>
+    </ActionToContainerMapping>
   </ActionDesign>
   <NavigationItems>
     <Items>
