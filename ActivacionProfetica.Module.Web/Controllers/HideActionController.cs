@@ -2,7 +2,10 @@
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Validation.AllContextsView;
+using DevExpress.ExpressApp.Web.Layout;
 using DevExpress.ExpressApp.Web.SystemModule;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ActivacionProfetica.Module.Web.Controllers
 {
@@ -20,6 +23,21 @@ namespace ActivacionProfetica.Module.Web.Controllers
         public HideActionController()
         {
             TargetViewId = Constants.View.OperationDetailView;
+        }
+
+        protected override void OnViewControlsCreated()
+        {
+            base.OnViewControlsCreated();
+            string actionsContainerIdPrefix = "StateMachineActionContainer_";
+            WebLayoutManager layoutManager = (WebLayoutManager)View.LayoutManager;
+            IEnumerable<KeyValuePair<string, LayoutItemTemplateContainerBase>> items = layoutManager.Items.Where(i => i.Value.ViewItem != null && i.Value.ViewItem.Id.StartsWith(actionsContainerIdPrefix));
+            foreach (KeyValuePair<string, LayoutItemTemplateContainerBase> item in items)
+            {
+                if (item.Value != null && item.Value.CaptionControl != null)
+                {
+                    item.Value.CaptionControl.Visible = false;
+                }
+            }
         }
 
         protected override void OnActivated()

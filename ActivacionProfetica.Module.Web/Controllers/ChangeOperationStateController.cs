@@ -27,7 +27,8 @@ namespace ActivacionProfetica.Module.Controllers
         protected override void OnViewControlsCreated()
         {
             base.OnViewControlsCreated();
-            //Frame.GetController<StateMachineController>().ChangeStateAction.Active["showAction"] = true;
+            //Frame.GetController<StateMachineController>().ChangeStateAction.Active["showAction"] = false;
+            Frame.GetController<StateMachineController>().ChangeStateActionItemsMode = ChangeStateActionItemsMode.GroupByStateMachine;
             //.RemoveItem("ViewIsInEditMode");
         }
         private void OnTransitionExecuted(object sender, ExecuteTransitionEventArgs e)
@@ -53,7 +54,7 @@ namespace ActivacionProfetica.Module.Controllers
 
                 if (View.CurrentObject is Operation && ((Operation)View.CurrentObject).PlaceStatus.InternalId == PlaceStatus.ReservedPlaceStatus)
                 {
-                    WebWindow.CurrentRequestWindow.RegisterStartupScript("CustomNavigate", "setTimeout(function(){ window.top.location.reload(); }, 1500);");
+                    WebWindow.CurrentRequestWindow.RegisterStartupScript("CustomNavigate", "setTimeout(function(){ window.top.location.reload(); }, 1800);");
                 }
 
             }

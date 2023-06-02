@@ -54,6 +54,16 @@
     </PropertyEditor>
   </ViewItems>
   <Views>
+    <DetailView Id="Customer_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Customer" ShowCaption="False" />
+            <LayoutGroup Id="BaseEntity" Removed="True" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
     <ListView Id="MyOperation_ListView" ClassName="ActivacionProfetica.Module.BusinessObjects.Operation" Caption="Operaciones" Criteria="" DataAccessMode="Server" IsNewNode="True">
       <Columns IsNewNode="True">
         <ColumnInfo Id="AnyPaymentsInArrears" PropertyName="AnyPaymentsInArrears" Index="-1" IsNewNode="True" />
@@ -112,32 +122,20 @@
       </Items>
       <Layout>
         <LayoutGroup Id="Main">
-          <LayoutGroup Id="SimpleEditors" ShowCaption="True" Caption="Información general" IsCardGroup="True" IsCollapsibleGroup="True" Index="0">
+          <LayoutGroup Id="SimpleEditors" ShowCaption="" Caption="Información general" IsCardGroup="True" IsCollapsibleGroup="True" Index="0">
             <LayoutGroup Id="Operation">
               <LayoutItem Id="PaymentPlan" Removed="True" />
             </LayoutGroup>
           </LayoutGroup>
-          <LayoutGroup Id="PlacesSelection" Index="1" ShowCaption="True" Caption="Asientos" IsCollapsibleGroup="True" IsNewNode="True">
+          <LayoutGroup Id="PlacesSelection" Index="1" ShowCaption="False" Caption="Asientos" IsCollapsibleGroup="True" IsNewNode="True">
             <LayoutGroup Id="Places" Index="0" ShowCaption="False" IsNewNode="True">
               <LayoutItem Id="Places" ViewItem="Places" ShowCaption="False" Index="0" IsNewNode="True" />
             </LayoutGroup>
           </LayoutGroup>
-          <LayoutGroup Id="Payments" Index="2" ShowCaption="True" Caption="Plan de financiamiento" IsCollapsibleGroup="True" IsNewNode="True">
+          <LayoutGroup Id="Payments" Index="2" ShowCaption="False" Caption="Plan de financiamiento" IsCollapsibleGroup="True" IsNewNode="True">
             <LayoutItem Id="PaymentPlan" ViewItem="PaymentPlan" ShowCaption="" Index="0" IsNewNode="True" />
             <LayoutGroup Id="Payments" Index="1" ShowCaption="False" IsNewNode="True">
               <LayoutItem Id="Payments" ViewItem="Payments" ShowCaption="False" Index="0" IsNewNode="True" />
-            </LayoutGroup>
-          </LayoutGroup>
-          <LayoutGroup Id="Audit" Index="3" ShowCaption="True" Caption="Auditoría" IsCollapsibleGroup="True" IsGroupCollapsed="True" IsNewNode="True">
-            <LayoutGroup Id="BaseEntity" Index="1" Direction="Horizontal" ShowCaption="" Caption="Auditoría" IsNewNode="True">
-              <LayoutGroup Id="BaseEntity_col1" Index="0" ShowCaption="False" IsNewNode="True">
-                <LayoutItem Id="CreatedBy" ViewItem="CreatedBy" ShowCaption="" Index="1" IsNewNode="True" />
-                <LayoutItem Id="CreatedOn" ViewItem="CreatedOn" ShowCaption="" Index="2" IsNewNode="True" />
-              </LayoutGroup>
-              <LayoutGroup Id="BaseEntity_col2" Index="1" ShowCaption="False" IsNewNode="True">
-                <LayoutItem Id="UpdatedBy" ViewItem="UpdatedBy" ShowCaption="" Index="0" IsNewNode="True" />
-                <LayoutItem Id="UpdatedOn" ViewItem="UpdatedOn" ShowCaption="" Index="1" IsNewNode="True" />
-              </LayoutGroup>
             </LayoutGroup>
           </LayoutGroup>
           <TabbedGroup Id="Tabs" Removed="True">
