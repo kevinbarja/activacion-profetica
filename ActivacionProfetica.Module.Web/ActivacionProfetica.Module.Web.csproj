@@ -66,6 +66,7 @@
     <Reference Include="DevExpress.ExpressApp.Security.Xpo.v22.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.ExpressApp.StateMachine.v22.2, Version=22.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.ExpressApp.TreeListEditors.v22.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -154,6 +155,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\CustomGroupListViewController.cs" />
+    <Compile Include="Controllers\DisableReorderPaymentController.cs" />
     <Compile Include="Controllers\HideActionController.cs" />
     <Compile Include="Controllers\ExportActionController.cs">
       <SubType>Component</SubType>
@@ -163,6 +165,9 @@
     <Compile Include="Controllers\HideEditActionListViewController.cs" />
     <Compile Include="Controllers\HideExportButtonListviewController.cs" />
     <Compile Include="Controllers\HidePaginationListViewController.cs" />
+    <Compile Include="Controllers\MyStateMachineController.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Controllers\NewObjectFromNavigationController.cs">
       <SubType>Component</SubType>
     </Compile>

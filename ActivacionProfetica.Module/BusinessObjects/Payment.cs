@@ -16,7 +16,7 @@ namespace ActivacionProfetica.Module.BusinessObjects
     [Appearance("RedTextPayment", TargetItems = "*", Context = "LookupListView;ListView", Criteria = "[IsReverted] = True", FontStyle = FontStyle.Strikeout, FontColor = "253, 125, 125")]
     [Appearance("ResidualRiskLow", Enabled = false, TargetItems = "*",
         Criteria = "[PaymentMethod] != ##Enum#ActivacionProfetica.Module.BusinessObjects.Enums.PaymentMethod,None# And IsNewObject(This) = False",
-        Context = "Operation_Payments_ListView", BackColor = "240, 240, 240")]
+        Context = Constants.View.OperationPaymentsListView, BackColor = "240, 240, 240")]
     [Appearance("DisablePayment", Enabled = false, TargetItems = "PaymentDate",
         Criteria = "UsuarioActualEsSupervisor = False",
         Context = "LookupListView;ListView", BackColor = "240, 240, 240")]

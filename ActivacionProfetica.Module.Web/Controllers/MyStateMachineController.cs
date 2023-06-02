@@ -1,6 +1,7 @@
 ﻿using ActivacionProfetica.Module.BusinessObjects;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.StateMachine;
+using DevExpress.ExpressApp.Web;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using System;
@@ -43,6 +44,15 @@ namespace ActivacionProfetica.Module.Controllers
                     place.Status = operation.PlaceStatus;
                 }
                 View.ObjectSpace.CommitChanges();
+                MessageOptions parameters = new MessageOptions
+                {
+                    Duration = 4000,
+                    Message = "Operación exitosa!",
+                    Type = InformationType.Success
+                };
+                parameters.Web.Position = InformationPosition.Top;
+                Application.ShowViewStrategy.ShowMessage(parameters);
+                WebWindow.CurrentRequestWindow.RegisterStartupScript("CustomNavigate", "setTimeout(function(){ window.top.location.reload(); }, 1500);");
             }
             catch (Exception ex)
             {
@@ -142,15 +152,6 @@ namespace ActivacionProfetica.Module.Controllers
                         }
                     }
                 }
-                MessageOptions parameters = new MessageOptions
-                {
-                    Duration = 4000,
-                    Message = "Operación exitosa!",
-                    Type = InformationType.Success
-                };
-                parameters.Web.Position = InformationPosition.Top;
-                Application.ShowViewStrategy.ShowMessage(parameters);
-                //View.ObjectSpace.CommitChanges();
             }
             catch (Exception ex)
             {

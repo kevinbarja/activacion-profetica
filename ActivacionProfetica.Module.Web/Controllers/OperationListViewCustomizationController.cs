@@ -1,4 +1,5 @@
-﻿using DevExpress.ExpressApp;
+﻿using ActivacionProfetica.Module.SharedKernel;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.SystemModule;
 
 namespace ActivacionProfetica.Module.Controllers
@@ -7,7 +8,7 @@ namespace ActivacionProfetica.Module.Controllers
     {
         public OperationListViewCustomizationController()
         {
-            TargetViewId = "Operation_Places_ListView;Operation_Payments_ListView";
+            TargetViewId = "Operation_Places_ListView;" + Constants.View.OperationPaymentsListView;
         }
 
         protected override void OnActivated()

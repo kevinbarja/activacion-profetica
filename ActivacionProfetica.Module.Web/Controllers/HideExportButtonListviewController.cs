@@ -1,4 +1,5 @@
-﻿using DevExpress.ExpressApp;
+﻿using ActivacionProfetica.Module.SharedKernel;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Web.SystemModule;
 
 namespace ActivacionProfetica.Module.Web.Controllers
@@ -12,7 +13,7 @@ namespace ActivacionProfetica.Module.Web.Controllers
 
         public HideExportButtonListviewController()
         {
-            TargetViewId = "Operation_Places_ListView;Operation_Payments_ListView";
+            TargetViewId = "Operation_Places_ListView;" + Constants.View.OperationPaymentsListView;
         }
 
         protected override void OnActivated()
