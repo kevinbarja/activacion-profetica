@@ -21,6 +21,8 @@ namespace ActivacionProfetica.Module.Web.Controllers
                 // Use the grid control's behavior settings to disable the sort and group functionality.
                 listEditor.Grid.SettingsBehavior.AllowSort = false;
                 listEditor.Grid.SettingsBehavior.AllowGroup = false;
+                listEditor.Grid.SettingsBehavior.AllowAutoFilter = false;
+                listEditor.Grid.SettingsBehavior.AllowDragDrop = false;
 
             }
         }
