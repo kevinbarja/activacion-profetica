@@ -34,6 +34,7 @@ namespace ActivacionProfetica.Module.Controllers
 
             if (controladorDialogo != null)
             {
+                controladorDialogo.CloseOnCurrentObjectProcessing = false;
                 controladorDialogo.Accepting += new EventHandler<DialogControllerAcceptingEventArgs>(ValidarSeleccion);
             }
 

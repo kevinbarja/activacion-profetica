@@ -233,7 +233,7 @@
         </ColumnInfo>
       </Columns>
     </ListView>
-    <ListView Id="Operation_Places_LookupListView" Caption="Asientos" EditorTypeName="DevExpress.ExpressApp.Web.Editors.ASPx.ASPxGridListEditor" IsGroupPanelVisible="True" Criteria="" FreezeColumnIndices="True" PageSize="200">
+    <ListView Id="Operation_Places_LookupListView" Caption="Asientos" EditorTypeName="DevExpress.ExpressApp.Web.Editors.ASPx.ASPxGridListEditor" IsGroupPanelVisible="True" Criteria="" FreezeColumnIndices="True" PageSize="200" ShowDetailView="False">
       <Columns>
         <ColumnInfo Id="@08517a3f-4a92-4432-8b83-c0de536ee68f" Removed="True" />
         <ColumnInfo Id="Name" Removed="True" />
