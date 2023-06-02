@@ -165,7 +165,7 @@
     <Compile Include="Controllers\HideEditActionListViewController.cs" />
     <Compile Include="Controllers\HideExportButtonListviewController.cs" />
     <Compile Include="Controllers\HidePaginationListViewController.cs" />
-    <Compile Include="Controllers\MyStateMachineController.cs">
+    <Compile Include="Controllers\ChangeOperationStateController.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Controllers\NewObjectFromNavigationController.cs">

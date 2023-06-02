@@ -10,7 +10,7 @@ using static ActivacionProfetica.Module.SharedKernel.Constants;
 
 namespace ActivacionProfetica.Module.Controllers
 {
-    public partial class MyStateMachineController : ViewController<DetailView>
+    public partial class ChangeOperationStateController : ViewController<DetailView>
     {
         protected override void OnActivated()
         {
@@ -34,8 +34,6 @@ namespace ActivacionProfetica.Module.Controllers
         {
             try
             {
-                //TODO: Validate no reservar asientos en León
-                //TODO: Validate concurrence on other operation
                 //Update estado de los asientos
                 var operation = (View.CurrentObject as Operation);
                 operation.NoCreatePayments = true;
@@ -89,6 +87,23 @@ namespace ActivacionProfetica.Module.Controllers
                         using (UnitOfWork uow = new UnitOfWork(placeSelected.Session.DataLayer))
                         {
                             var currentplaceSelected = uow.GetObjectByKey<Place>(placeSelected.InternalId);
+
+
+                            //Validate if current place is other sector of operation sector
+                            var sectorId = operation.Sector.InternalId;
+                            if (currentplaceSelected.Sector.InternalId != sectorId)
+                            {
+                                MessageOptions parametrosMensaje = new MessageOptions
+                                {
+                                    Duration = 4000,
+                                    Message = $"La operación está en un sector distinto al del asiento '{placeSelected.Path}'",
+                                    Type = InformationType.Warning
+                                };
+                                parametrosMensaje.Web.Position = InformationPosition.Top;
+                                Application.ShowViewStrategy.ShowMessage(parametrosMensaje);
+                                e.Cancel = true;
+                                return;
+                            }
 
                             if (currentplaceSelected.ChildrenPlace != null && currentplaceSelected.ChildrenPlace.Any())
                             {
