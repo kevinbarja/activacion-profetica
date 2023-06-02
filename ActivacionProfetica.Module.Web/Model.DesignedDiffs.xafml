@@ -11,7 +11,7 @@
         <Items>
           <Item Id="Customers" Index="0" Removed="True" />
           <Item Id="NewOperation" Caption="Nueva operación" ViewId="Operation_DetailView" Index="0" IsNewNode="True" />
-          <Item Id="Operations" Index="1" Caption="Mis operaciones" ViewId="MyOperation_ListView" />
+          <Item Id="Operations" Index="1" Caption="Operaciones" ViewId="MyOperation_ListView" />
           <Item Id="Places" Index="3" Removed="True">
             <Items>
               <Item Id="@86f69f98-cc7a-493d-8573-13c75285a74b" Removed="True" />
@@ -54,7 +54,7 @@
     </PropertyEditor>
   </ViewItems>
   <Views>
-    <ListView Id="MyOperation_ListView" ClassName="ActivacionProfetica.Module.BusinessObjects.Operation" Caption="Operaciones" Criteria="[CreatedBy.Oid] = CurrentUserId() Or [UpdatedBy.Oid] = CurrentUserId()" DataAccessMode="Server" IsNewNode="True">
+    <ListView Id="MyOperation_ListView" ClassName="ActivacionProfetica.Module.BusinessObjects.Operation" Caption="Operaciones" Criteria="" DataAccessMode="Server" IsNewNode="True">
       <Columns IsNewNode="True">
         <ColumnInfo Id="AnyPaymentsInArrears" PropertyName="AnyPaymentsInArrears" Index="-1" IsNewNode="True" />
         <ColumnInfo Id="CreatedBy" PropertyName="CreatedBy" Index="-1" IsNewNode="True" />
@@ -70,7 +70,7 @@
       </Columns>
       <Filters CurrentFilterId="@24825706-3220-4356-82cb-b22dfce5debe" IsNewNode="True">
         <Filter Id="@24825706-3220-4356-82cb-b22dfce5debe" Caption="Operaciones del día" Criteria="IsOutlookIntervalToday([UpdatedOn])" Index="0" IsNewNode="True" />
-        <Filter Id="@4e3b35f0-4811-47f4-8001-4b8ee9cc6d61" Caption="Todas mis operaciones" Index="1" IsNewNode="True" />
+        <Filter Id="@4e3b35f0-4811-47f4-8001-4b8ee9cc6d61" Caption="Todas las operaciones" Index="1" IsNewNode="True" />
       </Filters>
     </ListView>
     <ListView Id="MyReportPayment_ListView" ClassName="ActivacionProfetica.Module.BusinessObjects.Payment" AllowDelete="False" Caption="Mis cobros" Criteria="[UpdatedBy.Oid] = CurrentUserId() And [IsReverted] = False" IsNewNode="True">
@@ -189,7 +189,7 @@
         <SortProperty Id="@4d215478-f400-4617-ba3a-cd34faf4349c" PropertyName="PaymentPlanDetail.Number" IsNewNode="True" />
       </Sorting>
     </ListView>
-    <ListView Id="Operation_Payments_ListView_Copy" ClassName="ActivacionProfetica.Module.BusinessObjects.Payment" DataAccessMode="Client" AllowEdit="True" AllowDelete="False" ShowDetailView="False" FreezeColumnIndices="True" DetailViewID="" IsNewNode="True">
+    <ListView Id="Operation_Payments_ListView_Copy" ClassName="ActivacionProfetica.Module.BusinessObjects.Payment" DataAccessMode="Client" AllowEdit="True" AllowDelete="False" ShowDetailView="False" FreezeColumnIndices="True" DetailViewID="" ShowSelectionColumn="False" IsNewNode="True">
       <Columns IsNewNode="True">
         <ColumnInfo Id="CreatedBy" PropertyName="CreatedBy" IsNewNode="True" />
         <ColumnInfo Id="CreatedOn" PropertyName="CreatedOn" IsNewNode="True" />

@@ -52,7 +52,7 @@ namespace ActivacionProfetica.Module.Web.Controllers
             newController = Frame.GetController<WebNewObjectViewController>();
             if (newController != null)
             {
-                newController.NewObjectAction.Active.SetItemValue(deactivateReason, false);
+                newController.NewObjectAction.Active.SetItemValue(deactivateReason, !ObjectSpace.IsNewObject(View.CurrentObject));
             }
 
             resetViewController = Frame.GetController<WebResetViewSettingsController>();

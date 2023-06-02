@@ -19,7 +19,7 @@ namespace ActivacionProfetica.Module.BusinessObjects
         Context = Constants.View.OperationPaymentsListView, BackColor = "240, 240, 240")]
     [Appearance("DisablePayment", Enabled = false, TargetItems = "PaymentDate",
         Criteria = "UsuarioActualEsSupervisor = False",
-        Context = "LookupListView;ListView", BackColor = "240, 240, 240")]
+        Context = "LookupListView;ListView")]
     [Caption("Pagos")]
     [Persistent(Schema.Ap + nameof(Payment))]
 
