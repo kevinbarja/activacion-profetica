@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views Id="Views">
+    <DetailView Id="PaymentPlanDetail_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="PaymentPlanDetail">
+              <LayoutItem Id="Number" Index="1" />
+              <LayoutItem Id="Description" Index="2" />
+              <LayoutItem Id="Percentage" Index="3" />
+              <LayoutItem Id="LimitDate" Index="4" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

@@ -288,9 +288,16 @@
       </Columns>
     </ListView>
     <DetailView Id="PaymentPlan_DetailView" Caption="Plan de financiamiento">
+      <Items>
+        <PropertyEditor Id="SectorAmount" PropertyName="Sector.Amount" IsNewNode="True" />
+      </Items>
       <Layout>
         <LayoutGroup Id="Main">
           <LayoutGroup Id="SimpleEditors" IsCardGroup="True" IsCollapsibleGroup="True" ShowCaption="True" Caption="Información general">
+            <LayoutGroup Id="PaymentPlan">
+              <LayoutItem Id="SectorAmount" ViewItem="SectorAmount" Index="2" IsNewNode="True" />
+              <LayoutItem Id="LimitDate" Index="3" />
+            </LayoutGroup>
             <LayoutGroup Id="BaseEntity" Removed="True" />
           </LayoutGroup>
           <LayoutGroup Id="SimpleEditors_Copy" Index="0" ShowCaption="True" IsCollapsibleGroup="True" IsNewNode="True">
@@ -312,7 +319,7 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <ListView Id="PaymentPlan_ListView" Caption="Planes de financiamiento">
+    <ListView Id="PaymentPlan_ListView" Caption="Planes de financiamiento" AutoExpandAllGroups="True">
       <Columns>
         <ColumnInfo Id="Sector" Width="157" />
         <ColumnInfo Id="LimitDate" Width="206" />
@@ -329,7 +336,16 @@
       <Columns>
         <ColumnInfo Id="Number" Index="0" />
         <ColumnInfo Id="Description" Index="1" Width="268" />
-        <ColumnInfo Id="Percentage" Width="113" />
+        <ColumnInfo Id="Amount" Width="86">
+          <Summary>
+            <ColumnSummaryItem Id="SumAmount" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="Percentage" Width="113">
+          <Summary>
+            <ColumnSummaryItem Id="SumPercentage" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
         <ColumnInfo Id="LimitDate" Width="190" />
       </Columns>
     </ListView>
@@ -342,10 +358,6 @@
           <LayoutGroup Id="SimpleEditors">
             <LayoutGroup Id="PaymentPlanDetail" IsCollapsibleGroup="True" ShowCaption="True" Caption="Información de la cuota">
               <LayoutItem Id="PaymentPlan" ViewItem="PaymentPlan" Index="0" IsNewNode="True" />
-              <LayoutItem Id="Number" Index="1" />
-              <LayoutItem Id="Description" Index="2" />
-              <LayoutItem Id="Percentage" Index="3" />
-              <LayoutItem Id="LimitDate" Index="4" />
             </LayoutGroup>
             <LayoutGroup Id="BaseEntity" ShowCaption="True" IsCardGroup="True" IsCollapsibleGroup="True" IsGroupCollapsed="True" Caption="Auditoría">
               <LayoutGroup Id="BaseEntity_col1">
@@ -549,6 +561,7 @@
     <ListView Id="Sector_LookupListView" AllowNew="False" />
     <DetailView Id="WithoutMasterPaymentPlanDetail_DetailView" CaptionColon=":" EnableCaptionColon="True" CaptionLocation="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" CaptionWordWrap="Default" EnableLayoutGroupImages="True" RequiredFieldMark="*" ClassName="ActivacionProfetica.Module.BusinessObjects.PaymentPlanDetail" IsNewNode="True">
       <Items IsNewNode="True">
+        <PropertyEditor Id="Amount" PropertyName="Amount" IsNewNode="True" />
         <PropertyEditor Id="CreatedBy" PropertyName="CreatedBy" IsNewNode="True" />
         <PropertyEditor Id="CreatedOn" PropertyName="CreatedOn" IsNewNode="True" />
         <PropertyEditor Id="Description" PropertyName="Description" IsNewNode="True" />
@@ -564,8 +577,9 @@
         <LayoutGroup Id="Main" Index="0" ShowCaption="False" IsNewNode="True">
           <LayoutGroup Id="SimpleEditors" Index="0" ShowCaption="False" IsNewNode="True">
             <LayoutGroup Id="PaymentPlanDetail" Index="0" ShowCaption="True" IsCollapsibleGroup="True" Caption="Información de la cuota" IsNewNode="True">
-              <LayoutItem Id="Number" ViewItem="Number" ShowCaption="" Index="1" IsNewNode="True" />
-              <LayoutItem Id="Description" ViewItem="Description" ShowCaption="" Index="2" IsNewNode="True" />
+              <LayoutItem Id="Number" ViewItem="Number" ShowCaption="" Index="0" IsNewNode="True" />
+              <LayoutItem Id="Description" ViewItem="Description" ShowCaption="" Index="1" IsNewNode="True" />
+              <LayoutItem Id="Amount" ViewItem="Amount" Index="2" IsNewNode="True" />
               <LayoutItem Id="Percentage" ViewItem="Percentage" ShowCaption="" Index="3" IsNewNode="True" />
               <LayoutItem Id="LimitDate" ViewItem="LimitDate" ShowCaption="" Index="4" IsNewNode="True" />
             </LayoutGroup>

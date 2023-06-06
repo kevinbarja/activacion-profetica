@@ -19,6 +19,7 @@ namespace ActivacionProfetica.Module.BusinessObjects
         private int number;
         private string description;
         private decimal percentage;
+        private int amount = 0;
         private DateTime? limitDate;
 
         [Caption("Plan de financiamiento")]
@@ -48,6 +49,16 @@ namespace ActivacionProfetica.Module.BusinessObjects
         {
             get => description;
             set => SetPropertyValue(ref description, value);
+        }
+
+        [ModelDefault("DisplayFormat", "{0:#}")]
+        [Caption("Monto")]
+        [Nullable(false), RequiredField]
+        [VisibleInDetailView(true), VisibleInListView(true), VisibleInLookupListView(true)]
+        public int Amount
+        {
+            get => amount;
+            set => SetPropertyValue(ref amount, value);
         }
 
         //[DisplayName("%")]

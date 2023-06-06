@@ -3,7 +3,6 @@ using ActivacionProfetica.Module.SharedKernel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Xpo;
-using System;
 
 namespace ActivacionProfetica.Module.Controllers
 {
@@ -58,10 +57,16 @@ namespace ActivacionProfetica.Module.Controllers
                                 payment.InternalId = paymentPlanDetail.Number * -1;
                                 payment.PaymentPlanDetail = paymentPlanDetail;
                                 int factor = ((e.NewValue is null && e.Object is Place) || e.NewValue is PaymentPlan) ? 0 : 1;
-                                int totalAmount = (operation.Places.Count + factor) * operation.Sector.Amount;
-                                var amountWithDecimals = paymentPlanDetail.Percentage * totalAmount;
-                                payment.Amount = (int)Math.Round(amountWithDecimals / 10, MidpointRounding.AwayFromZero) * 10;
+
+                                int placeQuantity = (operation.Places.Count + factor);
+                                int amount = paymentPlanDetail.Amount * placeQuantity;
+                                payment.Amount = amount;
                                 operation.Payments.Add(payment);
+
+                                //int totalAmount = (operation.Places.Count + factor) * operation.Sector.Amount;
+                                //var amountWithDecimals = paymentPlanDetail.Percentage * totalAmount;
+                                //payment.Amount = (int)Math.Round(amountWithDecimals / 10, MidpointRounding.AwayFromZero) * 10;
+                                //operation.Payments.Add(payment);
                             }
                         }
                         operation.CallOnChanged(nameof(Operation.Payments));

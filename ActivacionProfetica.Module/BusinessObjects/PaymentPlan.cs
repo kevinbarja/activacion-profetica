@@ -29,6 +29,7 @@ namespace ActivacionProfetica.Module.BusinessObjects
             set => SetPropertyValue(ref description, value);
         }
 
+        [ImmediatePostData]
         [Caption("Sector"), RequiredField]
         [Association("Sector-PaymentPlans")]
         [Persistent("Sector_PaymentPlans")]
