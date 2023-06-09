@@ -73,8 +73,18 @@ namespace ActivacionProfetica.Module.DatabaseUpdate
                 }
             }
 
-
-
+            PermissionPolicyRole revertPaymentsRole = Updater.ObjectSpace.FirstOrDefault<PermissionPolicyRole>(r => r.Name == Constants.Role.RevertPayments);
+            if (revertPaymentsRole is null)
+            {
+                revertPaymentsRole = Updater.ObjectSpace.CreateObject<PermissionPolicyRole>();
+                revertPaymentsRole.Name = Constants.Role.RevertPayments;
+                revertPaymentsRole.PermissionPolicy = SecurityPermissionPolicy.AllowAllByDefault;
+                revertPaymentsRole.AddNavigationPermission("Application/NavigationItems/Items/Consultas", SecurityPermissionState.Deny);
+                revertPaymentsRole.AddNavigationPermission("Application/NavigationItems/Items/ActivacionProfetica", SecurityPermissionState.Allow);
+                revertPaymentsRole.AddNavigationPermission("Application/NavigationItems/Items/Parametrizaciones", SecurityPermissionState.Deny);
+                revertPaymentsRole.AddNavigationPermission("Application/NavigationItems/Items/Reportes", SecurityPermissionState.Allow);
+                revertPaymentsRole.AddNavigationPermission("Application/NavigationItems/Items/Default", SecurityPermissionState.Deny);
+            }
         }
     }
 }

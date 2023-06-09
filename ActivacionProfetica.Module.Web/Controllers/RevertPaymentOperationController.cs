@@ -2,6 +2,7 @@
 using ActivacionProfetica.Module.SharedKernel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
+using DevExpress.ExpressApp.Security;
 using DevExpress.Persistent.Base;
 using System;
 
@@ -25,7 +26,8 @@ namespace ActivacionProfetica.Module.Web.Controllers
         {
             base.OnActivated();
             var operation = (View.CurrentObject as Operation);
-            revertPaymentAction.Active["Hid"] = !ObjectSpace.IsNewObject(View.CurrentObject) && operation.UsuarioActualEsSupervisor;
+            ISecurityUserWithRoles currentUser = (ISecurityUserWithRoles)SecuritySystem.CurrentUser;
+            revertPaymentAction.Active["Hid"] = !ObjectSpace.IsNewObject(View.CurrentObject) && currentUser.IsUserInRole(Constants.Role.RevertPayments);
         }
 
         private void ClearTasksAction_Execute(Object sender, SimpleActionExecuteEventArgs e)

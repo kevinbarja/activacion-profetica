@@ -29,6 +29,7 @@
             public const string Admin = "Acceso completo";
             public const string OperationEjecutive = "Ejecutivo de operaciones";
             public const string OperationSupervisor = "Supervisor de operaciones";
+            public const string RevertPayments = "Revertir pagos";
         }
 
         public static class StringSize
