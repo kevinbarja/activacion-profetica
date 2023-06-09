@@ -180,6 +180,7 @@
     <Compile Include="Controllers\VersionController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controllers\WidhCustomerLoockupController.cs" />
     <Compile Include="Editors\APLookupPropertyEditor.cs" />
     <Compile Include="Editors\CustomDateTimeEditor.cs" />
     <Compile Include="RevertPaymentController.cs" />

@@ -73,6 +73,12 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
+    <ListView Id="Customer_LookupListView">
+      <Columns>
+        <ColumnInfo Id="CI" Width="10" />
+        <ColumnInfo Id="FullName" Width="90" />
+      </Columns>
+    </ListView>
     <ListView Id="MyOperation_ListView" ClassName="ActivacionProfetica.Module.BusinessObjects.Operation" Caption="Operaciones" Criteria="" DataAccessMode="Server" IsNewNode="True">
       <Columns IsNewNode="True">
         <ColumnInfo Id="AnyPaymentsInArrears" PropertyName="AnyPaymentsInArrears" Index="-1" IsNewNode="True" />
