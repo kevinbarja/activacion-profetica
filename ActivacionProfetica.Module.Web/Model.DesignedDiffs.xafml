@@ -126,7 +126,7 @@
       <Items>
         <PropertyEditor Id="PaymentPlan" DataSourceCriteria="[Sector] = '@This.Sector' And [LimitDate] Is Null And [EsEjecutivoDeVentas] = False Or [Sector] = '@This.Sector' And [LimitDate] &gt;= LocalDateTimeToday() And [EsEjecutivoDeVentas] = False Or [Sector] = '@This.Sector' And [LimitDate] Is Null And [EsEjecutivoDeVentas] = True And [PaymentPlanDetails][] Or [Sector] = '@This.Sector' And [LimitDate] &gt;= LocalDateTimeToday() And [EsEjecutivoDeVentas] = True And [PaymentPlanDetails][]" View="PaymentPlan_LookupListView" />
         <PropertyEditor Id="Payments" AllowEdit="True" View="Operation_Payments_ListView_Copy" />
-        <PropertyEditor Id="Places" DataSourceCriteria="[IsLeaf] = True And [Sector] = '@This.Sector' And [Status.InternalId] &lt;&gt; 2 And [Status.InternalId] &lt;&gt; 3 And [Status.InternalId] &lt;&gt; 6 And [Status.InternalId] &lt;&gt; 7" LinkView="Operation_Places_LookupListView" />
+        <PropertyEditor Id="Places" DataSourceCriteria="[IsLeaf] = True And [Sector] = '@This.Sector' And [Status.InternalId] &lt;&gt; 2 And [Status.InternalId] &lt;&gt; 3 And [Status.InternalId] &lt;&gt; 6 And [Status.InternalId] &lt;&gt; 7 And IsCurrentUserInRole('Supervisor de operaciones') Or [IsLeaf] = True And [Sector] = '@This.Sector' And [Status.InternalId] = 1 And IsCurrentUserInRole('Ejecutivo de operaciones')" LinkView="Operation_Places_LookupListView" />
         <PropertyEditor Id="Sector" View="Sector_LookupListView" />
       </Items>
       <Layout>
@@ -339,11 +339,6 @@
         <ColumnInfo Id="Amount" Width="86">
           <Summary>
             <ColumnSummaryItem Id="SumAmount" SummaryType="Sum" IsNewNode="True" />
-          </Summary>
-        </ColumnInfo>
-        <ColumnInfo Id="Percentage" Width="113">
-          <Summary>
-            <ColumnSummaryItem Id="SumPercentage" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
         <ColumnInfo Id="LimitDate" Width="190" />
@@ -569,7 +564,6 @@
         <PropertyEditor Id="LimitDate" PropertyName="LimitDate" IsNewNode="True" />
         <PropertyEditor Id="Number" PropertyName="Number" IsNewNode="True" />
         <PropertyEditor Id="PaymentPlan" PropertyName="PaymentPlan" IsNewNode="True" />
-        <PropertyEditor Id="Percentage" PropertyName="Percentage" IsNewNode="True" />
         <PropertyEditor Id="UpdatedBy" PropertyName="UpdatedBy" IsNewNode="True" />
         <PropertyEditor Id="UpdatedOn" PropertyName="UpdatedOn" IsNewNode="True" />
       </Items>

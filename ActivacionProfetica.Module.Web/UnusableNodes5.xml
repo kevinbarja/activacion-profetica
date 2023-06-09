@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views Id="Views">
+    <DetailView Id="WithoutMasterPaymentPlanDetail_DetailView">
+      <Items Id="Items">
+        <PropertyEditor Id="Percentage" PropertyName="Percentage" />
+      </Items>
+    </DetailView>
+    <ListView Id="PaymentPlan_PaymentPlanDetails_ListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="Percentage" Width="113">
+          <Summary Id="Summary">
+            <ColumnSummaryItem Id="SumPercentage" SummaryType="Sum" />
+          </Summary>
+        </ColumnInfo>
+      </Columns>
+    </ListView>
+  </Views>
+</Application>
