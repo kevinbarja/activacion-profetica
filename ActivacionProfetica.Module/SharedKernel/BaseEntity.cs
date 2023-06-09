@@ -56,6 +56,7 @@ namespace ActivacionProfetica.Module.SharedKernel
             set { SetPropertyValue("CreatedBy", ref createdBy, value); }
         }
 
+        [ModelDefault("EditMask", "dd.MM.yyyy hh:mm:ss")]
         DateTime createdOn;
         [Caption("Fecha de registro")]
         //[VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
@@ -75,6 +76,8 @@ namespace ActivacionProfetica.Module.SharedKernel
             get { return updatedBy; }
             set { SetPropertyValue("UpdatedBy", ref updatedBy, value); }
         }
+
+        [ModelDefault("EditMask", "dd.MM.yyyy hh:mm:ss")]
         DateTime updatedOn;
         [Caption("Fecha actualización")]
         //[VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]

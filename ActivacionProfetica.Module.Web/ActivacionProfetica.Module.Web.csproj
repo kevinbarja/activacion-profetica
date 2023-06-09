@@ -181,6 +181,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Editors\APLookupPropertyEditor.cs" />
+    <Compile Include="Editors\CustomDateTimeEditor.cs" />
     <Compile Include="RevertPaymentController.cs" />
     <Compile Include="WebModule.cs">
       <SubType>Component</SubType>
