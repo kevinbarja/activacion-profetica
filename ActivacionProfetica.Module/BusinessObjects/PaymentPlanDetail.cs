@@ -62,6 +62,7 @@ namespace ActivacionProfetica.Module.BusinessObjects
         }
 
         //[DisplayName("%")]
+        [MemberDesignTimeVisibility(false)]
         [ModelDefault("DisplayFormat", "{0:P0}")]
         [RuleRange(DefaultContexts.Save, 0, 1)]
         [Caption("Porcentaje de pago")]
