@@ -1,12 +1,17 @@
 ﻿using ActivacionProfetica.Module.BusinessObjects;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.ReportsV2;
 using DevExpress.ExpressApp.StateMachine;
-using DevExpress.ExpressApp.Web;
+using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
+using DevExpress.XtraPrinting;
+using DevExpress.XtraReports.UI;
 using System;
+using System.IO;
 using System.Linq;
-using static ActivacionProfetica.Module.SharedKernel.Constants;
+using System.Net.Http;
+using System.Text;
 
 namespace ActivacionProfetica.Module.Controllers
 {
@@ -35,6 +40,8 @@ namespace ActivacionProfetica.Module.Controllers
         {
             try
             {
+                var isReserved = View.CurrentObject is Operation && ((Operation)View.CurrentObject).PlaceStatus.InternalId == PlaceStatus.ReservedPlaceStatus;
+
                 //Update estado de los asientos
                 var operation = (View.CurrentObject as Operation);
                 operation.NoCreatePayments = true;
@@ -45,16 +52,48 @@ namespace ActivacionProfetica.Module.Controllers
                 View.ObjectSpace.CommitChanges();
                 MessageOptions parameters = new MessageOptions
                 {
-                    Duration = 4000,
-                    Message = "Operación exitosa!",
+                    Duration = 3000,
+                    Message = (isReserved) ? "Whatsapp enviado!" : "Operación exitosa!",
                     Type = InformationType.Success
                 };
                 parameters.Web.Position = InformationPosition.Top;
                 Application.ShowViewStrategy.ShowMessage(parameters);
 
-                if (View.CurrentObject is Operation && ((Operation)View.CurrentObject).PlaceStatus.InternalId == PlaceStatus.ReservedPlaceStatus)
+                if (isReserved)
                 {
-                    WebWindow.CurrentRequestWindow.RegisterStartupScript("CustomNavigate", "setTimeout(function(){ window.top.location.reload(); }, 1800);");
+                    string number_whatsapp = "591" + operation.Customer.WhatsApp + "@c.us";
+                    HttpClient httpClient = new HttpClient();
+                    var reportOsProvider = ReportDataProvider.GetReportObjectSpaceProvider(this.Application.ServiceProvider);
+                    var reportStorage = ReportDataProvider.GetReportStorage(this.Application.ServiceProvider);
+                    IObjectSpace objectSpace = reportOsProvider.CreateObjectSpace(typeof(ReportDataV2));
+                    IReportDataV2 reportData = objectSpace.FirstOrDefault<ReportDataV2>(data => data.DisplayName == "Reporte");
+
+                    ReportsModuleV2 moduloReportes = ReportsModuleV2.FindReportsModule(
+                                ApplicationReportObjectSpaceProvider.ContextApplication.Modules);
+
+                    XtraReport reporte = ReportDataProvider.ReportsStorage.GetReportContainerByHandle(
+                        ReportDataProvider.ReportsStorage.GetReportContainerHandle(reportData)).Report;
+                    reporte.FilterString = "[InternalId] = ?paramInternalId";
+                    reporte.Parameters.Add(new DevExpress.XtraReports.Parameters.Parameter
+                    {
+                        Name = "paramInternalId",
+                        Value = operation.InternalId
+                    });
+                    moduloReportes.ReportsDataSourceHelper.SetupBeforePrint(reporte, null, null, false, null, false);
+
+                    using (MemoryStream flujo = new MemoryStream())
+                    {
+                        var opcionesPdf = new PdfExportOptions();
+                        opcionesPdf.ShowPrintDialogOnOpen = false;
+                        reporte.ExportToPdf(flujo, opcionesPdf);
+                        flujo.Seek(0, SeekOrigin.Begin);
+                        byte[] contenidoReporte = flujo.ToArray();
+                        string base64 = Convert.ToBase64String(contenidoReporte);
+                        string json = "{\"from_number\": \"" + number_whatsapp + "\", \"message\": \"operación-" + operation.InternalId.ToString() + ".pdf\", \"documento\": \"" + base64 + "\"}";
+                        StringContent httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+                        httpClient.PostAsync("http://localhost:3000/webhook", httpContent);
+                    }
+                    //WebWindow.CurrentRequestWindow.RegisterStartupScript("CustomNavigate", "setTimeout(function(){ window.top.location.reload(); }, 1800);");
                 }
 
             }
@@ -74,7 +113,7 @@ namespace ActivacionProfetica.Module.Controllers
                 {
                     MessageOptions parametrosMensaje = new MessageOptions
                     {
-                        Duration = 4000,
+                        Duration = 6000,
                         Message = $"Formulario llenado incorrectamente, por favor verifique los datos e intente nuevamente.",
                         Type = InformationType.Warning
                     };
@@ -134,7 +173,7 @@ namespace ActivacionProfetica.Module.Controllers
                                 if (currentUser is ApplicationUser)
                                 {
                                     ApplicationUser currentAppUser = currentUser as ApplicationUser;
-                                    currentUserIsSupervisor = currentAppUser.Roles.Any(r => r.Name == Role.OperationSupervisor);
+                                    currentUserIsSupervisor = currentAppUser.Roles.Any(r => r.Name == SharedKernel.Constants.Role.OperationSupervisor);
                                 }
 
                                 if (currentUserIsSupervisor)
