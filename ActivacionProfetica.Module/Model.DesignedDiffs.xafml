@@ -139,6 +139,52 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
+    <DetailView Id="Operation_DetailView_Copy" CaptionColon=":" EnableCaptionColon="True" CaptionLocation="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" CaptionWordWrap="Default" EnableLayoutGroupImages="True" RequiredFieldMark="*" ClassName="ActivacionProfetica.Module.BusinessObjects.Operation" IsNewNode="True">
+      <Items IsNewNode="True">
+        <PropertyEditor Id="AguilaSoloPuedeReservar1Asiento" PropertyName="AguilaSoloPuedeReservar1Asiento" IsNewNode="True" />
+        <PropertyEditor Id="AnyPaymentsInArrears" PropertyName="AnyPaymentsInArrears" IsNewNode="True" />
+        <PropertyEditor Id="CreatedBy" PropertyName="CreatedBy" IsNewNode="True" />
+        <PropertyEditor Id="CreatedOn" PropertyName="CreatedOn" IsNewNode="True" />
+        <PropertyEditor Id="Customer" PropertyName="Customer" IsNewNode="True" />
+        <PropertyEditor Id="EsShofarOEsAguila" PropertyName="EsShofarOEsAguila" IsNewNode="True" />
+        <PropertyEditor Id="InternalId" PropertyName="InternalId" IsNewNode="True" />
+        <PropertyEditor Id="LaOperacionNoDebeTenerPagos" PropertyName="LaOperacionNoDebeTenerPagos" IsNewNode="True" />
+        <PropertyEditor Id="LosPagosDebeEstarRevertidos" PropertyName="LosPagosDebeEstarRevertidos" IsNewNode="True" />
+        <PropertyEditor Id="PaymentPlan" PropertyName="PaymentPlan" IsNewNode="True" />
+        <PropertyEditor Id="Payments" PropertyName="Payments" View="Operation_Payments_ListView" IsNewNode="True" />
+        <PropertyEditor Id="Places" PropertyName="Places" View="Operation_Places_ListView" IsNewNode="True" />
+        <PropertyEditor Id="PlacesQuantity" PropertyName="PlacesQuantity" IsNewNode="True" />
+        <PropertyEditor Id="PlacesQuantityOfPerson" PropertyName="PlacesQuantityOfPerson" IsNewNode="True" />
+        <PropertyEditor Id="PlaceStatus" PropertyName="PlaceStatus" IsNewNode="True" />
+        <PropertyEditor Id="PrimerCuotaPagada" PropertyName="PrimerCuotaPagada" IsNewNode="True" />
+        <PropertyEditor Id="Sector" PropertyName="Sector" IsNewNode="True" />
+        <PropertyEditor Id="TodosLosPagosRealizados" PropertyName="TodosLosPagosRealizados" IsNewNode="True" />
+        <PropertyEditor Id="UpdatedBy" PropertyName="UpdatedBy" IsNewNode="True" />
+        <PropertyEditor Id="UpdatedOn" PropertyName="UpdatedOn" IsNewNode="True" />
+        <PropertyEditor Id="UsuarioActualEsSupervisor" PropertyName="UsuarioActualEsSupervisor" IsNewNode="True" />
+      </Items>
+      <Layout IsNewNode="True">
+        <LayoutGroup Id="Main" Index="0" ShowCaption="False" IsNewNode="True">
+          <LayoutGroup Id="SimpleEditors" Index="0" ShowCaption="False" IsNewNode="True">
+            <LayoutGroup Id="Operation" Index="0" ShowCaption="False" IsNewNode="True">
+              <LayoutItem Id="InternalId" ViewItem="InternalId" ShowCaption="" Index="0" IsNewNode="True" />
+              <LayoutItem Id="Customer" ViewItem="Customer" ShowCaption="" Index="1" IsNewNode="True" />
+              <LayoutItem Id="PlaceStatus" ViewItem="PlaceStatus" ShowCaption="" Index="2" IsNewNode="True" />
+              <LayoutItem Id="Sector" ViewItem="Sector" ShowCaption="" Index="2" IsNewNode="True" />
+              <LayoutItem Id="PaymentPlan" ViewItem="PaymentPlan" ShowCaption="" Index="3" IsNewNode="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" Index="1" IsNewNode="True">
+            <LayoutGroup Id="Places" Index="0" ShowCaption="True" IsNewNode="True">
+              <LayoutItem Id="Places" ViewItem="Places" ShowCaption="False" Index="0" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="Payments" Index="1" ShowCaption="True" IsNewNode="True">
+              <LayoutItem Id="Payments" ViewItem="Payments" ShowCaption="False" Index="0" IsNewNode="True" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
     <ListView Id="Operation_ListView">
       <Columns>
         <ColumnInfo Id="InternalId" Index="0" />

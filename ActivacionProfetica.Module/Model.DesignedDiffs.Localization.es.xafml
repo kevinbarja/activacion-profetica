@@ -12,7 +12,7 @@
       </Action>
       <Action Id="ExportModelDifferences" Caption="Exportaciones de modelos de exportación" ToolTip="Exporta la configuración seleccionada (diferencias de modelo) a la carpeta {0}." />
       <Action Id="ImportSharedModelDifference" ConfirmationMessage="Está a punto de sobrescribir la configuración compartida (diferencias de modelo) con el contenido del archivo {0}. Esto no puede deshacerse. ¿Quieres continuar?" Caption="Importar diferencia de modelo compartido" ToolTip="Importa la configuración compartida (diferencias de modelo) del archivo {0} ubicado en la carpeta de la aplicación." />
-      <Action Id="NextObject" ToolTip="Siguiente Registro" ShortCaption="Siguiente Registro" Caption="Siguiente Registro" />
+      <Action Id="NextObject" Caption="Siguiente Registro" ToolTip="Siguiente Registro" ShortCaption="Siguiente Registro" />
       <Action Id="PreviousObject" ToolTip="Registro Anterior" ShortCaption="Registro Anterior" Caption="Registro Anterior" />
       <Action Id="ResetModelDifferences" ConfirmationMessage="Está a punto de restablecer la configuración seleccionada (diferencias de modelo). ¿Quieres continuar?" Caption="Restablecer las diferencias del modelo" ToolTip="Restablece la configuración seleccionada (diferencias de modelo). Los cambios se aplican después de que un usuario reinicia la aplicación." />
       <Action Id="ResetViewSettings" ConfirmationMessage="Está a punto de restablecer todos los ajustes realizados para la vista &quot;{0}&quot;. ¿Quieres continuar?" ToolTip="Restablece todos los ajustes realizados para la vista &quot;{0}&quot;." />

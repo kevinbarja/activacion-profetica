@@ -132,7 +132,7 @@
       <Items>
         <PropertyEditor Id="PaymentPlan" DataSourceCriteria="[Sector] = '@This.Sector' And [LimitDate] Is Null And [EsEjecutivoDeVentas] = False Or [Sector] = '@This.Sector' And [LimitDate] &gt;= LocalDateTimeToday() And [EsEjecutivoDeVentas] = False Or [Sector] = '@This.Sector' And [LimitDate] Is Null And [EsEjecutivoDeVentas] = True And [PaymentPlanDetails][] Or [Sector] = '@This.Sector' And [LimitDate] &gt;= LocalDateTimeToday() And [EsEjecutivoDeVentas] = True And [PaymentPlanDetails][]" View="PaymentPlan_LookupListView" />
         <PropertyEditor Id="Payments" AllowEdit="True" View="Operation_Payments_ListView_Copy" />
-        <PropertyEditor Id="Places" DataSourceCriteria="[IsLeaf] = True And [Sector] = '@This.Sector' And [Status.InternalId] &lt;&gt; 2 And [Status.InternalId] &lt;&gt; 3 And [Status.InternalId] &lt;&gt; 6 And [Status.InternalId] &lt;&gt; 7 And IsCurrentUserInRole('Supervisor de operaciones') Or [IsLeaf] = True And [Sector] = '@This.Sector' And [Status.InternalId] = 1 And IsCurrentUserInRole('Ejecutivo de operaciones')" LinkView="Operation_Places_LookupListView" />
+        <PropertyEditor Id="Places" DataSourceCriteria="[IsLeaf] = True And [Sector] = '@This.Sector' And [Status.InternalId] = 1" LinkView="Operation_Places_LookupListView" />
         <PropertyEditor Id="Sector" View="Sector_LookupListView" />
       </Items>
       <Layout>
@@ -160,7 +160,55 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <ListView Id="Operation_ListView" Caption="Operaciones" DataAccessMode="Server">
+    <DetailView Id="Operation_DetailView_Copy_Copy" CaptionColon=":" EnableCaptionColon="True" CaptionLocation="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" CaptionWordWrap="Default" EnableLayoutGroupImages="True" RequiredFieldMark="*" ClassName="ActivacionProfetica.Module.BusinessObjects.Operation" IsNewNode="True">
+      <Items IsNewNode="True">
+        <PropertyEditor Id="AguilaSoloPuedeReservar1Asiento" PropertyName="AguilaSoloPuedeReservar1Asiento" IsNewNode="True" />
+        <PropertyEditor Id="AnyPaymentsInArrears" PropertyName="AnyPaymentsInArrears" IsNewNode="True" />
+        <PropertyEditor Id="CreatedBy" PropertyName="CreatedBy" IsNewNode="True" />
+        <PropertyEditor Id="CreatedOn" PropertyName="CreatedOn" IsNewNode="True" />
+        <PropertyEditor Id="Customer" PropertyName="Customer" IsNewNode="True" />
+        <PropertyEditor Id="EsShofarOEsAguila" PropertyName="EsShofarOEsAguila" IsNewNode="True" />
+        <PropertyEditor Id="InternalId" PropertyName="InternalId" IsNewNode="True" />
+        <PropertyEditor Id="LaOperacionNoDebeTenerPagos" PropertyName="LaOperacionNoDebeTenerPagos" IsNewNode="True" />
+        <PropertyEditor Id="LosPagosDebeEstarRevertidos" PropertyName="LosPagosDebeEstarRevertidos" IsNewNode="True" />
+        <PropertyEditor Id="PaymentPlan" PropertyName="PaymentPlan" View="PaymentPlan_LookupListView" DataSourceCriteria="[Sector] = '@This.Sector' And [LimitDate] Is Null And [EsEjecutivoDeVentas] = False Or [Sector] = '@This.Sector' And [LimitDate] &gt;= LocalDateTimeToday() And [EsEjecutivoDeVentas] = False Or [Sector] = '@This.Sector' And [LimitDate] Is Null And [EsEjecutivoDeVentas] = True And [PaymentPlanDetails][] Or [Sector] = '@This.Sector' And [LimitDate] &gt;= LocalDateTimeToday() And [EsEjecutivoDeVentas] = True And [PaymentPlanDetails][]" IsNewNode="True" />
+        <PropertyEditor Id="Payments" PropertyName="Payments" View="Operation_Payments_ListView_Copy" IsNewNode="True" />
+        <PropertyEditor Id="Places" PropertyName="Places" LinkView="Operation_Places_LookupListView" View="Operation_Places_ListView" DataSourceCriteria="[IsLeaf] = True And [Sector] = '@This.Sector' And [Status.InternalId] &lt;&gt; 2 And [Status.InternalId] &lt;&gt; 3 And [Status.InternalId] &lt;&gt; 6 And [Status.InternalId] &lt;&gt; 7 And IsCurrentUserInRole('Supervisor de operaciones') Or [IsLeaf] = True And [Sector] = '@This.Sector' And [Status.InternalId] = 1 And IsCurrentUserInRole('Ejecutivo de operaciones')" IsNewNode="True" />
+        <PropertyEditor Id="PlacesQuantity" PropertyName="PlacesQuantity" IsNewNode="True" />
+        <PropertyEditor Id="PlacesQuantityOfPerson" PropertyName="PlacesQuantityOfPerson" IsNewNode="True" />
+        <PropertyEditor Id="PlaceStatus" PropertyName="PlaceStatus" IsNewNode="True" />
+        <PropertyEditor Id="PrimerCuotaPagada" PropertyName="PrimerCuotaPagada" IsNewNode="True" />
+        <PropertyEditor Id="Sector" PropertyName="Sector" View="Sector_LookupListView" IsNewNode="True" />
+        <PropertyEditor Id="TodosLosPagosRealizados" PropertyName="TodosLosPagosRealizados" IsNewNode="True" />
+        <PropertyEditor Id="UpdatedBy" PropertyName="UpdatedBy" IsNewNode="True" />
+        <PropertyEditor Id="UpdatedOn" PropertyName="UpdatedOn" IsNewNode="True" />
+        <PropertyEditor Id="UsuarioActualEsSupervisor" PropertyName="UsuarioActualEsSupervisor" IsNewNode="True" />
+      </Items>
+      <Layout IsNewNode="True">
+        <LayoutGroup Id="Main" Index="0" ShowCaption="False" IsNewNode="True">
+          <LayoutGroup Id="SimpleEditors" Index="0" ShowCaption="" Caption="Información general" IsCardGroup="True" IsCollapsibleGroup="True" IsNewNode="True">
+            <LayoutGroup Id="Operation" Index="0" ShowCaption="False" IsNewNode="True">
+              <LayoutItem Id="InternalId" ViewItem="InternalId" ShowCaption="" Index="0" IsNewNode="True" />
+              <LayoutItem Id="Customer" Index="1" ViewItem="Customer" ShowCaption="" IsNewNode="True" />
+              <LayoutItem Id="PlaceStatus" Index="2" ViewItem="PlaceStatus" ShowCaption="" IsNewNode="True" />
+              <LayoutItem Id="Sector" ViewItem="Sector" ShowCaption="" Index="2" IsNewNode="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="PlacesSelection" Index="1" ShowCaption="False" Caption="Asientos" IsCollapsibleGroup="True" IsNewNode="True">
+            <LayoutGroup Id="Places" Index="0" ShowCaption="False" IsNewNode="True">
+              <LayoutItem Id="Places" ViewItem="Places" ShowCaption="False" Index="0" IsNewNode="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="Payments" Index="2" ShowCaption="False" Caption="Plan de financiamiento" IsCollapsibleGroup="True" IsNewNode="True">
+            <LayoutItem Id="PaymentPlan" ViewItem="PaymentPlan" ShowCaption="" Index="0" IsNewNode="True" />
+            <LayoutGroup Id="Payments" Index="1" ShowCaption="False" IsNewNode="True">
+              <LayoutItem Id="Payments" ViewItem="Payments" ShowCaption="False" Index="0" IsNewNode="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="Operation_ListView" Caption="Operaciones" DataAccessMode="Server" DetailViewID="Operation_DetailView_Copy_Copy">
       <Columns>
         <ColumnInfo Id="PlaceStatus" Width="60" />
         <ColumnInfo Id="PlacesQuantity" Index="3" Width="121" />
