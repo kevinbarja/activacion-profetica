@@ -164,49 +164,51 @@ namespace ActivacionProfetica.Module.Controllers
                                 return;
                             }
 
-                            //Validate state of place
-                            var statusId = currentplaceSelected.Status.InternalId;
-                            bool currentUserIsSupervisor = false;
-                            var currentUser = SecuritySystem.CurrentUser;
-                            if (currentUser is ApplicationUser)
-                            {
-                                ApplicationUser currentAppUser = currentUser as ApplicationUser;
-                                currentUserIsSupervisor = currentAppUser.Roles.Any(r => r.Name == SharedKernel.Constants.Role.OperationSupervisor);
-                            }
 
-                            if (currentUserIsSupervisor)
+                            if (currentplaceSelected.Operation != null)
                             {
-                                if (!(statusId != PlaceStatus.SoldPlaceStatus && statusId != PlaceStatus.ReservedPlaceStatus && statusId != PlaceStatus.CortecyPlaceStatus && statusId != PlaceStatus.NoAvailablePlaceStatus))
+                                var statusId = currentplaceSelected.Operation.PlaceStatus.InternalId;
+                                bool currentUserIsSupervisor = false;
+                                var currentUser = SecuritySystem.CurrentUser;
+                                if (currentUser is ApplicationUser)
                                 {
-                                    MessageOptions parametrosMensaje = new MessageOptions
+                                    ApplicationUser currentAppUser = currentUser as ApplicationUser;
+                                    currentUserIsSupervisor = currentAppUser.Roles.Any(r => r.Name == SharedKernel.Constants.Role.OperationSupervisor);
+                                }
+
+                                if (currentUserIsSupervisor)
+                                {
+                                    if (currentplaceSelected.Operation.InternalId != operation.InternalId && !(statusId != PlaceStatus.SoldPlaceStatus && statusId != PlaceStatus.ReservedPlaceStatus && statusId != PlaceStatus.CortecyPlaceStatus && statusId != PlaceStatus.NoAvailablePlaceStatus))
                                     {
-                                        Duration = 4000,
-                                        Message = $"El asiento '{placeSelected.Path}' no está disponbile, está '{currentplaceSelected.Operation.PlaceStatus.SingularName}'. Contáctese con el supervisor.",
-                                        Type = InformationType.Warning
-                                    };
-                                    parametrosMensaje.Web.Position = InformationPosition.Top;
-                                    Application.ShowViewStrategy.ShowMessage(parametrosMensaje);
-                                    e.Cancel = true;
-                                    return;
+                                        MessageOptions parametrosMensaje = new MessageOptions
+                                        {
+                                            Duration = 4000,
+                                            Message = $"El asiento '{placeSelected.Path}' no está disponbile, está '{currentplaceSelected.Operation.PlaceStatus.SingularName}'. Contáctese con el supervisor.",
+                                            Type = InformationType.Warning
+                                        };
+                                        parametrosMensaje.Web.Position = InformationPosition.Top;
+                                        Application.ShowViewStrategy.ShowMessage(parametrosMensaje);
+                                        e.Cancel = true;
+                                        return;
+                                    }
+                                }
+                                else
+                                {
+                                    if (currentplaceSelected.Operation.InternalId != operation.InternalId && statusId != PlaceStatus.AvailablePlaceStatus)
+                                    {
+                                        MessageOptions parametrosMensaje = new MessageOptions
+                                        {
+                                            Duration = 4000,
+                                            Message = $"El asiento '{placeSelected.Path}' no está disponbile, está '{currentplaceSelected.Operation.PlaceStatus.SingularName}'",
+                                            Type = InformationType.Warning
+                                        };
+                                        parametrosMensaje.Web.Position = InformationPosition.Top;
+                                        Application.ShowViewStrategy.ShowMessage(parametrosMensaje);
+                                        e.Cancel = true;
+                                        return;
+                                    }
                                 }
                             }
-                            else
-                            {
-                                if (statusId != PlaceStatus.AvailablePlaceStatus)
-                                {
-                                    MessageOptions parametrosMensaje = new MessageOptions
-                                    {
-                                        Duration = 4000,
-                                        Message = $"El asiento '{placeSelected.Path}' no está disponbile, está '{currentplaceSelected.Operation.PlaceStatus.SingularName}'",
-                                        Type = InformationType.Warning
-                                    };
-                                    parametrosMensaje.Web.Position = InformationPosition.Top;
-                                    Application.ShowViewStrategy.ShowMessage(parametrosMensaje);
-                                    e.Cancel = true;
-                                    return;
-                                }
-                            }
-
                         }
                     }
                 }
