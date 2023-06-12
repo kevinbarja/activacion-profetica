@@ -169,6 +169,17 @@ namespace ActivacionProfetica.Module.BusinessObjects
         /// 
 
         [NonPersistent]
+        [Caption("Asientos")]
+        [VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
+        public string Asientos
+        {
+            get
+            {
+                return string.Join(",  ", Places.Select(p => p.Path.Replace(p.Sector.Name + "-", string.Empty)));
+            }
+        }
+
+        [NonPersistent]
         [Caption("TodosLosPagosRealizados")]
         [VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
         public bool TodosLosPagosRealizados => !Payments.Any(p => p.PaymentMethod == PaymentMethod.None) && Payments.Count() > 0;
