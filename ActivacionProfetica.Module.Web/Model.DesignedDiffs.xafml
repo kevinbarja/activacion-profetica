@@ -82,6 +82,7 @@
     <ListView Id="MyOperation_ListView" ClassName="ActivacionProfetica.Module.BusinessObjects.Operation" Caption="Operaciones" Criteria="" DataAccessMode="Server" IsNewNode="True">
       <Columns IsNewNode="True">
         <ColumnInfo Id="AnyPaymentsInArrears" PropertyName="AnyPaymentsInArrears" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="Asientos" PropertyName="Asientos" Index="-1" IsNewNode="True" />
         <ColumnInfo Id="CreatedBy" PropertyName="CreatedBy" Index="-1" IsNewNode="True" />
         <ColumnInfo Id="CreatedOn" PropertyName="CreatedOn" Index="-1" IsNewNode="True" />
         <ColumnInfo Id="InternalId" PropertyName="InternalId" Index="0" IsNewNode="True" />
@@ -210,6 +211,7 @@
     </DetailView>
     <ListView Id="Operation_ListView" Caption="Operaciones" DataAccessMode="Server" DetailViewID="Operation_DetailView_Copy_Copy">
       <Columns>
+        <ColumnInfo Id="Asientos" Index="-1" />
         <ColumnInfo Id="PlaceStatus" Width="60" />
         <ColumnInfo Id="PlacesQuantity" Index="3" Width="121" />
         <ColumnInfo Id="Sector" Index="4" />

@@ -170,7 +170,7 @@ namespace ActivacionProfetica.Module.BusinessObjects
 
         [NonPersistent]
         [Caption("Asientos")]
-        [VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
+        [VisibleInDetailView(false), VisibleInListView(true), VisibleInLookupListView(false)]
         public string Asientos
         {
             get
