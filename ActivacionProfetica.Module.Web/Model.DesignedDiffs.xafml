@@ -212,12 +212,13 @@
     <ListView Id="Operation_ListView" Caption="Operaciones" DataAccessMode="Server" DetailViewID="Operation_DetailView_Copy_Copy">
       <Columns>
         <ColumnInfo Id="Asientos" Index="-1" />
-        <ColumnInfo Id="PlaceStatus" Width="60" />
-        <ColumnInfo Id="PlacesQuantity" Index="3" Width="121" />
-        <ColumnInfo Id="Sector" Index="4" />
-        <ColumnInfo Id="CreatedBy" Index="5" />
-        <ColumnInfo Id="PaymentPlan" Index="6" />
-        <ColumnInfo Id="CreatedOn" Index="7" SortIndex="0" SortOrder="Descending" />
+        <ColumnInfo Id="CustomerWhatsApp" PropertyName="Customer.WhatsApp" Index="2" IsNewNode="True" />
+        <ColumnInfo Id="PlaceStatus" Width="60" Index="3" />
+        <ColumnInfo Id="PlacesQuantity" Index="4" Width="121" />
+        <ColumnInfo Id="Sector" Index="5" />
+        <ColumnInfo Id="CreatedBy" Index="6" />
+        <ColumnInfo Id="PaymentPlan" Index="7" />
+        <ColumnInfo Id="CreatedOn" Index="8" SortIndex="0" SortOrder="Descending" Width="120" />
       </Columns>
       <Filters CurrentFilterId="@24825706-3220-4356-82cb-b22dfce5debew">
         <Filter Id="@24825706-3220-4356-82cb-b22dfce5debew" Caption="Operaciones del día" Criteria="IsOutlookIntervalToday([UpdatedOn])" Index="0" IsNewNode="True" />
