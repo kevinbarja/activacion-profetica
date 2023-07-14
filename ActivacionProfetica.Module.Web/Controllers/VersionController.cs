@@ -1,6 +1,5 @@
 ﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.SystemModule;
-using System.Web.Configuration;
 
 namespace ActivacionProfetica.Module.Web.Controllers
 {
@@ -14,6 +13,8 @@ namespace ActivacionProfetica.Module.Web.Controllers
 
         private string GetEnviroment()
         {
+            return "Versión 2 del 13/07/2023";
+            /*
             string enviroment = WebConfigurationManager.AppSettings["Enviroment"];
             string defaultEnviroment = "Ambiente no definido";
             if (enviroment != null)
@@ -21,6 +22,7 @@ namespace ActivacionProfetica.Module.Web.Controllers
                 return enviroment;
             }
             return defaultEnviroment;
+            */
         }
     }
 }

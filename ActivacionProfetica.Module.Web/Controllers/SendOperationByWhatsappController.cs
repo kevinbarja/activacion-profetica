@@ -1,5 +1,6 @@
 ﻿using ActivacionProfetica.Module.BusinessObjects;
 using ActivacionProfetica.Module.SharedKernel;
+using DevExpress.Drawing;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.ReportsV2;
@@ -67,13 +68,15 @@ namespace ActivacionProfetica.Module.Web.Controllers
 
             using (MemoryStream flujo = new MemoryStream())
             {
-                var opcionesPdf = new PdfExportOptions();
-                opcionesPdf.ShowPrintDialogOnOpen = false;
-                reporte.ExportToPdf(flujo, opcionesPdf);
+                var exportOptions = new ImageExportOptions();
+                exportOptions.ExportMode = ImageExportMode.SingleFile;
+                exportOptions.Format = DXImageFormat.Jpeg;
+                exportOptions.Resolution = 96; //dpi
+                reporte.ExportToImage(flujo, exportOptions);
                 flujo.Seek(0, SeekOrigin.Begin);
                 byte[] contenidoReporte = flujo.ToArray();
                 string base64 = Convert.ToBase64String(contenidoReporte);
-                string json = "{\"from_number\": \"" + number_whatsapp + "\", \"message\": \"operación-" + operation.InternalId.ToString() + ".pdf\", \"documento\": \"" + base64 + "\"}";
+                string json = "{\"from_number\": \"" + number_whatsapp + "\", \"message\": \"operación " + operation.InternalId.ToString() + "\", \"imagen\": \"" + base64 + "\"}";
                 StringContent httpContent = new StringContent(json, Encoding.UTF8, "application/json");
                 httpClient.PostAsync("http://localhost:3000/webhook", httpContent);
             }

@@ -87,12 +87,14 @@
         <ColumnInfo Id="CreatedOn" PropertyName="CreatedOn" Index="-1" IsNewNode="True" />
         <ColumnInfo Id="InternalId" PropertyName="InternalId" Index="0" IsNewNode="True" />
         <ColumnInfo Id="Customer" PropertyName="Customer" Index="1" IsNewNode="True" />
-        <ColumnInfo Id="PlaceStatus" PropertyName="PlaceStatus" Index="2" Caption="Estado de los asientos" IsNewNode="True" />
-        <ColumnInfo Id="PlaceQuantity" PropertyName="PlacesQuantity" Index="3" IsNewNode="True" />
-        <ColumnInfo Id="Sector" PropertyName="Sector" Index="4" IsNewNode="True" />
-        <ColumnInfo Id="PaymentPlan" PropertyName="PaymentPlan" Index="5" Width="167" IsNewNode="True" />
-        <ColumnInfo Id="UpdatedOn" PropertyName="UpdatedOn" Index="6" Width="91" SortIndex="0" SortOrder="Descending" IsNewNode="True" />
-        <ColumnInfo Id="UpdatedBy" PropertyName="UpdatedBy" Index="7" Width="155" IsNewNode="True" />
+        <ColumnInfo Id="CustomerCI" PropertyName="Customer.CI" Index="2" IsNewNode="True" />
+        <ColumnInfo Id="CustomerWhatsApp" PropertyName="Customer.WhatsApp" Index="3" IsNewNode="True" />
+        <ColumnInfo Id="PlaceStatus" PropertyName="PlaceStatus" Index="4" Caption="Estado de los asientos" IsNewNode="True" />
+        <ColumnInfo Id="PlaceQuantity" PropertyName="PlacesQuantity" Index="5" IsNewNode="True" />
+        <ColumnInfo Id="Sector" PropertyName="Sector" Index="6" IsNewNode="True" />
+        <ColumnInfo Id="PaymentPlan" PropertyName="PaymentPlan" Index="7" Width="167" IsNewNode="True" />
+        <ColumnInfo Id="UpdatedOn" PropertyName="UpdatedOn" Index="8" Width="91" SortIndex="0" SortOrder="Descending" IsNewNode="True" />
+        <ColumnInfo Id="UpdatedBy" PropertyName="UpdatedBy" Index="9" Width="155" IsNewNode="True" />
       </Columns>
       <Filters CurrentFilterId="@24825706-3220-4356-82cb-b22dfce5debe" IsNewNode="True">
         <Filter Id="@24825706-3220-4356-82cb-b22dfce5debe" Caption="Mis operaciones del día" Criteria="IsOutlookIntervalToday([UpdatedOn]) And [UpdatedBy.Oid] = CurrentUserId()" Index="0" IsNewNode="True" />

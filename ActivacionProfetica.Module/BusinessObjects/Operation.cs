@@ -175,7 +175,14 @@ namespace ActivacionProfetica.Module.BusinessObjects
         {
             get
             {
-                return string.Join(",  ", Places.Select(p => p.Path.Replace(p.Sector.Name + "-", string.Empty)));
+                if (Sector.InternalId == Sector.EagleSectorId)
+                {
+                    return Places?.Count().ToString() + " " + "(Cantidad de asientos)";
+                }
+                else
+                {
+                    return string.Join(",  ", Places.Select(p => p.Path.Replace(p.Sector.Name + "-", string.Empty)));
+                }
             }
         }
 
