@@ -15,7 +15,7 @@ namespace ActivacionProfetica.Module.BusinessObjects
 {
     [Appearance("RedTextPayment", TargetItems = "*", Context = "LookupListView;ListView", Criteria = "[IsReverted] = True", FontStyle = FontStyle.Strikeout, FontColor = "253, 125, 125")]
     [Appearance("ResidualRiskLow", Enabled = false, TargetItems = "*",
-        Criteria = "[PaymentMethod] != ##Enum#ActivacionProfetica.Module.BusinessObjects.Enums.PaymentMethod,None# And IsNewObject(This) = False",
+        Criteria = "[PaymentMethod] != ##Enum#ActivacionProfetica.Module.BusinessObjects.Enums.PaymentMethod,None# And IsNewObject(This) = False And UsuarioActualPuedeRevertirPagos = False",
         Context = Constants.View.OperationPaymentsListView, BackColor = "240, 240, 240")]
     [Appearance("DisablePayment", Enabled = false, TargetItems = "PaymentDate",
         Criteria = "UsuarioActualEsSupervisor = False",
@@ -139,6 +139,25 @@ namespace ActivacionProfetica.Module.BusinessObjects
                 {
                     ApplicationUser currentAppUser = currentUser as ApplicationUser;
                     return currentAppUser.Roles.Any(r => r.Name == Role.OperationSupervisor);
+                }
+                {
+                    return false;
+                }
+            }
+        }
+
+        [NonPersistent]
+        [Caption("UsuarioActualPuedeRevertirPagos")]
+        [VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
+        public bool UsuarioActualPuedeRevertirPagos
+        {
+            get
+            {
+                var currentUser = SecuritySystem.CurrentUser;
+                if (currentUser is ApplicationUser)
+                {
+                    ApplicationUser currentAppUser = currentUser as ApplicationUser;
+                    return currentAppUser.Roles.Any(r => r.Name == Role.RevertPayments);
                 }
                 {
                     return false;
