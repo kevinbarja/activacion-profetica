@@ -26,7 +26,7 @@ namespace ActivacionProfetica.Module.SharedKernel
             set => SetPropertyValue(ref id, value);
         }
 
-        ApplicationUser GetCurrentUser()
+        public ApplicationUser GetCurrentUser()
         {
             if (Session != null)
             {

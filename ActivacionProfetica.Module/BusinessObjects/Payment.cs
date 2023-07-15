@@ -17,9 +17,10 @@ namespace ActivacionProfetica.Module.BusinessObjects
     [Appearance("ResidualRiskLow", Enabled = false, TargetItems = "*",
         Criteria = "[PaymentMethod] != ##Enum#ActivacionProfetica.Module.BusinessObjects.Enums.PaymentMethod,None# And IsNewObject(This) = False And UsuarioActualPuedeRevertirPagos = False",
         Context = Constants.View.OperationPaymentsListView, BackColor = "240, 240, 240")]
-    [Appearance("DisablePayment", Enabled = false, TargetItems = "PaymentDate",
-        Criteria = "UsuarioActualEsSupervisor = False",
+    [Appearance("DisablePayment", Enabled = false, TargetItems = "PaymentDate, UpdatedBy",
+        Criteria = "UsuarioActualPuedeRevertirPagos = False",
         Context = "LookupListView;ListView")]
+    [Appearance("BlueOnCreation", TargetItems = "PaymentMethod", Context = "LookupListView;ListView", Criteria = "IsNewObject(This) Or [PaymentMethod] == ##Enum#ActivacionProfetica.Module.BusinessObjects.Enums.PaymentMethod,None#", FontStyle = FontStyle.Bold, BackColor = "163, 219, 247")]
     [Caption("Pagos")]
     [Persistent(Schema.Ap + nameof(Payment))]
 
@@ -117,6 +118,11 @@ namespace ActivacionProfetica.Module.BusinessObjects
         [OnChangedProperty(nameof(PaymentMethod))]
         public void OnChangedPaymentMethod()
         {
+            if (!UsuarioActualPuedeRevertirPagos)
+            {
+                UpdatedBy = GetCurrentUser();
+            }
+
             if (PaymentMethod == PaymentMethod.None)
             {
                 PaymentDate = null;
@@ -198,7 +204,12 @@ namespace ActivacionProfetica.Module.BusinessObjects
 
         protected override void OnSaving()
         {
-            base.OnSaving();
+            UpdatedOn = DateTime.Now;
+            if (UpdatedBy is null)
+            {
+                UpdatedBy = GetCurrentUser();
+            }
+            //base.OnSaving();
             if (PaymentMethod != PaymentMethod.None && PaymentDate is null)
             {
                 PaymentDate = DateTime.Now;

@@ -265,8 +265,7 @@
         <ColumnInfo Id="PaymentMethodCaption" PropertyName="PaymentMethodCaption" IsNewNode="True" />
         <ColumnInfo Id="PaymentPlanDetail" PropertyName="PaymentPlanDetail" Width="107" IsNewNode="True" />
         <ColumnInfo Id="PaymentStatus" PropertyName="PaymentStatus" Width="78" IsNewNode="True" />
-        <ColumnInfo Id="UpdatedBy" PropertyName="UpdatedBy" IsNewNode="True" />
-        <ColumnInfo Id="UpdatedOn" PropertyName="UpdatedOn" IsNewNode="True" />
+        <ColumnInfo Id="UpdatedOn" PropertyName="UpdatedOn" AllowEdit="True" IsNewNode="True" />
         <ColumnInfo Id="UsuarioActualEsSupervisor" PropertyName="UsuarioActualEsSupervisor" IsNewNode="True" />
         <ColumnInfo Id="NumeroCuota" PropertyName="PaymentPlanDetail.Number" Caption="Número cuota" Index="0" SortIndex="0" SortOrder="Ascending" AllowEdit="False" Width="138" IsNewNode="True" />
         <ColumnInfo Id="Cuota" PropertyName="PaymentPlanDetail.Description" Caption="Cuota" Index="1" Width="282" AllowEdit="False" IsNewNode="True" />
@@ -278,6 +277,7 @@
         </ColumnInfo>
         <ColumnInfo Id="PaymentDate" PropertyName="PaymentDate" Index="4" Width="151" IsNewNode="True" />
         <ColumnInfo Id="PaymentMethod" PropertyName="PaymentMethod" Width="132" Index="5" IsNewNode="True" />
+        <ColumnInfo Id="UpdatedBy" PropertyName="UpdatedBy" Index="6" AllowEdit="True" Caption="Actualizado por" IsNewNode="True" />
       </Columns>
       <Sorting IsNewNode="True">
         <SortProperty Id="@4d215478-f400-4617-ba3a-cd34faf4349c" PropertyName="PaymentPlanDetail.Number" IsNewNode="True" />
