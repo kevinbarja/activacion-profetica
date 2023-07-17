@@ -43,6 +43,7 @@
           <Item Id="@d84b9f6a-421e-42f7-bd84-1482be7620f9" Caption="Cobros" Index="1" ViewId="ReportPayment_ListView" IsNewNode="True" />
           <Item Id="Customers" Index="2" Caption="Personas" ViewId="Customer_ListView" ImageName="BO_Department" IsNewNode="True" />
           <Item Id="Operations_Copy_Copy" Caption="Operaciones" ViewId="Operation_ListView" Index="3" IsNewNode="True" />
+          <Item Id="@68a6f71d-6c08-497f-b815-d4fe5d7630b2" ViewId="SomeonePlantedInMe_ListView" IsNewNode="True" />
         </Items>
       </Item>
       <Item Id="State Machine" Removed="True">
@@ -267,17 +268,20 @@
         <ColumnInfo Id="PaymentStatus" PropertyName="PaymentStatus" Width="78" IsNewNode="True" />
         <ColumnInfo Id="UpdatedOn" PropertyName="UpdatedOn" AllowEdit="True" IsNewNode="True" />
         <ColumnInfo Id="UsuarioActualEsSupervisor" PropertyName="UsuarioActualEsSupervisor" IsNewNode="True" />
-        <ColumnInfo Id="NumeroCuota" PropertyName="PaymentPlanDetail.Number" Caption="Número cuota" Index="0" SortIndex="0" SortOrder="Ascending" AllowEdit="False" Width="138" IsNewNode="True" />
+        <ColumnInfo Id="NumeroCuota" PropertyName="PaymentPlanDetail.Number" Caption="Número cuota" Index="0" SortIndex="0" SortOrder="Ascending" AllowEdit="False" Width="89" IsNewNode="True" />
         <ColumnInfo Id="Cuota" PropertyName="PaymentPlanDetail.Description" Caption="Cuota" Index="1" Width="282" AllowEdit="False" IsNewNode="True" />
         <ColumnInfo Id="LimitPaymentDate" PropertyName="PaymentPlanDetail.LimitDate" Index="2" Width="186" AllowEdit="False" IsNewNode="True" />
-        <ColumnInfo Id="Amount" PropertyName="Amount" Index="3" Width="95" AllowEdit="False" IsNewNode="True">
+        <ColumnInfo Id="Amount" PropertyName="Amount" Index="3" Width="95" AllowEdit="False" Caption="Subtotal" IsNewNode="True">
           <Summary IsNewNode="True">
             <ColumnSummaryItem Id="@b22451a8-a936-49ae-bb19-f5613a3967ab" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
-        <ColumnInfo Id="PaymentDate" PropertyName="PaymentDate" Index="4" Width="151" IsNewNode="True" />
-        <ColumnInfo Id="PaymentMethod" PropertyName="PaymentMethod" Width="132" Index="5" IsNewNode="True" />
-        <ColumnInfo Id="UpdatedBy" PropertyName="UpdatedBy" Index="6" AllowEdit="True" Caption="Actualizado por" IsNewNode="True" />
+        <ColumnInfo Id="SomeonePlantedInMe" PropertyName="SomeonePlantedInMe" Index="4" Width="131" View="SomeonePlantedInMe_LookupListView" DataSourceCriteria="[Payments][].Sum([SomeonePlantedInMeAmount]) &lt; [AltarOffering] Or Not [Payments][]" IsNewNode="True" />
+        <ColumnInfo Id="SomeonePlantedInMeAmount" PropertyName="SomeonePlantedInMeAmount" Index="5" Width="111" IsNewNode="True" />
+        <ColumnInfo Id="AmountToPay" PropertyName="AmountToPay" Index="6" Width="123" IsNewNode="True" />
+        <ColumnInfo Id="PaymentMethod" PropertyName="PaymentMethod" Width="132" Index="7" IsNewNode="True" />
+        <ColumnInfo Id="PaymentDate" PropertyName="PaymentDate" Index="8" Width="151" IsNewNode="True" />
+        <ColumnInfo Id="UpdatedBy" PropertyName="UpdatedBy" Index="9" AllowEdit="True" Caption="Actualizado por" IsNewNode="True" />
       </Columns>
       <Sorting IsNewNode="True">
         <SortProperty Id="@4d215478-f400-4617-ba3a-cd34faf4349c" PropertyName="PaymentPlanDetail.Number" IsNewNode="True" />
@@ -317,24 +321,40 @@
     </ListView>
     <DetailView Id="Payment_DetailView" AllowDelete="False" AllowEdit="False" AllowNew="False" Caption="Cobro">
       <Items>
+        <PropertyEditor Id="Amount" Caption="SubTotal" />
         <PropertyEditor Id="Operation" PropertyName="Operation" IsNewNode="True" />
+        <PropertyEditor Id="SomeonePlantedInMe" PropertyName="SomeonePlantedInMe" IsNewNode="True" />
+        <PropertyEditor Id="SomeonePlantedInMeAmount" AllowEdit="False" />
       </Items>
       <Layout>
-        <LayoutGroup Id="Main">
-          <LayoutGroup Id="SimpleEditors">
-            <LayoutGroup Id="Payment" IsCollapsibleGroup="True" IsGroupCollapsed="False" Caption="Información del cobro">
-              <LayoutGroup Id="Payment_col1">
-                <LayoutItem Id="Operation" ViewItem="Operation" Index="0" IsNewNode="True" />
-                <LayoutItem Id="PaymentPlanDetail" Index="1" />
-                <LayoutItem Id="PaymentStatus" Index="2" />
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="Payment" IsCollapsibleGroup="True" IsGroupCollapsed="False" Caption="Información del cobro" RelativeSize="26.47887323943662">
+              <LayoutGroup Id="Payment_col1" RelativeSize="49.734888653234357">
+                <LayoutItem Id="IsReverted" RelativeSize="22.972972972972972" />
+                <LayoutItem Id="Operation" ViewItem="Operation" Index="1" RelativeSize="17.567567567567568" IsNewNode="True" />
+                <LayoutItem Id="PaymentPlanDetail" Index="2" RelativeSize="17.567567567567568" />
+                <LayoutItem Id="PaymentStatus" Index="3" RelativeSize="17.567567567567568" />
+                <LayoutItem Id="Amount" Index="4" RelativeSize="24.324324324324323" Removed="True" />
               </LayoutGroup>
-              <LayoutGroup Id="Payment_col2">
-                <LayoutItem Id="Amount" ShowCaption="" Index="2" ViewItem="Amount" IsNewNode="True" />
+              <LayoutGroup Id="Payment_col2" RelativeSize="50.265111346765643">
+                <LayoutItem Id="SomeonePlantedInMe" ViewItem="SomeonePlantedInMe" Index="1" RelativeSize="24.324324324324323" IsNewNode="True" />
+                <LayoutItem Id="SomeonePlantedInMeAmount" RelativeSize="17.567567567567568" Index="2" />
+                <LayoutItem Id="AmountToPay" ShowCaption="" Index="3" RelativeSize="16.216216216216218" ViewItem="AmountToPay" IsNewNode="True" />
+                <LayoutItem Id="Amount" Index="4" ShowCaption="" ViewItem="Amount" RelativeSize="24.324324324324323" IsNewNode="True" />
+                <LayoutItem Id="PaymentDate" RelativeSize="17.567567567567568" Index="4" />
+                <LayoutItem Id="PaymentMethod" Index="5" RelativeSize="24.324324324324323" />
               </LayoutGroup>
             </LayoutGroup>
-            <LayoutGroup Id="BaseEntity" IsCollapsibleGroup="True" IsGroupCollapsed="True" Caption="Auditoría">
-              <LayoutGroup Id="BaseEntity_col1">
+            <LayoutGroup Id="BaseEntity" IsCollapsibleGroup="True" IsGroupCollapsed="False" Caption="Auditoría" RelativeSize="73.521126760563376">
+              <LayoutGroup Id="BaseEntity_col1" RelativeSize="49.734888653234357">
+                <LayoutItem Id="CreatedBy" Index="0" RelativeSize="7.4688796680497926" />
+                <LayoutItem Id="CreatedOn" Index="1" RelativeSize="92.5311203319502" />
                 <LayoutItem Id="InternalId" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="BaseEntity_col2" RelativeSize="50.265111346765643">
+                <LayoutItem Id="UpdatedBy" RelativeSize="7.4688796680497926" />
+                <LayoutItem Id="UpdatedOn" RelativeSize="92.5311203319502" />
               </LayoutGroup>
             </LayoutGroup>
           </LayoutGroup>
@@ -613,6 +633,38 @@
     </DetailView>
     <ListView Id="Sector_ListView" AllowDelete="False" AllowNew="False" />
     <ListView Id="Sector_LookupListView" AllowNew="False" />
+    <DetailView Id="SomeonePlantedInMe_DetailView">
+      <Items>
+        <PropertyEditor Id="Payments" AllowEdit="False" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="BaseEntity" Removed="True" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="SomeonePlantedInMe_LookupListView" AllowNew="False" />
+    <ListView Id="SomeonePlantedInMe_Payments_ListView">
+      <Columns>
+        <ColumnInfo Id="Amount" Width="109" Index="-1" />
+        <ColumnInfo Id="PaymentMethod" Width="149" Index="-1" />
+        <ColumnInfo Id="PaymentStatus" Index="-1" />
+        <ColumnInfo Id="PaymentDate" Width="137" Index="0" SortIndex="0" SortOrder="Descending" />
+        <ColumnInfo Id="Operation" Index="1" Width="126" />
+        <ColumnInfo Id="Sector" PropertyName="Operation.Sector" Index="2" IsNewNode="True" />
+        <ColumnInfo Id="Customer" PropertyName="Operation.Customer" Index="3" Width="91" IsNewNode="True" />
+        <ColumnInfo Id="CuotaNumber" PropertyName="PaymentPlanDetail.Number" Caption="Número cuota" Index="4" Width="93" SortIndex="-1" SortOrder="None" IsNewNode="True" />
+        <ColumnInfo Id="PaymentPlanDetail" Width="197" Index="5" />
+        <ColumnInfo Id="SomeonePlantedInMeAmount" Width="290" Index="6">
+          <Summary>
+            <ColumnSummaryItem Id="@82806ebb-f5c1-47a6-b2d4-de8be9247215" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="UpdatedBy" Index="7" Width="127" />
+      </Columns>
+    </ListView>
     <DetailView Id="WithoutMasterPaymentPlanDetail_DetailView" CaptionColon=":" EnableCaptionColon="True" CaptionLocation="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" CaptionWordWrap="Default" EnableLayoutGroupImages="True" RequiredFieldMark="*" ClassName="ActivacionProfetica.Module.BusinessObjects.PaymentPlanDetail" IsNewNode="True">
       <Items IsNewNode="True">
         <PropertyEditor Id="Amount" PropertyName="Amount" IsNewNode="True" />

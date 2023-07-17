@@ -28,12 +28,24 @@ namespace ActivacionProfetica.Module.BusinessObjects
     {
         PaymentPlanDetail paymentPlanDetail;
         int amount;
+        int someonePlantedInMeAmount;
         DateTime? paymentDate;
         PaymentMethod paymentMethod;
         //PaymentStatus paymentStatus;
         Operation operation;
+        SomeonePlantedInMe someonePlantedInMe;
 
         bool isReverted = false;
+
+        [Caption("Alguién sembró en mi")]
+        [Association("SomeonePlantedInMe-Payments")]
+        [Persistent("SomeonePlantedInMe_Payments")]
+        [ModelDefault("AllowNew", "False")]
+        public SomeonePlantedInMe SomeonePlantedInMe
+        {
+            get => someonePlantedInMe;
+            set => SetPropertyValue(ref someonePlantedInMe, value);
+        }
 
         [Caption("¿Pago revertido?")]
         [VisibleInDetailView(true), VisibleInListView(false), VisibleInLookupListView(false)]
@@ -95,6 +107,35 @@ namespace ActivacionProfetica.Module.BusinessObjects
             get { return amount; }
             set => SetPropertyValue(ref amount, value);
         }
+
+        [ImmediatePostData]
+        [Caption("Monto (Alguién sembró en mi)")]
+        [VisibleInDetailView(true), VisibleInListView(true), VisibleInLookupListView(true)]
+        public int SomeonePlantedInMeAmount
+        {
+            get { return someonePlantedInMeAmount; }
+            set => SetPropertyValue(ref someonePlantedInMeAmount, value);
+        }
+
+        //[NonPersistent]
+        //[MemberDesignTimeVisibility(false)]
+        //[RuleFromBoolProperty("SomeonePlantedInMeAmountValidated",
+        //           DefaultContexts.Save,
+        //           "\"Monto (Alguién sembró en mi)\" no debe estar vacío o cero cuando selecciona Alguien sembró en mi",
+        //           UsedProperties = nameof(SomeonePlantedInMeAmount),
+        //           SkipNullOrEmptyValues = true)]
+        //public bool SomeonePlantedInMeAmountValidated => (SomeonePlantedInMe is null && someonePlantedInMeAmount == 0) || (SomeonePlantedInMe != null && someonePlantedInMeAmount > 0);
+
+
+        //[NonPersistent]
+        //[MemberDesignTimeVisibility(false)]
+        //[RuleFromBoolProperty("MaxSomeonePlantedInMeAmountValidated",
+        //                   DefaultContexts.Save,
+        //                   "\"Monto (Alguién sembró en mi)\" excede el monto disponible para bendecir, favor consulte con su supervisor",
+        //                   UsedProperties = nameof(SomeonePlantedInMeAmount),
+        //                   SkipNullOrEmptyValues = true)]
+        //public bool MaxSomeonePlantedInMeAmountValidated => (SomeonePlantedInMe != null && SomeonePlantedInMe.MontoPorBendecir > someonePlantedInMeAmount);
+
 
         [ModelDefault("DisplayFormat", "{0:g}")]
         [Caption("Fecha de pago")]
@@ -171,6 +212,52 @@ namespace ActivacionProfetica.Module.BusinessObjects
             }
         }
 
+        [NonPersistent]
+        [Caption("Monto QR")]
+        [VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
+        public int AmountQR
+        {
+            get
+            {
+                if (paymentMethod == PaymentMethod.QR)
+                {
+                    if (someonePlantedInMeAmount > 0)
+                        return Amount - someonePlantedInMeAmount;
+                    return Amount;
+                }
+                return 0;
+            }
+        }
+
+        [NonPersistent]
+        [Caption("Monto efectivo")]
+        [VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
+        public int AmountCash
+        {
+            get
+            {
+                if (paymentMethod == PaymentMethod.Cash)
+                {
+                    if (someonePlantedInMeAmount > 0)
+                        return Amount - someonePlantedInMeAmount;
+                    return Amount;
+                }
+                return 0;
+            }
+        }
+
+
+        [NonPersistent]
+        [Caption("Monto a pagar")]
+        [VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
+        public int AmountToPay
+        {
+            get
+            {
+                return Amount - SomeonePlantedInMeAmount;
+            }
+        }
+
 
         [NonPersistent]
         [Caption("PaymentMethodCaption")]
@@ -190,6 +277,34 @@ namespace ActivacionProfetica.Module.BusinessObjects
                     default:
                         return string.Empty;
                 }
+            }
+        }
+
+        [NonPersistent]
+        [Caption("PaymentDescription")]
+        [VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
+        public string PaymentDescription
+        {
+            get
+            {
+                if (PaymentPlanDetail.Description.Contains("sembró"))
+                {
+                    return PaymentPlanDetail.Description;
+                }
+
+                if (someonePlantedInMeAmount > 0)
+                {
+                    var amountPayed = Amount - someonePlantedInMeAmount;
+                    if (amountPayed == 0)
+                    {
+                        return $"Alguién sembró en mi Bs.{someonePlantedInMeAmount}";
+                    }
+                    else
+                    {
+                        return $"Alguién sembró en mi Bs.{someonePlantedInMeAmount} + mi siembra de Bs.{amountPayed}";
+                    }
+                }
+                return PaymentPlanDetail.Description;
             }
         }
 
