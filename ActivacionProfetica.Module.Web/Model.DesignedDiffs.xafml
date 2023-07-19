@@ -258,6 +258,7 @@
     </ListView>
     <ListView Id="Operation_Payments_ListView_Copy" ClassName="ActivacionProfetica.Module.BusinessObjects.Payment" DataAccessMode="Client" AllowEdit="True" AllowDelete="False" ShowDetailView="False" FreezeColumnIndices="True" DetailViewID="" ShowSelectionColumn="False" IsNewNode="True">
       <Columns IsNewNode="True">
+        <ColumnInfo Id="AmountToPay" PropertyName="AmountToPay" Index="-1" Width="123" IsNewNode="True" />
         <ColumnInfo Id="CreatedBy" PropertyName="CreatedBy" IsNewNode="True" />
         <ColumnInfo Id="CreatedOn" PropertyName="CreatedOn" IsNewNode="True" />
         <ColumnInfo Id="InternalId" PropertyName="InternalId" IsNewNode="True" />
@@ -266,22 +267,21 @@
         <ColumnInfo Id="PaymentMethodCaption" PropertyName="PaymentMethodCaption" IsNewNode="True" />
         <ColumnInfo Id="PaymentPlanDetail" PropertyName="PaymentPlanDetail" Width="107" IsNewNode="True" />
         <ColumnInfo Id="PaymentStatus" PropertyName="PaymentStatus" Width="78" IsNewNode="True" />
+        <ColumnInfo Id="SomeonePlantedInMe" PropertyName="SomeonePlantedInMe" Index="-1" Width="131" View="SomeonePlantedInMe_LookupListView" DataSourceCriteria="[Payments][].Sum([SomeonePlantedInMeAmount]) &lt; [AltarOffering] Or Not [Payments][]" IsNewNode="True" />
+        <ColumnInfo Id="SomeonePlantedInMeAmount" PropertyName="SomeonePlantedInMeAmount" Index="-1" Width="111" IsNewNode="True" />
         <ColumnInfo Id="UpdatedOn" PropertyName="UpdatedOn" AllowEdit="True" IsNewNode="True" />
         <ColumnInfo Id="UsuarioActualEsSupervisor" PropertyName="UsuarioActualEsSupervisor" IsNewNode="True" />
         <ColumnInfo Id="NumeroCuota" PropertyName="PaymentPlanDetail.Number" Caption="Número cuota" Index="0" SortIndex="0" SortOrder="Ascending" AllowEdit="False" Width="89" IsNewNode="True" />
         <ColumnInfo Id="Cuota" PropertyName="PaymentPlanDetail.Description" Caption="Cuota" Index="1" Width="282" AllowEdit="False" IsNewNode="True" />
         <ColumnInfo Id="LimitPaymentDate" PropertyName="PaymentPlanDetail.LimitDate" Index="2" Width="186" AllowEdit="False" IsNewNode="True" />
-        <ColumnInfo Id="Amount" PropertyName="Amount" Index="3" Width="95" AllowEdit="False" Caption="Subtotal" IsNewNode="True">
+        <ColumnInfo Id="Amount" PropertyName="Amount" Index="3" Width="95" AllowEdit="False" Caption="Monto" IsNewNode="True">
           <Summary IsNewNode="True">
             <ColumnSummaryItem Id="@b22451a8-a936-49ae-bb19-f5613a3967ab" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
-        <ColumnInfo Id="SomeonePlantedInMe" PropertyName="SomeonePlantedInMe" Index="4" Width="131" View="SomeonePlantedInMe_LookupListView" DataSourceCriteria="[Payments][].Sum([SomeonePlantedInMeAmount]) &lt; [AltarOffering] Or Not [Payments][]" IsNewNode="True" />
-        <ColumnInfo Id="SomeonePlantedInMeAmount" PropertyName="SomeonePlantedInMeAmount" Index="5" Width="111" IsNewNode="True" />
-        <ColumnInfo Id="AmountToPay" PropertyName="AmountToPay" Index="6" Width="123" IsNewNode="True" />
-        <ColumnInfo Id="PaymentMethod" PropertyName="PaymentMethod" Width="132" Index="7" IsNewNode="True" />
-        <ColumnInfo Id="PaymentDate" PropertyName="PaymentDate" Index="8" Width="151" IsNewNode="True" />
-        <ColumnInfo Id="UpdatedBy" PropertyName="UpdatedBy" Index="9" AllowEdit="True" Caption="Actualizado por" IsNewNode="True" />
+        <ColumnInfo Id="PaymentDate" PropertyName="PaymentDate" Index="4" Width="151" IsNewNode="True" />
+        <ColumnInfo Id="PaymentMethod" PropertyName="PaymentMethod" Width="132" Index="5" IsNewNode="True" />
+        <ColumnInfo Id="UpdatedBy" PropertyName="UpdatedBy" Index="6" AllowEdit="True" Caption="Actualizado por" IsNewNode="True" />
       </Columns>
       <Sorting IsNewNode="True">
         <SortProperty Id="@4d215478-f400-4617-ba3a-cd34faf4349c" PropertyName="PaymentPlanDetail.Number" IsNewNode="True" />
