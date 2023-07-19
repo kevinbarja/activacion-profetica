@@ -20,7 +20,7 @@ namespace ActivacionProfetica.Module.BusinessObjects
     [Appearance("DisablePayment", Enabled = false, TargetItems = "PaymentDate, UpdatedBy",
         Criteria = "UsuarioActualPuedeRevertirPagos = False",
         Context = "LookupListView;ListView")]
-    [Appearance("BlueOnCreation", TargetItems = "PaymentMethod", Context = "LookupListView;ListView", Criteria = "IsNewObject(This) Or [PaymentMethod] == ##Enum#ActivacionProfetica.Module.BusinessObjects.Enums.PaymentMethod,None#", FontStyle = FontStyle.Bold, BackColor = "163, 219, 247")]
+    //[Appearance("BlueOnCreation", TargetItems = "PaymentMethod", Context = "LookupListView;ListView", Criteria = "IsNewObject(This) Or [PaymentMethod] == ##Enum#ActivacionProfetica.Module.BusinessObjects.Enums.PaymentMethod,None#", FontStyle = FontStyle.Bold, BackColor = "163, 219, 247")]
     [Caption("Pagos")]
     [Persistent(Schema.Ap + nameof(Payment))]
 
