@@ -18,7 +18,7 @@ namespace ActivacionProfetica.Module.Web.Controllers
         public RevertPlacesController()
         {
             TargetViewId = Constants.View.OperationDetailView;
-            revertPlacesAction = new PopupWindowShowAction(this, "RevertirAsientos", PredefinedCategory.View);
+            revertPlacesAction = new PopupWindowShowAction(this, "LiberarAsientos", PredefinedCategory.View);
             revertPlacesAction.ImageName = "Undo";
             revertPlacesAction.CustomizePopupWindowParams += RevertPlacesAction_CustomizePopupWindowParams;
         }
@@ -37,10 +37,10 @@ namespace ActivacionProfetica.Module.Web.Controllers
             (NonPersistentObjectSpace)Application.CreateObjectSpace(typeof(ConfirmationWindowParameters));
             ConfirmationWindowParameters parameters =
             objectSpace.CreateObject<ConfirmationWindowParameters>();
-            parameters.Mensaje = "¿Está seguro que desea revertir los asientos?. Esta acción no modificará los pagos realizados. Sólo cambiará el estado de los asientos a DISPONIBLE.";
+            parameters.Mensaje = "¿Está seguro que desea liberar los asientos?. Esta acción no modificará los pagos realizados. Sólo cambiará el estado de los asientos a DISPONIBLE.";
             objectSpace.CommitChanges();
             DetailView confirmationDetailView = Application.CreateDetailView(objectSpace, parameters);
-            confirmationDetailView.Caption = "Confirmar reversión de asientos";
+            confirmationDetailView.Caption = "Confirmar liberación de asientos";
             confirmationDetailView.ViewEditMode = DevExpress.ExpressApp.Editors.ViewEditMode.View;
             e.View = confirmationDetailView;
             e.DialogController.Accepting += DialogController_Accepting;
@@ -69,7 +69,7 @@ namespace ActivacionProfetica.Module.Web.Controllers
             MessageOptions parameters = new MessageOptions
             {
                 Duration = 3000,
-                Message = "Asientos revertidos correctamente",
+                Message = "Asientos liberados correctamente",
                 Type = InformationType.Success
             };
             parameters.Web.Position = InformationPosition.Top;

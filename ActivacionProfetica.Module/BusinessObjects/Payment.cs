@@ -36,7 +36,7 @@ namespace ActivacionProfetica.Module.BusinessObjects
         bool placesIsReverted = false;
         bool isReverted = false;
 
-        [Caption("¿Pago revertido?")]
+        [Caption("¿Asiento fue liberado?")]
         [VisibleInDetailView(true), VisibleInListView(false), VisibleInLookupListView(false)]
         public bool IsReverted
         {
