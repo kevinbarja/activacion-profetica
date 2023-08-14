@@ -28,7 +28,7 @@ namespace ActivacionProfetica.Module.Web.Controllers
                 //Specify the Action's button caption.
                 Caption = "Enviar por whatsapp",
                 //Specify the confirmation message that pops up when a user executes an Action.
-                //ConfirmationMessage = "Are you sure you want to clear the Tasks list?",
+                //Mensaje = "Are you sure you want to clear the Tasks list?",
                 //Specify the icon of the Action's button in the interface.
                 //ImageName = "Action_Clear"
             };

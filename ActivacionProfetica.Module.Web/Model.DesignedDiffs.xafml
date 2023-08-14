@@ -457,6 +457,7 @@
     </ListView>
     <ListView Id="Place_SimpleListView" EditorTypeName="DevExpress.ExpressApp.Web.Editors.ASPx.ASPxGridListEditor" Criteria="[IsLeaf] = True" Caption="Asientos" AllowDelete="False" AllowNew="False" DataAccessMode="Client" PageSize="1000">
       <Columns>
+        <ColumnInfo Id="@d6114395-367a-498c-8b27-26c4682b919e" PropertyName="PlacesIsReverted" Caption="¿Asiento fue revertido?" Index="-1" IsNewNode="True" />
         <ColumnInfo Id="UpdatedBy" Index="-1" />
         <ColumnInfo Id="Customer" PropertyName="Customer" Index="2" IsNewNode="True" />
         <ColumnInfo Id="SubSector" Index="3" />
@@ -558,6 +559,7 @@
     </ListView>
     <ListView Id="ReportPayment_ListView" ClassName="ActivacionProfetica.Module.BusinessObjects.Payment" ShowDetailView="True" AllowDelete="False" AllowEdit="False" Caption="Cobros" IsNewNode="True">
       <Columns IsNewNode="True">
+        <ColumnInfo Id="@0bc39ea4-b3c3-46b3-8df6-a7d87fa63fa2" PropertyName="PlacesIsReverted" Index="-1" IsNewNode="True" />
         <ColumnInfo Id="Code" PropertyName="InternalId" Index="-1" Width="83" SortIndex="0" SortOrder="Descending" IsNewNode="True" />
         <ColumnInfo Id="CreatedBy" PropertyName="CreatedBy" Index="-1" IsNewNode="True" />
         <ColumnInfo Id="CreatedOn" PropertyName="CreatedOn" Index="-1" IsNewNode="True" />

@@ -30,10 +30,19 @@ namespace ActivacionProfetica.Module.BusinessObjects
         private string rowName;
         private bool isLeaf;
         private PlaceStatus status;
+        bool placesIsReverted = false;
 
         public override void AfterConstruction()
         {
 
+        }
+
+        [Caption("¿Asiento es revertido?")]
+        [VisibleInDetailView(false), VisibleInListView(false), VisibleInLookupListView(false)]
+        public bool PlacesIsReverted
+        {
+            get { return placesIsReverted; }
+            set => SetPropertyValue(ref placesIsReverted, value);
         }
 
         [Caption("Nombre")]

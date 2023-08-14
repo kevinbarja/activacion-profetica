@@ -33,6 +33,7 @@ namespace ActivacionProfetica.Module.BusinessObjects
         //PaymentStatus paymentStatus;
         Operation operation;
 
+        bool placesIsReverted = false;
         bool isReverted = false;
 
         [Caption("¿Pago revertido?")]
@@ -41,6 +42,14 @@ namespace ActivacionProfetica.Module.BusinessObjects
         {
             get { return isReverted; }
             set => SetPropertyValue(ref isReverted, value);
+        }
+
+        [Caption("¿Asiento es revertido?")]
+        [VisibleInDetailView(false), VisibleInListView(true), VisibleInLookupListView(false)]
+        public bool PlacesIsReverted
+        {
+            get { return placesIsReverted; }
+            set => SetPropertyValue(ref placesIsReverted, value);
         }
 
         [VisibleInListView(false), VisibleInLookupListView(false), VisibleInDetailView(false)]
@@ -69,7 +78,7 @@ namespace ActivacionProfetica.Module.BusinessObjects
         {
             get
             {
-                if (PaymentPlanDetail.LimitDate != null && PaymentPlanDetail.LimitDate < DateTime.Now && PaymentMethod == PaymentMethod.None)
+                if (PaymentPlanDetail?.LimitDate != null && PaymentPlanDetail?.LimitDate < DateTime.Now && PaymentMethod == PaymentMethod.None)
                 {
                     return PaymentStatus.InArrears;
                 }
