@@ -54,14 +54,14 @@ namespace ActivacionProfetica.Module.Web.Controllers
                 deleteController.DeleteAction.Active.SetItemValue(deactivateReason, false);
             }
 
-            refreshController = Frame.GetController<RefreshController>();
-            if (refreshController != null)
-            {
-                refreshController.RefreshAction.Active.SetItemValue(deactivateReason, false);
-            }
+            //refreshController = Frame.GetController<RefreshController>();
+            //if (refreshController != null)
+            //{
+            //    refreshController.RefreshAction.Active.SetItemValue(deactivateReason, false);
+            //}
 
             navController = Frame.GetController<WebRecordsNavigationController>();
-            if (refreshController != null)
+            if (navController != null)
             {
                 navController.NextObjectAction.Active.SetItemValue(deactivateReason, false);
                 navController.PreviousObjectAction.Active.SetItemValue(deactivateReason, false);
@@ -93,11 +93,11 @@ namespace ActivacionProfetica.Module.Web.Controllers
                 deleteController.DeleteAction.Active.RemoveItem(deactivateReason);
                 deleteController = null;
             }
-            if (refreshController != null)
-            {
-                refreshController.RefreshAction.Active.RemoveItem(deactivateReason);
-                refreshController = null;
-            }
+            //if (refreshController != null)
+            //{
+            //    refreshController.RefreshAction.Active.RemoveItem(deactivateReason);
+            //    refreshController = null;
+            //}
             if (navController != null)
             {
                 navController.NextObjectAction.Active.RemoveItem(deactivateReason);

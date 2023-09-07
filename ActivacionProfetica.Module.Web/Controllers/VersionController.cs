@@ -13,7 +13,7 @@ namespace ActivacionProfetica.Module.Web.Controllers
 
         private string GetEnviroment()
         {
-            return "Versión 5 del 14/08/2023";
+            return "Versión 1 del 8/09/2023";
             /*
             string enviroment = WebConfigurationManager.AppSettings["Enviroment"];
             string defaultEnviroment = "Ambiente no definido";

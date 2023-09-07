@@ -1,4 +1,5 @@
-﻿using DevExpress.ExpressApp;
+﻿using ActivacionProfetica.Module.BusinessObjects;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.SystemModule;
 using System.ComponentModel;
 
@@ -27,14 +28,29 @@ namespace ActivacionProfetica.Module.Web.Controllers
 
         private void ValidarGuardar(object sender, CancelEventArgs e)
         {
-            MessageOptions parameters = new MessageOptions
+            if (View.CurrentObject is Operation && ((Operation)View.CurrentObject).PlaceStatus.InternalId == PlaceStatus.AvailablePlaceStatus)
             {
-                Duration = 3000,
-                Message = "Guardado correctamente",
-                Type = InformationType.Success
-            };
-            parameters.Web.Position = InformationPosition.Top;
-            Application.ShowViewStrategy.ShowMessage(parameters);
+                MessageOptions parameters2 = new MessageOptions
+                {
+                    Duration = 5000,
+                    Message = "No puede guardar la operación sin previamente indicar si es Reserva, Venta, etc. Presione los botones inferiores.",
+                    Type = InformationType.Warning
+                };
+                parameters2.Web.Position = InformationPosition.Top;
+                Application.ShowViewStrategy.ShowMessage(parameters2);
+                e.Cancel = true;
+            }
+            else
+            {
+                MessageOptions parameters = new MessageOptions
+                {
+                    Duration = 3000,
+                    Message = "Guardado correctamente",
+                    Type = InformationType.Success
+                };
+                parameters.Web.Position = InformationPosition.Top;
+                Application.ShowViewStrategy.ShowMessage(parameters);
+            }
         }
     }
 }

@@ -104,8 +104,8 @@ namespace ActivacionProfetica.Module.Web.Controllers
                         else
                         {
                             paymentAux.PaymentMethod = openPayment.PaymentMethod;
-                            creditAux = paymentAux.Amount - creditAux;
-                            localFunction(creditAux, paymentsCountAux, ref paymentsAux);
+                            creditAux = creditAux - paymentAux.Amount;
+                            //localFunction(creditAux, paymentsCountAux, ref paymentsAux);
                         }
                     }
                 }

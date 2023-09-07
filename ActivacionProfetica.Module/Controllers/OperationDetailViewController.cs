@@ -16,7 +16,7 @@ namespace ActivacionProfetica.Module.Controllers
         private void ShowSaveButton(bool disable)
         {
             ModificationsController controlador = Frame.GetController<ModificationsController>();
-            controlador.SaveAction.Active.SetItemValue("OnlySaveByStateMachine", disable);
+            //controlador.SaveAction.Active.SetItemValue("OnlySaveByStateMachine", disable);
             controlador.SaveAndCloseAction.Active.SetItemValue("OnlySaveByStateMachine", disable);
             controlador.SaveAndNewAction.Active.SetItemValue("OnlySaveByStateMachine", disable);
         }
