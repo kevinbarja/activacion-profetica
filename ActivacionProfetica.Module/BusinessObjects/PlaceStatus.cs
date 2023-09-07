@@ -9,10 +9,10 @@ using Caption = System.ComponentModel.DisplayNameAttribute;
 
 namespace ActivacionProfetica.Module.BusinessObjects
 {
-    [Caption("Estados de los asientos")]
+    [Caption("Estados de los cupos")]
     [Appearance("WhiteText", TargetItems = nameof(InternalId), Context = "ListView", FontStyle = FontStyle.Bold, FontColor = "255,255,255")]
     [DefaultProperty(nameof(SingularName))]
-    [Persistent(Schema.Ap + nameof(PlaceStatus))]
+    [Persistent(Schema.Rjv + nameof(PlaceStatus))]
     public class PlaceStatus : BaseEntity//, IAPLookupView
     {
         public static int AvailablePlaceStatus = 1;

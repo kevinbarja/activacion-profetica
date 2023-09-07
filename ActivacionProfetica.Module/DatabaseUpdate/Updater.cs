@@ -10,7 +10,7 @@ namespace ActivacionProfetica.Module.DatabaseUpdate
     // For more typical usage scenarios, be sure to check out https://docs.devexpress.com/eXpressAppFramework/DevExpress.ExpressApp.Updating.ModuleUpdater
     public class Updater : ModuleUpdater
     {
-        private const string CreateSchemeScript = "IF NOT EXISTS ( SELECT  * FROM sys.schemas WHERE   Name = N'ap' ) EXEC('CREATE SCHEMA [ap] AUTHORIZATION [dbo]');";
+        private const string CreateSchemeScript = "IF NOT EXISTS ( SELECT  * FROM sys.schemas WHERE   Name = N'rjv' ) EXEC('CREATE SCHEMA [rjv] AUTHORIZATION [dbo]');";
 
         public Updater(IObjectSpace objectSpace, Version currentDBVersion) :
             base(objectSpace, currentDBVersion)

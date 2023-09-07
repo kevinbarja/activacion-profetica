@@ -12,7 +12,7 @@ namespace ActivacionProfetica.Module.BusinessObjects
 {
     [Caption("Planes de financiamiento")]
     [DefaultProperty(nameof(Description))]
-    [Persistent(Schema.Ap + nameof(PaymentPlan))]
+    [Persistent(Schema.Rjv + nameof(PaymentPlan))]
     public class PaymentPlan : BaseEntity
     {
         private string description;
@@ -49,7 +49,7 @@ namespace ActivacionProfetica.Module.BusinessObjects
             set => SetPropertyValue(ref limitDate, value);
         }
 
-        [Caption("Cuotas")]
+        [Caption("Semillas")]
         [Association("PaymentPlan-PaymentPlanDetails"), Aggregated]
         public XPCollection<PaymentPlanDetail> PaymentPlanDetails => GetCollection<PaymentPlanDetail>();
 

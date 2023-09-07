@@ -3,7 +3,7 @@ using System.Web.UI;
 
 namespace ActivacionProfetica.Module.Web.Controllers
 {
-    public class CheckboxGroupRowContentTemplate : ITemplate
+    public class MyCheckboxGroupRowContentTemplate : ITemplate
     {
         /// <summary>
         /// Grid id for usng in inner scripts
@@ -14,7 +14,7 @@ namespace ActivacionProfetica.Module.Web.Controllers
         /// ctor
         /// </summary>
         /// <param name="gridId">Grid id for usng in inner scripts</param>
-        public CheckboxGroupRowContentTemplate(string gridId)
+        public MyCheckboxGroupRowContentTemplate(string gridId)
         {
             this.gridId = gridId;
         }

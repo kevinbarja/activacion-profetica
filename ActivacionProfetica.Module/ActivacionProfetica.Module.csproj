@@ -145,6 +145,7 @@
     <Compile Include="BusinessObjects\Enums\Gender.cs" />
     <Compile Include="BusinessObjects\Enums\PaymentMethod.cs" />
     <Compile Include="BusinessObjects\Enums\PaymentStatus.cs" />
+    <Compile Include="BusinessObjects\OpenPaymentWindowsParameters.cs" />
     <Compile Include="BusinessObjects\PaymentPlan.cs" />
     <Compile Include="BusinessObjects\PaymentPlanDetail.cs" />
     <Compile Include="BusinessObjects\Payment.cs" />

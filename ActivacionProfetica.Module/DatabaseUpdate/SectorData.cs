@@ -15,6 +15,40 @@ namespace ActivacionProfetica.Module.DatabaseUpdate
         {
             bool isEmpty = !(from ps in Updater.Session.Query<Sector>()
                              select ps).Any();
+
+            if (isEmpty)
+            {
+                var pastoresSector = Updater.ObjectSpace.CreateObject<Sector>();
+                pastoresSector.InternalId = Sector.PastoresSectorId;
+                pastoresSector.Name = Sector.PastoresSectorName;
+                pastoresSector.Amount = 500;
+
+                var maestrosSector = Updater.ObjectSpace.CreateObject<Sector>();
+                maestrosSector.InternalId = Sector.MaestrosSectorId;
+                maestrosSector.Name = Sector.MaestrosSectorName;
+                maestrosSector.Amount = 500;
+
+                var apostolesSector = Updater.ObjectSpace.CreateObject<Sector>();
+                apostolesSector.InternalId = Sector.ApostolesSectorId;
+                apostolesSector.Name = Sector.ApostolesSectorName;
+                apostolesSector.Amount = 500;
+
+                var profetasSector = Updater.ObjectSpace.CreateObject<Sector>();
+                profetasSector.InternalId = Sector.ProfetasSectorId;
+                profetasSector.Name = Sector.ProfetasSectorName;
+                profetasSector.Amount = 500;
+
+                var evangelistasSector = Updater.ObjectSpace.CreateObject<Sector>();
+                evangelistasSector.InternalId = Sector.EvangelistasSectorId;
+                evangelistasSector.Name = Sector.EvangelistasSectorName;
+                evangelistasSector.Amount = 500;
+            }
+        }
+
+        public void Execute2()
+        {
+            bool isEmpty = !(from ps in Updater.Session.Query<Sector>()
+                             select ps).Any();
             if (isEmpty)
             {
                 var lionSector = Updater.ObjectSpace.CreateObject<Sector>();

@@ -55,13 +55,14 @@ namespace ActivacionProfetica.Module.Controllers
                             foreach (var paymentPlanDetail in operation.PaymentPlan.PaymentPlanDetails)
                             {
                                 var payment = new Payment(((XPObjectSpace)ObjectSpace).Session);
-                                payment.InternalId = paymentPlanDetail.Number * -1;
+                                payment.InternalId = (int)(paymentPlanDetail.Number * -1);
                                 payment.PaymentPlanDetail = paymentPlanDetail;
                                 int factor = ((e.NewValue is null && e.Object is Place) || e.NewValue is PaymentPlan) ? 0 : 1;
 
                                 int placeQuantity = (operation.Places.Count + factor);
                                 int amount = paymentPlanDetail.Amount * placeQuantity;
                                 payment.Amount = amount;
+                                payment.Description = paymentPlanDetail.Description;
                                 if (paymentPlanDetail.Description.Contains("Alguien"))
                                 {
                                     payment.PaymentDate = DateTime.Now;

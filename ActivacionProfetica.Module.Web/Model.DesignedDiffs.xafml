@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Application>
+<Application Title="RAPJUVE 2024" AboutInfoString="RAPJUVE 2024&lt;br&gt;{0:Version}&lt;br&gt;{0:Copyright}&lt;br&gt;{0:Description}">
   <ActionDesign>
     <Actions>
       <Action Id="Exportar" IsPostBackRequired="True" />
@@ -16,7 +16,7 @@
   </ActionDesign>
   <NavigationItems>
     <Items>
-      <Item Id="ActivacionProfetica" Index="1">
+      <Item Id="ActivacionProfetica" Index="1" Caption="Operaciones">
         <Items>
           <Item Id="Customers" Index="0" Removed="True" />
           <Item Id="NewOperation" Caption="Nueva operación" ViewId="Operation_DetailView" Index="0" IsNewNode="True" />
@@ -33,13 +33,13 @@
         <Items IsNewNode="True">
           <Item Id="@b6ad8ea1-91ed-4164-8e8d-783b547f9d71" ViewId="Sector_ListView" Index="0" IsNewNode="True" />
           <Item Id="@ffcd03d8-c3aa-4793-88b8-2e2cf142e9cb" ViewId="PaymentPlan_ListView" Index="1" IsNewNode="True" />
-          <Item Id="@86f69f98-cc7a-493d-8573-13c75285a74b" ViewId="PlaceStatus_ListView" Index="2" IsNewNode="True" />
+          <Item Id="@86f69f98-cc7a-493d-8573-13c75285a74b" ViewId="PlaceStatus_ListView" Index="2" Caption="Estados de los cupos" IsNewNode="True" />
           <Item Id="XpoStateMachine_ListView" ViewId="XpoStateMachine_ListView" ObjectKey="" Caption="Transiciones de estados" Index="3" IsNewNode="True" />
         </Items>
       </Item>
       <Item Id="Reportes" Caption="Reportes" Index="3" IsNewNode="True">
         <Items IsNewNode="True">
-          <Item Id="Places" Caption="Asientos" Index="0" ViewId="Place_SimpleListView" IsNewNode="True" />
+          <Item Id="Places" Caption="Cupos" Index="0" ViewId="Place_SimpleListView" IsNewNode="True" />
           <Item Id="@d84b9f6a-421e-42f7-bd84-1482be7620f9" Caption="Cobros" Index="1" ViewId="ReportPayment_ListView" IsNewNode="True" />
           <Item Id="Customers" Index="2" Caption="Personas" ViewId="Customer_ListView" ImageName="BO_Department" IsNewNode="True" />
           <Item Id="Operations_Copy_Copy" Caption="Operaciones" ViewId="Operation_ListView" Index="3" IsNewNode="True" />
@@ -128,6 +128,7 @@
         <Filter Id="@5d746519-dda9-4aa7-bbdb-2b5067c9f43a" Caption="Mis cobros del día" Criteria="IsOutlookIntervalToday([PaymentDate]) And [PaymentMethod] &lt;&gt; ##Enum#ActivacionProfetica.Module.BusinessObjects.Enums.PaymentMethod,None# And [IsReverted] = False" IsNewNode="True" />
         <Filter Id="@5d746519-dda9-4aa7-bbdb-2b5067c9f43a_Copy" Caption="Mis cobros en QR del día" Criteria="IsOutlookIntervalToday([PaymentDate]) And [PaymentMethod] = ##Enum#ActivacionProfetica.Module.BusinessObjects.Enums.PaymentMethod,QR# And [IsReverted] = False" IsNewNode="True" />
         <Filter Id="@5d746519-dda9-4aa7-bbdb-2b5067c9f43a_Copy_Copy" Caption="Mis cobros en efectivo del día" Criteria="IsOutlookIntervalToday([PaymentDate]) And [PaymentMethod] = ##Enum#ActivacionProfetica.Module.BusinessObjects.Enums.PaymentMethod,Cash# And [IsReverted] = False" IsNewNode="True" />
+        <Filter Id="@5d746519-dda9-4aa7-bbdb-2b5067c9f43a_Copy_Copy_Copy" Caption="Mis cobros en ofrenda del día" Criteria="IsOutlookIntervalToday([PaymentDate]) And [PaymentMethod] = ##Enum#ActivacionProfetica.Module.BusinessObjects.Enums.PaymentMethod,Ofrenda# And [IsReverted] = False" IsNewNode="True" />
         <Filter Id="@d14f9810-05c8-4570-ba89-126b983a8362" Caption="Todos mis cobros" Criteria="[PaymentMethod] &lt;&gt; ##Enum#ActivacionProfetica.Module.BusinessObjects.Enums.PaymentMethod,None#" IsNewNode="True" />
       </Filters>
     </ListView>
@@ -261,55 +262,55 @@
         <ColumnInfo Id="CreatedOn" PropertyName="CreatedOn" IsNewNode="True" />
         <ColumnInfo Id="InternalId" PropertyName="InternalId" IsNewNode="True" />
         <ColumnInfo Id="IsReverted" PropertyName="IsReverted" IsNewNode="True" />
+        <ColumnInfo Id="NumeroCuota" PropertyName="PaymentPlanDetail.Number" Caption="Número cuota" Index="-1" SortIndex="-1" SortOrder="None" AllowEdit="False" Width="138" IsNewNode="True" />
         <ColumnInfo Id="Operation" PropertyName="Operation" IsNewNode="True" />
         <ColumnInfo Id="PaymentMethodCaption" PropertyName="PaymentMethodCaption" IsNewNode="True" />
         <ColumnInfo Id="PaymentPlanDetail" PropertyName="PaymentPlanDetail" Width="107" IsNewNode="True" />
         <ColumnInfo Id="PaymentStatus" PropertyName="PaymentStatus" Width="78" IsNewNode="True" />
         <ColumnInfo Id="UpdatedOn" PropertyName="UpdatedOn" AllowEdit="True" IsNewNode="True" />
         <ColumnInfo Id="UsuarioActualEsSupervisor" PropertyName="UsuarioActualEsSupervisor" IsNewNode="True" />
-        <ColumnInfo Id="NumeroCuota" PropertyName="PaymentPlanDetail.Number" Caption="Número cuota" Index="0" SortIndex="0" SortOrder="Ascending" AllowEdit="False" Width="138" IsNewNode="True" />
-        <ColumnInfo Id="Cuota" PropertyName="PaymentPlanDetail.Description" Caption="Cuota" Index="1" Width="282" AllowEdit="False" IsNewNode="True" />
-        <ColumnInfo Id="LimitPaymentDate" PropertyName="PaymentPlanDetail.LimitDate" Index="2" Width="186" AllowEdit="False" IsNewNode="True" />
-        <ColumnInfo Id="Amount" PropertyName="Amount" Index="3" Width="95" AllowEdit="False" IsNewNode="True">
+        <ColumnInfo Id="Cuota" PropertyName="PaymentPlanDetail.Description" Caption="Semilla" Index="0" Width="282" AllowEdit="False" SortIndex="0" SortOrder="Ascending" IsNewNode="True" />
+        <ColumnInfo Id="LimitPaymentDate" PropertyName="PaymentPlanDetail.LimitDate" Index="1" Width="186" AllowEdit="False" IsNewNode="True" />
+        <ColumnInfo Id="Amount" PropertyName="Amount" Index="2" Width="95" AllowEdit="False" IsNewNode="True">
           <Summary IsNewNode="True">
             <ColumnSummaryItem Id="@b22451a8-a936-49ae-bb19-f5613a3967ab" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
-        <ColumnInfo Id="PaymentDate" PropertyName="PaymentDate" Index="4" Width="151" IsNewNode="True" />
-        <ColumnInfo Id="PaymentMethod" PropertyName="PaymentMethod" Width="132" Index="5" IsNewNode="True" />
-        <ColumnInfo Id="UpdatedBy" PropertyName="UpdatedBy" Index="6" AllowEdit="True" Caption="Actualizado por" IsNewNode="True" />
+        <ColumnInfo Id="PaymentDate" PropertyName="PaymentDate" Index="3" Width="151" IsNewNode="True" />
+        <ColumnInfo Id="PaymentMethod" PropertyName="PaymentMethod" Width="132" Index="4" IsNewNode="True" />
+        <ColumnInfo Id="UpdatedBy" PropertyName="UpdatedBy" Index="5" AllowEdit="True" Caption="Actualizado por" IsNewNode="True" />
       </Columns>
       <Sorting IsNewNode="True">
         <SortProperty Id="@4d215478-f400-4617-ba3a-cd34faf4349c" PropertyName="PaymentPlanDetail.Number" IsNewNode="True" />
       </Sorting>
     </ListView>
-    <ListView Id="Operation_Places_ListView" EditorTypeName="DevExpress.ExpressApp.Web.Editors.ASPx.ASPxGridListEditor" IsGroupPanelVisible="False" ShowDetailView="False" AllowDelete="False" AllowUnlink="True">
+    <ListView Id="Operation_Places_ListView" EditorTypeName="DevExpress.ExpressApp.Web.Editors.ASPx.ASPxGridListEditor" IsGroupPanelVisible="False" ShowDetailView="False" AllowDelete="False" AllowUnlink="True" AutoExpandAllGroups="True">
       <Columns>
         <ColumnInfo Id="Customer" Width="136" Index="-1" />
         <ColumnInfo Id="InternalId" Index="-1" SortIndex="-1" SortOrder="None" Width="147" Caption="." />
         <ColumnInfo Id="LetterName" Index="-1" SortIndex="0" SortOrder="Ascending" />
         <ColumnInfo Id="RowName" Index="-1" />
-        <ColumnInfo Id="Sector" SortOrder="None" GroupIndex="-1" Index="-1" />
-        <ColumnInfo Id="Path" SortIndex="-1" SortOrder="None" Width="290" />
-        <ColumnInfo Id="Status" Index="1" Width="132" />
-        <ColumnInfo Id="Amount" PropertyName="Sector.Amount" Width="103" Index="2" IsNewNode="True">
+        <ColumnInfo Id="Sector" SortOrder="Ascending" GroupIndex="0" Index="0" />
+        <ColumnInfo Id="Path" SortIndex="-1" SortOrder="None" Width="290" Index="1" />
+        <ColumnInfo Id="Status" Index="2" Width="132" />
+        <ColumnInfo Id="Amount" PropertyName="Sector.Amount" Width="103" Index="3" IsNewNode="True">
           <Summary IsNewNode="True">
             <ColumnSummaryItem Id="Total" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
       </Columns>
     </ListView>
-    <ListView Id="Operation_Places_LookupListView" Caption="Asientos" EditorTypeName="DevExpress.ExpressApp.Web.Editors.ASPx.ASPxGridListEditor" IsGroupPanelVisible="True" Criteria="" FreezeColumnIndices="True" PageSize="200" ShowDetailView="False">
+    <ListView Id="Operation_Places_LookupListView" Caption="Asientos" EditorTypeName="DevExpress.ExpressApp.Web.Editors.ASPx.ASPxGridListEditor" IsGroupPanelVisible="True" Criteria="" FreezeColumnIndices="True" PageSize="200" ShowDetailView="False" AutoExpandAllGroups="True" DataAccessMode="Server">
       <Columns>
         <ColumnInfo Id="@08517a3f-4a92-4432-8b83-c0de536ee68f" Removed="True" />
+        <ColumnInfo Id="Fila" PropertyName="RowName" SortOrder="None" GroupIndex="-1" Index="-1" IsNewNode="True" />
         <ColumnInfo Id="Name" Removed="True" />
-        <ColumnInfo Id="Fila" PropertyName="RowName" SortOrder="Ascending" GroupIndex="2" Index="0" IsNewNode="True" />
-        <ColumnInfo Id="Order" PropertyName="InternalId" Caption="." Index="1" SortIndex="-1" SortOrder="None" Width="66" IsNewNode="True" />
-        <ColumnInfo Id="Path" PropertyName="Path" Index="2" Width="397" Caption="Asiento" IsNewNode="True" />
-        <ColumnInfo Id="Status" PropertyName="Status" Index="3" IsNewNode="True" />
-        <ColumnInfo Id="AsignadoA" PropertyName="Customer" Index="4" SortIndex="0" SortOrder="Ascending" Width="267" IsNewNode="True" />
-        <ColumnInfo Id="SubSector" PropertyName="LetterName" Caption="Sub-sector" Index="5" SortOrder="Ascending" GroupIndex="1" IsNewNode="True" />
-        <ColumnInfo Id="Sector" PropertyName="Sector" SortOrder="Ascending" GroupIndex="0" Index="6" IsNewNode="True" />
+        <ColumnInfo Id="SubSector" PropertyName="LetterName" Caption="Sub-sector" Index="-1" SortOrder="None" GroupIndex="-1" IsNewNode="True" />
+        <ColumnInfo Id="Order" PropertyName="InternalId" Caption="." Index="0" SortIndex="-1" SortOrder="None" Width="66" IsNewNode="True" />
+        <ColumnInfo Id="Path" PropertyName="Path" Index="1" Width="397" Caption="Asiento" IsNewNode="True" />
+        <ColumnInfo Id="Status" PropertyName="Status" Index="2" IsNewNode="True" />
+        <ColumnInfo Id="AsignadoA" PropertyName="Customer" Index="3" SortIndex="0" SortOrder="Ascending" Width="267" IsNewNode="True" />
+        <ColumnInfo Id="Sector" PropertyName="Sector" SortOrder="Ascending" GroupIndex="0" Index="4" IsNewNode="True" />
       </Columns>
       <Sorting>
         <SortProperty Id="OrderPlacesByIdAsc" Removed="True" />
@@ -380,7 +381,7 @@
     </DetailView>
     <ListView Id="PaymentPlan_ListView" Caption="Planes de financiamiento" AutoExpandAllGroups="True">
       <Columns>
-        <ColumnInfo Id="Sector" Width="157" />
+        <ColumnInfo Id="Sector" Width="157" SortOrder="Ascending" GroupIndex="0" />
         <ColumnInfo Id="LimitDate" Width="206" />
       </Columns>
     </ListView>
@@ -455,19 +456,19 @@
         <ColumnInfo Id="InternalId" Index="5" />
       </Columns>
     </ListView>
-    <ListView Id="Place_SimpleListView" EditorTypeName="DevExpress.ExpressApp.Web.Editors.ASPx.ASPxGridListEditor" Criteria="[IsLeaf] = True" Caption="Asientos" AllowDelete="False" AllowNew="False" DataAccessMode="Client" PageSize="1000">
+    <ListView Id="Place_SimpleListView" EditorTypeName="DevExpress.ExpressApp.Web.Editors.ASPx.ASPxGridListEditor" Criteria="[IsLeaf] = True" Caption="Cupos" AllowDelete="False" AllowNew="False" DataAccessMode="Client" PageSize="1000">
       <Columns>
         <ColumnInfo Id="@d6114395-367a-498c-8b27-26c4682b919e" PropertyName="PlacesIsReverted" Caption="¿Asiento fue liberado?" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="RowName" Index="-1" GroupIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="SubSector" Index="-1" SortOrder="None" GroupIndex="-1" />
         <ColumnInfo Id="UpdatedBy" Index="-1" />
         <ColumnInfo Id="Customer" PropertyName="Customer" Index="2" IsNewNode="True" />
-        <ColumnInfo Id="SubSector" Index="3" />
-        <ColumnInfo Id="UpdatedOn" Index="4" Width="141" />
-        <ColumnInfo Id="@64a81aa9-9369-4e53-8e61-b837fcbd694b" Index="5" />
-        <ColumnInfo Id="RowName" Index="6" />
-        <ColumnInfo Id="Sector" Index="7" />
+        <ColumnInfo Id="UpdatedOn" Index="3" Width="141" />
+        <ColumnInfo Id="@64a81aa9-9369-4e53-8e61-b837fcbd694b" Index="4" Width="102" SortOrder="Ascending" />
+        <ColumnInfo Id="Sector" Index="5" />
       </Columns>
     </ListView>
-    <DetailView Id="PlaceStatus_DetailView">
+    <DetailView Id="PlaceStatus_DetailView" Caption="Estados de los cupos">
       <Layout>
         <LayoutGroup Id="Main">
           <LayoutGroup Id="SimpleEditors">
@@ -484,7 +485,7 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <ListView Id="PlaceStatus_ListView">
+    <ListView Id="PlaceStatus_ListView" Caption="Estados de los cupos">
       <Columns>
         <ColumnInfo Id="Description" Width="117" Index="-1" />
         <ColumnInfo Id="PluralName" Index="-1" />
@@ -631,7 +632,7 @@
       <Layout IsNewNode="True">
         <LayoutGroup Id="Main" Index="0" ShowCaption="False" IsNewNode="True">
           <LayoutGroup Id="SimpleEditors" Index="0" ShowCaption="False" IsNewNode="True">
-            <LayoutGroup Id="PaymentPlanDetail" Index="0" ShowCaption="True" IsCollapsibleGroup="True" Caption="Información de la cuota" IsNewNode="True">
+            <LayoutGroup Id="PaymentPlanDetail" Index="0" ShowCaption="True" IsCollapsibleGroup="True" Caption="Información de la semilla" IsNewNode="True">
               <LayoutItem Id="Number" ViewItem="Number" ShowCaption="" Index="0" IsNewNode="True" />
               <LayoutItem Id="Description" ViewItem="Description" ShowCaption="" Index="1" IsNewNode="True" />
               <LayoutItem Id="Amount" ViewItem="Amount" Index="2" IsNewNode="True" />

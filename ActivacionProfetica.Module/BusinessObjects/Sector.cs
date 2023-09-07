@@ -9,7 +9,7 @@ namespace ActivacionProfetica.Module.BusinessObjects
 {
     [Caption("Sectores")]
     [DefaultProperty(nameof(Name))]
-    [Persistent(Schema.Ap + nameof(Sector))]
+    [Persistent(Schema.Rjv + nameof(Sector))]
     public class Sector : BaseEntity
     {
         public static int LionSectorId = 1;
@@ -18,6 +18,17 @@ namespace ActivacionProfetica.Module.BusinessObjects
         public static string ShofarSectorName = "Shofar";
         public static int EagleSectorId = 3;
         public static string EagleSectorName = "Águila";
+        //
+        public static int PastoresSectorId = 1;
+        public static string PastoresSectorName = "Pastores";
+        public static int MaestrosSectorId = 2;
+        public static string MaestrosSectorName = "Maestros";
+        public static int ApostolesSectorId = 3;
+        public static string ApostolesSectorName = "Apóstoles";
+        public static int ProfetasSectorId = 4;
+        public static string ProfetasSectorName = "Profétas";
+        public static int EvangelistasSectorId = 5;
+        public static string EvangelistasSectorName = "Evangelistas";
 
         private string name;
         int amount;

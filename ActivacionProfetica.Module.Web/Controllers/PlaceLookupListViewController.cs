@@ -34,7 +34,7 @@ namespace ActivacionProfetica.Module.Web.Controllers
             {
                 // Add checkboxes to group rows
                 Grid.ClientInstanceName = gridId;
-                Grid.Templates.GroupRowContent = new CheckboxGroupRowContentTemplate(gridId);
+                Grid.Templates.GroupRowContent = new MyCheckboxGroupRowContentTemplate(gridId);
                 Grid.CustomCallback += Grid_CustomCallback;
                 //Grid.HtmlRowPrepared += Grid_HtmlRowPrepared;
             }

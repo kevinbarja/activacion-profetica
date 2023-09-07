@@ -2,9 +2,12 @@
 {
     public static class Constants
     {
+
+        public const int AmountTicket = 500;
+
         public static class Schema
         {
-            public const string Ap = "ap.";
+            public const string Rjv = "rjv.";
         }
 
         public static class Menu

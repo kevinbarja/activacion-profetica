@@ -26,6 +26,102 @@ namespace ActivacionProfetica.Module.DatabaseUpdate
                 return;
             }
 
+            var availablePlaceStatus = (from s in Updater.Session.Query<PlaceStatus>()
+                                        where s.InternalId == PlaceStatus.AvailablePlaceStatus
+                                        select s).Single();
+
+            var pastoresSector = (from s in Updater.Session.Query<Sector>()
+                                  where s.InternalId == Sector.PastoresSectorId
+                                  select s).Single();
+
+            for (int i = 1; i <= 1000; i++)
+            {
+                var place = Updater.ObjectSpace.CreateObject<Place>();
+                place.Name = i.ToString();
+                place.Sector = pastoresSector;
+                place.ParentPlace = null;
+                place.IsLeaf = true;
+                place.LetterName = string.Empty;
+                place.RowName = string.Empty;
+                place.Status = availablePlaceStatus;
+            }
+
+
+            var maestrosSector = (from s in Updater.Session.Query<Sector>()
+                                  where s.InternalId == Sector.MaestrosSectorId
+                                  select s).Single();
+
+            for (int i = 1; i <= 1000; i++)
+            {
+                var place = Updater.ObjectSpace.CreateObject<Place>();
+                place.Name = i.ToString();
+                place.Sector = maestrosSector;
+                place.ParentPlace = null;
+                place.IsLeaf = true;
+                place.LetterName = string.Empty;
+                place.RowName = string.Empty;
+                place.Status = availablePlaceStatus;
+            }
+
+
+            var apostolesSector = (from s in Updater.Session.Query<Sector>()
+                                   where s.InternalId == Sector.ApostolesSectorId
+                                   select s).Single();
+
+            for (int i = 1; i <= 1000; i++)
+            {
+                var place = Updater.ObjectSpace.CreateObject<Place>();
+                place.Name = i.ToString();
+                place.Sector = apostolesSector;
+                place.ParentPlace = null;
+                place.IsLeaf = true;
+                place.LetterName = string.Empty;
+                place.RowName = string.Empty;
+                place.Status = availablePlaceStatus;
+            }
+
+            var profetasSector = (from s in Updater.Session.Query<Sector>()
+                                  where s.InternalId == Sector.ProfetasSectorId
+                                  select s).Single();
+
+            for (int i = 1; i <= 1000; i++)
+            {
+                var place = Updater.ObjectSpace.CreateObject<Place>();
+                place.Name = i.ToString();
+                place.Sector = profetasSector;
+                place.ParentPlace = null;
+                place.IsLeaf = true;
+                place.LetterName = string.Empty;
+                place.RowName = string.Empty;
+                place.Status = availablePlaceStatus;
+            }
+
+            var evangelistasSector = (from s in Updater.Session.Query<Sector>()
+                                      where s.InternalId == Sector.EvangelistasSectorId
+                                      select s).Single();
+            for (int i = 1; i <= 1000; i++)
+            {
+                var place = Updater.ObjectSpace.CreateObject<Place>();
+                place.Name = i.ToString();
+                place.Sector = evangelistasSector;
+                place.ParentPlace = null;
+                place.IsLeaf = true;
+                place.LetterName = string.Empty;
+                place.RowName = string.Empty;
+                place.Status = availablePlaceStatus;
+            }
+
+        }
+
+        public void Execute2()
+        {
+            bool existPlaces = (from cc in Updater.Session.Query<Place>()
+                                select cc).Any();
+            if (existPlaces)
+            {
+                return;
+            }
+
             var lionSector = (from s in Updater.Session.Query<Sector>()
                               where s.InternalId == Sector.LionSectorId
                               select s).Single();

@@ -19,6 +19,187 @@ namespace ActivacionProfetica.Module.DatabaseUpdate
                              select ps).Any();
             if (isEmpty)
             {
+                var pastoresSector = (from s in Updater.Session.Query<Sector>()
+                                      where s.InternalId == Sector.PastoresSectorId
+                                      select s).Single();
+
+                var maestrosSector = (from s in Updater.Session.Query<Sector>()
+                                      where s.InternalId == Sector.MaestrosSectorId
+                                      select s).Single();
+
+                var apostolesSector = (from s in Updater.Session.Query<Sector>()
+                                       where s.InternalId == Sector.ApostolesSectorId
+                                       select s).Single();
+
+                var profetasSector = (from s in Updater.Session.Query<Sector>()
+                                      where s.InternalId == Sector.ProfetasSectorId
+                                      select s).Single();
+
+                var evangelistasSector = (from s in Updater.Session.Query<Sector>()
+                                          where s.InternalId == Sector.EvangelistasSectorId
+                                          select s).Single();
+                #region Siembra completa
+
+                //Pastores
+                var pagoAlContadoPastores = Updater.ObjectSpace.CreateObject<PaymentPlan>();
+                pagoAlContadoPastores.Description = "Siembra completa";
+                pagoAlContadoPastores.Sector = pastoresSector;
+                pagoAlContadoPastores.LimitDate = null;
+
+                var cuota1PagoAlContadoPastores = Updater.ObjectSpace.CreateObject<PaymentPlanDetail>();
+                cuota1PagoAlContadoPastores.Number = 1;
+                cuota1PagoAlContadoPastores.Description = "Semilla completa";
+                cuota1PagoAlContadoPastores.Amount = Constants.AmountTicket;
+                cuota1PagoAlContadoPastores.LimitDate = null;
+
+                pagoAlContadoPastores.PaymentPlanDetails.Add(cuota1PagoAlContadoPastores);
+
+                //Maestros
+                var pagoAlContadoMaestros = Updater.ObjectSpace.CreateObject<PaymentPlan>();
+                pagoAlContadoMaestros.Description = "Siembra completa";
+                pagoAlContadoMaestros.Sector = maestrosSector;
+                pagoAlContadoMaestros.LimitDate = null;
+
+                var cuota1PagoAlContadoMaestros = Updater.ObjectSpace.CreateObject<PaymentPlanDetail>();
+                cuota1PagoAlContadoMaestros.Number = 1;
+                cuota1PagoAlContadoMaestros.Description = "Semilla completa";
+                cuota1PagoAlContadoMaestros.Amount = Constants.AmountTicket;
+                cuota1PagoAlContadoMaestros.LimitDate = null;
+
+                pagoAlContadoMaestros.PaymentPlanDetails.Add(cuota1PagoAlContadoPastores);
+
+                //Apostoles
+                var pagoAlContadoApostoles = Updater.ObjectSpace.CreateObject<PaymentPlan>();
+                pagoAlContadoApostoles.Description = "Siembra completa";
+                pagoAlContadoApostoles.Sector = apostolesSector;
+                pagoAlContadoApostoles.LimitDate = null;
+
+                var cuota1PagoAlContadoApostoles = Updater.ObjectSpace.CreateObject<PaymentPlanDetail>();
+                cuota1PagoAlContadoApostoles.Number = 1;
+                cuota1PagoAlContadoApostoles.Description = "Semilla completa";
+                cuota1PagoAlContadoApostoles.Amount = Constants.AmountTicket;
+                cuota1PagoAlContadoApostoles.LimitDate = null;
+
+                pagoAlContadoApostoles.PaymentPlanDetails.Add(cuota1PagoAlContadoApostoles);
+
+                //Profetas
+                var pagoAlContadoProfetas = Updater.ObjectSpace.CreateObject<PaymentPlan>();
+                pagoAlContadoProfetas.Description = "Siembra completa";
+                pagoAlContadoProfetas.Sector = profetasSector;
+                pagoAlContadoProfetas.LimitDate = null;
+
+                var cuota1PagoAlContadoProfetas = Updater.ObjectSpace.CreateObject<PaymentPlanDetail>();
+                cuota1PagoAlContadoProfetas.Number = 1;
+                cuota1PagoAlContadoProfetas.Description = "Semilla completa";
+                cuota1PagoAlContadoApostoles.Amount = Constants.AmountTicket;
+                cuota1PagoAlContadoProfetas.LimitDate = null;
+
+                pagoAlContadoProfetas.PaymentPlanDetails.Add(cuota1PagoAlContadoProfetas);
+
+                //Evangelistas
+                var pagoAlContadoEvangelistas = Updater.ObjectSpace.CreateObject<PaymentPlan>();
+                pagoAlContadoEvangelistas.Description = "Siembra completa";
+                pagoAlContadoEvangelistas.Sector = evangelistasSector;
+                pagoAlContadoEvangelistas.LimitDate = null;
+
+                var cuota1PagoAlContadoEvangelistas = Updater.ObjectSpace.CreateObject<PaymentPlanDetail>();
+                cuota1PagoAlContadoEvangelistas.Number = 1;
+                cuota1PagoAlContadoEvangelistas.Description = "Semilla completa";
+                cuota1PagoAlContadoApostoles.Amount = Constants.AmountTicket;
+                cuota1PagoAlContadoEvangelistas.LimitDate = null;
+                #endregion
+
+                #region No aplica siembra
+
+                //Pastores
+                var sinpagoAlContadoPastores = Updater.ObjectSpace.CreateObject<PaymentPlan>();
+                sinpagoAlContadoPastores.Description = "No aplica siembra";
+                sinpagoAlContadoPastores.Sector = pastoresSector;
+                sinpagoAlContadoPastores.LimitDate = null;
+
+                //Maestros
+                var sinpagoAlContadoMaestros = Updater.ObjectSpace.CreateObject<PaymentPlan>();
+                sinpagoAlContadoMaestros.Description = "No aplica siembra";
+                sinpagoAlContadoMaestros.Sector = maestrosSector;
+                sinpagoAlContadoMaestros.LimitDate = null;
+
+                //Apostoles
+                var sinpagoAlContadoApostoles = Updater.ObjectSpace.CreateObject<PaymentPlan>();
+                sinpagoAlContadoApostoles.Description = "No aplica siembra";
+                sinpagoAlContadoApostoles.Sector = apostolesSector;
+                sinpagoAlContadoApostoles.LimitDate = null;
+
+                //Profetas
+                var sinpagoAlContadoProfetas = Updater.ObjectSpace.CreateObject<PaymentPlan>();
+                sinpagoAlContadoProfetas.Description = "No aplica siembra";
+                sinpagoAlContadoProfetas.Sector = profetasSector;
+                sinpagoAlContadoProfetas.LimitDate = null;
+
+                //Evangelistas
+                var sinpagoAlContadoEvangelistas = Updater.ObjectSpace.CreateObject<PaymentPlan>();
+                sinpagoAlContadoEvangelistas.Description = "No aplica siembra";
+                sinpagoAlContadoEvangelistas.Sector = evangelistasSector;
+                sinpagoAlContadoEvangelistas.LimitDate = null;
+                #endregion
+
+                #region 5 semillas
+                var septiembre30 = DateTime.Parse("09/30/2023", new CultureInfo("en-US", true));
+                var octubre8 = DateTime.Parse("10/08/2023", new CultureInfo("en-US", true));
+                var noviembre12 = DateTime.Parse("11/12/2023", new CultureInfo("en-US", true));
+                var diciembre10 = DateTime.Parse("12/10/2023", new CultureInfo("en-US", true));
+                var enero14 = DateTime.Parse("01/14/2024", new CultureInfo("en-US", true));
+
+                var cincoSemillasApostoles = Updater.ObjectSpace.CreateObject<PaymentPlan>();
+                cincoSemillasApostoles.Description = "5 semillas";
+                cincoSemillasApostoles.Sector = apostolesSector;
+                cincoSemillasApostoles.LimitDate = septiembre30;
+
+                var cuota1CincoSemillasApostoles = Updater.ObjectSpace.CreateObject<PaymentPlanDetail>();
+                cuota1CincoSemillasApostoles.Number = 1;
+                cuota1CincoSemillasApostoles.Description = "Semilla 1";
+                cuota1CincoSemillasApostoles.Amount = 100;
+                cuota1CincoSemillasApostoles.LimitDate = null;
+
+                var cuota2CincoSemillasApostoles = Updater.ObjectSpace.CreateObject<PaymentPlanDetail>();
+                cuota2CincoSemillasApostoles.Number = 2;
+                cuota2CincoSemillasApostoles.Description = "Semilla 2";
+                cuota2CincoSemillasApostoles.Amount = 100;
+                cuota2CincoSemillasApostoles.LimitDate = octubre8;
+
+                var cuota3CincoSemillasApostoles = Updater.ObjectSpace.CreateObject<PaymentPlanDetail>();
+                cuota3CincoSemillasApostoles.Number = 3;
+                cuota3CincoSemillasApostoles.Description = "Semilla 3";
+                cuota3CincoSemillasApostoles.Amount = 100;
+                cuota3CincoSemillasApostoles.LimitDate = noviembre12;
+
+                var cuota4CincoSemillasApostoles = Updater.ObjectSpace.CreateObject<PaymentPlanDetail>();
+                cuota4CincoSemillasApostoles.Number = 4;
+                cuota4CincoSemillasApostoles.Description = "Semilla 4";
+                cuota4CincoSemillasApostoles.Amount = 100;
+                cuota4CincoSemillasApostoles.LimitDate = diciembre10;
+
+                var cuota5CincoSemillasApostoles = Updater.ObjectSpace.CreateObject<PaymentPlanDetail>();
+                cuota5CincoSemillasApostoles.Number = 5;
+                cuota5CincoSemillasApostoles.Description = "Semilla 5";
+                cuota5CincoSemillasApostoles.Amount = 100;
+                cuota5CincoSemillasApostoles.LimitDate = enero14;
+
+                cincoSemillasApostoles.PaymentPlanDetails.Add(cuota1CincoSemillasApostoles);
+                cincoSemillasApostoles.PaymentPlanDetails.Add(cuota2CincoSemillasApostoles);
+                cincoSemillasApostoles.PaymentPlanDetails.Add(cuota3CincoSemillasApostoles);
+                cincoSemillasApostoles.PaymentPlanDetails.Add(cuota4CincoSemillasApostoles);
+                cincoSemillasApostoles.PaymentPlanDetails.Add(cuota5CincoSemillasApostoles);
+
+                #endregion
+            }
+        }
+
+        public void Execute2()
+        {
+            bool isEmpty = !(from ps in Updater.Session.Query<PaymentPlan>()
+                             select ps).Any();
+            if (isEmpty)
+            {
                 var lionSector = (from s in Updater.Session.Query<Sector>()
                                   where s.InternalId == Sector.LionSectorId
                                   select s).Single();
@@ -33,13 +214,13 @@ namespace ActivacionProfetica.Module.DatabaseUpdate
 
                 /////Lion contado
                 var pagoAlContadoLion = Updater.ObjectSpace.CreateObject<PaymentPlan>();
-                pagoAlContadoLion.Description = "Pago al contado";
+                pagoAlContadoLion.Description = "Ofrenda al contado";
                 pagoAlContadoLion.Sector = lionSector;
                 pagoAlContadoLion.LimitDate = null;
 
                 var cuota1PagoAlContadoLion = Updater.ObjectSpace.CreateObject<PaymentPlanDetail>();
                 cuota1PagoAlContadoLion.Number = 1;
-                cuota1PagoAlContadoLion.Description = "Pago al contado";
+                cuota1PagoAlContadoLion.Description = "Ofrenda al contado";
                 cuota1PagoAlContadoLion.Percentage = 1;
                 cuota1PagoAlContadoLion.LimitDate = null;
 
@@ -47,7 +228,7 @@ namespace ActivacionProfetica.Module.DatabaseUpdate
 
                 /////Lion sin pago
                 var sinPagoLion = Updater.ObjectSpace.CreateObject<PaymentPlan>();
-                sinPagoLion.Description = "Sin pago";
+                sinPagoLion.Description = "No aplica siembra";
                 sinPagoLion.Sector = lionSector;
                 sinPagoLion.LimitDate = null;
 

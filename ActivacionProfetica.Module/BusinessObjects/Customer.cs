@@ -19,7 +19,7 @@ namespace ActivacionProfetica.Module.BusinessObjects
     [Caption("Persona")]
     [ImageName("BO_Person")]
     [DefaultProperty(nameof(FullName))]
-    [Persistent(Schema.Ap + nameof(Customer))]
+    [Persistent(Schema.Rjv + nameof(Customer))]
     public class Customer : BaseEntity, IAPLookupView
     {
         string ci = string.Empty;

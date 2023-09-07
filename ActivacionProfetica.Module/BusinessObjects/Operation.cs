@@ -32,7 +32,7 @@ namespace ActivacionProfetica.Module.BusinessObjects
 
     [Caption("Operación")]
     [DefaultProperty(nameof(InternalId))]
-    [Persistent(Schema.Ap + nameof(Operation))]
+    [Persistent(Schema.Rjv + nameof(Operation))]
     public class Operation : BaseEntity
     {
         Customer customer;
@@ -60,10 +60,11 @@ namespace ActivacionProfetica.Module.BusinessObjects
             set => SetPropertyValue(ref customer, value);
         }
 
-        [Caption("Estado de los asientos seleccionados")]
+        [Caption("Estado de los cupos seleccionados")]
         [RequiredField]
         [Association("PlaceStatus-Operations")]
         [Persistent("PlaceStatus_Operations")]
+        [Appearance("DisablePlaceStatusOperation", Enabled = false)]
         [ImmediatePostData]
         public PlaceStatus PlaceStatus
         {
@@ -175,6 +176,8 @@ namespace ActivacionProfetica.Module.BusinessObjects
         {
             get
             {
+                return Places?.Count().ToString() + " " + "(Cantidad de asientos)";
+                /*
                 if (Sector.InternalId == Sector.EagleSectorId)
                 {
                     return Places?.Count().ToString() + " " + "(Cantidad de asientos)";
@@ -183,6 +186,7 @@ namespace ActivacionProfetica.Module.BusinessObjects
                 {
                     return string.Join(",  ", Places.Select(p => p.Path.Replace(p.Sector.Name + "-", string.Empty)));
                 }
+                */
             }
         }
 

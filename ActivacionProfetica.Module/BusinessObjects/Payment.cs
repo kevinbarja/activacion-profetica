@@ -22,7 +22,7 @@ namespace ActivacionProfetica.Module.BusinessObjects
         Context = "LookupListView;ListView")]
     //[Appearance("BlueOnCreation", TargetItems = "PaymentMethod", Context = "LookupListView;ListView", Criteria = "IsNewObject(This) Or [PaymentMethod] == ##Enum#ActivacionProfetica.Module.BusinessObjects.Enums.PaymentMethod,None#", FontStyle = FontStyle.Bold, BackColor = "163, 219, 247")]
     [Caption("Pagos")]
-    [Persistent(Schema.Ap + nameof(Payment))]
+    [Persistent(Schema.Rjv + nameof(Payment))]
 
     public class Payment : BaseEntity
     {
@@ -30,8 +30,8 @@ namespace ActivacionProfetica.Module.BusinessObjects
         int amount;
         DateTime? paymentDate;
         PaymentMethod paymentMethod;
-        //PaymentStatus paymentStatus;
         Operation operation;
+        string description;
 
         bool placesIsReverted = false;
         bool isReverted = false;
@@ -62,7 +62,7 @@ namespace ActivacionProfetica.Module.BusinessObjects
             set => SetPropertyValue(ref operation, value);
         }
 
-        [Caption("Cuota")]
+        [Caption("Semilla")]
         [Association("PaymentPlanDetail-Payments")]
         [Persistent("PaymentPlanDetail_Payments")]
         public PaymentPlanDetail PaymentPlanDetail
@@ -97,6 +97,15 @@ namespace ActivacionProfetica.Module.BusinessObjects
             }
         }
 
+        [Caption("Descripción")]
+        [Size(255), Nullable(false), RequiredField]
+        [VisibleInDetailView(true), VisibleInListView(true), VisibleInLookupListView(true)]
+        public string Description
+        {
+            get => description;
+            set => SetPropertyValue(ref description, value);
+        }
+
         [Caption("Monto")]
         [VisibleInDetailView(true), VisibleInListView(true), VisibleInLookupListView(true)]
         public int Amount
@@ -106,7 +115,7 @@ namespace ActivacionProfetica.Module.BusinessObjects
         }
 
         [ModelDefault("DisplayFormat", "{0:g}")]
-        [Caption("Fecha de pago")]
+        [Caption("Fecha de siembra")]
         [Nullable(true)]
         [VisibleInDetailView(true), VisibleInListView(true), VisibleInLookupListView(true)]
         public DateTime? PaymentDate
@@ -115,7 +124,7 @@ namespace ActivacionProfetica.Module.BusinessObjects
             set => SetPropertyValue(ref paymentDate, value);
         }
 
-        [Caption("Método de pago")]
+        [Caption("Método de siembra")]
         [ImmediatePostData]
         [VisibleInDetailView(true), VisibleInListView(true), VisibleInLookupListView(true)]
         public PaymentMethod PaymentMethod
@@ -196,6 +205,8 @@ namespace ActivacionProfetica.Module.BusinessObjects
                         return "QR";
                     case PaymentMethod.Cash:
                         return "Efectivo";
+                    case PaymentMethod.Ofrenda:
+                        return "Ofrenda";
                     default:
                         return string.Empty;
                 }

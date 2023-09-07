@@ -17,9 +17,9 @@ namespace ActivacionProfetica.Module.BusinessObjects
     //[Appearance("RiskAcceptanceAcceptedHide", Visibility = ViewItemVisibility.Hide, TargetItems = "Accepted;", Criteria = "[Risk].[AttachFile] Is Null", Context = "Risk_RiskAcceptances_ListView")]
     [Appearance("FontColorRed", AppearanceItemType = "ViewItem", TargetItems = "*", Context = "Operation_Places_LookupListView", Criteria = "Operation is not null", FontStyle = FontStyle.Bold)]
     //[Appearance("RedText", TargetItems = nameof(InternalId), Context = "Operation_Places_LookupListView", Criteria = "Operation is not null", FontStyle = FontStyle.Bold, FontColor = "253, 125, 125")]
-    [Caption("Asiento")]
+    [Caption("Cupo")]
     [DefaultProperty(nameof(Path))]
-    [Persistent(Schema.Ap + nameof(Place))]
+    [Persistent(Schema.Rjv + nameof(Place))]
     public class Place : BaseEntity, IPlace, ITreeNode
     {
         private Place parentPlace;
