@@ -51,7 +51,7 @@ namespace ActivacionProfetica.Module.BusinessObjects
         }
 
         [ModelDefault("DisplayFormat", "{0:#}")]
-        [Caption("Monto")]
+        [Caption("Amount")]
         [Nullable(false), RequiredField]
         [VisibleInDetailView(true), VisibleInListView(true), VisibleInLookupListView(true)]
         public int Amount

@@ -177,6 +177,7 @@
     <Compile Include="Controllers\PlaceLookupListViewController.cs" />
     <Compile Include="Controllers\RevertPaymentOperationController.cs" />
     <Compile Include="Controllers\RevertPlacesController.cs" />
+    <Compile Include="Controllers\SaveController.cs" />
     <Compile Include="Controllers\SendOperationByWhatsappController.cs" />
     <Compile Include="Controllers\ShowOperationReportController.cs" />
     <Compile Include="Controllers\VersionController.cs">

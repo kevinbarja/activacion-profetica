@@ -176,7 +176,7 @@ namespace ActivacionProfetica.Module.BusinessObjects
         {
             get
             {
-                return Places?.Count().ToString() + " " + "(Cantidad de asientos)";
+                return Places?.Count().ToString();
                 /*
                 if (Sector.InternalId == Sector.EagleSectorId)
                 {
@@ -213,7 +213,12 @@ namespace ActivacionProfetica.Module.BusinessObjects
                 }
                 else
                 {
-                    return Payments.Any(p => p.PaymentStatus != PaymentStatus.Pending && p.PaymentPlanDetail.Number == 1);
+                    var payments = Payments.OrderBy(p => p.Description).ToList();
+                    if (payments.Count > 0)
+                    {
+                        return (payments[0].PaymentStatus != PaymentStatus.Pending);
+                    }
+                    return false;
                 }
             }
         }

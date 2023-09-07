@@ -10,7 +10,7 @@ namespace ActivacionProfetica.Module.BusinessObjects.Enums
         QR,
         [XafDisplayName("Efectivo")]
         Cash,
-        [XafDisplayName("Ofrenda")]
-        Ofrenda
+        [XafDisplayName("Alguien sembró en mí")]
+        Someone
     }
 }

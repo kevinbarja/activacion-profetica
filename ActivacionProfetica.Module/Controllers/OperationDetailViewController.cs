@@ -3,7 +3,6 @@ using ActivacionProfetica.Module.SharedKernel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Xpo;
-using System;
 
 namespace ActivacionProfetica.Module.Controllers
 {
@@ -63,11 +62,7 @@ namespace ActivacionProfetica.Module.Controllers
                                 int amount = paymentPlanDetail.Amount * placeQuantity;
                                 payment.Amount = amount;
                                 payment.Description = paymentPlanDetail.Description;
-                                if (paymentPlanDetail.Description.Contains("Alguien"))
-                                {
-                                    payment.PaymentDate = DateTime.Now;
-                                    payment.PaymentMethod = BusinessObjects.Enums.PaymentMethod.Cash;
-                                }
+                                payment.Number = paymentPlanDetail.Number;
                                 operation.Payments.Add(payment);
                             }
                         }

@@ -32,6 +32,7 @@ namespace ActivacionProfetica.Module.BusinessObjects
         PaymentMethod paymentMethod;
         Operation operation;
         string description;
+        decimal number;
 
         bool placesIsReverted = false;
         bool isReverted = false;
@@ -97,7 +98,7 @@ namespace ActivacionProfetica.Module.BusinessObjects
             }
         }
 
-        [Caption("Descripción")]
+        [Caption("Semilla")]
         [Size(255), Nullable(false), RequiredField]
         [VisibleInDetailView(true), VisibleInListView(true), VisibleInLookupListView(true)]
         public string Description
@@ -112,6 +113,14 @@ namespace ActivacionProfetica.Module.BusinessObjects
         {
             get { return amount; }
             set => SetPropertyValue(ref amount, value);
+        }
+
+        [Caption("Número")]
+        [VisibleInDetailView(true), VisibleInListView(true), VisibleInLookupListView(true)]
+        public decimal Number
+        {
+            get { return number; }
+            set => SetPropertyValue(ref number, value);
         }
 
         [ModelDefault("DisplayFormat", "{0:g}")]
@@ -205,8 +214,8 @@ namespace ActivacionProfetica.Module.BusinessObjects
                         return "QR";
                     case PaymentMethod.Cash:
                         return "Efectivo";
-                    case PaymentMethod.Ofrenda:
-                        return "Ofrenda";
+                    case PaymentMethod.Someone:
+                        return "Alguien sembró en mi";
                     default:
                         return string.Empty;
                 }

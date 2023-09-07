@@ -51,17 +51,19 @@ namespace ActivacionProfetica.Module.Controllers
                     place.Status = operation.PlaceStatus;
                 }
                 View.ObjectSpace.CommitChanges();
-                MessageOptions parameters = new MessageOptions
-                {
-                    Duration = 3000,
-                    Message = (isReserved) ? "Whatsapp enviado!" : "Operación exitosa!",
-                    Type = InformationType.Success
-                };
-                parameters.Web.Position = InformationPosition.Top;
-                Application.ShowViewStrategy.ShowMessage(parameters);
+
 
                 if (isReserved)
                 {
+                    MessageOptions parameters = new MessageOptions
+                    {
+                        Duration = 3000,
+                        Message = (isReserved) ? "Whatsapp enviado!" : "Operación exitosa!",
+                        Type = InformationType.Success
+                    };
+                    parameters.Web.Position = InformationPosition.Top;
+                    Application.ShowViewStrategy.ShowMessage(parameters);
+
                     string number_whatsapp = "591" + operation.Customer.WhatsApp + "@c.us";
                     HttpClient httpClient = new HttpClient();
                     var reportOsProvider = ReportDataProvider.GetReportObjectSpaceProvider(this.Application.ServiceProvider);
@@ -96,9 +98,11 @@ namespace ActivacionProfetica.Module.Controllers
                         StringContent httpContent = new StringContent(json, Encoding.UTF8, "application/json");
                         httpClient.PostAsync("http://localhost:3000/webhook", httpContent);
                     }
-                    //WebWindow.CurrentRequestWindow.RegisterStartupScript("CustomNavigate", "setTimeout(function(){ window.top.location.reload(); }, 1800);");
+                    //
                 }
-
+                //Frame.GetController<WebModificationsController>()?.EditAction?.DoExecute();
+                //View.ObjectSpace.Refresh();
+                //WebWindow.CurrentRequestWindow.RegisterStartupScript("CustomNavigate", "setTimeout(function(){ window.top.location.reload(); }, 1000);");
             }
             catch (Exception ex)
             {
