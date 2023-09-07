@@ -19,12 +19,12 @@ namespace ActivacionProfetica.Module.DatabaseUpdate
         public override void UpdateDatabaseAfterUpdateSchema()
         {
             base.UpdateDatabaseAfterUpdateSchema();
-            new RolData(this);
-            new UserData(this);
             new SectorData(this);
             new PlaceStatusData(this);
             new PlaceData(this);
             new PaymentPlanData(this);
+            new RolData(this);
+            new UserData(this);
         }
 
         public override void UpdateDatabaseBeforeUpdateSchema()

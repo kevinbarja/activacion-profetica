@@ -20,13 +20,14 @@ namespace ActivacionProfetica.Module.DatabaseUpdate
             if (isEmpty)
             {
                 PermissionPolicyRole adminRole = Updater.ObjectSpace.FirstOrDefault<PermissionPolicyRole>(r => r.Name == Constants.Role.Admin);
-                PermissionPolicyRole publicRole = Updater.ObjectSpace.FirstOrDefault<PermissionPolicyRole>(r => r.Name == Constants.Role.Public);
+                var shepar = Updater.ObjectSpace.FirstOrDefault<Sector>(s => s.InternalId == Sector.PastoresSectorId);
 
                 //User admin
                 var userAdmin = Updater.ObjectSpace.CreateObject<ApplicationUser>();
-                userAdmin.UserName = "8935712";
-                userAdmin.FullName = "Eduardo Barja";
-                userAdmin.SetPassword("75632256");
+                userAdmin.UserName = "Administrador";
+                userAdmin.FullName = "Administrador";
+                userAdmin.Sector = shepar;
+                userAdmin.SetPassword("123");
 
                 // The UserLoginInfo object requires a user object InternalId (Oid).
                 // Commit the user object to the database before you create a UserLoginInfo object. This will correctly initialize the user key property.

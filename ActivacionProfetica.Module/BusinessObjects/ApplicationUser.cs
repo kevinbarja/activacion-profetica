@@ -19,6 +19,7 @@ namespace ActivacionProfetica.Module.BusinessObjects
 
 
         string fullName = string.Empty;
+        Sector sector;
 
         [Caption("Nombres y apellidos")]
         [Size(255), Nullable(false), RequiredField]
@@ -27,6 +28,17 @@ namespace ActivacionProfetica.Module.BusinessObjects
         {
             get => fullName;
             set => SetPropertyValue(nameof(FullName), ref fullName, value);
+        }
+
+        [Caption("Escuadrón")]
+        [RequiredField]
+        [Association("Sector-Users")]
+        [Persistent("Sector_Users")]
+        [ImmediatePostData]
+        public Sector Sector
+        {
+            get => sector;
+            set => SetPropertyValue(nameof(Sector), ref sector, value);
         }
 
 

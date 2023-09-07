@@ -62,6 +62,9 @@ namespace ActivacionProfetica.Module.BusinessObjects
         [Association("Sector-Operations")]
         public XPCollection<Operation> Operations => GetCollection<Operation>();
 
+        [MemberDesignTimeVisibility(false)]
+        [Association("Sector-Users")]
+        public XPCollection<ApplicationUser> Users => GetCollection<ApplicationUser>();
 
         public Sector(Session session) : base(session)
         {
