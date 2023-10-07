@@ -144,7 +144,9 @@
     <Compile Include="BusinessObjects\ConfirmationWindowParameters.cs" />
     <Compile Include="BusinessObjects\Enums\Gender.cs" />
     <Compile Include="BusinessObjects\Enums\PaymentMethod.cs" />
+    <Compile Include="BusinessObjects\Enums\MessageSource.cs" />
     <Compile Include="BusinessObjects\Enums\PaymentStatus.cs" />
+    <Compile Include="BusinessObjects\Message.cs" />
     <Compile Include="BusinessObjects\OpenPaymentWindowsParameters.cs" />
     <Compile Include="BusinessObjects\PaymentPlan.cs" />
     <Compile Include="BusinessObjects\PaymentPlanDetail.cs" />
@@ -153,6 +155,7 @@
     <Compile Include="BusinessObjects\Place.cs" />
     <Compile Include="BusinessObjects\Operation.cs" />
     <Compile Include="BusinessObjects\Sector.cs" />
+    <Compile Include="BusinessObjects\WhatsappConversation.cs" />
     <Compile Include="Controllers\AuditController.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -28,7 +28,8 @@ namespace ActivacionProfetica.Module.BusinessObjects
         bool isCcecoMember = true;
         string churchName = "Casa de Oración Central";
         int age = 0;
-        Gender gender = Gender.Male;
+        Gender gender = Gender.WithoutValue;
+        bool registeredViaWhatsapp = false;
 
         [RuleRegularExpression(@"(?<!\d)", CustomMessageTemplate = @"´""CI"" debe contener sólo dígitos")]
         [Caption("CI")]
@@ -58,6 +59,7 @@ namespace ActivacionProfetica.Module.BusinessObjects
         [Caption("WhatsApp")]
         [Nullable(false)]
         [RequiredField]
+        [RuleUniqueValue("ValidateUniqueWhatsapp", DefaultContexts.Save, CriteriaEvaluationBehavior = CriteriaEvaluationBehavior.BeforeTransaction, SkipNullOrEmptyValues = true)]
         [VisibleInDetailView(true), VisibleInListView(true), VisibleInLookupListView(false)]
         public string WhatsApp
         {
@@ -74,6 +76,17 @@ namespace ActivacionProfetica.Module.BusinessObjects
         {
             get => isCcecoMember;
             set => SetPropertyValue(ref isCcecoMember, value);
+        }
+
+        [Caption("Registrado vía bot")]
+        [Nullable(false)]
+        [RequiredField]
+        [ImmediatePostData]
+        [VisibleInDetailView(false), VisibleInListView(true), VisibleInLookupListView(false)]
+        public bool RegisteredViaWhatsapp
+        {
+            get => registeredViaWhatsapp;
+            set => SetPropertyValue(ref registeredViaWhatsapp, value);
         }
 
         [Caption("Iglesia que congrega")]

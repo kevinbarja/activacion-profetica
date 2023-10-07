@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views Id="Views">
+    <DetailView Id="WithoutMasterPaymentPlanDetail_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="PaymentPlanDetail">
+              <LayoutItem Id="Percentage" ViewItem="Percentage" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="Message_LookupListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="WhatsappConversation.WhatsappNumber" Removed="True" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

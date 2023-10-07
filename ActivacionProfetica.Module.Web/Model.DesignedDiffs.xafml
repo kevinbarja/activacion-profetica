@@ -43,6 +43,7 @@
           <Item Id="@d84b9f6a-421e-42f7-bd84-1482be7620f9" Caption="Cobros" Index="1" ViewId="ReportPayment_ListView" IsNewNode="True" />
           <Item Id="Customers" Index="2" Caption="Personas" ViewId="Customer_ListView" ImageName="BO_Department" IsNewNode="True" />
           <Item Id="Operations_Copy_Copy" Caption="Operaciones" ViewId="Operation_ListView" Index="3" IsNewNode="True" />
+          <Item Id="@49811a1a-479f-4981-9f28-e088e26a194a" ViewId="WhatsappConversation_ListView" IsNewNode="True" />
         </Items>
       </Item>
       <Item Id="State Machine" Removed="True">
@@ -77,6 +78,28 @@
       <Columns>
         <ColumnInfo Id="CI" Width="10" />
         <ColumnInfo Id="FullName" Width="90" />
+      </Columns>
+    </ListView>
+    <DetailView Id="Message_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="BaseEntity" Removed="True" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="Message_ListView">
+      <Columns>
+        <ColumnInfo Id="WhatsappConversation" Index="-1" />
+        <ColumnInfo Id="MessageSource" Index="0" Width="141" />
+        <ColumnInfo Id="WhatsappMessage" Index="1" Width="510" />
+      </Columns>
+    </ListView>
+    <ListView Id="Message_LookupListView">
+      <Columns>
+        <ColumnInfo Id="@1bc71528-249f-452f-9003-249925b664c8" PropertyName="MessageSource" Index="0" Width="107" IsNewNode="True" />
+        <ColumnInfo Id="WhatsappMessage" Width="763" />
       </Columns>
     </ListView>
     <ListView Id="MyOperation_ListView" ClassName="ActivacionProfetica.Module.BusinessObjects.Operation" Caption="Operaciones" Criteria="" DataAccessMode="Server" IsNewNode="True">
@@ -619,6 +642,38 @@
     </DetailView>
     <ListView Id="Sector_ListView" AllowDelete="False" AllowNew="False" />
     <ListView Id="Sector_LookupListView" AllowNew="False" />
+    <DetailView Id="WhatsappConversation_DetailView">
+      <Items>
+        <PropertyEditor Id="MessageDate" AllowEdit="True" />
+        <PropertyEditor Id="MessageSource" AllowEdit="False" />
+        <PropertyEditor Id="WhatsappNumber" AllowEdit="False" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="WhatsappConversation">
+              <LayoutItem Id="WhatsappNumber" Index="0" />
+              <LayoutItem Id="MessageDate" Index="1" />
+              <LayoutItem Id="MessageSource" Index="2" />
+            </LayoutGroup>
+            <LayoutGroup Id="BaseEntity" Removed="True" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="WhatsappConversation_Messages_ListView">
+      <Columns>
+        <ColumnInfo Id="CreatedBy" Width="82" />
+        <ColumnInfo Id="CreatedOn" Width="82" />
+        <ColumnInfo Id="InternalId" Width="58" />
+        <ColumnInfo Id="UpdatedBy" Width="82" />
+        <ColumnInfo Id="UpdatedOn" Width="82" />
+        <ColumnInfo Id="WhatsappConversation" Index="-1" Width="82" />
+        <ColumnInfo Id="MessageDate" Width="127" Index="0" SortIndex="0" SortOrder="Ascending" />
+        <ColumnInfo Id="MessageSource" Index="1" Width="146" />
+        <ColumnInfo Id="WhatsappMessage" Index="1" Width="701" SortIndex="-1" SortOrder="None" />
+      </Columns>
+    </ListView>
     <DetailView Id="WithoutMasterPaymentPlanDetail_DetailView" CaptionColon=":" EnableCaptionColon="True" CaptionLocation="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" CaptionWordWrap="Default" EnableLayoutGroupImages="True" RequiredFieldMark="*" ClassName="ActivacionProfetica.Module.BusinessObjects.PaymentPlanDetail" IsNewNode="True">
       <Items IsNewNode="True">
         <PropertyEditor Id="Amount" PropertyName="Amount" IsNewNode="True" />

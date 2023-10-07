@@ -2,24 +2,32 @@ const express = require('express');
 const qrcode = require('qrcode-terminal');
 const bodyParser = require('body-parser');
 const app = express();
-const { Client, MessageMedia } = require('whatsapp-web.js');
-// Configuración de Express
-app.set('port', process.env.PORT || 3000);
+const { Client, MessageMedia, LocalAuth   } = require('whatsapp-web.js');
 
+// Path where the session data will be stored
+
+const DEFAULT_HTTP_PORT = 3000
+
+
+app.set('port', process.env.PORT || DEFAULT_HTTP_PORT);
 app.use(bodyParser.json({limit: '50mb'}))
-// Configuración del cliente de WhatsApp
 
-const client = new Client();
 
-  client.on('qr', (qr) => {
-    qrcode.generate(qr, {small: true});
-  })
 
-// Evento al iniciar sesión
+// Use the saved values
+const client = new Client({
+  authStrategy: new LocalAuth()
+});
+
+
+
+client.on('qr', (qr) => {
+  //qrcode.generate(qr, {small: true});
+})
+
+
 client.on('authenticated', (session) => {
-  console.log('Cliente autenticado');
-  // Puedes guardar la sesión en una base de datos o en disco si deseas mantener la sesión entre reinicios del servidor
-  // Guardar la sesión: fs.writeFileSync('session.json', JSON.stringify(session));
+  console.log('authenticated');
 });
 
 // Ruta para enviar mensajes
@@ -49,6 +57,28 @@ app.post('/webhook', (req, res) => {
     }).catch((error) => {
       res.status(500).send(`Error al enviar el mensaje: ${error}`);
     });
+  }
+});
+
+client.on('message', async (msg) => {
+  console.log(`on message`);
+  //console.log(`on message @${JSON.stringify(msg)}`);
+  if(msg.body === '!edu') {
+      const chat = await client.getChatById('59178002823-1422484064@g.us')
+      //Log chat
+      console.log(`Chat id @${JSON.stringify(chat)}`);
+      return;
+      let text = "";
+      let mentions = [];
+
+      for(let participant of chat.participants) {
+          //const contact = await client.getContactById(participant.id._serialized);
+          
+          mentions.push(participant.id._serialized);
+          text += `@${participant.id.user} `;
+      }
+
+      await chat.sendMessage(text, { mentions });
   }
 });
 
