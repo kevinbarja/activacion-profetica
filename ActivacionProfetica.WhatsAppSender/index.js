@@ -3,23 +3,23 @@ const qrcode = require('qrcode-terminal');
 const bodyParser = require('body-parser');
 const app = express();
 const { Client, MessageMedia, LocalAuth   } = require('whatsapp-web.js');
+const axios = require("axios").default;
+const request = require("request");
+const FormData = require("form-data");
+const fs = require('fs');
 
 // Path where the session data will be stored
 
 const DEFAULT_HTTP_PORT = 3000
 
-
 app.set('port', process.env.PORT || DEFAULT_HTTP_PORT);
 app.use(bodyParser.json({limit: '50mb'}))
-
 
 
 // Use the saved values
 const client = new Client({
   authStrategy: new LocalAuth()
 });
-
-
 
 client.on('qr', (qr) => {
   //qrcode.generate(qr, {small: true});
@@ -60,25 +60,44 @@ app.post('/webhook', (req, res) => {
   }
 });
 
+function isIterable(obj, prop) {
+  return typeof obj[prop] === "object" && typeof obj[prop][Symbol.iterator] === "function";
+}
+
 client.on('message', async (msg) => {
-  console.log(`on message`);
-  //console.log(`on message @${JSON.stringify(msg)}`);
-  if(msg.body === '!edu') {
-      const chat = await client.getChatById('59178002823-1422484064@g.us')
-      //Log chat
-      console.log(`Chat id @${JSON.stringify(chat)}`);
-      return;
-      let text = "";
-      let mentions = [];
+  const chat = await msg.getChat();
+  //Exit if is message group
+  if (isIterable(chat, "participants")) return;
+  //Exit if isn't text message
+  let message = msg.body;
+  if (msg.type != 'chat'){
+    message = '';
+  }
+  //Alow only bolivian number with prefix 591
+  if (!msg.from.startsWith('591') ) {
+    msg.reply('Lo siento, por el momento sólo converso con números de Bolivia. 😔');
+    return;
+  }
 
-      for(let participant of chat.participants) {
-          //const contact = await client.getContactById(participant.id._serialized);
-          
-          mentions.push(participant.id._serialized);
-          text += `@${participant.id.user} `;
-      }
+  try {
+    const response = await axios({
+      method: "POST",
+      url: `http://localhost:5103/messages`,
+      data: { whatsappNumber: msg.from.replace('591','').replace('@c.us',''), message : message },
+    });
 
-      await chat.sendMessage(text, { mentions });
+    if (response.data.message != '' && msg.from != '59172103001@c.us'){
+      client.sendMessage( msg.from, response.data.message);
+    }
+
+    writeToFile(JSON.stringify(response.data));
+  } catch (error) {
+    // Manejar el error aquí
+    writeToFile('Error al hacer la solicitud:' + JSON.stringify(error));
+    if (msg.from != '59172103001@c.us')
+    {
+      msg.reply('Lo siento, ocurrió un error no controlado. 😔');
+    }
   }
 });
 
@@ -89,3 +108,14 @@ client.initialize();
 app.listen(app.get('port'), () => {
   console.log(`Servidor iniciado en http://localhost:${app.get('port')}`);
 });
+
+
+function writeToFile(message) {
+  fs.appendFile("logfile.txt", message + "\n", (err) => {
+    if (err) {
+      console.error('Error writing to the file:', err);
+    } else {
+      console.log('Data has been written to the file.');
+    }
+  });
+}

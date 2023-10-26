@@ -1,6 +1,7 @@
 ﻿using ActivacionProfetica.Module.BusinessObjects.Enums;
 using ActivacionProfetica.Module.SharedKernel;
 using DevExpress.ExpressApp.ConditionalAppearance;
+using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
@@ -12,7 +13,7 @@ using Caption = System.ComponentModel.DisplayNameAttribute;
 namespace ActivacionProfetica.Module.BusinessObjects
 {
     [Caption("Mensaje")]
-    [DefaultProperty(nameof(WhatsappMessage))]
+    [DefaultProperty(nameof(Content))]
     [Persistent(Schema.Rjv + nameof(Message))]
 
     [Appearance("BotColorMessage", Enabled = true, TargetItems = "*",
@@ -51,9 +52,10 @@ namespace ActivacionProfetica.Module.BusinessObjects
         }
 
         [Caption("Mensaje")]
+        [FieldSize(-1)]
         [Nullable(false), RequiredField, Size(Constants.StringSize.LargeSringSize)]
         [VisibleInDetailView(true), VisibleInListView(true), VisibleInLookupListView(true)]
-        public string WhatsappMessage
+        public string Content
         {
             get => whatsappMessage;
             set => SetPropertyValue(ref whatsappMessage, value);

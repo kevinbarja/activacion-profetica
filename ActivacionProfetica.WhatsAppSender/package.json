@@ -15,6 +15,9 @@
     "qr-image": "^3.2.0",
     "qrcode": "^1.5.3",
     "qrcode-terminal": "^0.12.0",
-    "whatsapp-web.js": "^1.22.2-alpha.1"
+    "whatsapp-web.js": "^1.22.2-alpha.1",
+    "axios": "^0.27.2",
+    "request": "^2.88.2",
+    "form-data": "^4.0.0"    
   }
 }
