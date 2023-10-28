@@ -82,12 +82,30 @@ client.on('message', async (msg) => {
   try {
     const response = await axios({
       method: "POST",
-      url: `http://localhost:5103/messages`,
+      url: `http://177.222.127.171:5029/bot/messages`,
       data: { whatsappNumber: msg.from.replace('591','').replace('@c.us',''), message : message },
     });
 
-    if (response.data.message != '' && msg.from != '59172103001@c.us'){
-      client.sendMessage( msg.from, response.data.message);
+    if (response.data.message != '' && msg.from != '59172103001@c.us') {
+      writeToFile(JSON.stringify(response.data));
+      const res = JSON.parse(response.data.message);
+        // loop through the response
+        for (const trace of res) {
+          switch (trace.type) {
+            case "text":
+            case "speak": {
+              client.sendMessage( msg.from, trace.payload.message);
+              console.log(trace.payload.message);
+              break;
+            }
+            case "end": {
+              // an end trace means the the Voiceflow dialog has ended
+              return false;
+            }
+          }
+        }
+
+      
     }
 
     writeToFile(JSON.stringify(response.data));

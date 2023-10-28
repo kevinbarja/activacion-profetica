@@ -142,9 +142,14 @@ namespace ActivacionProfetica.Module.BusinessObjects
             set => SetPropertyValue(ref paymentMethod, value);
         }
 
+
+
         [OnChangedProperty(nameof(PaymentMethod))]
         public void OnChangedPaymentMethod()
         {
+            //Thread.Sleep(10000);
+
+
             if (!UsuarioActualPuedeRevertirPagos)
             {
                 UpdatedBy = GetCurrentUser();
