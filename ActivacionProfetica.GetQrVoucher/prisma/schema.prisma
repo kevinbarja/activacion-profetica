@@ -1,0 +1,667 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["multiSchema"]
+}
+
+datasource db {
+  provider = "sqlserver"
+  url      = env("DATABASE_URL")
+  schemas  = ["dbo", "rjv"]
+}
+
+model AuditDataItemPersistent {
+  Oid                                                                String                       @id(map: "PK_AuditDataItemPersistent") @db.UniqueIdentifier
+  UserName                                                           String?                      @db.NVarChar(100)
+  ModifiedOn                                                         DateTime?                    @db.DateTime
+  OperationType                                                      String?                      @db.NVarChar(100)
+  Description                                                        String?                      @db.NVarChar(2048)
+  AuditedObject                                                      String?                      @db.UniqueIdentifier
+  OldObject                                                          String?                      @db.UniqueIdentifier
+  NewObject                                                          String?                      @db.UniqueIdentifier
+  OldValue                                                           String?                      @db.NVarChar(1024)
+  NewValue                                                           String?                      @db.NVarChar(1024)
+  PropertyName                                                       String?                      @db.NVarChar(100)
+  OptimisticLockField                                                Int?
+  GCRecord                                                           Int?
+  ObjectType                                                         Int?
+  AuditedObjectWeakReference                                         AuditedObjectWeakReference?  @relation(fields: [AuditedObject], references: [Oid], onDelete: NoAction, onUpdate: NoAction, map: "FK_AuditDataItemPersistent_AuditedObject")
+  XPWeakReference_AuditDataItemPersistent_NewObjectToXPWeakReference XPWeakReference?             @relation("AuditDataItemPersistent_NewObjectToXPWeakReference", fields: [NewObject], references: [Oid], onDelete: NoAction, onUpdate: NoAction, map: "FK_AuditDataItemPersistent_NewObject")
+  XPObjectType                                                       XPObjectType?                @relation(fields: [ObjectType], references: [OID], onDelete: NoAction, onUpdate: NoAction, map: "FK_AuditDataItemPersistent_ObjectType")
+  XPWeakReference_AuditDataItemPersistent_OldObjectToXPWeakReference XPWeakReference?             @relation("AuditDataItemPersistent_OldObjectToXPWeakReference", fields: [OldObject], references: [Oid], onDelete: NoAction, onUpdate: NoAction, map: "FK_AuditDataItemPersistent_OldObject")
+  BaseAuditDataItemPersistent                                        BaseAuditDataItemPersistent?
+
+  @@index([AuditedObject], map: "iAuditedObject_AuditDataItemPersistent")
+  @@index([GCRecord], map: "iGCRecord_AuditDataItemPersistent")
+  @@index([ModifiedOn], map: "iModifiedOn_AuditDataItemPersistent")
+  @@index([NewObject], map: "iNewObject_AuditDataItemPersistent")
+  @@index([ObjectType], map: "iObjectType_AuditDataItemPersistent")
+  @@index([OldObject], map: "iOldObject_AuditDataItemPersistent")
+  @@index([OperationType], map: "iOperationType_AuditDataItemPersistent")
+  @@index([UserName], map: "iUserName_AuditDataItemPersistent")
+  @@schema("dbo")
+}
+
+model AuditedObjectWeakReference {
+  Oid                     String                    @id(map: "PK_AuditedObjectWeakReference") @db.UniqueIdentifier
+  GuidId                  String?                   @db.UniqueIdentifier
+  IntId                   Int?
+  DisplayName             String?                   @db.NVarChar(250)
+  AuditDataItemPersistent AuditDataItemPersistent[]
+  XPWeakReference         XPWeakReference           @relation(fields: [Oid], references: [Oid], onUpdate: NoAction, map: "FK_AuditedObjectWeakReference_Oid")
+
+  @@schema("dbo")
+}
+
+model BaseAuditDataItemPersistent {
+  Oid                     String                  @id(map: "PK_BaseAuditDataItemPersistent") @db.UniqueIdentifier
+  AuditDataItemPersistent AuditDataItemPersistent @relation(fields: [Oid], references: [Oid], onUpdate: NoAction, map: "FK_BaseAuditDataItemPersistent_Oid")
+
+  @@schema("dbo")
+}
+
+model Customer {
+  InternalId                                                    Int                   @id(map: "PK_rjv_Customer_3E82FE94") @default(autoincrement())
+  CreatedBy                                                     String?               @db.UniqueIdentifier
+  CreatedOn                                                     DateTime?             @db.DateTime
+  UpdatedBy                                                     String?               @db.UniqueIdentifier
+  UpdatedOn                                                     DateTime?             @db.DateTime
+  CI                                                            String                @db.NVarChar(100)
+  FullName                                                      String                @db.NVarChar(255)
+  WhatsApp                                                      String                @db.NVarChar(100)
+  IsCcecoMember                                                 Boolean               @default(false, map: "DF__Customer__IsCcec__74AE54BC")
+  ChurchName                                                    String                @db.NVarChar(255)
+  Age                                                           Int?
+  Gender                                                        Int                   @default(0, map: "DF__Customer__Gender__75A278F5")
+  Version                                                       Int?
+  RegisteredViaWhatsapp                                         Boolean               @default(false, map: "DF__Customer__Regist__76969D2E")
+  PermissionPolicyUser_Customer_CreatedByToPermissionPolicyUser PermissionPolicyUser? @relation("Customer_CreatedByToPermissionPolicyUser", fields: [CreatedBy], references: [Oid], onDelete: NoAction, onUpdate: NoAction, map: "FK_rjv_Customer_CreatedBy_2FE30556")
+  PermissionPolicyUser_Customer_UpdatedByToPermissionPolicyUser PermissionPolicyUser? @relation("Customer_UpdatedByToPermissionPolicyUser", fields: [UpdatedBy], references: [Oid], onDelete: NoAction, onUpdate: NoAction, map: "FK_rjv_Customer_UpdatedBy_39E70156")
+  Operation                                                     Operation[]
+
+  @@index([CreatedBy], map: "iCreatedBy_rjv_Customer_72F81A64")
+  @@index([UpdatedBy], map: "iUpdatedBy_rjv_Customer_72483A44")
+  @@schema("rjv")
+}
+
+model HCategory {
+  Oid                 String      @id(map: "PK_HCategory") @db.UniqueIdentifier
+  Parent              String?     @db.UniqueIdentifier
+  Name                String?     @db.NVarChar(100)
+  OptimisticLockField Int?
+  GCRecord            Int?
+  HCategory           HCategory?  @relation("HCategoryToHCategory", fields: [Parent], references: [Oid], onDelete: NoAction, onUpdate: NoAction, map: "FK_HCategory_Parent")
+  other_HCategory     HCategory[] @relation("HCategoryToHCategory")
+
+  @@index([GCRecord], map: "iGCRecord_HCategory")
+  @@index([Parent], map: "iParent_HCategory")
+  @@schema("dbo")
+}
+
+model Message {
+  InternalId                                                   Int                   @id(map: "PK_rjv_Message_CC9EB87D") @default(autoincrement())
+  CreatedBy                                                    String?               @db.UniqueIdentifier
+  CreatedOn                                                    DateTime?             @db.DateTime
+  UpdatedBy                                                    String?               @db.UniqueIdentifier
+  UpdatedOn                                                    DateTime?             @db.DateTime
+  WhatsappConvesarion_Message                                  Int?
+  MessageSource                                                Int                   @default(0, map: "DF__Message__Message__778AC167")
+  Version                                                      Int?
+  MessageDate                                                  DateTime?             @db.DateTime
+  Content                                                      String                @db.NVarChar(500)
+  PermissionPolicyUser_Message_CreatedByToPermissionPolicyUser PermissionPolicyUser? @relation("Message_CreatedByToPermissionPolicyUser", fields: [CreatedBy], references: [Oid], onDelete: NoAction, onUpdate: NoAction, map: "FK_rjv_Message_CreatedBy_A8F2A906")
+  PermissionPolicyUser_Message_UpdatedByToPermissionPolicyUser PermissionPolicyUser? @relation("Message_UpdatedByToPermissionPolicyUser", fields: [UpdatedBy], references: [Oid], onDelete: NoAction, onUpdate: NoAction, map: "FK_rjv_Message_UpdatedBy_BEF6AD06")
+  WhatsappConversation                                         WhatsappConversation? @relation(fields: [WhatsappConvesarion_Message], references: [InternalId], onDelete: NoAction, onUpdate: NoAction, map: "FK_rjv_Message_WhatsappConvesarion_Message_4A271B0F")
+
+  @@index([CreatedBy], map: "iCreatedBy_rjv_Message_2C064DB4")
+  @@index([UpdatedBy], map: "iUpdatedBy_rjv_Message_6C072DF4")
+  @@index([WhatsappConvesarion_Message], map: "iWhatsappConvesarion_Message_rjv_Message_85CA84B6")
+  @@schema("rjv")
+}
+
+model ModelDifference {
+  Oid                   String                  @id(map: "PK_ModelDifference") @db.UniqueIdentifier
+  UserId                String?                 @db.NVarChar(100)
+  ContextId             String?                 @db.NVarChar(100)
+  Version               Int?
+  OptimisticLockField   Int?
+  GCRecord              Int?
+  ModelDifferenceAspect ModelDifferenceAspect[]
+
+  @@index([GCRecord], map: "iGCRecord_ModelDifference")
+  @@schema("dbo")
+}
+
+model ModelDifferenceAspect {
+  Oid                 String           @id(map: "PK_ModelDifferenceAspect") @db.UniqueIdentifier
+  Name                String?          @db.NVarChar(100)
+  Xml                 String?          @db.NVarChar(Max)
+  Owner               String?          @db.UniqueIdentifier
+  OptimisticLockField Int?
+  GCRecord            Int?
+  ModelDifference     ModelDifference? @relation(fields: [Owner], references: [Oid], onDelete: NoAction, onUpdate: NoAction, map: "FK_ModelDifferenceAspect_Owner")
+
+  @@index([GCRecord], map: "iGCRecord_ModelDifferenceAspect")
+  @@index([Owner], map: "iOwner_ModelDifferenceAspect")
+  @@schema("dbo")
+}
+
+model Operation {
+  InternalId                                                     Int                   @id(map: "PK_rjv_Operation_AE561CC1") @default(autoincrement())
+  CreatedBy                                                      String?               @db.UniqueIdentifier
+  CreatedOn                                                      DateTime?             @db.DateTime
+  UpdatedBy                                                      String?               @db.UniqueIdentifier
+  UpdatedOn                                                      DateTime?             @db.DateTime
+  Customer_Operations                                            Int?
+  PlaceStatus_Operations                                         Int?
+  Sector_Operations                                              Int?
+  PaymentPlan_Operations                                         Int?
+  Version                                                        Int?
+  PermissionPolicyUser_Operation_CreatedByToPermissionPolicyUser PermissionPolicyUser? @relation("Operation_CreatedByToPermissionPolicyUser", fields: [CreatedBy], references: [Oid], onDelete: NoAction, onUpdate: NoAction, map: "FK_rjv_Operation_CreatedBy_1AD08632")
+  Customer                                                       Customer?             @relation(fields: [Customer_Operations], references: [InternalId], onDelete: NoAction, onUpdate: NoAction, map: "FK_rjv_Operation_Customer_Operations_4A519331")
+  PaymentPlan                                                    PaymentPlan?          @relation(fields: [PaymentPlan_Operations], references: [InternalId], onDelete: NoAction, onUpdate: NoAction, map: "FK_rjv_Operation_PaymentPlan_Operations_8B297C61")
+  PlaceStatus                                                    PlaceStatus?          @relation(fields: [PlaceStatus_Operations], references: [InternalId], onDelete: NoAction, onUpdate: NoAction, map: "FK_rjv_Operation_PlaceStatus_Operations_CA570FA6")
+  Sector                                                         Sector?               @relation(fields: [Sector_Operations], references: [InternalId], onDelete: NoAction, onUpdate: NoAction, map: "FK_rjv_Operation_Sector_Operations_5F482C24")
+  PermissionPolicyUser_Operation_UpdatedByToPermissionPolicyUser PermissionPolicyUser? @relation("Operation_UpdatedByToPermissionPolicyUser", fields: [UpdatedBy], references: [Oid], onDelete: NoAction, onUpdate: NoAction, map: "FK_rjv_Operation_UpdatedBy_0CD48232")
+  Payment                                                        Payment[]
+  Place                                                          Place[]
+
+  @@index([CreatedBy], map: "iCreatedBy_rjv_Operation_932464E7")
+  @@index([Customer_Operations], map: "iCustomer_Operations_rjv_Operation_0B2081BD")
+  @@index([PaymentPlan_Operations], map: "iPaymentPlan_Operations_rjv_Operation_9042CA65")
+  @@index([PlaceStatus_Operations], map: "iPlaceStatus_Operations_rjv_Operation_95BB0578")
+  @@index([Sector_Operations], map: "iSector_Operations_rjv_Operation_11203DBD")
+  @@index([UpdatedBy], map: "iUpdatedBy_rjv_Operation_CB3474E7")
+  @@schema("rjv")
+}
+
+model Payment {
+  InternalId                                                   Int                   @id(map: "PK_rjv_Payment_6F5FC8CC") @default(autoincrement())
+  CreatedBy                                                    String?               @db.UniqueIdentifier
+  CreatedOn                                                    DateTime?             @db.DateTime
+  UpdatedBy                                                    String?               @db.UniqueIdentifier
+  UpdatedOn                                                    DateTime?             @db.DateTime
+  IsReverted                                                   Boolean?
+  PlacesIsReverted                                             Boolean?
+  Operation_Payments                                           Int?
+  PaymentPlanDetail_Payments                                   Int?
+  Description                                                  String                @db.NVarChar(255)
+  Amount                                                       Int?
+  Number                                                       Float?                @db.Money
+  PaymentDate                                                  DateTime?             @db.DateTime
+  PaymentMethod                                                Int?
+  Version                                                      Int?
+  PermissionPolicyUser_Payment_CreatedByToPermissionPolicyUser PermissionPolicyUser? @relation("Payment_CreatedByToPermissionPolicyUser", fields: [CreatedBy], references: [Oid], onDelete: NoAction, onUpdate: NoAction, map: "FK_rjv_Payment_CreatedBy_58AE856E")
+  Operation                                                    Operation?            @relation(fields: [Operation_Payments], references: [InternalId], onDelete: NoAction, onUpdate: NoAction, map: "FK_rjv_Payment_Operation_Payments_805ED40D")
+  PaymentPlanDetail                                            PaymentPlanDetail?    @relation(fields: [PaymentPlanDetail_Payments], references: [InternalId], onDelete: NoAction, onUpdate: NoAction, map: "FK_rjv_Payment_PaymentPlanDetail_Payments_A11AACA6")
+  PermissionPolicyUser_Payment_UpdatedByToPermissionPolicyUser PermissionPolicyUser? @relation("Payment_UpdatedByToPermissionPolicyUser", fields: [UpdatedBy], references: [Oid], onDelete: NoAction, onUpdate: NoAction, map: "FK_rjv_Payment_UpdatedBy_4EAA816E")
+
+  @@index([CreatedBy], map: "iCreatedBy_rjv_Payment_8FC73D05")
+  @@index([Operation_Payments], map: "iOperation_Payments_rjv_Payment_325172B2")
+  @@index([PaymentPlanDetail_Payments], map: "iPaymentPlanDetail_Payments_rjv_Payment_B01CBFDB")
+  @@index([UpdatedBy], map: "iUpdatedBy_rjv_Payment_CFC65D45")
+  @@schema("rjv")
+}
+
+model PaymentPlan {
+  InternalId                                                       Int                   @id(map: "PK_rjv_PaymentPlan_CCEECC62") @default(autoincrement())
+  CreatedBy                                                        String?               @db.UniqueIdentifier
+  CreatedOn                                                        DateTime?             @db.DateTime
+  UpdatedBy                                                        String?               @db.UniqueIdentifier
+  UpdatedOn                                                        DateTime?             @db.DateTime
+  Description                                                      String                @db.NVarChar(255)
+  Sector_PaymentPlans                                              Int?
+  LimitDate                                                        DateTime?             @db.DateTime
+  Version                                                          Int?
+  Operation                                                        Operation[]
+  PermissionPolicyUser_PaymentPlan_CreatedByToPermissionPolicyUser PermissionPolicyUser? @relation("PaymentPlan_CreatedByToPermissionPolicyUser", fields: [CreatedBy], references: [Oid], onDelete: NoAction, onUpdate: NoAction, map: "FK_rjv_PaymentPlan_CreatedBy_74EFAEE8")
+  Sector                                                           Sector?               @relation(fields: [Sector_PaymentPlans], references: [InternalId], onDelete: NoAction, onUpdate: NoAction, map: "FK_rjv_PaymentPlan_Sector_PaymentPlans_6B8C1A9F")
+  PermissionPolicyUser_PaymentPlan_UpdatedByToPermissionPolicyUser PermissionPolicyUser? @relation("PaymentPlan_UpdatedByToPermissionPolicyUser", fields: [UpdatedBy], references: [Oid], onDelete: NoAction, onUpdate: NoAction, map: "FK_rjv_PaymentPlan_UpdatedBy_62EBAAE8")
+  PaymentPlanDetail                                                PaymentPlanDetail[]
+
+  @@index([CreatedBy], map: "iCreatedBy_rjv_PaymentPlan_52E7433E")
+  @@index([Sector_PaymentPlans], map: "iSector_PaymentPlans_rjv_PaymentPlan_D4844B28")
+  @@index([UpdatedBy], map: "iUpdatedBy_rjv_PaymentPlan_56E7553A")
+  @@schema("rjv")
+}
+
+model PaymentPlanDetail {
+  InternalId                                                             Int                   @id(map: "PK_rjv_PaymentPlanDetail_E5A9FDF9") @default(autoincrement())
+  CreatedBy                                                              String?               @db.UniqueIdentifier
+  CreatedOn                                                              DateTime?             @db.DateTime
+  UpdatedBy                                                              String?               @db.UniqueIdentifier
+  UpdatedOn                                                              DateTime?             @db.DateTime
+  PaymentPlan_PaymentPlanDetails                                         Int?
+  Number                                                                 Float                 @default(0.0, map: "DF__PaymentPl__Numbe__787EE5A0") @db.Money
+  Description                                                            String                @db.NVarChar(255)
+  Amount                                                                 Int                   @default(0, map: "DF__PaymentPl__Amoun__797309D9")
+  Percentage                                                             Float?                @db.Money
+  LimitDate                                                              DateTime?             @db.DateTime
+  Version                                                                Int?
+  Payment                                                                Payment[]
+  PermissionPolicyUser_PaymentPlanDetail_CreatedByToPermissionPolicyUser PermissionPolicyUser? @relation("PaymentPlanDetail_CreatedByToPermissionPolicyUser", fields: [CreatedBy], references: [Oid], onDelete: NoAction, onUpdate: NoAction, map: "FK_rjv_PaymentPlanDetail_CreatedBy_E523C320")
+  PaymentPlan                                                            PaymentPlan?          @relation(fields: [PaymentPlan_PaymentPlanDetails], references: [InternalId], onDelete: NoAction, onUpdate: NoAction, map: "FK_rjv_PaymentPlanDetail_PaymentPlan_PaymentPlanDetails_39C92407")
+  PermissionPolicyUser_PaymentPlanDetail_UpdatedByToPermissionPolicyUser PermissionPolicyUser? @relation("PaymentPlanDetail_UpdatedByToPermissionPolicyUser", fields: [UpdatedBy], references: [Oid], onDelete: NoAction, onUpdate: NoAction, map: "FK_rjv_PaymentPlanDetail_UpdatedBy_F327C720")
+
+  @@index([CreatedBy], map: "iCreatedBy_rjv_PaymentPlanDetail_C3948F81")
+  @@index([PaymentPlan_PaymentPlanDetails], map: "iPaymentPlan_PaymentPlanDetails_rjv_PaymentPlanDetail_3BE29487")
+  @@index([UpdatedBy], map: "iUpdatedBy_rjv_PaymentPlanDetail_C3CC9F91")
+  @@schema("rjv")
+}
+
+model PermissionPolicyActionPermissionObject {
+  Oid                  String                @id(map: "PK_PermissionPolicyActionPermissionObject") @db.UniqueIdentifier
+  ActionId             String?               @db.NVarChar(100)
+  Role                 String?               @db.UniqueIdentifier
+  OptimisticLockField  Int?
+  GCRecord             Int?
+  PermissionPolicyRole PermissionPolicyRole? @relation(fields: [Role], references: [Oid], onDelete: NoAction, onUpdate: NoAction, map: "FK_PermissionPolicyActionPermissionObject_Role")
+
+  @@index([GCRecord], map: "iGCRecord_PermissionPolicyActionPermissionObject")
+  @@index([Role], map: "iRole_PermissionPolicyActionPermissionObject")
+  @@schema("dbo")
+}
+
+model PermissionPolicyMemberPermissionsObject {
+  Oid                                   String                                 @id(map: "PK_PermissionPolicyMemberPermissionsObject") @db.UniqueIdentifier
+  Members                               String?                                @db.NVarChar(Max)
+  ReadState                             Int?
+  WriteState                            Int?
+  Criteria                              String?                                @db.NVarChar(Max)
+  TypePermissionObject                  String?                                @db.UniqueIdentifier
+  OptimisticLockField                   Int?
+  GCRecord                              Int?
+  PermissionPolicyTypePermissionsObject PermissionPolicyTypePermissionsObject? @relation(fields: [TypePermissionObject], references: [Oid], onDelete: NoAction, onUpdate: NoAction, map: "FK_PermissionPolicyMemberPermissionsObject_TypePermissionObject")
+
+  @@index([GCRecord], map: "iGCRecord_PermissionPolicyMemberPermissionsObject")
+  @@index([TypePermissionObject], map: "iTypePermissionObject_PermissionPolicyMemberPermissionsObject")
+  @@schema("dbo")
+}
+
+model PermissionPolicyNavigationPermissionsObject {
+  Oid                  String                @id(map: "PK_PermissionPolicyNavigationPermissionsObject") @db.UniqueIdentifier
+  ItemPath             String?               @db.NVarChar(Max)
+  NavigateState        Int?
+  Role                 String?               @db.UniqueIdentifier
+  OptimisticLockField  Int?
+  GCRecord             Int?
+  PermissionPolicyRole PermissionPolicyRole? @relation(fields: [Role], references: [Oid], onDelete: NoAction, onUpdate: NoAction, map: "FK_PermissionPolicyNavigationPermissionsObject_Role")
+
+  @@index([GCRecord], map: "iGCRecord_PermissionPolicyNavigationPermissionsObject")
+  @@index([Role], map: "iRole_PermissionPolicyNavigationPermissionsObject")
+  @@schema("dbo")
+}
+
+model PermissionPolicyObjectPermissionsObject {
+  Oid                                   String                                 @id(map: "PK_PermissionPolicyObjectPermissionsObject") @db.UniqueIdentifier
+  Criteria                              String?                                @db.NVarChar(Max)
+  ReadState                             Int?
+  WriteState                            Int?
+  DeleteState                           Int?
+  NavigateState                         Int?
+  TypePermissionObject                  String?                                @db.UniqueIdentifier
+  OptimisticLockField                   Int?
+  GCRecord                              Int?
+  PermissionPolicyTypePermissionsObject PermissionPolicyTypePermissionsObject? @relation(fields: [TypePermissionObject], references: [Oid], onDelete: NoAction, onUpdate: NoAction, map: "FK_PermissionPolicyObjectPermissionsObject_TypePermissionObject")
+
+  @@index([GCRecord], map: "iGCRecord_PermissionPolicyObjectPermissionsObject")
+  @@index([TypePermissionObject], map: "iTypePermissionObject_PermissionPolicyObjectPermissionsObject")
+  @@schema("dbo")
+}
+
+model PermissionPolicyRole {
+  Oid                                                 String                                                @id(map: "PK_PermissionPolicyRole") @db.UniqueIdentifier
+  Name                                                String?                                               @db.NVarChar(100)
+  IsAdministrative                                    Boolean?
+  CanEditModel                                        Boolean?
+  PermissionPolicy                                    Int?
+  OptimisticLockField                                 Int?
+  GCRecord                                            Int?
+  ObjectType                                          Int?
+  PermissionPolicyActionPermissionObject              PermissionPolicyActionPermissionObject[]
+  PermissionPolicyNavigationPermissionsObject         PermissionPolicyNavigationPermissionsObject[]
+  XPObjectType                                        XPObjectType?                                         @relation(fields: [ObjectType], references: [OID], onDelete: NoAction, onUpdate: NoAction, map: "FK_PermissionPolicyRole_ObjectType")
+  PermissionPolicyTypePermissionsObject               PermissionPolicyTypePermissionsObject[]
+  PermissionPolicyUserUsers_PermissionPolicyRoleRoles PermissionPolicyUserUsers_PermissionPolicyRoleRoles[]
+
+  @@index([GCRecord], map: "iGCRecord_PermissionPolicyRole")
+  @@index([ObjectType], map: "iObjectType_PermissionPolicyRole")
+  @@schema("dbo")
+}
+
+model PermissionPolicyTypePermissionsObject {
+  Oid                                     String                                    @id(map: "PK_PermissionPolicyTypePermissionsObject") @db.UniqueIdentifier
+  Role                                    String?                                   @db.UniqueIdentifier
+  TargetType                              String?                                   @db.NVarChar(Max)
+  ReadState                               Int?
+  WriteState                              Int?
+  CreateState                             Int?
+  DeleteState                             Int?
+  NavigateState                           Int?
+  OptimisticLockField                     Int?
+  GCRecord                                Int?
+  PermissionPolicyMemberPermissionsObject PermissionPolicyMemberPermissionsObject[]
+  PermissionPolicyObjectPermissionsObject PermissionPolicyObjectPermissionsObject[]
+  PermissionPolicyRole                    PermissionPolicyRole?                     @relation(fields: [Role], references: [Oid], onDelete: NoAction, onUpdate: NoAction, map: "FK_PermissionPolicyTypePermissionsObject_Role")
+
+  @@index([GCRecord], map: "iGCRecord_PermissionPolicyTypePermissionsObject")
+  @@index([Role], map: "iRole_PermissionPolicyTypePermissionsObject")
+  @@schema("dbo")
+}
+
+model PermissionPolicyUser {
+  Oid                                                                       String                                                @id(map: "PK_PermissionPolicyUser") @db.UniqueIdentifier
+  StoredPassword                                                            String?                                               @db.NVarChar(Max)
+  ChangePasswordOnFirstLogon                                                Boolean?
+  UserName                                                                  String?                                               @db.NVarChar(100)
+  IsActive                                                                  Boolean?
+  OptimisticLockField                                                       Int?
+  GCRecord                                                                  Int?
+  ObjectType                                                                Int?
+  FullName                                                                  String                                                @db.NVarChar(255)
+  Sector_Users                                                              Int?
+  Customer_Customer_CreatedByToPermissionPolicyUser                         Customer[]                                            @relation("Customer_CreatedByToPermissionPolicyUser")
+  Customer_Customer_UpdatedByToPermissionPolicyUser                         Customer[]                                            @relation("Customer_UpdatedByToPermissionPolicyUser")
+  Message_Message_CreatedByToPermissionPolicyUser                           Message[]                                             @relation("Message_CreatedByToPermissionPolicyUser")
+  Message_Message_UpdatedByToPermissionPolicyUser                           Message[]                                             @relation("Message_UpdatedByToPermissionPolicyUser")
+  Operation_Operation_CreatedByToPermissionPolicyUser                       Operation[]                                           @relation("Operation_CreatedByToPermissionPolicyUser")
+  Operation_Operation_UpdatedByToPermissionPolicyUser                       Operation[]                                           @relation("Operation_UpdatedByToPermissionPolicyUser")
+  Payment_Payment_CreatedByToPermissionPolicyUser                           Payment[]                                             @relation("Payment_CreatedByToPermissionPolicyUser")
+  Payment_Payment_UpdatedByToPermissionPolicyUser                           Payment[]                                             @relation("Payment_UpdatedByToPermissionPolicyUser")
+  PaymentPlan_PaymentPlan_CreatedByToPermissionPolicyUser                   PaymentPlan[]                                         @relation("PaymentPlan_CreatedByToPermissionPolicyUser")
+  PaymentPlan_PaymentPlan_UpdatedByToPermissionPolicyUser                   PaymentPlan[]                                         @relation("PaymentPlan_UpdatedByToPermissionPolicyUser")
+  PaymentPlanDetail_PaymentPlanDetail_CreatedByToPermissionPolicyUser       PaymentPlanDetail[]                                   @relation("PaymentPlanDetail_CreatedByToPermissionPolicyUser")
+  PaymentPlanDetail_PaymentPlanDetail_UpdatedByToPermissionPolicyUser       PaymentPlanDetail[]                                   @relation("PaymentPlanDetail_UpdatedByToPermissionPolicyUser")
+  XPObjectType                                                              XPObjectType?                                         @relation(fields: [ObjectType], references: [OID], onDelete: NoAction, onUpdate: NoAction, map: "FK_PermissionPolicyUser_ObjectType")
+  Sector_PermissionPolicyUser_Sector_UsersToSector                          Sector?                                               @relation("PermissionPolicyUser_Sector_UsersToSector", fields: [Sector_Users], references: [InternalId], onDelete: NoAction, onUpdate: NoAction, map: "FK_PermissionPolicyUser_Sector_Users")
+  PermissionPolicyUserLoginInfo                                             PermissionPolicyUserLoginInfo[]
+  PermissionPolicyUserUsers_PermissionPolicyRoleRoles                       PermissionPolicyUserUsers_PermissionPolicyRoleRoles[]
+  Place_Place_CreatedByToPermissionPolicyUser                               Place[]                                               @relation("Place_CreatedByToPermissionPolicyUser")
+  Place_Place_UpdatedByToPermissionPolicyUser                               Place[]                                               @relation("Place_UpdatedByToPermissionPolicyUser")
+  PlaceStatus_PlaceStatus_CreatedByToPermissionPolicyUser                   PlaceStatus[]                                         @relation("PlaceStatus_CreatedByToPermissionPolicyUser")
+  PlaceStatus_PlaceStatus_UpdatedByToPermissionPolicyUser                   PlaceStatus[]                                         @relation("PlaceStatus_UpdatedByToPermissionPolicyUser")
+  QrVaucher_QrVaucher_CreatedByToPermissionPolicyUser                       QrVaucher[]                                           @relation("QrVaucher_CreatedByToPermissionPolicyUser")
+  QrVaucher_QrVaucher_UpdatedByToPermissionPolicyUser                       QrVaucher[]                                           @relation("QrVaucher_UpdatedByToPermissionPolicyUser")
+  Sector_Sector_CreatedByToPermissionPolicyUser                             Sector[]                                              @relation("Sector_CreatedByToPermissionPolicyUser")
+  Sector_Sector_UpdatedByToPermissionPolicyUser                             Sector[]                                              @relation("Sector_UpdatedByToPermissionPolicyUser")
+  WhatsappConversation_WhatsappConversation_CreatedByToPermissionPolicyUser WhatsappConversation[]                                @relation("WhatsappConversation_CreatedByToPermissionPolicyUser")
+  WhatsappConversation_WhatsappConversation_UpdatedByToPermissionPolicyUser WhatsappConversation[]                                @relation("WhatsappConversation_UpdatedByToPermissionPolicyUser")
+
+  @@index([GCRecord], map: "iGCRecord_PermissionPolicyUser")
+  @@index([ObjectType], map: "iObjectType_PermissionPolicyUser")
+  @@index([Sector_Users], map: "iSector_Users_PermissionPolicyUser")
+  @@schema("dbo")
+}
+
+model PermissionPolicyUserLoginInfo {
+  Oid                  String                @id(map: "PK_PermissionPolicyUserLoginInfo") @db.UniqueIdentifier
+  LoginProviderName    String?               @db.NVarChar(100)
+  ProviderUserKey      String?               @db.NVarChar(100)
+  User                 String?               @db.UniqueIdentifier
+  OptimisticLockField  Int?
+  PermissionPolicyUser PermissionPolicyUser? @relation(fields: [User], references: [Oid], onDelete: NoAction, onUpdate: NoAction, map: "FK_PermissionPolicyUserLoginInfo_User")
+
+  @@unique([LoginProviderName, ProviderUserKey], map: "iLoginProviderNameProviderUserKey_PermissionPolicyUserLoginInfo")
+  @@index([User], map: "iUser_PermissionPolicyUserLoginInfo")
+  @@schema("dbo")
+}
+
+model PermissionPolicyUserUsers_PermissionPolicyRoleRoles {
+  Roles                String?               @db.UniqueIdentifier
+  Users                String?               @db.UniqueIdentifier
+  OID                  String                @id(map: "PK_PermissionPolicyUserUsers_PermissionPolicyRoleRoles") @db.UniqueIdentifier
+  OptimisticLockField  Int?
+  PermissionPolicyRole PermissionPolicyRole? @relation(fields: [Roles], references: [Oid], onDelete: NoAction, onUpdate: NoAction, map: "FK_PermissionPolicyUserUsers_PermissionPolicyRoleRoles_Roles")
+  PermissionPolicyUser PermissionPolicyUser? @relation(fields: [Users], references: [Oid], onDelete: NoAction, onUpdate: NoAction, map: "FK_PermissionPolicyUserUsers_PermissionPolicyRoleRoles_Users")
+
+  @@unique([Roles, Users], map: "iRolesUsers_PermissionPolicyUserUsers_PermissionPolicyRoleRoles")
+  @@index([Roles], map: "iRoles_PermissionPolicyUserUsers_PermissionPolicyRoleRoles")
+  @@index([Users], map: "iUsers_PermissionPolicyUserUsers_PermissionPolicyRoleRoles")
+  @@schema("dbo")
+}
+
+model Place {
+  InternalId                                                 Int                   @id(map: "PK_rjv_Place_FF47BA7F") @default(autoincrement())
+  CreatedBy                                                  String?               @db.UniqueIdentifier
+  CreatedOn                                                  DateTime?             @db.DateTime
+  UpdatedBy                                                  String?               @db.UniqueIdentifier
+  UpdatedOn                                                  DateTime?             @db.DateTime
+  PlacesIsReverted                                           Boolean?
+  Name                                                       String                @db.NVarChar(255)
+  LetterName                                                 String                @db.NVarChar(255)
+  RowName                                                    String                @db.NVarChar(255)
+  Sector_Places                                              Int?
+  PlaceStatus_Places                                         Int?
+  ParentPlace_Place                                          Int?
+  Operation_Places                                           Int?
+  IsLeaf                                                     Boolean?
+  Version                                                    Int?
+  PermissionPolicyUser_Place_CreatedByToPermissionPolicyUser PermissionPolicyUser? @relation("Place_CreatedByToPermissionPolicyUser", fields: [CreatedBy], references: [Oid], onDelete: NoAction, onUpdate: NoAction, map: "FK_rjv_Place_CreatedBy_5E0229A6")
+  Operation                                                  Operation?            @relation(fields: [Operation_Places], references: [InternalId], onDelete: NoAction, onUpdate: NoAction, map: "FK_rjv_Place_Operation_Places_33698C3F")
+  Place                                                      Place?                @relation("PlaceToPlace", fields: [ParentPlace_Place], references: [InternalId], onDelete: NoAction, onUpdate: NoAction, map: "FK_rjv_Place_ParentPlace_Place_92B0EE7A")
+  other_Place                                                Place[]               @relation("PlaceToPlace")
+  PlaceStatus                                                PlaceStatus?          @relation(fields: [PlaceStatus_Places], references: [InternalId], onDelete: NoAction, onUpdate: NoAction, map: "FK_rjv_Place_PlaceStatus_Places_94229868")
+  Sector                                                     Sector?               @relation(fields: [Sector_Places], references: [InternalId], onDelete: NoAction, onUpdate: NoAction, map: "FK_rjv_Place_Sector_Places_A3F4DD72")
+  PermissionPolicyUser_Place_UpdatedByToPermissionPolicyUser PermissionPolicyUser? @relation("Place_UpdatedByToPermissionPolicyUser", fields: [UpdatedBy], references: [Oid], onDelete: NoAction, onUpdate: NoAction, map: "FK_rjv_Place_UpdatedBy_48062DA6")
+
+  @@index([CreatedBy], map: "iCreatedBy_rjv_Place_2860381C")
+  @@index([Operation_Places], map: "iOperation_Places_rjv_Place_D746083C")
+  @@index([ParentPlace_Place], map: "iParentPlace_Place_rjv_Place_672191E2")
+  @@index([PlaceStatus_Places], map: "iPlaceStatus_Places_rjv_Place_DC384E00")
+  @@index([Sector_Places], map: "iSector_Places_rjv_Place_47008B84")
+  @@index([UpdatedBy], map: "iUpdatedBy_rjv_Place_A9613819")
+  @@schema("rjv")
+}
+
+model PlaceStatus {
+  InternalId                                                       Int                   @id(map: "PK_rjv_PlaceStatus_52D4C791") @default(autoincrement())
+  CreatedBy                                                        String?               @db.UniqueIdentifier
+  CreatedOn                                                        DateTime?             @db.DateTime
+  UpdatedBy                                                        String?               @db.UniqueIdentifier
+  UpdatedOn                                                        DateTime?             @db.DateTime
+  SingularName                                                     String                @db.NVarChar(255)
+  PluralName                                                       String                @db.NVarChar(255)
+  Description                                                      String                @db.NVarChar(500)
+  Version                                                          Int?
+  Operation                                                        Operation[]
+  Place                                                            Place[]
+  PermissionPolicyUser_PlaceStatus_CreatedByToPermissionPolicyUser PermissionPolicyUser? @relation("PlaceStatus_CreatedByToPermissionPolicyUser", fields: [CreatedBy], references: [Oid], onDelete: NoAction, onUpdate: NoAction, map: "FK_rjv_PlaceStatus_CreatedBy_FA6D520F")
+  PermissionPolicyUser_PlaceStatus_UpdatedByToPermissionPolicyUser PermissionPolicyUser? @relation("PlaceStatus_UpdatedByToPermissionPolicyUser", fields: [UpdatedBy], references: [Oid], onDelete: NoAction, onUpdate: NoAction, map: "FK_rjv_PlaceStatus_UpdatedBy_EC69560F")
+
+  @@index([CreatedBy], map: "iCreatedBy_rjv_PlaceStatus_CCDD48CD")
+  @@index([UpdatedBy], map: "iUpdatedBy_rjv_PlaceStatus_C8DD5EC9")
+  @@schema("rjv")
+}
+
+model QrVaucher {
+  InternalId                                                     Int                   @id(map: "PK_rjv_QrVaucher_F2B29544") @default(autoincrement())
+  CreatedBy                                                      String?               @db.UniqueIdentifier
+  CreatedOn                                                      DateTime?             @db.DateTime
+  UpdatedBy                                                      String?               @db.UniqueIdentifier
+  UpdatedOn                                                      DateTime?             @db.DateTime
+  BankId                                                         String?               @db.NVarChar(100)
+  Amount                                                         Int?
+  Currency                                                       String?               @db.NVarChar(100)
+  GenerationDate                                                 DateTime?             @db.DateTime
+  Status                                                         String?               @db.NVarChar(100)
+  TransactionDate                                                DateTime?             @db.DateTime
+  OriginName                                                     String?               @db.NVarChar(100)
+  SourceBank                                                     String?               @db.NVarChar(100)
+  SourceAccountNumber                                            String?               @db.NVarChar(100)
+  Gloss                                                          String?               @db.NVarChar(100)
+  DestinationAccountNumber                                       String?               @db.NVarChar(100)
+  Version                                                        Int?
+  BankingCode                                                    String?               @db.NVarChar(100)
+  Error                                                          String?               @db.NVarChar(100)
+  PermissionPolicyUser_QrVaucher_CreatedByToPermissionPolicyUser PermissionPolicyUser? @relation("QrVaucher_CreatedByToPermissionPolicyUser", fields: [CreatedBy], references: [Oid], onDelete: NoAction, onUpdate: NoAction, map: "FK_rjv_QrVaucher_CreatedBy_23F2E765")
+  PermissionPolicyUser_QrVaucher_UpdatedByToPermissionPolicyUser PermissionPolicyUser? @relation("QrVaucher_UpdatedByToPermissionPolicyUser", fields: [UpdatedBy], references: [Oid], onDelete: NoAction, onUpdate: NoAction, map: "FK_rjv_QrVaucher_UpdatedBy_35F6E365")
+
+  @@index([CreatedBy], map: "iCreatedBy_rjv_QrVaucher_CFC0ED62")
+  @@index([UpdatedBy], map: "iUpdatedBy_rjv_QrVaucher_97D0FD62")
+  @@schema("rjv")
+}
+
+model ReportDataV2 {
+  Oid                      String   @id(map: "PK_ReportDataV2") @db.UniqueIdentifier
+  ObjectTypeName           String?  @db.NVarChar(512)
+  Content                  Bytes?
+  Name                     String?  @db.NVarChar(100)
+  ParametersObjectTypeName String?  @db.NVarChar(512)
+  IsInplaceReport          Boolean?
+  PredefinedReportType     String?  @db.NVarChar(512)
+  OptimisticLockField      Int?
+  GCRecord                 Int?
+
+  @@index([GCRecord], map: "iGCRecord_ReportDataV2")
+  @@schema("dbo")
+}
+
+model Sector {
+  InternalId                                                     Int                    @id(map: "PK_rjv_Sector_3398FA95") @default(autoincrement())
+  CreatedBy                                                      String?                @db.UniqueIdentifier
+  CreatedOn                                                      DateTime?              @db.DateTime
+  UpdatedBy                                                      String?                @db.UniqueIdentifier
+  UpdatedOn                                                      DateTime?              @db.DateTime
+  Name                                                           String                 @db.NVarChar(255)
+  Amount                                                         Int?
+  Version                                                        Int?
+  Operation                                                      Operation[]
+  PaymentPlan                                                    PaymentPlan[]
+  PermissionPolicyUser_PermissionPolicyUser_Sector_UsersToSector PermissionPolicyUser[] @relation("PermissionPolicyUser_Sector_UsersToSector")
+  Place                                                          Place[]
+  PermissionPolicyUser_Sector_CreatedByToPermissionPolicyUser    PermissionPolicyUser?  @relation("Sector_CreatedByToPermissionPolicyUser", fields: [CreatedBy], references: [Oid], onDelete: NoAction, onUpdate: NoAction, map: "FK_rjv_Sector_CreatedBy_31621315")
+  PermissionPolicyUser_Sector_UpdatedByToPermissionPolicyUser    PermissionPolicyUser?  @relation("Sector_UpdatedByToPermissionPolicyUser", fields: [UpdatedBy], references: [Oid], onDelete: NoAction, onUpdate: NoAction, map: "FK_rjv_Sector_UpdatedBy_27661715")
+
+  @@index([CreatedBy], map: "iCreatedBy_rjv_Sector_A059CB7E")
+  @@index([UpdatedBy], map: "iUpdatedBy_rjv_Sector_20D9C9BE")
+  @@schema("rjv")
+}
+
+model WhatsappConversation {
+  InternalId                                                                Int                   @id(map: "PK_rjv_WhatsappConversation_603A151F") @default(autoincrement())
+  CreatedBy                                                                 String?               @db.UniqueIdentifier
+  CreatedOn                                                                 DateTime?             @db.DateTime
+  UpdatedBy                                                                 String?               @db.UniqueIdentifier
+  UpdatedOn                                                                 DateTime?             @db.DateTime
+  WhatsappNumber                                                            String                @db.NVarChar(255)
+  AutomaticResponses                                                        Boolean               @default(false, map: "DF__WhatsappC__Autom__7A672E12")
+  Version                                                                   Int?
+  MessageDate                                                               DateTime?             @db.DateTime
+  MessageSource                                                             Int                   @default(0, map: "DF__WhatsappC__Messa__7B5B524B")
+  Message                                                                   Message[]
+  PermissionPolicyUser_WhatsappConversation_CreatedByToPermissionPolicyUser PermissionPolicyUser? @relation("WhatsappConversation_CreatedByToPermissionPolicyUser", fields: [CreatedBy], references: [Oid], onDelete: NoAction, onUpdate: NoAction, map: "FK_rjv_WhatsappConversation_CreatedBy_E1D9F180")
+  PermissionPolicyUser_WhatsappConversation_UpdatedByToPermissionPolicyUser PermissionPolicyUser? @relation("WhatsappConversation_UpdatedByToPermissionPolicyUser", fields: [UpdatedBy], references: [Oid], onDelete: NoAction, onUpdate: NoAction, map: "FK_rjv_WhatsappConversation_UpdatedBy_F7DDF580")
+
+  @@index([CreatedBy], map: "iCreatedBy_rjv_WhatsappConversation_2F3ED2B1")
+  @@index([UpdatedBy], map: "iUpdatedBy_rjv_WhatsappConversation_2D3ED9B3")
+  @@schema("rjv")
+}
+
+model XPObjectType {
+  OID                                                      Int                       @id(map: "PK_XPObjectType") @default(autoincrement())
+  TypeName                                                 String?                   @unique(map: "iTypeName_XPObjectType") @db.NVarChar(254)
+  AssemblyName                                             String?                   @db.NVarChar(254)
+  AuditDataItemPersistent                                  AuditDataItemPersistent[]
+  PermissionPolicyRole                                     PermissionPolicyRole[]
+  PermissionPolicyUser                                     PermissionPolicyUser[]
+  XPWeakReference_XPWeakReference_ObjectTypeToXPObjectType XPWeakReference[]         @relation("XPWeakReference_ObjectTypeToXPObjectType")
+  XPWeakReference_XPWeakReference_TargetTypeToXPObjectType XPWeakReference[]         @relation("XPWeakReference_TargetTypeToXPObjectType")
+
+  @@schema("dbo")
+}
+
+model XpoState {
+  Oid                                                    String               @id(map: "PK_XpoState") @db.UniqueIdentifier
+  Caption                                                String?              @db.NVarChar(100)
+  StateMachine                                           String?              @db.UniqueIdentifier
+  MarkerValue                                            String?              @db.NVarChar(Max)
+  TargetObjectCriteria                                   String?              @db.NVarChar(Max)
+  OptimisticLockField                                    Int?
+  GCRecord                                               Int?
+  XpoStateMachine_XpoState_StateMachineToXpoStateMachine XpoStateMachine?     @relation("XpoState_StateMachineToXpoStateMachine", fields: [StateMachine], references: [Oid], onDelete: NoAction, onUpdate: NoAction, map: "FK_XpoState_StateMachine")
+  XpoStateAppearance                                     XpoStateAppearance[]
+  XpoStateMachine_XpoStateMachine_StartStateToXpoState   XpoStateMachine[]    @relation("XpoStateMachine_StartStateToXpoState")
+  XpoTransition_XpoTransition_SourceStateToXpoState      XpoTransition[]      @relation("XpoTransition_SourceStateToXpoState")
+  XpoTransition_XpoTransition_TargetStateToXpoState      XpoTransition[]      @relation("XpoTransition_TargetStateToXpoState")
+
+  @@index([GCRecord], map: "iGCRecord_XpoState")
+  @@index([StateMachine], map: "iStateMachine_XpoState")
+  @@schema("dbo")
+}
+
+model XpoStateAppearance {
+  Oid                 String    @id(map: "PK_XpoStateAppearance") @db.UniqueIdentifier
+  State               String?   @db.UniqueIdentifier
+  AppearanceItemType  String?   @db.NVarChar(100)
+  Context             String?   @db.NVarChar(100)
+  Criteria            String?   @db.NVarChar(Max)
+  Method              String?   @db.NVarChar(100)
+  TargetItems         String?   @db.NVarChar(100)
+  Priority            Int?
+  FontColor           Int?
+  BackColor           Int?
+  FontStyle           Int?
+  Enabled             Boolean?
+  Visibility          Int?
+  OptimisticLockField Int?
+  GCRecord            Int?
+  XpoState            XpoState? @relation(fields: [State], references: [Oid], onDelete: NoAction, onUpdate: NoAction, map: "FK_XpoStateAppearance_State")
+
+  @@index([GCRecord], map: "iGCRecord_XpoStateAppearance")
+  @@index([State], map: "iState_XpoStateAppearance")
+  @@schema("dbo")
+}
+
+model XpoStateMachine {
+  Oid                                             String     @id(map: "PK_XpoStateMachine") @db.UniqueIdentifier
+  Name                                            String?    @db.NVarChar(100)
+  Active                                          Boolean?
+  TargetObjectType                                String?    @db.NVarChar(Max)
+  StatePropertyName                               String?    @db.NVarChar(100)
+  StartState                                      String?    @db.UniqueIdentifier
+  ExpandActionsInDetailView                       Boolean?
+  OptimisticLockField                             Int?
+  GCRecord                                        Int?
+  XpoState_XpoState_StateMachineToXpoStateMachine XpoState[] @relation("XpoState_StateMachineToXpoStateMachine")
+  XpoState_XpoStateMachine_StartStateToXpoState   XpoState?  @relation("XpoStateMachine_StartStateToXpoState", fields: [StartState], references: [Oid], onDelete: NoAction, onUpdate: NoAction, map: "FK_XpoStateMachine_StartState")
+
+  @@index([GCRecord], map: "iGCRecord_XpoStateMachine")
+  @@index([StartState], map: "iStartState_XpoStateMachine")
+  @@schema("dbo")
+}
+
+model XpoTransition {
+  Oid                                          String    @id(map: "PK_XpoTransition") @db.UniqueIdentifier
+  Caption                                      String?   @db.NVarChar(100)
+  SourceState                                  String?   @db.UniqueIdentifier
+  TargetState                                  String?   @db.UniqueIdentifier
+  Index                                        Int?
+  SaveAndCloseView                             Boolean?
+  OptimisticLockField                          Int?
+  GCRecord                                     Int?
+  XpoState_XpoTransition_SourceStateToXpoState XpoState? @relation("XpoTransition_SourceStateToXpoState", fields: [SourceState], references: [Oid], onDelete: NoAction, onUpdate: NoAction, map: "FK_XpoTransition_SourceState")
+  XpoState_XpoTransition_TargetStateToXpoState XpoState? @relation("XpoTransition_TargetStateToXpoState", fields: [TargetState], references: [Oid], onDelete: NoAction, onUpdate: NoAction, map: "FK_XpoTransition_TargetState")
+
+  @@index([GCRecord], map: "iGCRecord_XpoTransition")
+  @@index([SourceState], map: "iSourceState_XpoTransition")
+  @@index([TargetState], map: "iTargetState_XpoTransition")
+  @@schema("dbo")
+}
+
+model XPWeakReference {
+  Oid                                                                        String                      @id(map: "PK_XPWeakReference") @db.UniqueIdentifier
+  TargetType                                                                 Int?
+  TargetKey                                                                  String?                     @db.NVarChar(100)
+  OptimisticLockField                                                        Int?
+  GCRecord                                                                   Int?
+  ObjectType                                                                 Int?
+  AuditDataItemPersistent_AuditDataItemPersistent_NewObjectToXPWeakReference AuditDataItemPersistent[]   @relation("AuditDataItemPersistent_NewObjectToXPWeakReference")
+  AuditDataItemPersistent_AuditDataItemPersistent_OldObjectToXPWeakReference AuditDataItemPersistent[]   @relation("AuditDataItemPersistent_OldObjectToXPWeakReference")
+  AuditedObjectWeakReference                                                 AuditedObjectWeakReference?
+  XPObjectType_XPWeakReference_ObjectTypeToXPObjectType                      XPObjectType?               @relation("XPWeakReference_ObjectTypeToXPObjectType", fields: [ObjectType], references: [OID], onDelete: NoAction, onUpdate: NoAction, map: "FK_XPWeakReference_ObjectType")
+  XPObjectType_XPWeakReference_TargetTypeToXPObjectType                      XPObjectType?               @relation("XPWeakReference_TargetTypeToXPObjectType", fields: [TargetType], references: [OID], onDelete: NoAction, onUpdate: NoAction, map: "FK_XPWeakReference_TargetType")
+
+  @@index([GCRecord], map: "iGCRecord_XPWeakReference")
+  @@index([ObjectType], map: "iObjectType_XPWeakReference")
+  @@index([TargetType], map: "iTargetType_XPWeakReference")
+  @@schema("dbo")
+}

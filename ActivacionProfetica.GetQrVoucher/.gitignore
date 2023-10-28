@@ -1,0 +1,5 @@
+./chrome-win64
+node_modules
+.cache
+# Keep environment variables out of version control
+.env
