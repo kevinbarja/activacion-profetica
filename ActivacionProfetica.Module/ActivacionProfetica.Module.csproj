@@ -154,6 +154,7 @@
     <Compile Include="BusinessObjects\PlaceStatus.cs" />
     <Compile Include="BusinessObjects\Place.cs" />
     <Compile Include="BusinessObjects\Operation.cs" />
+    <Compile Include="BusinessObjects\QrVaucher.cs" />
     <Compile Include="BusinessObjects\Sector.cs" />
     <Compile Include="BusinessObjects\WhatsappConversation.cs" />
     <Compile Include="Controllers\AuditController.cs">

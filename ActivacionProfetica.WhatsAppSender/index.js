@@ -82,7 +82,7 @@ client.on('message', async (msg) => {
   try {
     const response = await axios({
       method: "POST",
-      url: `http://177.222.127.171:5029/bot/messages`,
+      url: `http://localhost:5103/messages`,
       data: { whatsappNumber: msg.from.replace('591','').replace('@c.us',''), message : message },
     });
 
